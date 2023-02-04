@@ -23,3 +23,7 @@ Followed the [basic getting started guide](https://newdocs.phaser.io/docs/3.55.2
 ### Milestone 2: An opinionated mashup of starter kits
 
 This repository uses the a combination of [Phaser 3 + TypeScript Starter Kit](https://github.com/josephmbustamante/phaser3-typescript-starter-kit), [Phaser 3 Game Examples written in TypeScript](https://github.com/digitsensitive/phaser3-typescript), and [Vite Phaser Game Starter](https://ubershmekel.github.io/vite-phaser-ts-starter/) as a starting point with a few modifications. See [opinions.md](docs/opinions.md) in the docs folder for detailed discussions on design and package choices. [More information on the base starter kit can be found in this blog post](https://spin.atomicobject.com/2019/07/13/phaser-3-typescript-tutorial/). [Milestone 2 branch](milestone-2).
+
+### Milestone 3: A person, a bench, and some violence
+
+The goal of this milestone finally write a bit of actual game code, and demonstrate a few more best practices along the way. The first one is that work for this milestone will be done against this [issue](https://github.com/Unnamed-GameDev-Studio/survival-game/issues/1). Commits toward this milestone will all be done against a separate staging branch. Each feature will further get it's own feature branch that will merge in to the milestone 3 branch, and from there merged in to main branch when everything is completed (think of this as the public release). More on branches can be found [here](https://stackoverflow.com/questions/2100829/when-should-you-branch).
