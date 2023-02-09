@@ -23,14 +23,9 @@ export class MainMenuScene extends Phaser.Scene {
     bg.setDisplaySize(this.sys.canvas.width, this.sys.canvas.height);
 
     this.add
-      .text(
-        100,
-        50,
-        'This is a sample main menu. Click the "Start" button below to run your game.',
-        {
-          color: '#FFFFFF'
-        }
-      )
+      .text(100, 50, 'Click the "Start" to begin!', {
+        color: '#FFFFFF'
+      })
       .setFontSize(24);
 
     new MenuButton(this, 100, 150, 'Start Game', () => {

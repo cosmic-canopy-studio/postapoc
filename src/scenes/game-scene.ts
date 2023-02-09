@@ -1,49 +1,79 @@
-import { Input } from 'phaser';
-import { getGameWidth, getGameHeight } from '../helpers';
-
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
   visible: false,
-  key: 'Game',
+  key: 'Game'
 };
 
 export class GameScene extends Phaser.Scene {
-  public speed = 200;
-
-  private cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
-  private image: Phaser.Physics.Arcade.Sprite;
+  private gridEngine!: GridEngine;
 
   constructor() {
     super(sceneConfig);
   }
 
   public create(): void {
-    // Add a player sprite that can be moved around. Place him in the middle of the screen.
-    this.image = this.physics.add.sprite(getGameWidth(this) / 2, getGameHeight(this) / 2, 'man');
+    const interiorTilemap = this.make.tilemap({ key: 'interior-map' });
+    interiorTilemap.addTilesetImage('interior', 'interior');
+    for (let i = 0; i < interiorTilemap.layers.length; i++) {
+      const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
+    }
+    const bench = this.physics.add.sprite(0, 0, 'bench');
 
-    // This is a nice helper Phaser provides to create listeners for some of the most common keys.
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
+    const player = this.physics.add.sprite(0, 0, 'player');
+
+    this.cameras.main.startFollow(player, true);
+    this.cameras.main.setFollowOffset(-player.width, -player.height);
+
+    const gridEngineConfig = {
+      characters: [
+        {
+          id: 'player',
+          sprite: player,
+          startPosition: { x: 2, y: 2 },
+          walkingAnimationMapping: {
+            up: {
+              leftFoot: 9,
+              standing: 10,
+              rightFoot: 11
+            },
+            down: {
+              leftFoot: 0,
+              standing: 1,
+              rightFoot: 2
+            },
+            left: {
+              leftFoot: 3,
+              standing: 4,
+              rightFoot: 5
+            },
+            right: {
+              leftFoot: 6,
+              standing: 7,
+              rightFoot: 8
+            }
+          }
+        },
+        {
+          id: 'bench',
+          sprite: bench,
+          startPosition: { x: 4, y: 2 }
+        }
+      ]
+    };
+
+    this.gridEngine.create(interiorTilemap, gridEngineConfig);
   }
 
   public update(): void {
-    // Every frame, we create a new velocity for the sprite based on what keys the player is holding down.
-    const velocity = new Phaser.Math.Vector2(0, 0);
-
-    if (this.cursorKeys.left.isDown) {
-      velocity.x -= 1;
+    const cursors = this.input.keyboard.createCursorKeys();
+    if (cursors.left.isDown) {
+      this.gridEngine.move('player', 'left');
+    } else if (cursors.right.isDown) {
+      this.gridEngine.move('player', 'right');
+    } else if (cursors.up.isDown) {
+      this.gridEngine.move('player', 'up');
+    } else if (cursors.down.isDown) {
+      this.gridEngine.move('player', 'down');
     }
-    if (this.cursorKeys.right.isDown) {
-      velocity.x += 1;
-    }
-    if (this.cursorKeys.up.isDown) {
-      velocity.y -= 1;
-    }
-    if (this.cursorKeys.down.isDown) {
-      velocity.y += 1;
-    }
-
-    // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
-    const normalizedVelocity = velocity.normalize();
-    this.image.setVelocity(normalizedVelocity.x * this.speed, normalizedVelocity.y * this.speed);
   }
 }

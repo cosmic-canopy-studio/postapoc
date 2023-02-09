@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="basic-interior.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="interior" tilewidth="32" tileheight="32" tilecount="120" columns="12">
+  <image source="../tilesets/interior.png" width="384" height="320"/>
+ </tileset>
+ <layer id="1" name="Interior" width="10" height="10">
+  <data encoding="csv">
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109,
+109,109,109,109,109,109,109,109,109,109
+</data>
+ </layer>
+</map>
