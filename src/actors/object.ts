@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 
-class Object extends Phaser.GameObjects.Sprite {
+export default class Object extends Phaser.GameObjects.Sprite {
   private health: number;
   private alive: boolean;
 
@@ -24,5 +24,3 @@ class Object extends Phaser.GameObjects.Sprite {
     // calculate
   }
 }
-
-export default Object;
