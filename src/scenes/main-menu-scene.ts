@@ -23,7 +23,7 @@ export class MainMenuScene extends Phaser.Scene {
     bg.setDisplaySize(this.sys.canvas.width, this.sys.canvas.height);
 
     this.add
-      .text(100, 50, 'Click the "Start" to begin!', {
+      .text(100, 50, 'Click the "Start" or press "Space" to begin!', {
         color: '#FFFFFF'
       })
       .setFontSize(24);
@@ -38,6 +38,14 @@ export class MainMenuScene extends Phaser.Scene {
 
     new MenuButton(this, 100, 350, 'Help', () =>
       console.log('help button clicked')
+    );
+
+    this.input.keyboard.once(
+      'keydown-SPACE',
+      () => {
+        this.scene.start('Game');
+      },
+      this
     );
   }
 }
