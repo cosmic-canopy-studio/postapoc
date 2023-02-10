@@ -11,18 +11,10 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
 
   scene: Scenes,
 
-  physics: {
-    default: 'arcade',
-    arcade: {
-      debug: true
-    }
-  },
-
   input: {
     keyboard: true
   },
 
-  render: { pixelArt: false, antialias: true },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
