@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 
-export default class Object extends Phaser.GameObjects.Sprite {
+export default class Actor extends Phaser.GameObjects.Sprite {
   private health: number;
   private alive: boolean;
 
@@ -13,15 +13,29 @@ export default class Object extends Phaser.GameObjects.Sprite {
       this.health = 3;
       this.alive = true;
     }
-
-    this.scene.add.existing(this);
-    this.scene.physics.add.existing(this);
   }
 
-  attack(target: Object) {
+  attack(target: Actor) {
     // face target
     // check distance
     // animate
     // calculate
   }
 }
+
+Phaser.GameObjects.GameObjectFactory.register(
+  'actor',
+  function (
+    this: Phaser.GameObjects.GameObjectFactory,
+    x: number,
+    y: number,
+    texture: string
+  ) {
+    const actor = new Actor(this.scene, x, y, texture);
+
+    this.displayList.add(actor);
+    this.updateList.add(actor);
+
+    return actor;
+  }
+);

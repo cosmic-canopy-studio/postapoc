@@ -1,4 +1,4 @@
-import Object from '../actors/object';
+import '../actors/actor';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -19,9 +19,9 @@ export class GameScene extends Phaser.Scene {
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
       const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
-    const bench = new Object(this, 0, 0, 'bench');
+    const bench = this.add.actor(0, 0, 'bench');
 
-    const player = new Object(this, 0, 0, 'player');
+    const player = this.add.actor(0, 0, 'player');
 
     this.cameras.main.startFollow(player, true);
     this.cameras.main.setFollowOffset(-player.width, -player.height);
