@@ -1,3 +1,5 @@
+import Object from '../actors/object';
+
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
   visible: false,
@@ -17,9 +19,9 @@ export class GameScene extends Phaser.Scene {
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
       const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
-    const bench = this.physics.add.sprite(0, 0, 'bench');
+    const bench = new Object(this, 0, 0, 'bench');
 
-    const player = this.physics.add.sprite(0, 0, 'player');
+    const player = new Object(this, 0, 0, 'player');
 
     this.cameras.main.startFollow(player, true);
     this.cameras.main.setFollowOffset(-player.width, -player.height);
@@ -74,6 +76,10 @@ export class GameScene extends Phaser.Scene {
       this.gridEngine.move('player', 'up');
     } else if (cursors.down.isDown) {
       this.gridEngine.move('player', 'down');
+    }
+
+    if (cursors.space.isDown) {
+      // attack
     }
   }
 }
