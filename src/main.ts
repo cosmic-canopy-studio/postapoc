@@ -44,13 +44,8 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   backgroundColor: '#000000'
 };
 
-export class Game extends Phaser.Game {
-  constructor(config: Phaser.Types.Core.GameConfig) {
-    super(config);
-  }
-}
+export const game = new Phaser.Game(gameConfig);
 
-window.addEventListener('load', () => {
-  // Expose `_game` to allow debugging, mute button and fullscreen button
-  (window as any)._game = new Game(gameConfig);
+window.addEventListener('resize', () => {
+  game.scale.refresh();
 });
