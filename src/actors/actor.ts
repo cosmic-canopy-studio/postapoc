@@ -1,18 +1,35 @@
 import { Scene } from 'phaser';
+import PlayerInputState from '../states/playerInputState';
 
 export default class Actor extends Phaser.GameObjects.Sprite {
+  private id: string;
   private health: number;
   private alive: boolean;
+  private controlState?: PlayerInputState;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
-    if (texture == 'player') {
+    this.id = texture;
+    if (this.id === 'player') {
+      // confirm eqeqeq
       this.health = 5;
       this.alive = true;
     } else {
       this.health = 3;
       this.alive = true;
     }
+  }
+
+  setControlState(controlState: PlayerInputState) {
+    this.controlState = controlState;
+  }
+
+  update() {
+    if (!this.controlState) {
+      return;
+    }
+
+    this.controlState.update(this.id);
   }
 
   attack(target: Actor) {

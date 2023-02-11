@@ -1,4 +1,9 @@
+import PlayerInputState from '../../states/playerInputState';
+
 declare interface IActor extends Phaser.GameObjects.Sprite {
+  setControlState(controlState: PlayerInputState): void;
+
+  update(): void;
   //attack(): void
 }
 
