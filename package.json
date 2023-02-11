@@ -1,6 +1,7 @@
 {
   "name": "survival-app",
   "version": "0.0.1",
+  "type": "module",
   "description": "Mashing up all the things from our favorite survival games.",
   "main": "src/main.ts",
   "author": {
@@ -16,7 +17,7 @@
     }
   ],
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
