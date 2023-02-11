@@ -46,7 +46,7 @@ export class BootScene extends Phaser.Scene {
       .text(halfWidth - 25, halfHeight + 100, '')
       .setFontSize(24);
 
-    this.load.on('progress', (value) => {
+    this.load.on('progress', (value: number) => {
       progressBar.width = (progressBarWidth - 30) * value;
 
       const percent = value * 100;

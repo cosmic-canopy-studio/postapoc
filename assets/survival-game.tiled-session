@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tilemaps/interior.tmx",
+    "activeFile": "tilemaps/basic-interior.tmx",
     "expandedProjectPaths": [
         ".",
         "tilemaps"
@@ -47,7 +47,7 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 10,
     "openFiles": [
-        "tilemaps/interior.tmx"
+        "tilemaps/basic-interior.tmx"
     ],
     "project": "survival-game.tiled-project",
     "recentFiles": [
