@@ -1,7 +1,7 @@
 import PlayerInputState from '../states/playerInputState';
 import '../actors/actor';
 import { GridEngine } from 'grid-engine';
-import { Scene } from 'phaser';
+import Actor from '../actors/actor';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -12,7 +12,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class GameScene extends Phaser.Scene {
   private gridEngine!: GridEngine;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  private player: any;
+  private player!: Actor;
 
   constructor() {
     super(sceneConfig);
