@@ -14,7 +14,6 @@ export class GameScene extends Phaser.Scene {
 
   constructor() {
     super(sceneConfig);
-    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   public create(): void {
@@ -23,7 +22,7 @@ export class GameScene extends Phaser.Scene {
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
       const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
-
+    this.cursors = this.input.keyboard.createCursorKeys();
     this.gridEngine.create(interiorTilemap, { characters: [] });
 
     const playerInputState = new PlayerInputState(
