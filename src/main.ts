@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser';
+import Phaser from 'phaser';
 import { Direction, GridEngine } from 'grid-engine';
 import Scenes from './scenes';
 import './style.css';
