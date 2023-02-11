@@ -11,7 +11,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class GameScene extends Phaser.Scene {
   private gridEngine!: GridEngine;
-  private cursors: any;
+  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player: any;
 
   constructor() {

@@ -1,10 +1,13 @@
 import { Direction, GridEngine } from 'grid-engine';
 
 export default class PlayerInputState {
-  private cursors;
-  private gridEngine;
+  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private gridEngine!: GridEngine;
 
-  constructor(cursors, gridEngine: GridEngine) {
+  constructor(
+    cursors: Phaser.Types.Input.Keyboard.CursorKeys,
+    gridEngine: GridEngine
+  ) {
     this.cursors = cursors;
     this.gridEngine = gridEngine;
   }
