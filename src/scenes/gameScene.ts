@@ -1,6 +1,7 @@
 import PlayerInputState from '../states/playerInputState';
 import '../actors/actor';
 import { GridEngine } from 'grid-engine';
+import { Scene } from 'phaser';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -10,7 +11,8 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class GameScene extends Phaser.Scene {
   private gridEngine!: GridEngine;
-  private cursors: object;
+  private cursors: any;
+  private player: any;
 
   constructor() {
     super(sceneConfig);
@@ -23,6 +25,7 @@ export class GameScene extends Phaser.Scene {
       const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
     this.cursors = this.input.keyboard.createCursorKeys();
+
     this.gridEngine.create(interiorTilemap, { characters: [] });
 
     const playerInputState = new PlayerInputState(
@@ -32,12 +35,12 @@ export class GameScene extends Phaser.Scene {
 
     const bench = this.add.actor(0, 0, 'bench');
 
-    const player = this.add.actor(0, 0, 'player');
-    player.setControlState(playerInputState);
+    this.player = this.add.actor(0, 0, 'player');
+    this.player.setControlState(playerInputState);
 
     const playerCharacter = {
       id: 'player',
-      sprite: player,
+      sprite: this.player,
       startPosition: { x: 2, y: 2 },
       walkingAnimationMapping: {
         up: {
@@ -71,9 +74,11 @@ export class GameScene extends Phaser.Scene {
     };
     this.gridEngine.addCharacter(benchCharacter);
 
-    this.cameras.main.startFollow(player, true);
-    this.cameras.main.setFollowOffset(-player.width, -player.height);
+    this.cameras.main.startFollow(this.player, true);
+    this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
   }
 
-  public update(): void {}
+  public update(): void {
+    this.player.update();
+  }
 }

@@ -1,4 +1,4 @@
-import { Directions, GridEngine } from 'grid-engine';
+import { Direction, GridEngine } from 'grid-engine';
 
 export default class PlayerInputState {
   private cursors;
