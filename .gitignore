@@ -1,5 +1,7 @@
 # Personal Configs
 *.code-workspace
+*.tiled-project
+*.tiled-session
 
 # Added manually
 .DS_Store
