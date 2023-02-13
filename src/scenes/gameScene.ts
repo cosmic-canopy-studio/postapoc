@@ -19,7 +19,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create(): void {
-    const interiorTilemap = this.make.tilemap({ key: 'interior-map' });
+    const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
     interiorTilemap.addTilesetImage('interior', 'interior');
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
       const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
@@ -35,36 +35,17 @@ export class GameScene extends Phaser.Scene {
 
     const bench = this.add.actor(0, 0, 'bench');
 
-    this.player = this.add.actor(0, 0, 'player');
+    this.player = this.add.actor(0, 0, 'character');
+
     this.player.setControlState(playerInputState);
+    this.player.play('idle-down');
 
     const playerCharacter = {
-      id: 'player',
+      id: this.player.getId(),
       sprite: this.player,
-      startPosition: { x: 2, y: 2 },
-      walkingAnimationMapping: {
-        up: {
-          leftFoot: 9,
-          standing: 10,
-          rightFoot: 11
-        },
-        down: {
-          leftFoot: 0,
-          standing: 1,
-          rightFoot: 2
-        },
-        left: {
-          leftFoot: 3,
-          standing: 4,
-          rightFoot: 5
-        },
-        right: {
-          leftFoot: 6,
-          standing: 7,
-          rightFoot: 8
-        }
-      }
+      startPosition: { x: 2, y: 2 }
     };
+
     this.gridEngine.addCharacter(playerCharacter);
 
     const benchCharacter = {
@@ -76,6 +57,17 @@ export class GameScene extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.player, true);
     this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
+
+    this.gridEngine.movementStarted().subscribe(({ direction }) => {
+      this.player.play('walk-'.concat(direction));
+    });
+    this.gridEngine.movementStopped().subscribe(({ direction }) => {
+      this.player.play('idle-'.concat(direction));
+    });
+
+    this.gridEngine.directionChanged().subscribe(({ direction }) => {
+      this.player.play('idle-'.concat(direction));
+    });
   }
 
   public update(): void {

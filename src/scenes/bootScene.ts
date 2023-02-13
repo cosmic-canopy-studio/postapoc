@@ -71,18 +71,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   private loadAssets() {
-    this.load.image('interior', '../../assets/tilesets/interior.png');
     this.load.image('sky', 'https://labs.phaser.io/assets/skies/space3.png');
-    this.load.tilemapTiledJSON(
-      'interior-map',
-      '../../assets/tilemaps/basic-interior.json'
-    );
-    this.load.spritesheet('player', '../../assets/sprites/character.png', {
-      frameWidth: 32,
-      frameHeight: 32,
-      margin: 8,
-      spacing: 16
-    });
-    this.load.image('bench', '../../assets/sprites/bench.png');
+    this.load.pack('asset-pack', '../../assets/asset-pack.json');
   }
 }
