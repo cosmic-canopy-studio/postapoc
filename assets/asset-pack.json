@@ -12,6 +12,11 @@
                 "key": "bench"
             },
             {
+                "url": "assets/sprites/bench-broken.png",
+                "type": "image",
+                "key": "bench-broken"
+            },
+            {
                 "url": "assets/animations/character.json",
                 "type": "animation",
                 "key": "character"
