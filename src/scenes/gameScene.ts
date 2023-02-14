@@ -102,7 +102,8 @@ export class GameScene extends Phaser.Scene {
     const facingTile = this.gridEngine.getFacingPosition(this.player.id);
     const tileObject = this.gridEngine.getCharactersAt(facingTile, 'ground');
     if (tileObject.length > 0) {
-      this.player.setFocus(tileObject[0]);
+      const object = this.gridEngine.getSprite(tileObject[0]) as Interactable;
+      this.player.setFocus(object);
     }
     this.status.text = this.player.getFocus();
   }
