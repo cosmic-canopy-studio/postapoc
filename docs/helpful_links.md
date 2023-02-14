@@ -9,6 +9,19 @@ https://github.com/waliente/phaser-typescript-electron
 https://hoten.cc/blog/porting-zelda-classic-to-the-web/
 https://github.com/kevinshen56714/SkyOffice
 
+## Patterns
+
+https://blog.ourcade.co/posts/2020/state-pattern-ai-player-control-phaser-3/
+https://blog.ourcade.co/posts/2021/character-logic-state-machine-typescript/
+https://blog.ourcade.co/posts/2020/state-pattern-character-movement-phaser-3/
+
+## Sprite Tools
+
+https://github.com/odrick/free-tex-packer
+https://www.mapeditor.org/
+https://www.aseprite.org/
+http://gammafp.com/tool/atlas-packer/
+
 ## Game Art
 
 https://opengameart.org/

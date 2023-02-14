@@ -2,5 +2,8 @@
     "typescript.tsdk": "node_modules/typescript/lib",
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "cSpell.words": [
+      "Interactable"
+    ]
 }

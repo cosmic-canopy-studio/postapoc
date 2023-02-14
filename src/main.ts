@@ -1,4 +1,4 @@
-import * as Phaser from 'phaser';
+import Phaser from 'phaser';
 import { Direction, GridEngine } from 'grid-engine';
 import Scenes from './scenes';
 import './style.css';
@@ -20,6 +20,14 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     fullscreenTarget: 'app',
     expandParent: false
+  },
+
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: true
+    }
   },
 
   plugins: {

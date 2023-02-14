@@ -1,42 +1,47 @@
 import { Scene } from 'phaser';
 import PlayerInputState from '../states/playerInputState';
+import Interactable from '../interactables/interactable';
 
-export default class Actor extends Phaser.GameObjects.Sprite {
-  private id: string;
-  private health: number;
-  private alive: boolean;
+export default class Actor extends Interactable {
   private controlState?: PlayerInputState;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
-    this.id = texture;
-    if (this.id === 'player') {
-      // confirm eqeqeq
-      this.health = 5;
-      this.alive = true;
-    } else {
-      this.health = 3;
-      this.alive = true;
-    }
+    this.health = 5;
+    this.play('idle-down');
   }
 
   setControlState(controlState: PlayerInputState) {
     this.controlState = controlState;
   }
 
+  getId() {
+    return this.id;
+  }
+
+  getFocus() {
+    if (!this.controlState) {
+      return;
+    }
+    return this.controlState.getFocus();
+  }
+
   update() {
     if (!this.controlState) {
       return;
     }
-
     this.controlState.update(this.id);
   }
 
-  attack(target: Actor) {
-    // face target
-    // check distance
-    // animate
-    // calculate
+  setFocus(interactable: Interactable) {
+    if (!this.controlState) {
+      return;
+    }
+    if (interactable.getId() === this.id) {
+      this.controlState.setFocus(undefined);
+    } else {
+      this.controlState.setFocus(interactable);
+    }
   }
 }
 
