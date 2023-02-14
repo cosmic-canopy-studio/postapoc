@@ -1,7 +1,4 @@
-declare interface IInteractable extends Phaser.GameObjects.Sprite {}
-
-declare namespace Phaser.GameObjects {
-  interface GameObjectFactory {
-    interactable(x: number, y: number, texture: string): IInteractable;
-  }
+declare interface IInteractable extends Phaser.GameObjects.Sprite {
+  getId(): number;
+  damage(): void;
 }

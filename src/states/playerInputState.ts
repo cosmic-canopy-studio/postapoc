@@ -1,5 +1,4 @@
 import { Direction, GridEngine } from 'grid-engine';
-import { filterCharacters } from 'grid-engine/dist/GridCharacter/CharacterFilter/CharacterFilter';
 import Interactable from '../interactables/interactable';
 
 export default class PlayerInputState {
@@ -31,7 +30,7 @@ export default class PlayerInputState {
     if (this.cursors.space.isDown) {
       if (!this.interactionTriggered) {
         const actorSprite = this.gridEngine.getSprite(gridActor);
-        actorSprite.play(
+        actorSprite?.play(
           'action-'.concat(this.gridEngine.getFacingDirection(gridActor))
         );
         this.interact();
@@ -43,10 +42,10 @@ export default class PlayerInputState {
   }
 
   getFocus() {
-    if (this.focus) {
-      return this.focus.getId();
+    if (!this.focus) {
+      return;
     }
-    return 'none';
+    return this.focus.getId();
   }
 
   setFocus(interactable: Interactable | undefined) {

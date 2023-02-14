@@ -15,10 +15,6 @@ export default class Actor extends Interactable {
     this.controlState = controlState;
   }
 
-  getId() {
-    return this.id;
-  }
-
   getFocus() {
     if (!this.controlState) {
       return;

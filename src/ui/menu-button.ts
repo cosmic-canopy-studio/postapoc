@@ -30,10 +30,10 @@ export class MenuButton extends Phaser.GameObjects.Rectangle {
     this.height = labelHeight >= minimumHeight ? labelHeight : minimumHeight;
 
     this.setInteractive({ useHandCursor: true })
-      .on('pointerover', this.enterMenuButtonHoverState)
-      .on('pointerout', this.enterMenuButtonRestState)
-      .on('pointerdown', this.enterMenuButtonActiveState)
-      .on('pointerup', this.enterMenuButtonHoverState);
+      .on('pointerover', () => this.enterMenuButtonHoverState())
+      .on('pointerout', () => this.enterMenuButtonRestState())
+      .on('pointerdown', () => this.enterMenuButtonActiveState())
+      .on('pointerup', () => this.enterMenuButtonHoverState());
 
     if (onClick) {
       this.on('pointerup', onClick);

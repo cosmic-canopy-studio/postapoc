@@ -53,7 +53,7 @@ export class BootScene extends Phaser.Scene {
       percentText.setText(`${percent}%`);
     });
 
-    this.load.on('fileprogress', (file) => {
+    this.load.on('fileprogress', (file: Phaser.Loader.File) => {
       assetText.setText(file.key);
     });
 

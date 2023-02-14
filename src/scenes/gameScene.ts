@@ -15,7 +15,7 @@ export class GameScene extends Phaser.Scene {
   private gridEngine!: GridEngine;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player!: Actor;
-  private status?: Phaser.GameObjects.Text;
+  private status!: Phaser.GameObjects.Text;
 
   constructor() {
     super(sceneConfig);
@@ -25,8 +25,7 @@ export class GameScene extends Phaser.Scene {
     const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
     interiorTilemap.addTilesetImage('interior', 'interior');
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
-      const layer = interiorTilemap.createLayer(i, 'interior', 0, 0);
-      //console.log(layer.layer);
+      interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -39,7 +38,7 @@ export class GameScene extends Phaser.Scene {
 
     const bench = this.add.interactable(0, 0, 'bench');
 
-    this.player = this.add.actor(0, 0, 'character');
+    this.player = this.add.actor(0, 0, 'character') as Actor;
 
     this.player.setControlState(playerInputState);
 
@@ -50,7 +49,7 @@ export class GameScene extends Phaser.Scene {
       charLayer: 'ground'
     };
 
-    this.status = this.add.text(-10, -20, this.player.getFocus());
+    this.status = this.add.text(-10, -20, this.player.getFocus() || 'none');
 
     this.gridEngine.addCharacter(playerCharacter);
 
@@ -80,7 +79,7 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(
       this.player,
       bench,
-      this.handlePlayerInteractableCollision,
+      () => this.handlePlayerInteractableCollision(),
       undefined,
       this
     );
@@ -105,6 +104,6 @@ export class GameScene extends Phaser.Scene {
       const object = this.gridEngine.getSprite(tileObject[0]) as Interactable;
       this.player.setFocus(object);
     }
-    this.status.text = this.player.getFocus();
+    this.status.text = this.player.getFocus() || 'none';
   }
 }

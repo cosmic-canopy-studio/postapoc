@@ -1,15 +1,9 @@
+import Interactable from '../../interactables/interactable';
 import PlayerInputState from '../../states/playerInputState';
 
-declare interface IActor extends Phaser.GameObjects.Sprite {
+declare interface IActor extends IInteractable {
   setControlState(controlState: PlayerInputState): void;
-  setFocus(interactable: Interactable | string): void;
-  getId(): number;
+  getFocus(): Interactable | undefined;
   update(): void;
-  interact(): void;
-}
-
-declare namespace Phaser.GameObjects {
-  interface GameObjectFactory {
-    actor(x: number, y: number, texture: string): IActor;
-  }
+  setFocus(interactable: Interactable): void;
 }
