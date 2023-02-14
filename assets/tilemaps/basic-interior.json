@@ -1,50 +1,72 @@
-{ "compressionlevel":-1,
- "height":10,
- "infinite":false,
- "layers":[
+{
+  "compressionlevel": -1,
+  "height": 10,
+  "infinite": false,
+  "layers": [
+    {
+      "data": [
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
+        109, 109
+      ],
+      "height": 10,
+      "id": 1,
+      "name": "ground",
+      "opacity": 1,
+      "properties": [
         {
-         "data":[109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109,
-            109, 109, 109, 109, 109, 109, 109, 109, 109, 109],
-         "height":10,
-         "id":1,
-         "name":"Interior",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":10,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":3,
- "nextobjectid":1,
- "orientation":"orthogonal",
- "renderorder":"right-down",
- "tiledversion":"1.9.2",
- "tileheight":32,
- "tilesets":[
+          "name": "ge_charLayer",
+          "type": "string",
+          "value": "ground"
+        }
+      ],
+      "type": "tilelayer",
+      "visible": true,
+      "width": 10,
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "nextlayerid": 3,
+  "nextobjectid": 1,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tiledversion": "1.9.2",
+  "tileheight": 32,
+  "tilesets": [
+    {
+      "columns": 12,
+      "firstgid": 1,
+      "image": "../tilesets/interior.png",
+      "imageheight": 320,
+      "imagewidth": 384,
+      "margin": 0,
+      "name": "interior",
+      "spacing": 0,
+      "tilecount": 120,
+      "tileheight": 32,
+      "tiles": [
         {
-         "columns":12,
-         "firstgid":1,
-         "image":"..\/tilesets\/interior.png",
-         "imageheight":320,
-         "imagewidth":384,
-         "margin":0,
-         "name":"interior",
-         "spacing":0,
-         "tilecount":120,
-         "tileheight":32,
-         "tilewidth":32
-        }],
- "tilewidth":32,
- "type":"map",
- "version":"1.9",
- "width":10
+          "id": 108,
+          "properties": [
+            {
+              "name": "ge_collide",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "tilewidth": 32
+    }
+  ],
+  "tilewidth": 32,
+  "type": "map",
+  "version": "1.9",
+  "width": 10
 }

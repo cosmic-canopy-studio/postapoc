@@ -22,6 +22,14 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
     expandParent: false
   },
 
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: true
+    }
+  },
+
   plugins: {
     scene: [
       {

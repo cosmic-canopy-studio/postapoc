@@ -5,8 +5,16 @@
  </editorsettings>
  <tileset firstgid="1" name="interior" tilewidth="32" tileheight="32" tilecount="120" columns="12">
   <image source="../tilesets/interior.png" width="384" height="320"/>
+  <tile id="108">
+   <properties>
+    <property name="ge_collide" type="bool" value="false"/>
+   </properties>
+  </tile>
  </tileset>
- <layer id="1" name="Interior" width="10" height="10">
+ <layer id="1" name="ground" width="10" height="10">
+  <properties>
+   <property name="ge_charLayer" value="ground"/>
+  </properties>
   <data encoding="csv">
 109,109,109,109,109,109,109,109,109,109,
 109,109,109,109,109,109,109,109,109,109,
