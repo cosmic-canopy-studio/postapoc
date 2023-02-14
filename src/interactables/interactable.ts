@@ -18,10 +18,12 @@ export default class Interactable extends Phaser.GameObjects.Sprite {
     if (this.health > 1) {
       this.health -= 1;
       console.log(this.health);
-    } else {
+    } else if (this.health === 1) {
       this.health = 0;
       console.log(this.id + ' out of health');
       this.setTexture('bench-broken');
+    } else {
+      this.destroy();
     }
   }
 }
