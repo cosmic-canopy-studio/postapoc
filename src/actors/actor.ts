@@ -2,15 +2,11 @@ import { Scene } from 'phaser';
 import PlayerInputState from '../states/playerInputState';
 import Interactable from '../interactables/interactable';
 
-export default class Actor extends Phaser.GameObjects.Sprite {
-  // TODO: Inherit from Interactable
-  private id: string;
-  private health: number;
+export default class Actor extends Interactable {
   private controlState?: PlayerInputState;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
-    this.id = texture;
     this.health = 5;
     this.play('idle-down');
   }

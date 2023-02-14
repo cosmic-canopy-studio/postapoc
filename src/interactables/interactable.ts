@@ -1,8 +1,8 @@
 import { Scene } from 'phaser';
 
 export default class Interactable extends Phaser.GameObjects.Sprite {
-  private id: string;
-  private health: number;
+  protected id: string;
+  protected health: number;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
