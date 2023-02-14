@@ -183,11 +183,16 @@
                     "frame": "character-2.png",
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "character",
+                    "frame": "character-1.png",
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 5,
-            "skipMissedFrames": true,
-            "repeat": -1
+            "frameRate": 7,
+            "skipMissedFrames": true
         },
         {
             "key": "action-left",
@@ -204,11 +209,16 @@
                     "frame": "character-5.png",
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "character",
+                    "frame": "character-4.png",
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 5,
-            "skipMissedFrames": true,
-            "repeat": -1
+            "frameRate": 7,
+            "skipMissedFrames": true
         },
         {
             "key": "action-right",
@@ -225,11 +235,16 @@
                     "frame": "character-6.png",
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "character",
+                    "frame": "character-7.png",
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 5,
-            "skipMissedFrames": true,
-            "repeat": -1
+            "frameRate": 7,
+            "skipMissedFrames": true
         },
         {
             "key": "action-up",
@@ -246,11 +261,16 @@
                     "frame": "character-9.png",
                     "duration": 0,
                     "keyframe": false
+                },
+                {
+                    "key": "character",
+                    "frame": "character-10.png",
+                    "duration": 0,
+                    "keyframe": false
                 }
             ],
-            "frameRate": 5,
-            "skipMissedFrames": true,
-            "repeat": -1
+            "frameRate": 7,
+            "skipMissedFrames": true
         }
     ],
     "globalTimeScale": 1,
