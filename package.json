@@ -22,7 +22,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "lint": "eslint src",
+    "lint": "tsc && eslint src",
     "docs": "npx typedoc",
     "editor": "npx phasereditor2d-launcher -project ."
   },
