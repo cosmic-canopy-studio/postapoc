@@ -79,12 +79,11 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(
       this.player,
       bench,
-      () => this.handlePlayerInteractableCollision(),
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      this.handlePlayerInteractableCollision as ArcadePhysicsCallback,
       undefined,
       this
     );
-
-    console.log(this.gridEngine.getCharLayer(this.player.id));
   }
 
   public update(): void {
@@ -92,13 +91,13 @@ export class GameScene extends Phaser.Scene {
     this.updatePlayerFocus();
   }
 
-  private handlePlayerInteractableCollision(obj1: Actor, obj2: Interactable) {
+  private handlePlayerInteractableCollision(_obj1: Actor, obj2: Interactable) {
     this.add.text(100, -20, 'collision');
     this.player.setFocus(obj2);
   }
 
   private updatePlayerFocus() {
-    const facingTile = this.gridEngine.getFacingPosition(this.player.id);
+    const facingTile = this.gridEngine.getFacingPosition(this.player.getId());
     const tileObject = this.gridEngine.getCharactersAt(facingTile, 'ground');
     if (tileObject.length > 0) {
       const object = this.gridEngine.getSprite(tileObject[0]) as Interactable;
