@@ -1,13 +1,16 @@
-## Examples / Starter Templates
+## Starter Templates
 
 https://github.com/kevinshen56714/create-react-phaser3-app
-https://pablo.gg/en/blog/coding/i-made-a-top-down-game-version-of-my-blog-with-phaser-and-react/
 https://github.com/Aristona/react-phaser-three-game
 https://github.com/colyseus/tutorial-phaser
 https://github.com/ubershmekel/vite-phaser-ts-starter
 https://github.com/waliente/phaser-typescript-electron
+
+## Examples
+
 https://hoten.cc/blog/porting-zelda-classic-to-the-web/
 https://github.com/kevinshen56714/SkyOffice
+https://pablo.gg/en/blog/coding/i-made-a-top-down-game-version-of-my-blog-with-phaser-and-react/
 
 ## Patterns
 
@@ -17,10 +20,11 @@ https://blog.ourcade.co/posts/2020/state-pattern-character-movement-phaser-3/
 
 ## Sprite Tools
 
-https://github.com/odrick/free-tex-packer
 https://www.mapeditor.org/
 https://www.aseprite.org/
 http://gammafp.com/tool/atlas-packer/
+https://github.com/odrick/free-tex-packer
+https://www.codeandweb.com/texturepacker
 
 ## Game Art
 
@@ -42,6 +46,7 @@ https://docs.hathora.dev/#/
 ## Linting & Testing
 
 https://www.cypress.io/
+https://jestjs.io/
 https://github.com/import-js/eslint-import-resolver-typescript
 
 ## Other Project Hygiene
