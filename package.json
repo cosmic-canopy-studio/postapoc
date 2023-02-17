@@ -25,7 +25,8 @@
     "serve": "vite preview",
     "lint": "tsc && eslint src",
     "docs": "npx typedoc",
-    "editor": "npx phasereditor2d-launcher -project ."
+    "editor": "phasereditor2d-launcher -project .",
+    "putout": "putout src"
   },
   "dependencies": {
     "grid-engine": "^2.25.1",
