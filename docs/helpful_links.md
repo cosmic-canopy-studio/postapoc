@@ -17,6 +17,7 @@ https://pablo.gg/en/blog/coding/i-made-a-top-down-game-version-of-my-blog-with-p
 https://blog.ourcade.co/posts/2020/state-pattern-ai-player-control-phaser-3/
 https://blog.ourcade.co/posts/2021/character-logic-state-machine-typescript/
 https://blog.ourcade.co/posts/2020/state-pattern-character-movement-phaser-3/
+http://www.roguebasin.com/index.php/How_to_Write_a_Roguelike_in_15_Steps
 
 ## Sprite Tools
 
@@ -51,6 +52,7 @@ https://github.com/import-js/eslint-import-resolver-typescript
 
 ## Other Project Hygiene
 
+https://github.com/goldbergyoni/nodebestpractices
 https://keepachangelog.com/en/1.0.0/
 https://www.conventionalcommits.org/
 https://github.com/cocogitto/cocogitto
