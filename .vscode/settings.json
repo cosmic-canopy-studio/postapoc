@@ -1,9 +1,13 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "cSpell.words": [
-      "Interactable"
-    ]
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": [
+    "Interactable"
+  ],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  }
 }
