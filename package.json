@@ -29,11 +29,11 @@
     "putout": "putout src"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
     "grid-engine": "^2.25.1",
     "inversify": "^6.0.1",
     "phaser": "^3.55.2",
-    "reflect-metadata": "^0.1.13",
-    "typesync": "^0.10.0"
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -60,6 +60,7 @@
     "putout": "^28.16.0",
     "typedoc": "^0.23.25",
     "typescript": "^4.8.4",
+    "typesync": "^0.10.0",
     "vite": "^4.1.1"
   }
 }
