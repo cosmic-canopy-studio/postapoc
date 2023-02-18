@@ -1,9 +1,9 @@
 import { Scene } from 'phaser';
-import PlayerInputState from '../states/playerInputState';
+import PlayerInput from '../components/playerInput';
 import Interactable from '../interactables/interactable';
 
 export default class Actor extends Interactable {
-  private controlState?: PlayerInputState;
+  private controlState?: PlayerInput;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -11,7 +11,7 @@ export default class Actor extends Interactable {
     this.play('idle-down');
   }
 
-  setControlState(controlState: PlayerInputState) {
+  setControlState(controlState: PlayerInput) {
     this.controlState = controlState;
   }
 
