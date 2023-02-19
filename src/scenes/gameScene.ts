@@ -17,7 +17,6 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player!: Actor;
 
   constructor() {
@@ -25,24 +24,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   public create(): void {
-    const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
-    interiorTilemap.addTilesetImage('interior', 'interior');
-    for (let i = 0; i < interiorTilemap.layers.length; i++) {
-      interiorTilemap.createLayer(i, 'interior', 0, 0);
-    }
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.initTileset();
 
-    const playerInput: PlayerInput = container.get(TYPES.PlayerInput);
-    playerInput.setCursors(this.cursors);
+    this.initPlayer();
 
+    this.initObjects();
+  }
+
+  private initObjects() {
     const bench = this.add.interactable(200, 200, 'bench');
-
-    this.player = this.add.actor(100, 200, 'character') as Actor;
-
-    this.player.setControlState(playerInput);
-
-    this.cameras.main.startFollow(this.player, true);
-    this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
 
     this.physics.add.collider(
       this.player,
@@ -52,6 +42,28 @@ export class GameScene extends Phaser.Scene {
       undefined,
       this
     );
+  }
+
+  private initPlayer() {
+    const cursors = this.input.keyboard.createCursorKeys();
+
+    const playerInput: PlayerInput = container.get(TYPES.PlayerInput);
+    playerInput.setCursors(cursors);
+
+    this.player = this.add.actor(100, 200, 'character') as Actor;
+
+    this.player.setControlState(playerInput);
+
+    this.cameras.main.startFollow(this.player, true);
+    this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
+  }
+
+  private initTileset() {
+    const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
+    interiorTilemap.addTilesetImage('interior', 'interior');
+    for (let i = 0; i < interiorTilemap.layers.length; i++) {
+      interiorTilemap.createLayer(i, 'interior', 0, 0);
+    }
   }
 
   public update(): void {
