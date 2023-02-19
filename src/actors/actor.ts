@@ -3,7 +3,7 @@ import PlayerInput from '../components/playerInput';
 import Interactable from '../interactables/interactable';
 
 export default class Actor extends Interactable {
-  private controlState?: PlayerInput;
+  private playerInput?: PlayerInput;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -11,32 +11,32 @@ export default class Actor extends Interactable {
     this.play('idle-down');
   }
 
-  setControlState(controlState: PlayerInput) {
-    this.controlState = controlState;
+  setControlState(playerInput: PlayerInput) {
+    this.playerInput = playerInput;
   }
 
   getFocus() {
-    if (!this.controlState) {
+    if (!this.playerInput) {
       return;
     }
-    return this.controlState.getFocus();
+    return this.playerInput.getFocus();
   }
 
   update() {
-    if (!this.controlState) {
+    if (!this.playerInput) {
       return;
     }
-    this.controlState.update(this.id);
+    this.playerInput.update(this.id);
   }
 
   setFocus(interactable: Interactable) {
-    if (!this.controlState) {
+    if (!this.playerInput) {
       return;
     }
     if (interactable.getId() === this.id) {
-      this.controlState.setFocus(undefined);
+      this.playerInput.setFocus(undefined);
     } else {
-      this.controlState.setFocus(interactable);
+      this.playerInput.setFocus(interactable);
     }
   }
 }
