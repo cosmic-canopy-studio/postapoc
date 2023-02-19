@@ -1,48 +1,55 @@
-import { Direction, GridEngine } from 'grid-engine';
-import { injectable, inject } from 'inversify';
-import { TYPES } from '../constants/types';
-import Interactable from '../interactables/interactable';
-import ObjectMovement from './objectMovement';
+import { injectable } from 'inversify';
+import Interactable from '../entities/interactable';
+import Actor from '../entities/actor';
+import { Logger } from 'tslog';
 
-
+const logger = new Logger({ type: 'pretty' });
 @injectable()
 export default class PlayerInput {
-  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  private objectMovement: ObjectMovement;
-  private gridEngine: GridEngine; // TODO: Refactor to use controller
-  private interactionTriggered: boolean;
+  private cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private interactionTriggered = false;
   private focus?: Interactable;
+  private speed = 100;
 
-  constructor(
-    @inject(TYPES.GridEngineController) gridEngine: GridEngine,
-    @inject(TYPES.ObjectMovement) objectMovement: ObjectMovement
-  ) {
-    this.gridEngine = gridEngine;
-    this.objectMovement = objectMovement;
-    this.interactionTriggered = false;
-  }
-  
-  setCursors(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
-    this.cursors = cursors;
+  setCursors(cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys) {
+    this.cursorKeys = cursorKeys;
   }
 
-  update(gridActor: string) {
-    if (this.cursors.left.isDown) {
-      this.objectMovement.move(gridActor, Direction.LEFT);
-    } else if (this.cursors.right.isDown) {
-      this.objectMovement.move(gridActor, Direction.RIGHT);
-    } else if (this.cursors.up.isDown) {
-      this.objectMovement.move(gridActor, Direction.UP);
-    } else if (this.cursors.down.isDown) {
-      this.objectMovement.move(gridActor, Direction.DOWN);
+  update(actor: Actor) {
+    // Every frame, we create a new velocity for the sprite based on what keys the player is holding down.
+    const velocity = new Phaser.Math.Vector2(0, 0);
+    let direction = 'down';
+    if (this.cursorKeys.left.isDown) {
+      velocity.x -= 1;
+      direction = 'left';
+    }
+    if (this.cursorKeys.right.isDown) {
+      velocity.x += 1;
+      direction = 'right';
+    }
+    if (this.cursorKeys.up.isDown) {
+      velocity.y -= 1;
+      direction = 'up';
+    }
+    if (this.cursorKeys.down.isDown) {
+      velocity.y += 1;
+      direction = 'down';
+    } else {
+      actor.play('idle-'.concat(direction));
     }
 
-    if (this.cursors.space.isDown) {
+    actor.play('walk-'.concat(direction));
+
+    // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
+    const normalizedVelocity = velocity.normalize();
+    actor.setVelocity(
+      normalizedVelocity.x * this.speed,
+      normalizedVelocity.y * this.speed
+    );
+
+    if (this.cursorKeys.space.isDown) {
       if (!this.interactionTriggered) {
-        const actorSprite = this.gridEngine.getSprite(gridActor);
-        actorSprite?.play(
-          'action-'.concat(this.gridEngine.getFacingDirection(gridActor))
-        );
+        actor.play(`action-${direction}`);
         this.interact();
         this.interactionTriggered = true;
       }

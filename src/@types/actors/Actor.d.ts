@@ -1,4 +1,4 @@
-import Interactable from '../../interactables/interactable';
+import Interactable from '../../entities/interactable';
 import PlayerInput from '../../components/playerInput';
 
 declare interface IActor extends IInteractable {

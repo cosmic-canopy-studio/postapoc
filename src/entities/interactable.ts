@@ -1,8 +1,9 @@
 import { Scene } from 'phaser';
 
-export default class Interactable extends Phaser.GameObjects.Sprite {
+export default class Interactable extends Phaser.Physics.Arcade.Sprite {
   protected id: string;
   protected health: number;
+  protected moveable = false;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -12,6 +13,10 @@ export default class Interactable extends Phaser.GameObjects.Sprite {
 
   getId() {
     return this.id;
+  }
+
+  isMoveable() {
+    return this.moveable;
   }
 
   damage() {
@@ -38,8 +43,13 @@ Phaser.GameObjects.GameObjectFactory.register(
   ) {
     const interactable = new Interactable(this.scene, x, y, texture);
 
-    this.displayList.add(interactable);
-    this.updateList.add(interactable);
+    this.scene.add.existing(interactable);
+    this.scene.physics.add.existing(interactable);
+    if (interactable.isMoveable()) {
+      interactable.setDrag(200, 200);
+    } else {
+      interactable.setImmovable(true);
+    }
 
     return interactable;
   }

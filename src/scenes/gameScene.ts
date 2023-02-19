@@ -1,11 +1,10 @@
 import 'reflect-metadata';
 import { TYPES } from '../constants/types';
 import PlayerInput from '../components/playerInput';
-import '../actors/actor';
-import '../interactables/interactable';
-import Actor from '../actors/actor';
-import Interactable from '../interactables/interactable';
-import GridEngineController from '../components/gridEngineController';
+import '../entities/actor';
+import '../entities/interactable';
+import Actor from '../entities/actor';
+import Interactable from '../entities/interactable';
 import container from '../config/inversify.config';
 import { Logger } from 'tslog';
 
@@ -18,16 +17,12 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private controller: GridEngineController;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player!: Actor;
   private status!: Phaser.GameObjects.Text;
 
   constructor() {
     super(sceneConfig);
-    this.controller = container.get<GridEngineController>(
-      TYPES.GridEngineController
-    );
   }
 
   public create(): void {
@@ -38,55 +33,19 @@ export class GameScene extends Phaser.Scene {
     }
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.controller.create(this, interiorTilemap, { characters: [] });
-
-    const gridEngine = this.controller.getEngine();
-
-    const playerInput = container.get(TYPES.PlayerInput) as PlayerInput;
+    const playerInput: PlayerInput = container.get(TYPES.PlayerInput);
     playerInput.setCursors(this.cursors);
 
-    const bench = this.add.interactable(0, 0, 'bench');
+    const bench = this.add.interactable(200, 200, 'bench');
 
-    this.player = this.add.actor(0, 0, 'character') as Actor;
+    this.player = this.add.actor(100, 200, 'character') as Actor;
 
     this.player.setControlState(playerInput);
 
-    const playerCharacter = {
-      id: this.player.getId(),
-      sprite: this.player,
-      startPosition: { x: 2, y: 2 },
-      charLayer: 'ground'
-    };
-
     this.status = this.add.text(-10, -20, this.player.getFocus() || 'none');
-
-    gridEngine.addCharacter(playerCharacter);
-
-    const benchCharacter = {
-      id: 'bench',
-      sprite: bench,
-      startPosition: { x: 4, y: 2 },
-      charLayer: 'ground'
-    };
-
-    gridEngine.addCharacter(benchCharacter);
 
     this.cameras.main.startFollow(this.player, true);
     this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
-
-    gridEngine.movementStarted().subscribe(({ direction }) => {
-      this.player.play('walk-'.concat(direction));
-      logger.debug(`movement started: ${direction}`);
-    });
-    gridEngine.movementStopped().subscribe(({ direction }) => {
-      this.player.play('idle-'.concat(direction));
-      logger.debug(`movement stoped: ${direction}`);
-    });
-
-    gridEngine.directionChanged().subscribe(({ direction }) => {
-      this.player.play('idle-'.concat(direction));
-      logger.debug(`direction changed: ${direction}`);
-    });
 
     this.physics.add.collider(
       this.player,
@@ -108,7 +67,7 @@ export class GameScene extends Phaser.Scene {
     this.player.setFocus(obj2);
   }
 
-  private updatePlayerFocus() {
+  /*private updatePlayerFocus() {
     const gridEngine = this.controller.getEngine();
     const facingTile = gridEngine.getFacingPosition(this.player.getId());
     const tileObject = gridEngine.getCharactersAt(facingTile, 'ground');
@@ -117,5 +76,5 @@ export class GameScene extends Phaser.Scene {
       this.player.setFocus(object);
     }
     this.status.text = this.player.getFocus() || 'none';
-  }
+  }*/
 }

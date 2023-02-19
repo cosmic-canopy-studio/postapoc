@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import PlayerInput from '../components/playerInput';
-import Interactable from '../interactables/interactable';
+import Interactable from './interactable';
 
 export default class Actor extends Interactable {
   private playerInput?: PlayerInput;
@@ -26,7 +26,7 @@ export default class Actor extends Interactable {
     if (!this.playerInput) {
       return;
     }
-    this.playerInput.update(this.id);
+    this.playerInput.update(this);
   }
 
   setFocus(interactable: Interactable) {
@@ -51,8 +51,8 @@ Phaser.GameObjects.GameObjectFactory.register(
   ) {
     const actor = new Actor(this.scene, x, y, texture);
 
-    this.displayList.add(actor);
-    this.updateList.add(actor);
+    this.scene.add.existing(actor);
+    this.scene.physics.add.existing(actor);
 
     return actor;
   }
