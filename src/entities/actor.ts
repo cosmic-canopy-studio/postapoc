@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import PlayerInput from '../components/playerInput';
+import PlayerInput from '../systems/playerInput';
 import Interactable from './interactable';
 
 export default class Actor extends Interactable {

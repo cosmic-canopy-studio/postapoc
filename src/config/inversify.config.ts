@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { TYPES } from '../constants/types';
-import PlayerInput from '../components/playerInput';
-import ObjectMovement from '../components/objectMovement';
+import PlayerInput from '../systems/playerInput';
+import ObjectMovement from '../systems/objectMovement';
 
 let container = new Container();
 container.bind<ObjectMovement>(TYPES.ObjectMovement).to(ObjectMovement);

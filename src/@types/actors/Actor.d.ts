@@ -1,5 +1,5 @@
 import Interactable from '../../entities/interactable';
-import PlayerInput from '../../components/playerInput';
+import PlayerInput from '../../systems/playerInput';
 
 declare interface IActor extends IInteractable {
   setControlState(controlState: PlayerInput): void;

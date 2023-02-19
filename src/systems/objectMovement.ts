@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../constants/types';
 import { Direction } from 'grid-engine';
 import IMovement from '../interfaces/IMovement';
-import GridEngineController from './gridEngineController';
+import GridEngineController from '../components/gridEngineController';
 import { Logger } from 'tslog';
 
 const logger = new Logger({ type: 'hidden' });
