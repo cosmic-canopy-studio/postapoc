@@ -29,16 +29,6 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
     }
   },
 
-  plugins: {
-    scene: [
-      {
-        key: 'gridEngine',
-        plugin: GridEngine,
-        mapping: 'gridEngine'
-      }
-    ]
-  },
-
   parent: 'game',
   backgroundColor: '#000000'
 };
