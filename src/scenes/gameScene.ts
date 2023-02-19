@@ -1,5 +1,4 @@
-import 'reflect-metadata'
-import { inject } from 'inversify';
+import 'reflect-metadata';
 import { TYPES } from '../constants/types';
 import PlayerInput from '../components/playerInput';
 import '../actors/actor';
@@ -8,6 +7,9 @@ import Actor from '../actors/actor';
 import Interactable from '../interactables/interactable';
 import GridEngineController from '../components/gridEngineController';
 import container from '../config/inversify.config';
+import { Logger } from 'tslog';
+
+const logger = new Logger({ type: 'pretty' });
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -20,11 +22,12 @@ export class GameScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player!: Actor;
   private status!: Phaser.GameObjects.Text;
-  
 
   constructor() {
     super(sceneConfig);
-    this.controller = container.get<GridEngineController>(TYPES.GridEngineController);
+    this.controller = container.get<GridEngineController>(
+      TYPES.GridEngineController
+    );
   }
 
   public create(): void {
@@ -73,13 +76,16 @@ export class GameScene extends Phaser.Scene {
 
     gridEngine.movementStarted().subscribe(({ direction }) => {
       this.player.play('walk-'.concat(direction));
+      logger.debug(`movement started: ${direction}`);
     });
     gridEngine.movementStopped().subscribe(({ direction }) => {
       this.player.play('idle-'.concat(direction));
+      logger.debug(`movement stoped: ${direction}`);
     });
 
     gridEngine.directionChanged().subscribe(({ direction }) => {
       this.player.play('idle-'.concat(direction));
+      logger.debug(`direction changed: ${direction}`);
     });
 
     this.physics.add.collider(
@@ -94,7 +100,7 @@ export class GameScene extends Phaser.Scene {
 
   public update(): void {
     this.player.update();
-    this.updatePlayerFocus();
+    //this.updatePlayerFocus();
   }
 
   private handlePlayerInteractableCollision(_obj1: Actor, obj2: Interactable) {

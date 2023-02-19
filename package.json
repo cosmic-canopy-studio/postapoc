@@ -33,7 +33,8 @@
     "grid-engine": "^2.25.1",
     "inversify": "^6.0.1",
     "phaser": "^3.55.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "tslog": "^4.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

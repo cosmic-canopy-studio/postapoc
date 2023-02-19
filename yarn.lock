@@ -8456,6 +8456,7 @@ __metadata:
     prettier: ^2.8.4
     putout: ^28.16.0
     reflect-metadata: ^0.1.13
+    tslog: ^4.7.4
     typedoc: ^0.23.25
     typescript: ^4.8.4
     typesync: ^0.10.0
@@ -8571,6 +8572,13 @@ __metadata:
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
+  languageName: node
+  linkType: hard
+
+"tslog@npm:^4.7.4":
+  version: 4.7.4
+  resolution: "tslog@npm:4.7.4"
+  checksum: e292511b294f691b8404b5f1b697fd86722aab25e50d4fa1a883d99fa6595073c115b83d395af2c77dece711f740b5e1a38c0d66b5e76c0c8416ec9e4ab9ba13
   languageName: node
   linkType: hard
 
