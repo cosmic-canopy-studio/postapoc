@@ -19,6 +19,16 @@ export default class PlayerInput {
   update(actor: Actor) {
     // Every frame, we create a new velocity for the sprite based on what keys the player is holding down.
     const velocity = new Phaser.Math.Vector2(0, 0);
+    if (this.cursorKeys.up.isDown) {
+      velocity.y -= 1;
+      this.direction = 'up';
+      this.focus = undefined;
+    }
+    if (this.cursorKeys.down.isDown) {
+      velocity.y += 1;
+      this.direction = 'down';
+      this.focus = undefined;
+    }
     if (this.cursorKeys.left.isDown) {
       velocity.x -= 1;
       this.direction = 'left';
@@ -29,20 +39,18 @@ export default class PlayerInput {
       this.direction = 'right';
       this.focus = undefined;
     }
-    if (this.cursorKeys.up.isDown) {
-      velocity.y -= 1;
-      this.direction = 'up';
-      this.focus = undefined;
-    }
-    if (this.cursorKeys.down.isDown) {
-      velocity.y += 1;
-      this.direction = 'down';
-      this.focus = undefined;
-    } else {
-      actor.play('idle-'.concat(this.direction));
-    }
 
-    actor.playAfterRepeat('walk-'.concat(this.direction));
+    if (velocity.x === 0 && velocity.y === 0) {
+      actor.play('idle-'.concat(this.direction));
+    } else {
+      const key = actor.anims.currentAnim?.key;
+      if (key.startsWith('idle-')) {
+        // logger.debug('breaking idle animation');
+        actor.play('walk-'.concat(this.direction));
+      } else {
+        actor.play('walk-'.concat(this.direction), true);
+      }
+    }
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
@@ -53,7 +61,7 @@ export default class PlayerInput {
 
     if (this.cursorKeys.space.isDown) {
       if (!this.interactionTriggered) {
-        actor.play(`action-${this.direction}`);
+        actor.play(`action-${this.direction}`, true);
         this.interact();
         this.interactionTriggered = true;
       }
