@@ -19,7 +19,6 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class GameScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private player!: Actor;
-  private status!: Phaser.GameObjects.Text;
 
   constructor() {
     super(sceneConfig);
@@ -42,8 +41,6 @@ export class GameScene extends Phaser.Scene {
 
     this.player.setControlState(playerInput);
 
-    this.status = this.add.text(-10, -20, this.player.getFocus() || 'none');
-
     this.cameras.main.startFollow(this.player, true);
     this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
 
@@ -59,22 +56,9 @@ export class GameScene extends Phaser.Scene {
 
   public update(): void {
     this.player.update();
-    //this.updatePlayerFocus();
   }
 
   private handlePlayerInteractableCollision(_obj1: Actor, obj2: Interactable) {
-    this.add.text(100, -20, 'collision');
     this.player.setFocus(obj2);
   }
-
-  /*private updatePlayerFocus() {
-    const gridEngine = this.controller.getEngine();
-    const facingTile = gridEngine.getFacingPosition(this.player.getId());
-    const tileObject = gridEngine.getCharactersAt(facingTile, 'ground');
-    if (tileObject.length > 0) {
-      const object = gridEngine.getSprite(tileObject[0]) as Interactable;
-      this.player.setFocus(object);
-    }
-    this.status.text = this.player.getFocus() || 'none';
-  }*/
 }

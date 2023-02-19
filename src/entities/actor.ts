@@ -4,11 +4,13 @@ import Interactable from './interactable';
 
 export default class Actor extends Interactable {
   private playerInput?: PlayerInput;
+  private status: Phaser.GameObjects.Text;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
     this.health = 5;
     this.play('idle-down');
+    this.status = scene.add.text(0, -50, 'Focus: none');
   }
 
   setControlState(playerInput: PlayerInput) {
@@ -27,6 +29,7 @@ export default class Actor extends Interactable {
       return;
     }
     this.playerInput.update(this);
+    this.status.setText(`Focus: ${this.playerInput.getFocus() || 'none'}`);
   }
 
   setFocus(interactable: Interactable) {
@@ -35,6 +38,7 @@ export default class Actor extends Interactable {
     }
     if (interactable.getId() === this.id) {
       this.playerInput.setFocus(undefined);
+      this.status.setText('No focus');
     } else {
       this.playerInput.setFocus(interactable);
     }
