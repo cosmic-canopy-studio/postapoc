@@ -7,11 +7,16 @@ export default class Actor extends Interactable {
   private status: Phaser.GameObjects.Text;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture);
-    this.sprite.play('idle-down');
+    super(scene, x, y, texture, false);
+
     this.status = scene.add.text(0, -50, 'Focus: none');
     scene.add.existing(this.sprite);
     scene.physics.add.existing(this.sprite);
+
+    this.sprite.setCollideWorldBounds(true);
+    this.sprite.setPushable(false);
+    this.sprite.setImmovable(false);
+    this.sprite.play('idle-down');
   }
 
   setControlState(playerInput: PlayerInput) {
