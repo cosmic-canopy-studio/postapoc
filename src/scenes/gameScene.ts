@@ -1,14 +1,11 @@
 import 'reflect-metadata';
 import { TYPES } from '../constants/types';
-import PlayerInput from '../components/playerInput';
+import PlayerInput from '../systems/playerInput';
 import '../entities/actor';
 import '../entities/interactable';
 import Actor from '../entities/actor';
 import Interactable from '../entities/interactable';
 import container from '../config/inversify.config';
-import { Logger } from 'tslog';
-
-const logger = new Logger({ type: 'pretty' });
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -32,7 +29,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   private initObjects() {
-    const bench = this.add.interactable(200, 200, 'bench');
+    const bench: Interactable = this.add.interactable(200, 200, 'bench');
 
     this.physics.add.collider(
       this.player,

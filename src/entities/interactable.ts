@@ -1,35 +1,11 @@
 import { Scene } from 'phaser';
-
+import Thing from '../components/thing';
 export default class Interactable extends Phaser.Physics.Arcade.Sprite {
-  protected id: string;
-  protected health: number;
-  protected moveable = false;
+  public thing: Thing;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
-    this.id = texture;
-    this.health = 3;
-  }
-
-  getId() {
-    return this.id;
-  }
-
-  isMoveable() {
-    return this.moveable;
-  }
-
-  damage() {
-    if (this.health > 1) {
-      this.health -= 1;
-      console.log(this.health);
-    } else if (this.health === 1) {
-      this.health = 0;
-      console.log(this.id + ' out of health');
-      this.setTexture('bench-broken');
-    } else {
-      this.destroy();
-    }
+    this.thing = new Thing(texture);
   }
 }
 
@@ -45,7 +21,8 @@ Phaser.GameObjects.GameObjectFactory.register(
 
     this.scene.add.existing(interactable);
     this.scene.physics.add.existing(interactable);
-    if (interactable.isMoveable()) {
+
+    if (interactable.thing.moveable) {
       interactable.setDrag(200, 200);
     } else {
       interactable.setImmovable(true);

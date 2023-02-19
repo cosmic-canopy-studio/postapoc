@@ -1,1 +1,3 @@
-// stub for Action system
+export default class Action {
+  // stub for Action system
+}

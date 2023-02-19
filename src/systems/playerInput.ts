@@ -1,9 +1,7 @@
 import { injectable } from 'inversify';
 import Interactable from '../entities/interactable';
 import Actor from '../entities/actor';
-import { Logger } from 'tslog';
 
-const logger = new Logger({ type: 'pretty' });
 @injectable()
 export default class PlayerInput {
   private cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -74,7 +72,7 @@ export default class PlayerInput {
     if (!this.focus) {
       return;
     }
-    return this.focus.getId();
+    return this.focus;
   }
 
   setFocus(interactable: Interactable | undefined) {
@@ -91,6 +89,6 @@ export default class PlayerInput {
       }
     }
 
-    target.damage();
+    target.thing.takeDamage();
   }
 }
