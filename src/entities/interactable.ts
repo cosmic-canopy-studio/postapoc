@@ -1,11 +1,20 @@
 import { Scene } from 'phaser';
 import Thing from '../components/thing';
-export default class Interactable extends Phaser.Physics.Arcade.Sprite {
+export default class Interactable {
   public thing: Thing;
+  public sprite: Phaser.Physics.Arcade.Sprite;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture);
     this.thing = new Thing(texture);
+    this.sprite = new Phaser.Physics.Arcade.Sprite(scene, x, y, texture);
+    scene.add.existing(this.sprite);
+    scene.physics.add.existing(this.sprite);
+
+    if (this.thing.moveable) {
+      this.sprite.setDrag(200, 200);
+    } else {
+      this.sprite.setImmovable(true);
+    }
   }
 }
 
@@ -19,13 +28,13 @@ Phaser.GameObjects.GameObjectFactory.register(
   ) {
     const interactable = new Interactable(this.scene, x, y, texture);
 
-    this.scene.add.existing(interactable);
-    this.scene.physics.add.existing(interactable);
+    this.scene.add.existing(interactable.sprite);
+    this.scene.physics.add.existing(interactable.sprite);
 
     if (interactable.thing.moveable) {
-      interactable.setDrag(200, 200);
+      interactable.sprite.setDrag(200, 200);
     } else {
-      interactable.setImmovable(true);
+      interactable.sprite.setImmovable(true);
     }
 
     return interactable;

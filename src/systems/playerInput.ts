@@ -39,27 +39,27 @@ export default class PlayerInput {
     }
 
     if (velocity.x === 0 && velocity.y === 0) {
-      actor.play('idle-'.concat(this.direction));
+      actor.sprite.play('idle-'.concat(this.direction));
     } else {
-      const key = actor.anims.currentAnim?.key;
+      const key = actor.sprite.anims.currentAnim?.key;
       if (key.startsWith('idle-')) {
         // logger.debug('breaking idle animation');
-        actor.play('walk-'.concat(this.direction));
+        actor.sprite.play('walk-'.concat(this.direction));
       } else {
-        actor.play('walk-'.concat(this.direction), true);
+        actor.sprite.play('walk-'.concat(this.direction), true);
       }
     }
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
-    actor.setVelocity(
+    actor.sprite.setVelocity(
       normalizedVelocity.x * this.speed,
       normalizedVelocity.y * this.speed
     );
 
     if (this.cursorKeys.space.isDown) {
       if (!this.interactionTriggered) {
-        actor.play(`action-${this.direction}`, true);
+        actor.sprite.play(`action-${this.direction}`, true);
         this.interact();
         this.interactionTriggered = true;
       }

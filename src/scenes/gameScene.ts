@@ -6,6 +6,9 @@ import '../entities/interactable';
 import Actor from '../entities/actor';
 import Interactable from '../entities/interactable';
 import container from '../config/inversify.config';
+import { Logger } from 'tslog';
+
+const logger = new Logger();
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -26,16 +29,16 @@ export class GameScene extends Phaser.Scene {
     this.initPlayer();
 
     this.initObjects();
+    logger.debug('game scene created');
   }
 
   private initObjects() {
-    const bench: Interactable = this.add.interactable(200, 200, 'bench');
+    const bench = new Interactable(this, 200, 200, 'bench');
 
     this.physics.add.collider(
-      this.player,
-      bench,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.handlePlayerInteractableCollision as ArcadePhysicsCallback,
+      this.player.sprite,
+      bench.sprite,
+      () => this.handlePlayerInteractableCollision(bench),
       undefined,
       this
     );
@@ -47,12 +50,15 @@ export class GameScene extends Phaser.Scene {
     const playerInput: PlayerInput = container.get(TYPES.PlayerInput);
     playerInput.setCursors(cursors);
 
-    this.player = this.add.actor(100, 200, 'character') as Actor;
+    this.player = new Actor(this, 100, 200, 'character');
 
     this.player.setControlState(playerInput);
 
-    this.cameras.main.startFollow(this.player, true);
-    this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
+    this.cameras.main.startFollow(this.player.sprite, true);
+    this.cameras.main.setFollowOffset(
+      -this.player.sprite.width,
+      -this.player.sprite.height
+    );
   }
 
   private initTileset() {
@@ -67,7 +73,7 @@ export class GameScene extends Phaser.Scene {
     this.player.update();
   }
 
-  private handlePlayerInteractableCollision(_obj1: Actor, obj2: Interactable) {
-    this.player.setFocus(obj2);
+  private handlePlayerInteractableCollision(interactable: Interactable) {
+    this.player.setFocus(interactable);
   }
 }

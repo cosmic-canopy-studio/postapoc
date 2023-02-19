@@ -8,8 +8,10 @@ export default class Actor extends Interactable {
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
-    this.play('idle-down');
+    this.sprite.play('idle-down');
     this.status = scene.add.text(0, -50, 'Focus: none');
+    scene.add.existing(this.sprite);
+    scene.physics.add.existing(this.sprite);
   }
 
   setControlState(playerInput: PlayerInput) {
@@ -56,8 +58,8 @@ Phaser.GameObjects.GameObjectFactory.register(
   ) {
     const actor = new Actor(this.scene, x, y, texture);
 
-    this.scene.add.existing(actor);
-    this.scene.physics.add.existing(actor);
+    this.scene.add.existing(actor.sprite);
+    this.scene.physics.add.existing(actor.sprite);
 
     return actor;
   }
