@@ -23,6 +23,5 @@
   "typedocOptions": {
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
-  },
-  "include": ["src"]
+  }
 }
