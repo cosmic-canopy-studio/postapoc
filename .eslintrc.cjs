@@ -23,13 +23,5 @@ module.exports = defineConfig({
     tsconfigRootDir: './'
   },
   root: true,
-  rules: {
-    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
-    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    eqeqeq: ['warn', 'always', { null: 'never' }]
-    // '@typescript-eslint/explicit-function-return-type': 0,
-    // '@typescript-eslint/ban-ts-ignore': 0,
-    // '@typescript-eslint/member-delimiter-style': 0,
-    // '@typescript-eslint/no-explicit-any': 0,
-  }
+  rules: {}
 });
