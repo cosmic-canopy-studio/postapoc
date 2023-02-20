@@ -1,11 +1,8 @@
 import 'reflect-metadata';
-import { TYPES } from '../constants/types';
-import PlayerInput from '../systems/playerInput';
-import '../entities/actor';
-import '../entities/interactable';
-import Actor from '../entities/actor';
-import Interactable from '../entities/interactable';
 import container from '../config/inversify.config';
+import { TYPES } from '../constants/types';
+import { PlayerInput } from '../systems';
+import { Actor, Interactable } from '../entities/';
 import { Logger } from 'tslog';
 
 const logger = new Logger();
@@ -18,6 +15,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class GameScene extends Phaser.Scene {
   private player!: Actor;
+  private bench!: Interactable;
 
   constructor() {
     super(sceneConfig);
@@ -33,12 +31,12 @@ export class GameScene extends Phaser.Scene {
   }
 
   private initObjects() {
-    const bench = new Interactable(this, 200, 200, 'bench');
+    this.bench = new Interactable(this, 200, 200, 'bench');
 
     this.physics.add.collider(
       this.player.sprite,
-      bench.sprite,
-      () => this.handlePlayerInteractableCollision(bench),
+      this.bench.sprite,
+      () => this.handlePlayerInteractableCollision(this.bench),
       undefined,
       this
     );
@@ -71,6 +69,7 @@ export class GameScene extends Phaser.Scene {
 
   public update(): void {
     this.player.update();
+    this.bench.update();
   }
 
   private handlePlayerInteractableCollision(interactable: Interactable) {

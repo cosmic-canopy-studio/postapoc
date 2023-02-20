@@ -1,7 +1,7 @@
 export default class Thing {
   readonly id: string;
   readonly moveable: boolean;
-  protected health: number;
+  readonly health: number;
 
   constructor(id: string, health = 3, moveable = false) {
     this.id = id;

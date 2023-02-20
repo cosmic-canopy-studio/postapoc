@@ -25,27 +25,13 @@ export default class Interactable {
       this.sprite.setImmovable(true);
     }
   }
-}
 
-Phaser.GameObjects.GameObjectFactory.register(
-  'interactable',
-  function (
-    this: Phaser.GameObjects.GameObjectFactory,
-    x: number,
-    y: number,
-    texture: string
-  ) {
-    const interactable = new Interactable(this.scene, x, y, texture);
-
-    this.scene.add.existing(interactable.sprite);
-    this.scene.physics.add.existing(interactable.sprite);
-
-    if (interactable.thing.moveable) {
-      interactable.sprite.setDrag(200, 200);
-    } else {
-      interactable.sprite.setImmovable(true);
+  update() {
+    if (this.thing.health < 2 && this.sprite?.texture.key !== 'bench-broken') {
+      this.sprite.setTexture('bench-broken');
     }
-
-    return interactable;
+    if (this.thing.health < 1 && this.sprite) {
+      this.sprite.destroy();
+    }
   }
-);
+}
