@@ -52,20 +52,3 @@ export default class Actor extends Interactable {
     }
   }
 }
-
-Phaser.GameObjects.GameObjectFactory.register(
-  'actor',
-  function (
-    this: Phaser.GameObjects.GameObjectFactory,
-    x: number,
-    y: number,
-    texture: string
-  ) {
-    const actor = new Actor(this.scene, x, y, texture);
-
-    this.scene.add.existing(actor.sprite);
-    this.scene.physics.add.existing(actor.sprite);
-
-    return actor;
-  }
-);
