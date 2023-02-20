@@ -1,21 +1,25 @@
 export default class Thing {
   readonly id: string;
   readonly moveable: boolean;
-  readonly health: number;
+  protected _health: number;
 
   constructor(id: string, health = 3, moveable = false) {
     this.id = id;
-    this.health = health;
+    this._health = health;
     this.moveable = moveable;
   }
 
   takeDamage() {
     if (this.health > 1) {
-      this.health -= 1;
+      this._health -= 1;
       console.log(this.health);
     } else if (this.health === 1) {
-      this.health = 0;
+      this._health = 0;
       console.log(this.id + ' out of health');
     }
+  }
+
+  get health() {
+    return this._health;
   }
 }
