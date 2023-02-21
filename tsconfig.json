@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "reflect-metadata"],
+    "types": ["vite/client", "jest"],
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -23,5 +23,7 @@
   "typedocOptions": {
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js"],
+  "exclude": ["**/*.spec.ts"]
 }
