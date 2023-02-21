@@ -10,12 +10,13 @@ export default class Thing {
   }
 
   takeDamage(damage = 1) {
-    if (this.health > 1) {
+    if (this.health - damage >= 0) {
       this._health -= damage;
       console.log(this.health);
-    } else if (this.health === 1) {
+    } else {
       this._health = 0;
-      console.log(this.id + ' out of health');
+      console.log(this.id + ' out of health, ready for destruction');
+      //TODO: Fire destruction event
     }
   }
 
