@@ -1,8 +1,6 @@
-import { injectable } from 'inversify';
-import Interactable from '../entities/interactable';
-import Actor from '../entities/actor';
+import { Interactable, Actor } from '../entities/';
+import { Verbs, Verb } from './verbs';
 
-@injectable()
 export default class PlayerInput {
   private cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   private interactionTriggered = false;
@@ -10,7 +8,7 @@ export default class PlayerInput {
   private direction = 'down';
   private speed = 100;
 
-  setCursors(cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys) {
+  constructor(cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys) {
     this.cursorKeys = cursorKeys;
   }
 
@@ -60,7 +58,7 @@ export default class PlayerInput {
     if (this.cursorKeys.space.isDown) {
       if (!this.interactionTriggered) {
         actor.sprite.play(`action-${this.direction}`, true);
-        this.interact();
+        this.interact(Verbs.attack);
         this.interactionTriggered = true;
       }
     } else {
@@ -79,16 +77,7 @@ export default class PlayerInput {
     this.focus = interactable;
   }
 
-  interact(interactable?: Interactable) {
-    let target = interactable;
-    if (!target) {
-      if (this.focus) {
-        target = this.focus;
-      } else {
-        return;
-      }
-    }
-
-    target.thing.takeDamage();
+  interact(verb: Verbs, interactable?: Interactable) {
+    Verb.interact(verb, interactable);
   }
 }

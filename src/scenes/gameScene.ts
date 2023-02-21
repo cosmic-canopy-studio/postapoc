@@ -1,6 +1,3 @@
-import 'reflect-metadata';
-import container from '../config/inversify.config';
-import { TYPES } from '../constants/types';
 import { PlayerInput } from '../systems';
 import { Actor, Interactable } from '../entities/';
 import { Logger } from 'tslog';
@@ -45,8 +42,7 @@ export class GameScene extends Phaser.Scene {
   private initPlayer() {
     const cursors = this.input.keyboard.createCursorKeys();
 
-    const playerInput: PlayerInput = container.get(TYPES.PlayerInput);
-    playerInput.setCursors(cursors);
+    const playerInput = new PlayerInput(cursors);
 
     this.player = new Actor(this, 100, 200, 'character');
 
