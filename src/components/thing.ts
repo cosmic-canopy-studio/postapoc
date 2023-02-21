@@ -9,9 +9,9 @@ export default class Thing {
     this.moveable = moveable;
   }
 
-  takeDamage() {
+  takeDamage(damage = 1) {
     if (this.health > 1) {
-      this._health -= 1;
+      this._health -= damage;
       console.log(this.health);
     } else if (this.health === 1) {
       this._health = 0;
