@@ -1,3 +1,4 @@
 import PlayerInput from './playerInput';
+import { Verbs, Verb } from './verbs';
 
-export { PlayerInput };
+export { PlayerInput, Verbs, Verb };
