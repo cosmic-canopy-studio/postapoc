@@ -36,7 +36,7 @@ export class Universe {
   }
 
   setSceneCameraToPlayer() {
-    if (this.currentControlledActor) {
+    if (this.currentControlledActor && this.currentControlledActor.sprite) {
       this.currentScene.cameras.main.startFollow(
         this.currentControlledActor.sprite,
         true

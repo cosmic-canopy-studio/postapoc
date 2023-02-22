@@ -1,37 +1,31 @@
-import { Scene } from 'phaser';
 import Noun from '../components/noun';
+import { log } from '../utilities';
+
 export default class Interactable {
   public noun: Noun;
-  public sprite: Phaser.Physics.Arcade.Sprite;
-  constructor(
-    scene: Scene,
-    x: number,
-    y: number,
-    texture: string,
-    staticBody = false
-  ) {
-    this.noun = new Noun(texture);
-    this.sprite = new Phaser.Physics.Arcade.Sprite(scene, x, y, texture);
-    console.log(scene);
-    scene.add.existing(this.sprite);
-    scene.physics.add.existing(this.sprite, staticBody);
-    this.sprite;
+  public sprite?: Phaser.Physics.Arcade.Sprite;
+  constructor(id: string) {
+    this.noun = new Noun(id);
+  }
 
-    if (this.noun.moveable) {
-      this.sprite.setPushable(true);
-      this.sprite.setDrag(200, 200);
-    } else {
-      this.sprite.setPushable(false);
-      this.sprite.setImmovable(true);
-    }
+  setSprite(sprite: Phaser.Physics.Arcade.Sprite) {
+    this.sprite = sprite;
+  }
+
+  unsetSprite() {
+    this.sprite?.destroy();
   }
 
   update() {
-    if (this.noun.health < 2 && this.sprite?.texture.key !== 'bench-broken') {
-      this.sprite.setTexture('bench-broken');
-    }
-    if (this.noun.health < 1 && this.sprite) {
-      this.sprite.destroy();
+    if (this.sprite) {
+      if (this.noun.health < 1) {
+        this.sprite.destroy();
+        return;
+      }
+      if (this.noun.health < 2 && this.sprite?.texture.key !== 'bench-broken') {
+        this.sprite.setTexture('bench-broken');
+        log.debug('bench broken');
+      }
     }
   }
 }

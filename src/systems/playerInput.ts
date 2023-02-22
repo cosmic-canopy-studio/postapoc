@@ -1,4 +1,5 @@
 import { Interactable, Actor } from '../entities';
+import { log } from '../utilities';
 import { Verbs, Verb } from './verbs';
 
 export default class PlayerInput {
@@ -13,6 +14,10 @@ export default class PlayerInput {
   }
 
   update(actor: Actor) {
+    if (!actor.sprite) {
+      log.debug('no sprite defined for actor');
+      return;
+    }
     const velocity = new Phaser.Math.Vector2(0, 0);
     if (this.cursorKeys.up.isDown) {
       velocity.y -= 1;

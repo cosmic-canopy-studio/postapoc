@@ -1,22 +1,23 @@
-import { Scene } from 'phaser';
 import PlayerInput from '../systems/playerInput';
 import Interactable from './interactable';
 
 export default class Actor extends Interactable {
   private playerInput?: PlayerInput;
-  private status: Phaser.GameObjects.Text;
 
-  constructor(scene: Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture, false);
+  constructor(id: string) {
+    super(id);
+  }
 
-    this.status = scene.add.text(0, -50, 'Focus: none');
-    scene.add.existing(this.sprite);
-    scene.physics.add.existing(this.sprite);
-
-    this.sprite.setCollideWorldBounds(true);
-    this.sprite.setPushable(false);
-    this.sprite.setImmovable(false);
-    this.sprite.play('idle-down');
+  setSprite(sprite: Phaser.Physics.Arcade.Sprite): void {
+    super.setSprite(sprite);
+    if (this.sprite) {
+      this.sprite.setCollideWorldBounds(true);
+      this.sprite.setPushable(false);
+      this.sprite.setImmovable(false);
+      this.sprite.play('idle-down');
+    } else {
+      throw new Error('No sprite defined for actor');
+    }
   }
 
   setControlState(playerInput: PlayerInput) {
@@ -39,9 +40,6 @@ export default class Actor extends Interactable {
       return;
     }
     this.playerInput.update(this);
-    this.status.setText(
-      `Focus: ${this.playerInput.getFocus()?.noun.id || 'none'}`
-    );
   }
 
   setFocus(interactable: Interactable) {
@@ -50,7 +48,6 @@ export default class Actor extends Interactable {
     }
     if (interactable.noun.id === this.noun.id) {
       this.playerInput.setFocus(undefined);
-      this.status.setText('No focus');
     } else {
       this.playerInput.setFocus(interactable);
     }
