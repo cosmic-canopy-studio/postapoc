@@ -1,8 +1,6 @@
-import { PlayerInput } from '../systems';
 import { Actor, Interactable } from '../entities';
-import { Logger } from 'tslog';
-
-const logger = new Logger();
+import { log } from '../utilities';
+import { Universe } from '../systems/universe';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -11,48 +9,46 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private player!: Actor;
-  private bench!: Interactable;
+  private universe!: Universe;
 
   constructor() {
     super(sceneConfig);
   }
 
   public create(): void {
+    this.universe = new Universe(this);
+
     this.initTileset();
 
     this.initPlayer();
 
     this.initObjects();
-    logger.debug('game scene created');
+    log.debug('game scene created');
   }
 
   private initObjects() {
-    this.bench = new Interactable(this, 200, 200, 'bench');
+    const bench = new Interactable(this, 200, 200, 'bench');
+    this.universe.addInteractable(bench);
 
-    this.physics.add.collider(
-      this.player.sprite,
-      this.bench.sprite,
-      () => this.handlePlayerInteractableCollision(this.bench),
-      undefined,
-      this
-    );
+    const currentPlayerActor = this.universe.getControlledActor();
+    if (!currentPlayerActor) {
+      throw new Error('No player actor');
+    } else {
+      this.physics.add.collider(
+        currentPlayerActor.sprite,
+        bench.sprite,
+        () => this.handlePlayerInteractableCollision(bench),
+        undefined,
+        this
+      );
+    }
   }
 
   private initPlayer() {
-    const cursors = this.input.keyboard.createCursorKeys();
-
-    const playerInput = new PlayerInput(cursors);
-
-    this.player = new Actor(this, 100, 200, 'character');
-
-    this.player.setControlState(playerInput);
-
-    this.cameras.main.startFollow(this.player.sprite, true);
-    this.cameras.main.setFollowOffset(
-      -this.player.sprite.width,
-      -this.player.sprite.height
-    );
+    const player = new Actor(this, 100, 200, 'character');
+    this.universe.addActor(player);
+    this.universe.setControlledActor(player);
+    this.universe.setSceneCameraToPlayer();
   }
 
   private initTileset() {
@@ -63,12 +59,11 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  public update(): void {
-    this.player.update();
-    this.bench.update();
+  private handlePlayerInteractableCollision(interactable: Interactable) {
+    this.universe.getControlledActor().setFocus(interactable);
   }
 
-  private handlePlayerInteractableCollision(interactable: Interactable) {
-    this.player.setFocus(interactable);
+  update() {
+    this.universe.update();
   }
 }

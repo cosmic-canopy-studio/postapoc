@@ -1,3 +1,5 @@
+import { log } from '../utilities';
+
 export default class Noun {
   readonly id: string;
   readonly moveable: boolean;
@@ -12,10 +14,12 @@ export default class Noun {
   takeDamage(damage = 1) {
     if (this.health - damage >= 0) {
       this._health -= damage;
-      console.log(this.health);
+      log.debug(
+        `${this.id} took ${damage} damage, health is now ${this.health}`
+      );
     } else {
       this._health = 0;
-      console.log(this.id + ' out of health, ready for destruction');
+      log.debug(this.id + ' out of health, ready for destruction');
       //TODO: Fire destruction event
     }
   }

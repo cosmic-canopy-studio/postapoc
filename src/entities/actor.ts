@@ -23,6 +23,10 @@ export default class Actor extends Interactable {
     this.playerInput = playerInput;
   }
 
+  unsetControlState() {
+    this.playerInput = undefined;
+  }
+
   getFocus() {
     if (!this.playerInput) {
       return;
