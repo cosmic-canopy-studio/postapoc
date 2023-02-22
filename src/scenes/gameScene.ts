@@ -1,5 +1,5 @@
 import { PlayerInput } from '../systems';
-import { Actor, Interactable } from '../entities/';
+import { Actor, Interactable } from '../entities';
 import { Logger } from 'tslog';
 
 const logger = new Logger();

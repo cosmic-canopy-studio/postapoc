@@ -1,4 +1,4 @@
-export default class Thing {
+export default class Noun {
   readonly id: string;
   readonly moveable: boolean;
   protected _health: number;

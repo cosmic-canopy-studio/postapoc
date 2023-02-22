@@ -36,7 +36,7 @@ export default class Actor extends Interactable {
     }
     this.playerInput.update(this);
     this.status.setText(
-      `Focus: ${this.playerInput.getFocus()?.thing.id || 'none'}`
+      `Focus: ${this.playerInput.getFocus()?.noun.id || 'none'}`
     );
   }
 
@@ -44,7 +44,7 @@ export default class Actor extends Interactable {
     if (!this.playerInput) {
       return;
     }
-    if (interactable.thing.id === this.thing.id) {
+    if (interactable.noun.id === this.noun.id) {
       this.playerInput.setFocus(undefined);
       this.status.setText('No focus');
     } else {

@@ -1,31 +1,31 @@
-import Thing from '../src/components/thing';
+import Noun from '../src/components/noun';
 import { Logger } from 'tslog';
 
-jest.deepUnmock('../src/components/thing');
+jest.deepUnmock('../src/components/noun');
 
-let thing: Thing;
-describe('A thing', () => {
+let noun: Noun;
+describe('A noun', () => {
   beforeEach(() => {
-    thing = new Thing('thing');
+    noun = new Noun('noun');
   });
 
   it('should lose 1 health when taking damage with no amount is specified', () => {
-    thing.takeDamage();
-    expect(thing.health).toBe(2);
+    noun.takeDamage();
+    expect(noun.health).toBe(2);
   });
 
   it('should lose 1 health when taking 2 damage', () => {
-    thing.takeDamage(2);
-    expect(thing.health).toBe(1);
+    noun.takeDamage(2);
+    expect(noun.health).toBe(1);
   });
 
   it('should log ready for destruction when out of health', () => {
     Logger;
     const logSpy = jest.spyOn(console, 'log');
-    thing.takeDamage(3);
+    noun.takeDamage(3);
     expect(logSpy).toHaveBeenCalledTimes(1);
     /* expect(logSpy).toHaveBeenCalledWith(
-      thing.id + ' out of health, ready for destruction'
+      noun.id + ' out of health, ready for destruction'
     ); */
   });
 });

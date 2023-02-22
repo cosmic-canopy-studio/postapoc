@@ -1,4 +1,4 @@
-import { Interactable, Actor } from '../entities/';
+import { Interactable, Actor } from '../entities';
 import { Verbs, Verb } from './verbs';
 
 export default class PlayerInput {
