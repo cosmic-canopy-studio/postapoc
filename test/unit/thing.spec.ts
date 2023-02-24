@@ -8,7 +8,7 @@ describe('A thing', () => {
   beforeEach(() => {
     thing = new Thing('thing');
   });
-  ``;
+
   it('should lose 1 health when taking damage with no amount is specified', () => {
     thing.takeDamage();
     expect(thing.health).toBe(2);
