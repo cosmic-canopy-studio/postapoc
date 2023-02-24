@@ -24,12 +24,5 @@ defineFeature(feature, (test) => {
     then(/^the bench should have (.*) health left$/, (arg0) => {
       expect(bench.thing.health).toBe(parseInt(arg0));
     });
-    /*then(/^the (.*) texture should show on the bench$/, (arg0) => {
-      expect(bench.sprite?.texture.key).toBe(arg0);
-    });
-    then(/^the bench should be (.*) destroyed$/, (arg0) => {
-      if (arg0 === 'not') expect(bench.sprite).toBeUndefined;
-      else expect(bench.sprite).toBeDefined;
-    });*/
   });
 });
