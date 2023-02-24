@@ -27,7 +27,8 @@
     "docs": "typedoc",
     "editor": "phasereditor2d-launcher -project .",
     "putout": "putout src",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "dependencies": {
     "phaser": "^3.55.2",
@@ -35,6 +36,8 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.11.1",
+    "@types/chai": "^4.3.4",
+    "@types/cucumber": "^7.0.0",
     "@types/eslint": "^8.21.0",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/jest": "^29.4.0",
@@ -42,6 +45,10 @@
     "@types/prettier": "^2.7.2",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
+    "chai": "^4.3.7",
+    "cucumber": "^6.0.7",
+    "cucumber-pretty": "^6.0.1",
+    "cucumber-tsflow": "^4.0.0-rc.7",
     "cypress": "^12.6.0",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
@@ -57,6 +64,7 @@
     "gh-pages": "^5.0.0",
     "jest": "^29.4.3",
     "jest-cli": "^29.4.3",
+    "jest-cucumber": "^3.0.1",
     "phasereditor2d-launcher": "^3.36.2",
     "prettier": "^2.8.4",
     "putout": "^28.16.0",

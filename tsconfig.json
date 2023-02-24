@@ -24,6 +24,5 @@
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js"],
-  "exclude": ["**/*.spec.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js"]
 }

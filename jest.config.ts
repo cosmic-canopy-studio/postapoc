@@ -1,22 +1,24 @@
-/*
- * For a detailed explanation regarding each configuration property and type check, visit:
- * https://jestjs.io/docs/configuration
- */
-
 export default {
   collectCoverage: false,
 
   collectCoverageFrom: ['./src/**'],
 
-  coverageDirectory: 'coverage',
-
   coverageProvider: 'v8',
 
-  coverageThreshold: { global: '80%' },
-
+  coverageDirectory: './test/coverage/',
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: -10
+    }
+  },
+  moduleFileExtensions: ['feature', 'js', 'json', 'ts', 'tsx'],
   testMatch: [
-    '**/tests/**/*.+(ts|tsx|js)',
-    '**/?(*.)+(spec|test).+(ts|tsx|js)'
+    //'**/test/**/*.+(ts|tsx|js)',
+    '**/test/**/?(*.)+(spec|test|steps).+(ts|tsx|js)'
+    //'**/test/**/*.feature'
   ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
