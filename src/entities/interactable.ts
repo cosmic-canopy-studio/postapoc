@@ -23,10 +23,7 @@ export default class Interactable {
         this.sprite.destroy();
         return;
       }
-      if (
-        this.thing.health < 2 &&
-        this.sprite?.texture.key !== 'bench-broken'
-      ) {
+      if (this.thing.health < 2 && this.sprite.texture.key !== 'bench-broken') {
         this.sprite.setTexture('bench-broken');
         log.debug(`${this.thing.id} broken`);
       }
