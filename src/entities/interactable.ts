@@ -1,11 +1,11 @@
-import Noun from '../components/noun';
+import Thing from '../components/thing';
 import { log } from '../utilities';
 
 export default class Interactable {
-  public noun: Noun;
+  public thing: Thing;
   public sprite?: Phaser.Physics.Arcade.Sprite;
   constructor(id: string) {
-    this.noun = new Noun(id);
+    this.thing = new Thing(id);
   }
 
   setSprite(sprite: Phaser.Physics.Arcade.Sprite) {
@@ -18,13 +18,17 @@ export default class Interactable {
 
   update() {
     if (this.sprite) {
-      if (this.noun.health < 1) {
+      if (this.thing.health < 1) {
+        log.debug(`${this.thing.id} dead`);
         this.sprite.destroy();
         return;
       }
-      if (this.noun.health < 2 && this.sprite?.texture.key !== 'bench-broken') {
+      if (
+        this.thing.health < 2 &&
+        this.sprite?.texture.key !== 'bench-broken'
+      ) {
         this.sprite.setTexture('bench-broken');
-        log.debug('bench broken');
+        log.debug(`${this.thing.id} broken`);
       }
     }
   }

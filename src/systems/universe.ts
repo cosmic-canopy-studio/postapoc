@@ -1,30 +1,22 @@
+import { PlayerControl } from '.';
 import { Actor, Interactable } from '../entities';
 import { GameScene } from '../scenes/gameScene';
-import PlayerInput from './playerInput';
 
 export class Universe {
   private currentScene: Phaser.Scene;
   private currentControlledActor?: Actor;
-  private cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   private actors: Actor[] = [];
   private interactables: Interactable[] = [];
-  private playerInput?: PlayerInput;
+  private playerControl: PlayerControl;
 
   constructor(currentScene: Phaser.Scene) {
     this.currentScene = currentScene;
-    this.setCursorKeys();
+    this.playerControl = new PlayerControl(this);
+    this.playerControl.loadKeyEvents(currentScene);
   }
 
   setControlledActor(actor: Actor) {
-    if (this.currentControlledActor) {
-      this.currentControlledActor.unsetControlState();
-    }
     this.currentControlledActor = actor;
-    if (this.playerInput) {
-      actor.setControlState(this.playerInput);
-    } else {
-      throw new Error('No player input');
-    }
   }
 
   getControlledActor() {
@@ -50,18 +42,9 @@ export class Universe {
     }
   }
 
-  setCursorKeys() {
-    this.cursorKeys = this.currentScene.input.keyboard.createCursorKeys();
-    this.setPlayerInput();
-  }
-
-  private setPlayerInput() {
-    this.playerInput = new PlayerInput(this.cursorKeys);
-  }
-
   setCurrentScene(scene: GameScene) {
     this.currentScene = scene;
-    this.setCursorKeys();
+    this.playerControl.loadKeyEvents(scene);
   }
 
   getCurrentScene() {

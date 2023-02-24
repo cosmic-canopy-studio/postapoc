@@ -1,8 +1,11 @@
-import PlayerInput from '../systems/playerInput';
+import { Directions } from '../systems';
+import { log } from '../utilities';
 import Interactable from './interactable';
 
 export default class Actor extends Interactable {
-  private playerInput?: PlayerInput;
+  protected focus?: Interactable;
+  protected speed = 100;
+  protected direction = 'down';
 
   constructor(id: string) {
     super(id);
@@ -20,36 +23,96 @@ export default class Actor extends Interactable {
     }
   }
 
-  setControlState(playerInput: PlayerInput) {
-    this.playerInput = playerInput;
-  }
-
-  unsetControlState() {
-    this.playerInput = undefined;
-  }
-
   getFocus() {
-    if (!this.playerInput) {
-      return;
-    }
-    return this.playerInput.getFocus();
+    return this.focus;
   }
 
   update() {
-    if (!this.playerInput) {
-      return;
+    if (this.sprite) {
+      if (this.thing.health < 1) {
+        log.debug(`${this.thing.id} dead`);
+        this.sprite.destroy();
+        return;
+      } else {
+        if (
+          this.sprite.body.velocity.x === 0 &&
+          this.sprite.body.velocity.y === 0
+        ) {
+          this.sprite.play(`idle-${this.direction}`, true);
+        }
+      }
     }
-    this.playerInput.update(this);
   }
 
   setFocus(interactable: Interactable) {
-    if (!this.playerInput) {
-      return;
-    }
-    if (interactable.noun.id === this.noun.id) {
-      this.playerInput.setFocus(undefined);
+    this.focus = interactable;
+  }
+
+  clearFocus() {
+    this.focus = undefined;
+  }
+
+  attack() {
+    if (this.focus) {
+      this.focus.thing.takeDamage(1);
+      this.sprite?.play(`action-${this.direction}`);
     } else {
-      this.playerInput.setFocus(interactable);
+      log.debug('Nothing to attack');
     }
+  }
+
+  move(direction: Directions) {
+    if (this.sprite) {
+      const normalizedVelocity = this.calcVelocity(direction);
+      this.sprite.setVelocity(
+        normalizedVelocity.x * this.speed,
+        normalizedVelocity.y * this.speed
+      );
+      this.sprite.play(`walk-${direction}`, true);
+      this.direction = direction;
+      this.focus = undefined;
+    }
+  }
+
+  calcVelocity(direction: string) {
+    const velocity = new Phaser.Math.Vector2(0, 0);
+    switch (direction) {
+      case 'up':
+        velocity.y -= 1;
+        break;
+      case 'down':
+        velocity.y += 1;
+        break;
+      case 'left':
+        velocity.x -= 1;
+        break;
+      case 'right':
+        velocity.x += 1;
+        break;
+    }
+    return velocity.normalize();
+  }
+
+  stop() {
+    if (this.sprite) {
+      this.sprite.setVelocity(0, 0);
+      this.sprite.play(`idle-${this.direction}`, true);
+    }
+  }
+
+  setSpeed(speed: number) {
+    this.speed = speed;
+  }
+
+  getSpeed() {
+    return this.speed;
+  }
+
+  setDirection(direction: string) {
+    this.direction = direction;
+  }
+
+  getDirection() {
+    return this.direction;
   }
 }

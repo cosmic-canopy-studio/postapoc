@@ -1,4 +1,5 @@
-import PlayerInput from './playerInput';
-import { Verbs, Verb } from './verbs';
+import { Actions, Action, Directions } from './action';
+import { PlayerControl } from './playerControl';
+import { Universe } from './universe';
 
-export { PlayerInput, Verbs, Verb };
+export { Actions, Action, Directions, PlayerControl, Universe };

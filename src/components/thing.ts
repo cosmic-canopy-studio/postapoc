@@ -1,6 +1,6 @@
 import { log } from '../utilities';
 
-export default class Noun {
+export default class Thing {
   readonly id: string;
   readonly moveable: boolean;
   protected _health: number;
@@ -20,7 +20,6 @@ export default class Noun {
     } else {
       this._health = 0;
       log.debug(this.id + ' out of health, ready for destruction');
-      //TODO: Fire destruction event
     }
   }
 
