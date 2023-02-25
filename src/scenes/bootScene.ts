@@ -1,4 +1,5 @@
 import { getGameWidth, getGameHeight } from '../utilities/helpers';
+import { assetPackUrl } from '../utilities/constants';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -70,8 +71,8 @@ export class BootScene extends Phaser.Scene {
     this.loadAssets();
   }
 
-  private loadAssets() {
+  private loadAssets(): void {
     this.load.image('sky', 'https://labs.phaser.io/assets/skies/space3.png');
-    this.load.pack('asset-pack', '../../assets/asset-pack.json');
+    this.load.pack('asset-pack', assetPackUrl);
   }
 }
