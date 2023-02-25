@@ -1,0 +1,49 @@
+{
+  "section1": {
+    "files": [
+      {
+        "url": "assets/tilemaps/basic-interior.json",
+        "type": "tilemapTiledJSON",
+        "key": "basic-interior"
+      },
+      {
+        "url": "assets/tilemaps/basic-interior.tmx",
+        "type": "binary",
+        "key": "basic-interior"
+      },
+      {
+        "url": "assets/sprites/bench.png",
+        "type": "image",
+        "key": "bench"
+      },
+      {
+        "url": "assets/sprites/bench-broken.png",
+        "type": "image",
+        "key": "bench-broken"
+      },
+      {
+        "type": "multiatlas",
+        "url": "assets/sprites/character.json",
+        "path": "assets/sprites",
+        "key": "character"
+      },
+      {
+        "url": "assets/animations/character.json",
+        "type": "animation",
+        "key": "character"
+      },
+      {
+        "url": "assets/tilesets/interior.png",
+        "type": "image",
+        "key": "interior"
+      }
+    ]
+  },
+  "meta": {
+    "app": "Phaser Editor 2D - Asset Pack Editor",
+    "contentType": "phasereditor2d.pack.core.AssetContentType",
+    "url": "https://phasereditor2d.com",
+    "version": 2,
+    "showAllFilesInBlocks": false
+  }
+}
