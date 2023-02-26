@@ -1,24 +1,22 @@
-# survival-game
+# PostApoc: Suviving and Thriving
 
-Mashing up all the things from our favorite survival games.
+Mashing up all the things great survival games in pursuit of the ultimate surthrival simulator.
 
 ## How to Use
 
-You should be able to clone this repository and run `yarn install` to get any of the necessary dependencies.
+1. Clone this repository and run `yarn install`.
 
-Once you're done installing, simply run `yarn dev` and the game should begin to run. You'll have to open an internet browser and go to the port that the game is running on (usually `localhost:8080` by default).
+2. Run `yarn dev --open` opens the game in a browser at `localhost:8080`.
 
-The game opens up to a main menu. Only the "Start Game" button does anything - the other two are placeholders. If you click "Start Game", you'll be taken to a black screen with a small sprite. You can move the sprite with the arrow keys. This starter kit is far from feature complete, but it's meant to take away the boilerplate that can come with getting a Phaser 3 + TypeScript project up-and-running.
-
-Running `yarn dev` runs the game in development mode, which produces larger bundle sizes but compiles faster and provides better debug support. If you desire a smaller game bundle or to host your game on a server, you can use `yarn build:prod` to compile the project into an optimized bundle. You can use `yarn prod` to run your game locally with production compilation, but this will cause your hot reloading to take longer.
+Click "Start Game" or press space bar to start.
 
 ## Milestones
 
-One intent of this project is to illustrate the evolution of a game over time. As such, major milestones, linked to both commits and branches, are documented here to give folks a chance to get moment in time glances at different stages.
+This project exposes the evolution of it's development over time in the form of milestones. Major milestones, linked to branches, are documented to give moment in time windows in to the game and it's code at different stages.
 
 ### Milestone 1: Phaser3 getting started
 
-Followed the [basic getting started guide](https://newdocs.phaser.io/docs/3.55.2) to create a basic "Hellow World" app. [Milestone 1 branch](https://github.com/Unnamed-GameDev-Studio/survival-game/tree/milestone-1).
+Followed the [basic getting started guide](https://newdocs.phaser.io/docs/3.55.2) to create a basic "Hello World" app. [Milestone 1 branch](https://github.com/Unnamed-GameDev-Studio/survival-game/tree/milestone-1).
 
 ### Milestone 2: An opinionated mashup of starter kits
 
