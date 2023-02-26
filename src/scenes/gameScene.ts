@@ -35,7 +35,7 @@ export class GameScene extends Phaser.Scene {
 
     const currentPlayerActor = this.universe.getControlledActor();
     if (!currentPlayerActor.sprite || !bench.sprite) {
-      throw new Error('Collision object not defined');
+      throw Error('Collision object not defined');
     } else {
       this.physics.add.collider(
         currentPlayerActor.sprite,

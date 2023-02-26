@@ -1,4 +1,5 @@
 import { MenuButton } from '../ui/menu-button';
+import { log } from '../utilities';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -33,11 +34,11 @@ export class MainMenuScene extends Phaser.Scene {
     });
 
     new MenuButton(this, 100, 250, 'Settings', () =>
-      console.log('settings button clicked')
+      log.debug('settings button clicked')
     );
 
     new MenuButton(this, 100, 350, 'Help', () =>
-      console.log('help button clicked')
+      log.debug('help button clicked')
     );
 
     this.input.keyboard.once(

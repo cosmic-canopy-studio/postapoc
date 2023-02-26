@@ -22,13 +22,13 @@ export class Universe {
   getControlledActor() {
     if (this.currentControlledActor) {
       return this.currentControlledActor;
-    } else {
-      throw new Error('No player actor');
     }
+
+    throw Error('No player actor');
   }
 
   setSceneCameraToPlayer() {
-    if (this.currentControlledActor && this.currentControlledActor.sprite) {
+    if (this.currentControlledActor?.sprite) {
       this.currentScene.cameras.main.startFollow(
         this.currentControlledActor.sprite,
         true
@@ -38,7 +38,7 @@ export class Universe {
         -this.currentControlledActor.sprite.height
       );
     } else {
-      throw new Error('No player actor for camera to follow');
+      throw Error('No player actor for camera to follow');
     }
   }
 
@@ -76,7 +76,7 @@ export class Universe {
   }
 
   update() {
-    this.actors.forEach((actor) => actor.update());
-    this.interactables.forEach((interactable) => interactable.update());
+    for (const actor of this.actors) actor.update();
+    for (const interactable of this.interactables) interactable.update();
   }
 }

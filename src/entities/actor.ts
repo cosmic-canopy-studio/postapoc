@@ -17,7 +17,7 @@ export default class Actor extends Interactable {
       this.sprite.setImmovable(false);
       this.sprite.play('idle-down');
     } else {
-      throw new Error('No sprite defined for actor');
+      throw Error('No sprite defined for actor');
     }
   }
 
@@ -35,13 +35,13 @@ export default class Actor extends Interactable {
         log.debug(`${this.thing.id} dead`);
         this.sprite.destroy();
         return;
-      } else {
-        if (
-          this.sprite.body.velocity.x === 0 &&
-          this.sprite.body.velocity.y === 0
-        ) {
-          this.sprite.play(`idle-${this.direction}`, true);
-        }
+      }
+
+      if (
+        this.sprite.body.velocity.x === 0 &&
+        this.sprite.body.velocity.y === 0
+      ) {
+        this.sprite.play(`idle-${this.direction}`, true);
       }
     }
   }
