@@ -30,5 +30,6 @@
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "docs"]
 }

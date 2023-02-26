@@ -41,6 +41,9 @@
   "devDependencies": {
     "@cucumber/cucumber": "^8.11.1",
     "@nabla/vite-plugin-eslint": "^1.5.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
     "@types/chai": "^4.3.4",
     "@types/cucumber": "^7.0.0",
     "@types/eslint": "^8.21.0",
@@ -71,6 +74,7 @@
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-redux": "^4.0.0",
     "eslint-plugin-regexp": "^1.12.0",
     "gh-pages": "^5.0.0",
@@ -89,6 +93,19 @@
     "typescript": "^4.9.5",
     "typesync": "^0.10.0",
     "vite": "^4.1.1",
-    "vite-plugin-gh-pages": "^0.4.1"
+    "vite-plugin-gh-pages": "^0.4.1",
+    "web-vitals": "^2.1.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

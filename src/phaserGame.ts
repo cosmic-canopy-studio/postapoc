@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import Scenes from './scenes';
-import './style.css';
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
   title: 'Survival Game',
@@ -15,10 +14,13 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   },
 
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.ScaleModes.RESIZE,
+    width: window.innerWidth,
+    height: window.innerHeight
+    /* mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     fullscreenTarget: 'app',
-    expandParent: false
+    expandParent: false */
   },
 
   physics: {
@@ -28,12 +30,8 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
     }
   },
 
-  parent: 'game',
-  backgroundColor: '#000000'
+  parent: 'phaser-container',
+  backgroundColor: '#282c34'
 };
 
-export const game = new Phaser.Game(gameConfig);
-
-window.addEventListener('resize', () => {
-  game.scale.refresh();
-});
+export const phaserGame = new Phaser.Game(gameConfig);
