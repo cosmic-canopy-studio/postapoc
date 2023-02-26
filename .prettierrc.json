@@ -10,5 +10,10 @@
   "trailingComma": "none",
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "files": ["*.css"] {
+    "options": {
+      "tabWidth": 4
+    }
+  }
 }

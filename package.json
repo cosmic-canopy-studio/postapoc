@@ -68,6 +68,8 @@
     "jest-cucumber": "^3.0.1",
     "phasereditor2d-launcher": "^3.36.2",
     "prettier": "^2.8.4",
+    "prettier-eslint": "^15.0.1",
+    "prettier-stylelint": "^0.4.2",
     "putout": "^28.16.0",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
