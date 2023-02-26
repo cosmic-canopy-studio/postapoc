@@ -12785,9 +12785,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"survival-app@workspace:.":
+"survival-game@workspace:.":
   version: 0.0.0-use.local
-  resolution: "survival-app@workspace:."
+  resolution: "survival-game@workspace:."
   dependencies:
     "@cucumber/cucumber": ^8.11.1
     "@nabla/vite-plugin-eslint": ^1.5.0
