@@ -11,9 +11,14 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": false,
   "arrowParens": "always",
-  "files": ["*.css"] {
-    "options": {
-      "tabWidth": 4
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "overrides": [
+    {
+      "files": ["*.css"],
+      "options": {
+        "tabWidth": 4
+      }
     }
-  }
+  ]
 }
