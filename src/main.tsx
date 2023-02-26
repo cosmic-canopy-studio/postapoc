@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
+import './main.css';
 import './phaserGame';
 import reportWebVitals from './utilities/reportWebVitals';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+export const main = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+main.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>

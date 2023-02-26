@@ -3,6 +3,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: auto;
+    padding: auto;
+    text-align: center;
 }
 
 code {

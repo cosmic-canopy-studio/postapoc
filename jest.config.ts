@@ -1,10 +1,7 @@
 export default {
   collectCoverage: false,
-
   collectCoverageFrom: ['./src/**'],
-
   coverageProvider: 'v8',
-
   coverageDirectory: './test/coverage/',
   coverageThreshold: {
     global: {
@@ -14,13 +11,20 @@ export default {
       statements: -10
     }
   },
-  moduleFileExtensions: ['feature', 'js', 'json', 'ts', 'tsx'],
-  testMatch: [
-    //'**/test/**/*.+(ts|tsx|js)',
-    '**/test/**/?(*.)+(spec|test|steps).+(ts|tsx|js)'
-    //'**/test/**/*.feature'
-  ],
+  moduleFileExtensions: ['feature', 'js', 'jsx', 'json', 'ts', 'tsx', 'node'],
+  testMatch: ['**/test/**/?(*.)+(spec|test|steps).+(ts|tsx|js)'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  }
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest'
+  },
+  setupFiles: ['jest-canvas-mock'],
+  setupFilesAfterEnv: [
+    '@testing-library/jest-dom',
+    '@testing-library/jest-dom/extend-expect'
+  ],
+  verbose: true,
+  testEnvironmentOptions: {
+    url: 'http://localhost/'
+  },
+  testEnvironment: 'jsdom'
 };

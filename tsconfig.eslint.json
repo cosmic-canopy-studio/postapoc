@@ -5,11 +5,5 @@
     "allowJs": true
   },
   "extends": "./tsconfig.json",
-  "include": [
-    ".eslintrc.cjs",
-    "jest.config.ts",
-    "**/*.feature",
-    "**/?(*.)+(spec|test|steps).+(ts|tsx|js)",
-    "**/test/**/*.+(ts|tsx|js)"
-  ]
+  "include": [".eslintrc.cjs"]
 }
