@@ -1,11 +1,9 @@
-import { Directions } from '../systems';
 import { log } from '../utilities';
 import Interactable from './interactable';
 
 export default class Actor extends Interactable {
   protected focus?: Interactable;
-  protected speed = 100;
-  protected direction = 'down';
+  protected damage = 1;
 
   constructor(id: string) {
     super(id);
@@ -25,6 +23,10 @@ export default class Actor extends Interactable {
 
   getFocus() {
     return this.focus;
+  }
+
+  getDamage() {
+    return this.damage;
   }
 
   update() {
@@ -50,69 +52,5 @@ export default class Actor extends Interactable {
 
   clearFocus() {
     this.focus = undefined;
-  }
-
-  attack() {
-    if (this.focus) {
-      this.focus.thing.takeDamage(1);
-      this.sprite?.play(`action-${this.direction}`);
-    } else {
-      log.debug('Nothing to attack');
-    }
-  }
-
-  move(direction: Directions) {
-    if (this.sprite) {
-      const normalizedVelocity = this.calcVelocity(direction);
-      this.sprite.setVelocity(
-        normalizedVelocity.x * this.speed,
-        normalizedVelocity.y * this.speed
-      );
-      this.sprite.play(`walk-${direction}`, true);
-      this.direction = direction;
-      this.focus = undefined;
-    }
-  }
-
-  calcVelocity(direction: string) {
-    const velocity = new Phaser.Math.Vector2(0, 0);
-    switch (direction) {
-      case 'up':
-        velocity.y -= 1;
-        break;
-      case 'down':
-        velocity.y += 1;
-        break;
-      case 'left':
-        velocity.x -= 1;
-        break;
-      case 'right':
-        velocity.x += 1;
-        break;
-    }
-    return velocity.normalize();
-  }
-
-  stop() {
-    if (this.sprite) {
-      this.sprite.setVelocity(0, 0);
-      this.sprite.play(`idle-${this.direction}`, true);
-    }
-  }
-
-  setSpeed(speed: number) {
-    this.speed = speed;
-  }
-
-  getSpeed() {
-    return this.speed;
-  }
-
-  setDirection(direction: string) {
-    this.direction = direction;
-  }
-
-  getDirection() {
-    return this.direction;
   }
 }

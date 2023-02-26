@@ -24,6 +24,8 @@ export class GameScene extends Phaser.Scene {
 
     this.initObjects();
     log.debug('game scene created');
+    this.scene.launch('UI');
+    log.debug('ui scene launched');
   }
 
   private initObjects() {

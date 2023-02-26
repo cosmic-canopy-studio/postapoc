@@ -36,20 +36,78 @@ export class Action {
   static performAction(action: Actions, actor: Actor) {
     switch (action) {
       case Actions.attack:
-        actor.attack();
+        this.attack(actor);
         break;
       case Actions.moveUp:
-        actor.move(Directions.up);
+        this.move(actor, Directions.up);
         break;
       case Actions.moveDown:
-        actor.move(Directions.down);
+        this.move(actor, Directions.down);
         break;
       case Actions.moveLeft:
-        actor.move(Directions.left);
+        this.move(actor, Directions.left);
         break;
       case Actions.moveRight:
-        actor.move(Directions.right);
+        this.move(actor, Directions.right);
         break;
+    }
+  }
+
+  static takeDamage(interactable: Interactable, damage = 1) {
+    interactable.health -= damage;
+    log.info(
+      `${interactable.id} took ${damage} damage, health is now ${interactable.health}`
+    );
+  }
+
+  static attack(attacker: Actor) {
+    const focusInteractable = attacker.getFocus();
+    if (focusInteractable) {
+      this.takeDamage(focusInteractable, attacker.getDamage());
+      attacker.sprite?.play(`action-${attacker.getDirection()}`);
+    } else {
+      log.debug(`${attacker.id} has no focus to attack`);
+    }
+  }
+
+  static move(interactable: Interactable, direction: Directions) {
+    if (interactable.sprite) {
+      const normalizedVelocity = this.calcVelocity(direction);
+      interactable.sprite.setVelocity(
+        normalizedVelocity.x * interactable.getSpeed(),
+        normalizedVelocity.y * interactable.getSpeed()
+      );
+      interactable.setDirection(direction);
+      interactable.sprite.play(`walk-${direction}`, true);
+      if (interactable instanceof Actor) {
+        interactable.clearFocus();
+      }
+    }
+  }
+
+  static calcVelocity(direction: string) {
+    const velocity = new Phaser.Math.Vector2(0, 0);
+    switch (direction) {
+      case 'up':
+        velocity.y -= 1;
+        break;
+      case 'down':
+        velocity.y += 1;
+        break;
+      case 'left':
+        velocity.x -= 1;
+        break;
+      case 'right':
+        velocity.x += 1;
+        break;
+    }
+    return velocity.normalize();
+  }
+
+  stop(interactable: Interactable) {
+    if (interactable.sprite) {
+      interactable.sprite.setVelocity(0, 0);
+      interactable.sprite.play(`idle-${this.direction}`, true);
     }
   }
 }
