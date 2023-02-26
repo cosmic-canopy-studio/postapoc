@@ -1,1 +1,1 @@
-export const assetPackUrl = '../../assets/asset-pack.json';
+export const assetPackUrl = './assets/asset-pack.json';
