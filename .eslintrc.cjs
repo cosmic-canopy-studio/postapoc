@@ -16,7 +16,13 @@ module.exports = defineConfig({
     'plugin:regexp/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',
-    'plugin:jest-formatting/recommended'
+    'plugin:jest-formatting/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react-redux/recommended'
   ],
   overrides: [],
   plugins: [
@@ -25,14 +31,26 @@ module.exports = defineConfig({
     'regexp',
     'only-warn',
     'jest',
-    'jest-formatting'
+    'jest-formatting',
+    'react-redux',
+    'react',
+    'react-hooks',
+    'jsx-a11y'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
-    project: 'tsconfig.json',
-    tsconfigRootDir: './'
+    project: [
+      './tsconfig.json',
+      './tsconfig.eslint.json',
+      './tsconfig.node.json'
+    ],
+    tsconfigRootDir: './',
+    ecmaFeatures: {
+      jsx: true,
+      modules: true
+    }
   },
   root: true,
   rules: {
@@ -40,6 +58,18 @@ module.exports = defineConfig({
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
-    'jest/valid-expect': 'error'
-  }
+    'jest/valid-expect': 'error',
+    'no-restricted-imports': 'off',
+    'import/named': 2,
+    '@typescript-eslint/no-restricted-imports': [
+      'warn',
+      {
+        name: 'react-redux',
+        importNames: ['useSelector', 'useDispatch'],
+        message:
+          'Use typed hooks `useAppDispatch` and `useAppSelector` instead.'
+      }
+    ]
+  },
+  ignorePatterns: ['src/**/*.test.ts']
 });

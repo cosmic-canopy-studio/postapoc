@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "scripthost"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable", "scripthost"],
+    "types": ["vite/client", "jest"],
     "moduleResolution": "Node",
     "strict": true,
+    "useDefineForClassFields": true,
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "jest"],
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,11 +18,17 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "baseUrl": "."
   },
   "typedocOptions": {
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.js"]
+  "include": ["src"]
 }
