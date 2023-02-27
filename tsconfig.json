@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable", "scripthost"],
-    "types": ["vite/client", "jest"],
+    "types": ["vite/client", "jest", "node"],
     "moduleResolution": "Node",
     "strict": true,
     "useDefineForClassFields": true,
@@ -19,7 +19,6 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
@@ -30,6 +29,5 @@
     "entryPoints": ["src/main.ts"],
     "out": "docs/typedocs"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "docs"]
+  "include": ["src", "test", "./vite.config.ts", "./jest.config.ts"]
 }

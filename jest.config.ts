@@ -15,16 +15,18 @@ export default {
   testMatch: ['**/test/**/?(*.)+(spec|test|steps).+(ts|tsx|js)'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
-    '^.+\\.jsx?$': 'babel-jest'
+    '^.+\\.(js|jsx)?$': 'babel-jest'
   },
   setupFiles: ['jest-canvas-mock'],
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
     '@testing-library/jest-dom/extend-expect'
   ],
-  verbose: true,
   testEnvironmentOptions: {
     url: 'http://localhost/'
   },
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  moduleNameMapper: {
+    '^uuid$': require.resolve('uuid')
+  }
 };

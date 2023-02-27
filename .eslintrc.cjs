@@ -5,8 +5,7 @@ module.exports = defineConfig({
   env: {
     browser: true,
     es2021: true,
-    jest: true,
-    'jest/globals': true
+    jest: true
   },
   extends: [
     'eslint:recommended',
@@ -22,15 +21,13 @@ module.exports = defineConfig({
     'plugin:react-hooks/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:react-redux/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:prettier/recommended' // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.`
+    'plugin:react/jsx-runtime'
   ],
   overrides: [],
   plugins: [
     '@typescript-eslint',
     'import',
     'regexp',
-    'only-warn',
     'jest',
     'jest-formatting',
     'react-redux',
@@ -42,11 +39,7 @@ module.exports = defineConfig({
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
-    project: [
-      './tsconfig.json',
-      './tsconfig.eslint.json',
-      './tsconfig.node.json'
-    ],
+    project: ['./tsconfig.json'],
     tsconfigRootDir: './',
     ecmaFeatures: {
       jsx: true,
@@ -60,6 +53,10 @@ module.exports = defineConfig({
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'jest/no-standalone-expect': [
+      'error',
+      { additionalTestBlockFunctions: ['then'] }
+    ],
     'no-restricted-imports': 'off',
     'import/named': 2,
     '@typescript-eslint/no-restricted-imports': [
