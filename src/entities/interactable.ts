@@ -49,16 +49,18 @@ export default class Interactable {
   }
 
   update() {
-    if (this.sprite) {
-      if (this.thing.health < 1) {
-        log.debug(`${this.thing.id} dead`);
+    if (this.thing.health < 1) {
+      log.info(`${this.thing.id} has died.`);
+      if (this.sprite) {
         this.sprite.destroy();
-        return;
       }
-      if (this.thing.health < 2 && this.sprite.texture.key !== 'bench-broken') {
+      return;
+    }
+    if (this.thing.health < 2) {
+      if (this.sprite && this.sprite.texture.key !== 'bench-broken') {
         this.sprite.setTexture('bench-broken');
-        log.debug(`${this.thing.id} broken`);
       }
+      log.info(`${this.thing.id} is broken`);
     }
   }
 }
