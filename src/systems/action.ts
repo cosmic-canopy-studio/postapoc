@@ -91,7 +91,7 @@ export class Action {
   stop(interactable: Interactable) {
     if (interactable.sprite) {
       interactable.sprite.setVelocity(0, 0);
-      interactable.sprite.play(`idle-${this.direction}`, true);
+      interactable.sprite.play(`idle-${interactable.getDirection()}`, true);
     }
   }
 }
