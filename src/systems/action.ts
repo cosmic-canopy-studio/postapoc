@@ -17,22 +17,6 @@ export enum Directions {
 }
 
 export class Action {
-  static interact(action: Actions, interactable?: Interactable) {
-    log.debug(
-      `Action: ${action} |  Focus: ${interactable?.thing.id || 'no focus'}`
-    );
-    switch (action) {
-      case Actions.attack:
-        if (interactable) {
-          interactable.thing.takeDamage(1);
-        } else {
-          log.debug('Nothing to attack');
-        }
-        break;
-      case Actions.moveUp:
-    }
-  }
-
   static performAction(action: Actions, actor: Actor) {
     switch (action) {
       case Actions.attack:
