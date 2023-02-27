@@ -2,12 +2,10 @@
  * @jest-environment jsdom
  */
 
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../../src/App';
 import '../../src/phaserGame';
 import { render } from '@testing-library/react';
-import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom';
 
 jest.mock('../../src/phaserGame', () => jest.fn());
