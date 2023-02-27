@@ -40,7 +40,7 @@ export default class Interactable {
     return this.thing.id;
   }
 
-  setDirection(direction: string) {
+  setDirection(direction: Directions) {
     this.direction = direction;
   }
 
