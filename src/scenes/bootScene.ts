@@ -1,4 +1,4 @@
-import { getGameWidth, getGameHeight } from '../helpers';
+import { getGameWidth, getGameHeight } from '../utilities/helpers';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,

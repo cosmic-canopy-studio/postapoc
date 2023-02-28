@@ -1,9 +1,6 @@
-import PlayerInputState from '../states/playerInputState';
-import '../actors/actor';
-import '../interactables/interactable';
-import { GridEngine } from 'grid-engine';
-import Actor from '../actors/actor';
-import Interactable from '../interactables/interactable';
+import { Actor, Interactable } from '../entities';
+import { log } from '../utilities';
+import { Universe } from '../systems/universe';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -12,97 +9,77 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 export class GameScene extends Phaser.Scene {
-  private gridEngine!: GridEngine;
-  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  private player!: Actor;
-  private status!: Phaser.GameObjects.Text;
+  private universe!: Universe;
 
   constructor() {
     super(sceneConfig);
   }
 
   public create(): void {
+    this.universe = new Universe(this);
+
+    this.initTileset();
+
+    this.initPlayer();
+
+    this.initObjects();
+    log.debug('game scene created');
+  }
+
+  private initObjects() {
+    const bench = new Interactable('bench');
+    bench.setSprite(this.createSprite(200, 200, 'bench'));
+    this.universe.addInteractable(bench);
+
+    const currentPlayerActor = this.universe.getControlledActor();
+    if (!currentPlayerActor.sprite || !bench.sprite) {
+      throw new Error('Collision object not defined');
+    } else {
+      this.physics.add.collider(
+        currentPlayerActor.sprite,
+        bench.sprite,
+        () => this.handlePlayerInteractableCollision(bench),
+        undefined,
+        this
+      );
+    }
+  }
+
+  private initPlayer() {
+    const player = new Actor('player');
+    player.setSprite(this.createSprite(100, 200, 'character', true));
+    this.universe.addActor(player);
+    this.universe.setControlledActor(player);
+    this.universe.setSceneCameraToPlayer();
+  }
+
+  private initTileset() {
     const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
     interiorTilemap.addTilesetImage('interior', 'interior');
     for (let i = 0; i < interiorTilemap.layers.length; i++) {
       interiorTilemap.createLayer(i, 'interior', 0, 0);
     }
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    this.gridEngine.create(interiorTilemap, { characters: [] });
-
-    const playerInputState = new PlayerInputState(
-      this.cursors,
-      this.gridEngine
-    );
-
-    const bench = this.add.interactable(0, 0, 'bench');
-
-    this.player = this.add.actor(0, 0, 'character') as Actor;
-
-    this.player.setControlState(playerInputState);
-
-    const playerCharacter = {
-      id: this.player.getId(),
-      sprite: this.player,
-      startPosition: { x: 2, y: 2 },
-      charLayer: 'ground'
-    };
-
-    this.status = this.add.text(-10, -20, this.player.getFocus() || 'none');
-
-    this.gridEngine.addCharacter(playerCharacter);
-
-    const benchCharacter = {
-      id: 'bench',
-      sprite: bench,
-      startPosition: { x: 4, y: 2 },
-      charLayer: 'ground'
-    };
-
-    this.gridEngine.addCharacter(benchCharacter);
-
-    this.cameras.main.startFollow(this.player, true);
-    this.cameras.main.setFollowOffset(-this.player.width, -this.player.height);
-
-    this.gridEngine.movementStarted().subscribe(({ direction }) => {
-      this.player.play('walk-'.concat(direction));
-    });
-    this.gridEngine.movementStopped().subscribe(({ direction }) => {
-      this.player.play('idle-'.concat(direction));
-    });
-
-    this.gridEngine.directionChanged().subscribe(({ direction }) => {
-      this.player.play('idle-'.concat(direction));
-    });
-
-    this.physics.add.collider(
-      this.player,
-      bench,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      this.handlePlayerInteractableCollision as ArcadePhysicsCallback,
-      undefined,
-      this
-    );
   }
 
-  public update(): void {
-    this.player.update();
-    this.updatePlayerFocus();
+  private handlePlayerInteractableCollision(interactable: Interactable) {
+    this.universe.getControlledActor().setFocus(interactable);
   }
 
-  private handlePlayerInteractableCollision(_obj1: Actor, obj2: Interactable) {
-    this.add.text(100, -20, 'collision');
-    this.player.setFocus(obj2);
-  }
-
-  private updatePlayerFocus() {
-    const facingTile = this.gridEngine.getFacingPosition(this.player.getId());
-    const tileObject = this.gridEngine.getCharactersAt(facingTile, 'ground');
-    if (tileObject.length > 0) {
-      const object = this.gridEngine.getSprite(tileObject[0]) as Interactable;
-      this.player.setFocus(object);
+  private createSprite(x: number, y: number, key: string, moveable = false) {
+    const sprite = new Phaser.Physics.Arcade.Sprite(this, x, y, key);
+    this.add.existing(sprite);
+    this.physics.add.existing(sprite);
+    if (moveable) {
+      sprite.setPushable(true);
+      sprite.setDrag(200, 200);
+    } else {
+      sprite.setPushable(false);
+      sprite.setImmovable(true);
     }
-    this.status.text = this.player.getFocus() || 'none';
+    return sprite;
+  }
+
+  update() {
+    this.universe.update();
   }
 }

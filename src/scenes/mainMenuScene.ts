@@ -29,7 +29,7 @@ export class MainMenuScene extends Phaser.Scene {
       .setFontSize(24);
 
     new MenuButton(this, 100, 150, 'Start Game', () => {
-      this.scene.start('Game');
+      this.startGame();
     });
 
     new MenuButton(this, 100, 250, 'Settings', () =>
@@ -43,9 +43,13 @@ export class MainMenuScene extends Phaser.Scene {
     this.input.keyboard.once(
       'keydown-SPACE',
       () => {
-        this.scene.start('Game');
+        this.startGame();
       },
       this
     );
+  }
+
+  startGame() {
+    this.scene.start('Game');
   }
 }

@@ -1,0 +1,13 @@
+{
+  "controls": {
+    "KeyW": "moveUp",
+    "KeyA": "moveLeft",
+    "KeyS": "moveDown",
+    "KeyD": "moveRight",
+    "Space": "attack",
+    "ArrowRight": "moveRight",
+    "ArrowLeft": "moveLeft",
+    "ArrowUp": "moveUp",
+    "ArrowDown": "moveDown"
+  }
+}

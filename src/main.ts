@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import { GridEngine } from 'grid-engine';
 import Scenes from './scenes';
 import './style.css';
 
@@ -25,19 +24,8 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 0 },
       debug: true
     }
-  },
-
-  plugins: {
-    scene: [
-      {
-        key: 'gridEngine',
-        plugin: GridEngine,
-        mapping: 'gridEngine'
-      }
-    ]
   },
 
   parent: 'game',
