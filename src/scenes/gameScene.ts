@@ -11,7 +11,6 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 
 export class GameScene extends Phaser.Scene {
     private universe!: Universe;
-    private healthBar: HealthBar | undefined;
 
     constructor() {
         super(sceneConfig);
@@ -59,8 +58,7 @@ export class GameScene extends Phaser.Scene {
         this.universe.addActor(player);
         this.universe.setControlledActor(player);
         this.universe.setSceneCameraToPlayer();
-        this.healthBar = new HealthBar(player);
-        this.events.on('playerHealthChanged', this.onPlayerHealthChanged, this);
+        player.healthBar = new HealthBar(player);
     }
 
     private initTileset() {
@@ -88,8 +86,4 @@ export class GameScene extends Phaser.Scene {
         }
         return sprite;
     }
-
-    private onPlayerHealthChanged = (health: number) => {
-        this.healthBar.set(health);
-    };
 }

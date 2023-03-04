@@ -1,12 +1,14 @@
 import Thing from '../components/thing';
 import { Directions } from '../systems';
 import { log } from '../utilities';
+import { HealthBar } from '../ui';
 
 export default class Interactable {
     public thing: Thing;
     public sprite?: Phaser.Physics.Arcade.Sprite;
     protected speed = 100;
     protected direction = Directions.down;
+    protected healthBar?: HealthBar;
 
     constructor(id: string) {
         this.thing = new Thing(id);
@@ -18,7 +20,9 @@ export default class Interactable {
 
     set health(health: number) {
         this.thing.health = health;
-        this.sprite?.scene.events.emit(`${this.id}HealthChanged`, this.health);
+        if (this.healthBar) {
+            this.healthBar.setHealth(health);
+        }
     }
 
     get id() {

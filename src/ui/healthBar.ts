@@ -17,12 +17,15 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
         height = 10,
         gapSize = 2
     ) {
-        super(interactable.sprite.scene);
-
-        // Check if the scene exists before adding the health bar to it
-        if (interactable.sprite.scene) {
-            interactable.sprite.scene.add.existing(this);
+        if (!interactable.sprite) {
+            throw Error('interactable sprite not defined');
         }
+
+        if (!interactable.sprite.scene) {
+            throw Error('interactable scene not defined');
+        }
+        const scene = interactable.sprite.scene;
+        super(scene);
 
         this.interactable = interactable;
         this.value = interactable.health;
@@ -34,19 +37,21 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
 
         this.xOffset = this.barWidth / 2;
         this.yOffset = interactable.sprite.height / 2 + this.barHeight * 2;
-        // Listen to the positionChanged event and update the health bar's position
+
+        this.draw();
+        this.updatePosition();
+
+        scene.add.existing(this);
+
         this.interactable.sprite.scene.events.on(
             `${this.interactable.id}PositionChanged`,
             () => {
                 this.updatePosition();
             }
         );
-
-        this.draw();
-        this.setPosition(interactable.sprite.x, interactable.sprite.y);
     }
 
-    public set(amount: number) {
+    public setHealth(amount: number) {
         this.value = amount;
         if (this.value < 0) {
             this.value = 0;

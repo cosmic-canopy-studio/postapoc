@@ -1,5 +1,6 @@
 import { log } from '../utilities';
 import Interactable from './interactable';
+import { HealthBar } from '../ui';
 
 export default class Actor extends Interactable {
     protected focus?: Interactable;
@@ -50,9 +51,16 @@ export default class Actor extends Interactable {
 
     setFocus(interactable: Interactable) {
         this.focus = interactable;
+        if (!interactable.healthBar) {
+            interactable.healthBar = new HealthBar(interactable);
+        }
     }
 
     clearFocus() {
-        this.focus = undefined;
+        if (this.focus) {
+            this.focus.healthBar.destroy();
+            this.focus.healthBar = undefined;
+            this.focus = undefined;
+        }
     }
 }
