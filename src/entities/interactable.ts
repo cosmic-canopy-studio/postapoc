@@ -6,6 +6,7 @@ import { HealthBar } from '../ui';
 export default class Interactable {
     public thing: Thing;
     public sprite?: Phaser.Physics.Arcade.Sprite;
+    public isMoving = false;
     protected speed = 100;
     protected direction = Directions.down;
     protected healthBar?: HealthBar;

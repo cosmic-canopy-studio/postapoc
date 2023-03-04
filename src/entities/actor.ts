@@ -1,7 +1,7 @@
 import Interactable from './interactable';
 
 export default class Actor extends Interactable {
-    protected focus: Interactable | undefined;
+    protected focus?: Interactable;
     protected damage = 1;
 
     constructor(id: string) {
@@ -42,16 +42,23 @@ export default class Actor extends Interactable {
         }
     }
 
-    setFocus(interactable: Interactable) {
-        this.focus = interactable;
-        if (!interactable.healthBar) {
-            interactable.addHealthBar();
+    setFocus(interactable?: Interactable) {
+        if (this.focus) {
+            this.clearCurrentFocus();
+        }
+
+        if (interactable) {
+            this.focus = interactable;
+            if (interactable.sprite) {
+                interactable.addHealthBar();
+            }
         }
     }
 
-    clearFocus() {
+    clearCurrentFocus() {
         if (this.focus) {
             this.focus.removeHealthBar();
+            this.focus = undefined;
         }
     }
 }

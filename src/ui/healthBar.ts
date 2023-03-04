@@ -1,16 +1,16 @@
 import { Interactable } from '../entities';
 import { log } from '../utilities';
+import * as Phaser from 'phaser';
 
 export class HealthBar extends Phaser.GameObjects.Graphics {
     private interactable: Interactable;
     private value: number;
-    private maxValue: number;
-    private barWidth: number;
-    private barHeight: number;
-    private unitSize: number;
-    private gapSize: number;
-    private yOffset: number;
-    private xOffset: number;
+    private readonly maxValue: number;
+    private readonly barWidth: number;
+    private readonly barHeight: number;
+    private readonly gapSize: number;
+    private readonly yOffset: number;
+    private readonly xOffset: number;
 
     constructor(
         interactable: Interactable,
@@ -19,8 +19,8 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
         gapSize = 2
     ) {
         if (!interactable.sprite) {
-            log.debug(interactable.id);
-            throw Error('interactable sprite not defined');
+            log.warn('interactable sprite not defined');
+            throw Error();
         }
 
         if (!interactable.sprite.scene) {
@@ -34,7 +34,6 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
         this.maxValue = interactable.health;
         this.barWidth = this.maxValue * width;
         this.barHeight = height;
-        this.unitSize = this.barWidth / this.maxValue;
         this.gapSize = gapSize;
 
         this.xOffset = this.barWidth / 2;
@@ -45,7 +44,7 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
 
         scene.add.existing(this);
 
-        this.interactable.sprite.scene.events.on(
+        this.interactable.sprite?.scene.events.on(
             `${this.interactable.id}PositionChanged`,
             () => {
                 this.updatePosition();
@@ -84,21 +83,19 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
         }
     }
 
-    public setPosition(x: number, y: number) {
-        this.x = x - this.xOffset;
-        this.y = y - this.yOffset;
-    }
-
     public updatePosition() {
+        if (!this.interactable.sprite) {
+            return;
+        }
         this.setPosition(
-            this.interactable.sprite.x,
-            this.interactable.sprite.y
+            this.interactable.sprite.x - this.xOffset,
+            this.interactable.sprite.y - this.yOffset
         );
     }
 
     public destroy() {
         // Remove the event listener when the health bar is destroyed
-        this.interactable.sprite.scene.events.off(
+        this.interactable.sprite?.scene.events.off(
             `${this.interactable.id}PositionChanged`
         );
         // Call this.destroy() instead of super.destroy()

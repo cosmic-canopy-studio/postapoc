@@ -1,7 +1,6 @@
 import { Actor, Interactable } from '../entities';
 import { log } from '../utilities';
 import { Universe } from '../systems';
-import { HealthBar } from '../ui';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     active: false,
@@ -58,7 +57,7 @@ export class GameScene extends Phaser.Scene {
         this.universe.addActor(player);
         this.universe.setControlledActor(player);
         this.universe.setSceneCameraToPlayer();
-        player.healthBar = new HealthBar(player);
+        player.addHealthBar();
     }
 
     private initTileset() {
