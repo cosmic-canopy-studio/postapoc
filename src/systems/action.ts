@@ -37,6 +37,18 @@ export class Action {
         }
     }
 
+    static resetAction(action: Actions, controlledActor: Actor) {
+        switch (action) {
+            case Actions.attack:
+                break;
+            case Actions.moveUp:
+            case Actions.moveDown:
+            case Actions.moveLeft:
+            case Actions.moveRight:
+                controlledActor.sprite.setDrag(200, 200);
+        }
+    }
+
     static takeDamage(interactable: Interactable, damage = 1) {
         interactable.health -= damage;
         log.info(
@@ -50,7 +62,7 @@ export class Action {
             this.takeDamage(focusInteractable, attacker.getDamage());
             attacker.sprite?.play(`action-${attacker.getDirection()}`);
             if (focusInteractable.health <= 0) {
-                attacker.clearFocus();
+                attacker.clearCurrentFocus();
             }
         } else {
             log.debug(`${attacker.id} has no focus to attack`);
@@ -65,8 +77,11 @@ export class Action {
                 normalizedVelocity.y * interactable.getSpeed()
             );
             interactable.setDirection(direction);
-            interactable.sprite.play(`walk-${direction}`, true);
             if (interactable instanceof Actor) {
+                interactable.sprite.play(`walk-${direction}`, true);
+                interactable.sprite.setDrag(0, 0);
+            }
+            if (interactable.clearFocus) {
                 interactable.clearFocus();
             }
         }

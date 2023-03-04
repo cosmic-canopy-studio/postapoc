@@ -29,10 +29,5 @@ export default {
     testEnvironment: 'jsdom',
     moduleNameMapper: {
         '^uuid$': require.resolve('uuid')
-    },
-
-    watchPlugins: [
-        'jest-watch-typeahead/filename',
-        'jest-watch-typeahead/testname'
-    ]
+    }
 };

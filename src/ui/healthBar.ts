@@ -1,5 +1,6 @@
 import { Interactable } from '../entities';
 import { log } from '../utilities';
+import * as Phaser from 'phaser';
 
 export class HealthBar extends Phaser.GameObjects.Graphics {
     private interactable: Interactable;
@@ -19,8 +20,8 @@ export class HealthBar extends Phaser.GameObjects.Graphics {
         gapSize = 2
     ) {
         if (!interactable.sprite) {
-            log.debug(interactable.id);
-            throw Error('interactable sprite not defined');
+            log.warn('interactable sprite not defined');
+            throw Error();
         }
 
         if (!interactable.sprite.scene) {
