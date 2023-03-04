@@ -11,15 +11,10 @@ module.exports = defineConfig({
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin`
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:regexp/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',
-    'plugin:jest-formatting/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
     'plugin:react-redux/recommended',
     'plugin:react/jsx-runtime'
   ],
@@ -29,11 +24,9 @@ module.exports = defineConfig({
     'import',
     'regexp',
     'jest',
-    'jest-formatting',
     'react-redux',
     'react',
     'react-hooks',
-    'jsx-a11y'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
