@@ -81,6 +81,7 @@ export default class Interactable {
         this.removeHealthBar();
         if (this.sprite) {
             this.sprite.destroy();
+            this.sprite = undefined;
         }
     }
 

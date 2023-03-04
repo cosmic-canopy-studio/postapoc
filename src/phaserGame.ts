@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import Scenes from './scenes';
 
-const gameConfig: Phaser.Types.Core.GameConfig = {
+export const gameConfig: Phaser.Types.Core.GameConfig = {
     title: 'Survival Game',
     url: 'https://github.com/Unnamed-GameDev-Studio/survival-game',
     version: '0.0.1', // TODO: Link this to the package version

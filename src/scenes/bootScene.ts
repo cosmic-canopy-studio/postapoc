@@ -14,7 +14,7 @@ export class BootScene extends Phaser.Scene {
         super(sceneConfig);
     }
 
-    public preload(): void {
+    public preload(scene = 'MainMenu'): void {
         const {
             progressBarContainer,
             progressBar,
@@ -43,7 +43,7 @@ export class BootScene extends Phaser.Scene {
                 progressBarContainer
             ].forEach((element) => element.destroy());
 
-            this.scene.start('MainMenu');
+            this.scene.start(scene);
         });
 
         this.loadAssets();

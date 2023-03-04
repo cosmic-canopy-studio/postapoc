@@ -1,5 +1,5 @@
 import { Actor, Interactable } from '../entities';
-import { log } from '../utilities';
+import { createSprite, log } from '../utilities';
 import { Universe } from '../systems';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -34,7 +34,7 @@ export class GameScene extends Phaser.Scene {
 
     private initObjects() {
         const bench = new Interactable('bench');
-        bench.setSprite(this.createSprite(200, 200, 'bench'));
+        bench.setSprite(createSprite(this, 200, 200, 'bench'));
         this.universe.addInteractable(bench);
 
         const currentPlayerActor = this.universe.getControlledActor();
@@ -53,7 +53,7 @@ export class GameScene extends Phaser.Scene {
 
     private initPlayer() {
         const player = new Actor('player');
-        player.setSprite(this.createSprite(100, 200, 'character', true));
+        player.setSprite(createSprite(this, 100, 200, 'character', true));
         this.universe.addActor(player);
         this.universe.setControlledActor(player);
         this.universe.setSceneCameraToPlayer();
@@ -70,19 +70,5 @@ export class GameScene extends Phaser.Scene {
 
     private handlePlayerInteractableCollision(interactable: Interactable) {
         this.universe.getControlledActor().setFocus(interactable);
-    }
-
-    private createSprite(x: number, y: number, key: string, moveable = false) {
-        const sprite = new Phaser.Physics.Arcade.Sprite(this, x, y, key);
-        this.add.existing(sprite);
-        this.physics.add.existing(sprite);
-        if (moveable) {
-            sprite.setPushable(true);
-            sprite.setDrag(200, 200);
-        } else {
-            sprite.setPushable(false);
-            sprite.setImmovable(true);
-        }
-        return sprite;
     }
 }

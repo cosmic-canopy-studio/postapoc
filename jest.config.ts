@@ -27,7 +27,15 @@ export default {
     },
     testPathIgnorePatterns: ['/node_modules/', '/dist/'],
     testEnvironment: 'jsdom',
+
     moduleNameMapper: {
+        '^@src/(.*)$': '<rootDir>/src/$1',
+        '^@components/(.*)$': '<rootDir>/src/components/$1',
+        '^@entities/(.*)$': '<rootDir>/src/entities/$1',
+        '^@scenes/(.*)$': '<rootDir>/src/scenes/$1',
+        '^@systems/(.*)$': '<rootDir>/src/systems/$1',
+        '^@ui/(.*)$': '<rootDir>/src/ui/$1',
+        '^@utils/(.*)$': '<rootDir>/src/utils/$1',
         '^uuid$': require.resolve('uuid')
     }
 };
