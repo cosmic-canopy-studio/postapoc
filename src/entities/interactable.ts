@@ -23,6 +23,12 @@ export default class Interactable {
         if (this.healthBar) {
             this.healthBar.setHealth(health);
         }
+        if (this.thing.health <= 0) {
+            this.destroy();
+        }
+        if (this.thing.health < 2) {
+            this.isBroken();
+        }
     }
 
     get id() {
@@ -43,6 +49,7 @@ export default class Interactable {
 
     unsetSprite() {
         this.sprite?.destroy();
+        this.sprite = undefined;
     }
 
     setDirection(direction: Directions) {
@@ -53,19 +60,33 @@ export default class Interactable {
         return this.direction;
     }
 
-    update() {
-        if (this.thing.health < 1) {
-            log.info(`${this.thing.id} has died.`);
-            if (this.sprite) {
-                this.sprite.destroy();
-            }
-            return;
+    addHealthBar() {
+        this.healthBar = new HealthBar(this);
+    }
+
+    removeHealthBar() {
+        if (this.healthBar) {
+            this.healthBar.destroy();
+            this.healthBar = undefined;
         }
-        if (this.thing.health < 2) {
-            if (this.sprite && this.sprite.texture.key !== 'bench-broken') {
-                this.sprite.setTexture('bench-broken');
-            }
-            log.info(`${this.thing.id} is broken`);
+    }
+
+    public update() {
+        return;
+    }
+
+    public destroy() {
+        log.info(`${this.thing.id} has died.`);
+        this.removeHealthBar();
+        if (this.sprite) {
+            this.sprite.destroy();
         }
+    }
+
+    private isBroken() {
+        if (this.sprite && this.sprite.texture.key !== 'bench-broken') {
+            this.sprite.setTexture('bench-broken');
+        }
+        log.info(`${this.thing.id} is broken`);
     }
 }

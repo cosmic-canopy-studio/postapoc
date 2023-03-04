@@ -49,6 +49,9 @@ export class Action {
         if (focusInteractable) {
             this.takeDamage(focusInteractable, attacker.getDamage());
             attacker.sprite?.play(`action-${attacker.getDirection()}`);
+            if (focusInteractable.health <= 0) {
+                attacker.clearFocus();
+            }
         } else {
             log.debug(`${attacker.id} has no focus to attack`);
         }
