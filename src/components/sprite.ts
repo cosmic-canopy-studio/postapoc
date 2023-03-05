@@ -22,7 +22,10 @@ export class Sprite implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('spriteShouldUpdate', this.handleSpriteUpdate);
+        this._eventBus.subscribe(
+            'spriteShouldUpdate',
+            this.handleSpriteUpdate.bind(this)
+        );
     }
 
     public setPlayerSpriteProperties() {

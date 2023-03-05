@@ -16,7 +16,10 @@ export class Interactable {
             'attackPerformed',
             this.handleAttackPerformed
         );
-        this.interactableEventBus.subscribe('destroyed', this.destroy);
+        this.interactableEventBus.subscribe(
+            'destroyed',
+            this.destroy.bind(this)
+        );
         this.interactableEventBus.subscribe(
             'componentDirty',
             this.markComponentDirty

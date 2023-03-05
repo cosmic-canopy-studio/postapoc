@@ -8,7 +8,7 @@ export class Attack implements IComponent {
         this._amount = amount;
     }
 
-    private _target?: string | undefined;
+    private _target = 'none';
 
     get target() {
         return this._target;
@@ -26,8 +26,11 @@ export class Attack implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('performAttack', this.performAttack);
-        this._eventBus.subscribe('focusChanged', this.focusChanged);
+        this._eventBus.subscribe(
+            'performAttack',
+            this.performAttack.bind(this)
+        );
+        this._eventBus.subscribe('focusChanged', this.focusChanged.bind(this));
     }
 
     public destroy() {

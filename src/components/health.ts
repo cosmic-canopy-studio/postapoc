@@ -12,7 +12,11 @@ export class Health implements IComponent {
     private readonly _brokenThreshold: number;
     private _eventBus!: EventBus;
 
-    constructor(amount: number, maxHealth: number, brokenThreshold: number) {
+    constructor(
+        amount: number,
+        maxHealth: number,
+        brokenThreshold = 1
+    ) {
         this._amount = amount;
         this._maxHealth = maxHealth;
         this._brokenThreshold = brokenThreshold;
@@ -28,13 +32,14 @@ export class Health implements IComponent {
         this._amount = amount;
         this._eventBus.publish('healthChanged', this._amount);
         if (this._amount <= 0) {
-            this.destroy();
+            log.info(`Object is destroyed`);
+            this._eventBus.publish('destroyed', this.amount);
         }
-        if (this._amount < this._brokenThreshold) {
+        if (this._amount <= this._brokenThreshold && !this._isBroken) {
             this._isBroken = true;
             this._eventBus.publish('broken', this._amount);
             log.info(`Object is broken`); // TODO: move logging to subscriber
-        } else {
+        } else if (this._amount >= this._brokenThreshold && this._isBroken) {
             this._isBroken = false;
             this._eventBus.publish('fixed', this._amount);
             log.info(`Object is no longer broken`);
@@ -53,7 +58,10 @@ export class Health implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('takeDamage', this.handleTakeDamage);
+        this._eventBus.subscribe(
+            'takeDamage',
+            this.handleTakeDamage.bind(this)
+        );
     }
 
     public update() {
@@ -61,8 +69,6 @@ export class Health implements IComponent {
     }
 
     public destroy() {
-        this._eventBus.publish('destroyed', this.amount);
-        log.info(`Object is destroyed`);
         this.unsubscribe();
     }
 

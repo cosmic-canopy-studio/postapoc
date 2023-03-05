@@ -7,11 +7,10 @@ Feature: Basic player interaction
             When the player attacks the bench <times> times
             Then the bench should have a healthBar
             Then the bench should have <health> health left
-            Then the <texture> texture should show on the bench
-            Then the bench should be <destroyed> destroyed
+            Then the bench should be <state>
 
             Examples:
-                | times | health | texture      | destroyed |
-                | 1     | 2      | bench        | not       |
-                | 2     | 1      | bench-broken | not       |
-                | 3     | 0      | undefined    |           |
+                | times | health | state     |
+                | 1     | 2      | fine      |
+                | 2     | 1      | broken    |
+                | 3     | 0      | destroyed |

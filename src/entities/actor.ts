@@ -24,14 +24,14 @@ export class Actor extends Interactable {
         );
         this.universeEventBus.subscribe(
             'attackRequested',
-            this.handleAttackRequested
+            this.handleAttackRequested.bind(this)
         );
-        this.universeEventBus.subscribe('move', this.handleMove);
-        this.universeEventBus.subscribe('stop', this.handleStop);
+        this.universeEventBus.subscribe('move', this.handleMove.bind(this));
+        this.universeEventBus.subscribe('stop', this.handleStop.bind(this));
     }
 
     private handleAttackRequested(interactableId: string) {
-        if (interactableId === this.id) {
+        if (interactableId === this._id) {
             this.interactableEventBus.publish(
                 'performAttack',
                 this.universeEventBus

@@ -15,8 +15,8 @@ export class Movement implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('move', this.handleMove);
-        this._eventBus.subscribe('stop', this.handleStop);
+        this._eventBus.subscribe('move', this.handleMove.bind(this));
+        this._eventBus.subscribe('stop', this.handleStop.bind(this));
     }
 
     handleStop() {
