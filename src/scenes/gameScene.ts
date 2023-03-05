@@ -37,8 +37,10 @@ export class GameScene extends Phaser.Scene {
             const player = new Actor('player', this._universe.eventBus);
             player.addComponent(
                 Sprite,
-                createSprite(this, 100, 200, 'character', true)
+                createSprite(this, 100, 200, 'character')
             );
+            const sprite = player.getComponent(Sprite);
+            sprite?.setPlayerSpriteProperties();
             this._universe.addInteractable(player);
             this._universe.setControlledActor(player);
             this._universe.setSceneCameraToPlayer();
@@ -46,10 +48,9 @@ export class GameScene extends Phaser.Scene {
 
         const initObjects = () => {
             const bench = new Interactable('bench', this._universe.eventBus);
-            bench.addComponent(
-                Sprite,
-                createSprite(this, 200, 200, 'bench', false)
-            );
+            bench.addComponent(Sprite, createSprite(this, 200, 200, 'bench'));
+            const sprite = bench.getComponent(Sprite);
+            sprite?.setObjectSpriteProperties();
             this._universe.addInteractable(bench);
 
             const currentPlayerActor = this._universe.getControlledActor();

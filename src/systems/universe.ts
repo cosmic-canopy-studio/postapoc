@@ -1,4 +1,4 @@
-import { EventBus, PlayerControl } from '.';
+import { ActionSystem, EventBus, PlayerControl } from '.';
 import { Actor, Interactable } from '@entities/.';
 import { Sprite } from '@components/sprite';
 import { GameScene } from '@scenes/gameScene';
@@ -10,19 +10,23 @@ export class Universe {
     private interactables: Map<string, Interactable> = new Map();
     private playerControl: PlayerControl;
     private dirtyInteractables: Interactable[] = [];
+    private actionSystem: ActionSystem;
 
     constructor(currentScene: Phaser.Scene) {
         this.currentScene = currentScene;
         this.eventBus = new EventBus();
         this.playerControl = new PlayerControl(this.eventBus);
         this.playerControl.loadKeyEvents(currentScene);
+        this.actionSystem = new ActionSystem(this.eventBus);
         this.eventBus.subscribe(
             'interactableDirty',
-            this.markInteractableDirty
+            this.markInteractableDirty,
+            this.constructor.name
         );
         this.eventBus.subscribe(
             'interactableDestroyed',
-            this.deleteInteractable
+            this.deleteInteractable,
+            this.constructor.name
         );
     }
 

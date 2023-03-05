@@ -1,4 +1,5 @@
 import { EventBus } from './';
+import { MoveEvent } from '@src/components';
 
 export enum Action {
     attack = 'attack',
@@ -17,7 +18,8 @@ export enum Direction {
     up = 'up',
     left = 'left',
     down = 'down',
-    right = 'right'
+    right = 'right',
+    stop = 'stop'
 }
 
 export class ActionSystem {
@@ -25,12 +27,20 @@ export class ActionSystem {
 
     constructor(eventBus: EventBus) {
         this.eventBus = eventBus;
-        this.eventBus.subscribe('actionEvent', this.handleAction);
-        this.eventBus.subscribe('resetEvent', this.handleResetAction);
+        this.eventBus.subscribe(
+            'actionEvent',
+            this.handleAction.bind(this),
+            this.constructor.name
+        );
+        this.eventBus.subscribe(
+            'resetEvent',
+            this.handleResetAction.bind(this),
+            this.constructor.name
+        );
     }
 
     handleAction(actionEvent: ActionEvent) {
-        const { interactableId } = actionEvent;
+        const interactableId = actionEvent.interactableId;
         switch (actionEvent.action) {
             case Action.attack:
                 this.eventBus.publish('attackRequested', interactableId);
@@ -58,7 +68,7 @@ export class ActionSystem {
             case Action.moveDown:
             case Action.moveLeft:
             case Action.moveRight:
-                this.eventBus.publish('stop', interactableId);
+                this.publishMove(interactableId, Direction.stop);
         }
     }
 
@@ -68,9 +78,10 @@ export class ActionSystem {
     }
 
     private publishMove(interactableId: string, direction: Direction) {
-        this.eventBus.publish('move', {
-            interactableId: interactableId,
-            Direction: direction
-        });
+        const moveEvent: MoveEvent = {
+            interactableId,
+            direction
+        };
+        this.eventBus.publish('move', moveEvent);
     }
 }

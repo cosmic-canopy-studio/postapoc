@@ -24,10 +24,23 @@ export class Actor extends Interactable {
         );
         this.universeEventBus.subscribe(
             'attackRequested',
+            this.handleAttackRequested.bind(this),
+            this.constructor.name
+        );
+        this.universeEventBus.subscribe(
+            'move',
+            this.handleMove.bind(this),
+            this.constructor.name
+        );
+    }
+
+    public destroy(): void {
+        this.universeEventBus.unsubscribe(
+            'attackRequested',
             this.handleAttackRequested.bind(this)
         );
-        this.universeEventBus.subscribe('move', this.handleMove.bind(this));
-        this.universeEventBus.subscribe('stop', this.handleStop.bind(this));
+        this.universeEventBus.unsubscribe('move', this.handleMove.bind(this));
+        super.destroy();
     }
 
     private handleAttackRequested(interactableId: string) {
@@ -44,15 +57,6 @@ export class Actor extends Interactable {
             const movementComponent = this.getComponent(Movement);
             if (movementComponent) {
                 this.interactableEventBus.publish('move', movement.direction);
-            }
-        }
-    }
-
-    private handleStop(id: string) {
-        if (id === this.id) {
-            const movementComponent = this.getComponent(Movement);
-            if (movementComponent) {
-                this.interactableEventBus.publish('stop', undefined);
             }
         }
     }

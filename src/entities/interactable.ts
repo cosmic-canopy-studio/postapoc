@@ -14,15 +14,18 @@ export class Interactable {
         this.universeEventBus = universalEventBus;
         this.universeEventBus.subscribe(
             'attackPerformed',
-            this.handleAttackPerformed
+            this.handleAttackPerformed,
+            this.constructor.name
         );
         this.interactableEventBus.subscribe(
             'destroyed',
-            this.destroy.bind(this)
+            this.destroy.bind(this),
+            this.constructor.name
         );
         this.interactableEventBus.subscribe(
             'componentDirty',
-            this.markComponentDirty
+            this.markComponentDirty,
+            this.constructor.name
         );
     }
 

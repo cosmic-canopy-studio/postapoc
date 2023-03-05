@@ -12,11 +12,7 @@ export class Health implements IComponent {
     private readonly _brokenThreshold: number;
     private _eventBus!: EventBus;
 
-    constructor(
-        amount: number,
-        maxHealth: number,
-        brokenThreshold = 1
-    ) {
+    constructor(amount: number, maxHealth: number, brokenThreshold = 1) {
         this._amount = amount;
         this._maxHealth = maxHealth;
         this._brokenThreshold = brokenThreshold;
@@ -60,7 +56,8 @@ export class Health implements IComponent {
         this._eventBus = eventBus;
         this._eventBus.subscribe(
             'takeDamage',
-            this.handleTakeDamage.bind(this)
+            this.handleTakeDamage.bind(this),
+            this.constructor.name
         );
     }
 

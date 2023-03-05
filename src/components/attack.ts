@@ -28,9 +28,15 @@ export class Attack implements IComponent {
         this._eventBus = eventBus;
         this._eventBus.subscribe(
             'performAttack',
-            this.performAttack.bind(this)
+            this.performAttack.bind(this),
+            this.constructor.name
         );
-        this._eventBus.subscribe('focusChanged', this.focusChanged.bind(this));
+
+        this._eventBus.subscribe(
+            'focusChanged',
+            this.focusChanged.bind(this),
+            this.constructor.name
+        );
     }
 
     public destroy() {

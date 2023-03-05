@@ -15,32 +15,35 @@ export class Movement implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('move', this.handleMove.bind(this));
-        this._eventBus.subscribe('stop', this.handleStop.bind(this));
+        this._eventBus.subscribe(
+            'move',
+            this.handleMove.bind(this),
+            this.constructor.name
+        );
     }
 
-    handleStop() {
-        this._velocity.x = 0;
-        this._velocity.y = 0;
-        this._eventBus.publish('spriteAnimationShouldChange', {
-            velocity: this._velocity,
-            animationKey: `idle-${this._direction}`,
-            ignoreIfPlaying: false
-        });
-    }
+    handleStop() {}
 
     public destroy(): void {
         this.unsubscribe();
     }
 
     private handleMove(direction: Direction) {
-        this._direction = direction;
-        this._velocity.x = this.calcVelocity().x * this._speed;
-        this._velocity.y = this.calcVelocity().y * this._speed;
+        let animationKey;
+        if (direction === 'stop') {
+            this._velocity.x = 0;
+            this._velocity.y = 0;
+            animationKey = `idle-${this._direction}`;
+        } else {
+            this._direction = direction;
+            this._velocity.x = this.calcVelocity().x * this._speed;
+            this._velocity.y = this.calcVelocity().y * this._speed;
+            animationKey = `move-${this._direction}`;
+        }
 
         this._eventBus.publish('spriteShouldUpdate', {
             velocity: this._velocity,
-            animationKey: `move-${this._direction}`,
+            animationKey: animationKey,
             ignoreIfPlaying: false
         });
     }
@@ -66,6 +69,5 @@ export class Movement implements IComponent {
 
     private unsubscribe() {
         this._eventBus.unsubscribe('move', this.handleMove);
-        this._eventBus.unsubscribe('stop', this.handleStop);
     }
 }

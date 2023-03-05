@@ -6,16 +6,28 @@ import { EventBus } from '@src/systems';
 export class PlayerControl {
     private keyMap: Map<string, string>;
     private eventBus: EventBus;
+    private debug = false;
 
     constructor(eventBus: EventBus) {
         const { controls } = config;
         this.keyMap = new Map(Object.entries(controls));
         this.eventBus = eventBus;
+        this.eventBus.subscribe(
+            'toggleDebugMode',
+            () => {
+                this.toggleDebugMode();
+            },
+            this.constructor.name
+        );
+    }
+
+    public toggleDebugMode() {
+        this.debug = !this.debug;
     }
 
     loadKeyEvents(scene: Phaser.Scene) {
         scene.input.removeAllListeners();
-        log.debug('Loading key events');
+        if (this.debug) log.debug('Loading key events');
         scene.input.keyboard.on('keydown', (input: KeyboardEvent) => {
             if (!input.repeat) {
                 this.handleKeyDownEvent(input);
@@ -29,24 +41,28 @@ export class PlayerControl {
     public handleKeyDownEvent(input: KeyboardEvent) {
         const action = this.getActionFromKeyCode(input.code);
         if (action) {
+            if (this.debug) log.debug(`KeyDown Action: ${action}`);
             this.eventBus.publish('actionEvent', {
                 action: action,
                 interactableId: 'player'
             });
         } else {
-            log.debug(`Unconfigured key pressed: ${input.code}`);
+            if (this.debug)
+                log.debug(`Unconfigured key pressed: ${input.code}`);
         }
     }
 
     public handleKeyUpEvent(input: KeyboardEvent) {
         const action = this.getActionFromKeyCode(input.code);
         if (action) {
+            if (this.debug) log.debug(`KeyUp Action: ${action}`);
             this.eventBus.publish('resetEvent', {
                 action: action,
                 interactableId: 'player'
             });
         } else {
-            log.debug(`Unconfigured key pressed: ${input.code}`);
+            if (this.debug)
+                log.debug(`Unconfigured key pressed: ${input.code}`);
         }
     }
 
@@ -55,7 +71,7 @@ export class PlayerControl {
         if (action) {
             return action as Action;
         }
-        log.debug(`No action mapped to key: ${input}`);
+        if (this.debug) log.debug(`No action mapped to key: ${input}`);
         return null;
     }
 }

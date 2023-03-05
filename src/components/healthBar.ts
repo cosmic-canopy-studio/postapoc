@@ -10,10 +10,15 @@ export class HealthBarComponent implements IComponent {
 
     public subscribe(eventBus: EventBus) {
         this._eventBus = eventBus;
-        this._eventBus.subscribe('healthChanged', this.updateHealth.bind(this));
+        this._eventBus.subscribe(
+            'healthChanged',
+            this.updateHealth.bind(this),
+            this.constructor.name
+        );
         this._eventBus.subscribe(
             'positionChanged',
-            this.updatePosition.bind(this)
+            this.updatePosition.bind(this),
+            this.constructor.name
         );
     }
 

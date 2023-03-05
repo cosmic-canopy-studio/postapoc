@@ -24,7 +24,8 @@ export class Sprite implements IComponent {
         this._eventBus = eventBus;
         this._eventBus.subscribe(
             'spriteShouldUpdate',
-            this.handleSpriteUpdate.bind(this)
+            this.handleSpriteUpdate.bind(this),
+            this.constructor.name
         );
     }
 
@@ -33,6 +34,11 @@ export class Sprite implements IComponent {
         this._sprite.setPushable(false);
         this._sprite.setImmovable(false);
         this._sprite.play('idle-down');
+    }
+
+    public setObjectSpriteProperties() {
+        this._sprite.setPushable(false);
+        this._sprite.setImmovable(true);
     }
 
     public handleSpriteUpdate = (update: SpriteUpdate) => {

@@ -61,7 +61,7 @@
             "repeat": -1
         },
         {
-            "key": "walk-down",
+            "key": "move-down",
             "type": "frame",
             "frames": [
                 {
@@ -88,7 +88,7 @@
             "repeat": -1
         },
         {
-            "key": "walk-left",
+            "key": "move-left",
             "type": "frame",
             "frames": [
                 {
@@ -115,7 +115,7 @@
             "repeat": -1
         },
         {
-            "key": "walk-right",
+            "key": "move-right",
             "type": "frame",
             "frames": [
                 {
@@ -142,7 +142,7 @@
             "repeat": -1
         },
         {
-            "key": "walk-up",
+            "key": "move-up",
             "type": "frame",
             "frames": [
                 {

@@ -1,34 +1,60 @@
+import { log } from '@src/utilities';
+
 type EventHandler = (event: any) => void;
+type Subscriber = [EventHandler, string];
 
 export class EventBus {
-    private subscribers: Map<string, EventHandler[]>;
+    private subscribers: Map<string, Subscriber[]>;
+    private debug = true;
 
     constructor() {
-        this.subscribers = new Map<string, EventHandler[]>();
+        this.subscribers = new Map<string, Subscriber[]>();
     }
 
-    public subscribe(eventType: string, handler: EventHandler) {
+    public toggleDebugMode() {
+        this.debug = !this.debug;
+    }
+
+    public subscribe(
+        eventType: string,
+        handler: EventHandler,
+        callingClass = 'unknown'
+    ) {
         if (!this.subscribers.has(eventType)) {
             this.subscribers.set(eventType, []);
         }
-        this.subscribers.get(eventType)?.push(handler);
+        this.subscribers.get(eventType)?.push([handler, callingClass]);
+        if (this.debug) {
+            log.debug(`${callingClass} subscribed to ${eventType}`);
+        }
     }
 
     public unsubscribe(eventType: string, handler: EventHandler) {
-        const handlers = this.subscribers.get(eventType);
-        if (handlers) {
-            const index = handlers.indexOf(handler);
+        const subscribers = this.subscribers.get(eventType);
+        if (subscribers) {
+            const index = subscribers.findIndex(([h]) => h === handler);
             if (index !== -1) {
-                handlers.splice(index, 1);
+                const [_, callingClass] = subscribers[index];
+                subscribers.splice(index, 1);
+                if (this.debug) {
+                    log.debug(`${callingClass} unsubscribed from ${eventType}`);
+                }
             }
         }
     }
 
     public publish(eventType: string, event: any) {
-        const handlers = this.subscribers.get(eventType);
-        if (handlers) {
-            handlers.forEach((handler) => {
+        const subscribers = this.subscribers.get(eventType);
+        if (subscribers) {
+            subscribers.forEach(([handler, callingClass]) => {
                 handler(event);
+                if (this.debug) {
+                    log.debug(
+                        `${callingClass} received ${eventType} event: ${JSON.stringify(
+                            event
+                        )}`
+                    );
+                }
             });
         }
     }
