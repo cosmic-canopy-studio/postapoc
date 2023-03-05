@@ -1,94 +1,120 @@
-import Thing from '../components/thing';
-import { Directions } from '../systems';
-import { log } from '../utilities';
-import { HealthBar } from '../ui';
+import { DamageEvent, Health } from '@components/health';
+import { ComponentMap, IComponent } from '@src/components';
+import { EventBus } from '@src/systems';
 
-export default class Interactable {
-    public thing: Thing;
-    public sprite?: Phaser.Physics.Arcade.Sprite;
-    public isMoving = false;
-    protected speed = 100;
-    protected direction = Directions.down;
-    protected healthBar?: HealthBar;
+export class Interactable {
+    public interactableEventBus: EventBus = new EventBus();
+    public universeEventBus!: EventBus;
+    protected components: ComponentMap = {};
+    protected dirtyComponents: string[] = [];
 
-    constructor(id: string) {
-        this.thing = new Thing(id);
+    constructor(id: string, universalEventBus: EventBus) {
+        this._id = id;
+        this.addComponent(Health, 3);
+        this.universeEventBus = universalEventBus;
+        this.universeEventBus.subscribe(
+            'attackPerformed',
+            this.handleAttackPerformed
+        );
+        this.interactableEventBus.subscribe('destroyed', this.destroy);
+        this.interactableEventBus.subscribe(
+            'componentDirty',
+            this.markComponentDirty
+        );
     }
 
-    get health() {
-        return this.thing.health;
+    protected _id: string;
+
+    public get id() {
+        return this._id;
     }
 
-    set health(health: number) {
-        this.thing.health = health;
-        if (this.healthBar) {
-            this.healthBar.setHealth(health);
+    public subscribe(universeEventBus: EventBus) {
+        this.universeEventBus = universeEventBus;
+    }
+
+    public addComponent<T extends IComponent>(
+        type: new (...args: any[]) => T,
+        ...args: ConstructorParameters<typeof type>
+    ): void {
+        const componentName = type.name;
+        if (this.components[componentName]) {
+            throw new Error(
+                `Interactable already has component of type ${componentName}`
+            );
         }
-        if (this.thing.health <= 0) {
-            this.destroy();
-        }
-        if (this.thing.health < 2) {
-            this.isBroken();
-        }
-    }
-
-    get id() {
-        return this.thing.id;
-    }
-
-    setSpeed(speed: number) {
-        this.speed = speed;
-    }
-
-    getSpeed(): number {
-        return this.speed;
-    }
-
-    setSprite(sprite: Phaser.Physics.Arcade.Sprite) {
-        this.sprite = sprite;
-    }
-
-    unsetSprite() {
-        this.sprite?.destroy();
-        this.sprite = undefined;
-    }
-
-    setDirection(direction: Directions) {
-        this.direction = direction;
-    }
-
-    getDirection() {
-        return this.direction;
-    }
-
-    addHealthBar() {
-        this.healthBar = new HealthBar(this);
-    }
-
-    removeHealthBar() {
-        if (this.healthBar) {
-            this.healthBar.destroy();
-            this.healthBar = undefined;
+        const component = new type(...args);
+        this.components[componentName] = component;
+        if (component.subscribe) {
+            component.subscribe(this.interactableEventBus);
         }
     }
 
-    public update() {
-        return;
+    public getComponent<T extends IComponent>(
+        type: new (...args: any[]) => T
+    ): T | undefined {
+        const componentName = type.name;
+        return this.components[componentName] as T | undefined;
     }
 
-    public destroy() {
-        log.info(`${this.thing.id} has died.`);
-        this.removeHealthBar();
-        if (this.sprite) {
-            this.sprite.destroy();
-            this.sprite = undefined;
+    public hasComponent<T extends IComponent>(
+        type: new (...args: any[]) => T
+    ): boolean {
+        const componentName = type.name;
+        return !!this.components[componentName];
+    }
+
+    public removeComponentByType<T extends IComponent>(
+        type: new (...args: any[]) => T
+    ): void {
+        const componentName = type.name;
+        if (this.components[componentName]) {
+            const component = this.components[componentName];
+            if (component.destroy) {
+                component.destroy();
+            }
+            delete this.components[componentName];
+            const index = this.dirtyComponents.indexOf(componentName);
+            if (index !== -1) {
+                this.dirtyComponents.splice(index, 1);
+            }
         }
     }
 
-    private isBroken() {
-        if (this.sprite && this.sprite.texture.key !== 'bench-broken') {
-            this.sprite.setTexture('bench-broken');
+    public update(): void {
+        for (const componentName of this.dirtyComponents) {
+            const component = this.components[componentName];
+            if (component && component.update) {
+                component.update();
+            }
         }
-        log.info(`${this.thing.id} is broken`);
+        this.dirtyComponents = [];
     }
+
+    public destroy(): void {
+        for (const componentName in this.components) {
+            const component = this.components[componentName];
+            if (component.destroy) {
+                component.destroy();
+            }
+            delete this.components[componentName];
+        }
+        this.universeEventBus.publish('interactableDestroyed', this.id);
+    }
+
+    public markComponentDirty(componentName: string): void {
+        if (!this.dirtyComponents.includes(componentName)) {
+            this.dirtyComponents.push(componentName);
+            this.universeEventBus.publish('interactableDirty', this);
+        }
+    }
+
+    private handleAttackPerformed = (targetDamage: DamageEvent) => {
+        if (targetDamage.target === this.id) {
+            this.interactableEventBus.publish(
+                'takeDamage',
+                targetDamage.damage
+            );
+        }
+    };
 }

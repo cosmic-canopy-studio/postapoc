@@ -1,3 +1,3 @@
-import { HealthBar } from './healthBar';
+import { HealthBarUI } from './healthBarUI';
 
-export { HealthBar };
+export { HealthBarUI };

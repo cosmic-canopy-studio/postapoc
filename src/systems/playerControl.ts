@@ -1,16 +1,16 @@
 import { log } from '../utilities';
-import { Action, Actions } from './action';
-import { Universe } from './universe';
+import { Action } from './actionSystem';
 import config from '../../config/config.json' assert { type: 'json' };
+import { EventBus } from '@src/systems';
 
 export class PlayerControl {
     private keyMap: Map<string, string>;
-    private universe: Universe;
+    private eventBus: EventBus;
 
-    constructor(universe: Universe) {
+    constructor(eventBus: EventBus) {
         const { controls } = config;
         this.keyMap = new Map(Object.entries(controls));
-        this.universe = universe;
+        this.eventBus = eventBus;
     }
 
     loadKeyEvents(scene: Phaser.Scene) {
@@ -26,13 +26,25 @@ export class PlayerControl {
         });
     }
 
-    private handleKeyDownEvent(input: KeyboardEvent) {
+    public handleKeyDownEvent(input: KeyboardEvent) {
         const action = this.getActionFromKeyCode(input.code);
         if (action) {
-            const controlledActor = this.universe.getControlledActor();
-            if (controlledActor) {
-                Action.performAction(action, controlledActor);
-            }
+            this.eventBus.publish('actionEvent', {
+                action: action,
+                interactableId: 'player'
+            });
+        } else {
+            log.debug(`Unconfigured key pressed: ${input.code}`);
+        }
+    }
+
+    public handleKeyUpEvent(input: KeyboardEvent) {
+        const action = this.getActionFromKeyCode(input.code);
+        if (action) {
+            this.eventBus.publish('resetEvent', {
+                action: action,
+                interactableId: 'player'
+            });
         } else {
             log.debug(`Unconfigured key pressed: ${input.code}`);
         }
@@ -41,21 +53,9 @@ export class PlayerControl {
     private getActionFromKeyCode(input: string) {
         const action = this.keyMap.get(input);
         if (action) {
-            return action as Actions;
+            return action as Action;
         }
         log.debug(`No action mapped to key: ${input}`);
         return null;
-    }
-
-    private handleKeyUpEvent(input: KeyboardEvent) {
-        const action = this.getActionFromKeyCode(input.code);
-        if (action) {
-            const controlledActor = this.universe.getControlledActor();
-            if (controlledActor) {
-                Action.resetAction(action, controlledActor);
-            }
-        } else {
-            log.debug(`Unconfigured key pressed: ${input.code}`);
-        }
     }
 }

@@ -1,6 +1,5 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import { Actor, Interactable } from '@src/entities';
-import { Action, Actions } from '@src/systems';
 import { GameScene } from '@src/scenes/gameScene';
 import { gameConfig } from '@src/phaserGame';
 import Phaser from 'phaser';
@@ -36,15 +35,18 @@ defineFeature(feature, (test) => {
     let scene: GameScene;
     let phaser: Phaser.Game;
 
-    beforeAll(() => {
+    beforeAll(async () => {
         phaser = new Phaser.Game(gameConfig as GameConfig);
+        scene = phaser.scene.getScene('GameScene');
+        await scene.create();
     });
 
     beforeEach(async () => {
         jest.clearAllMocks();
-        scene = phaser.scene.start('GameScene');
-        player = new Actor('player');
-        bench = new Interactable('bench');
+        const universeEventBus = scene.universe.eventBus;
+
+        player = new Actor('player', universeEventBus);
+        bench = new Interactable('bench', universeEventBus);
         mockBenchSprite.setTexture('bench');
         mockBenchSprite.scene = scene;
         bench.setSprite(mockBenchSprite);
@@ -52,14 +54,15 @@ defineFeature(feature, (test) => {
 
     test('A player attacking a bench', ({ given, when, then }) => {
         given('a player focused on a bench', () => {
-            player.setFocus(bench);
+            player.interactableEventBus.publish('focusChanged', 'bench');
         });
         when(/^the player attacks the bench (.*) times$/, (arg0: string) => {
             for (let i = 0; i < parseInt(arg0); i++) {
-                Action.performAction(Actions.attack, player);
+                player.universeEventBus.publish('attackRequested', player.id);
             }
         });
         then('the bench should have a healthBar', () => {
+            const healthBar = bench.getComponent('HealthBarComponent');
             expect(bench.healthBar).not.toBeNull();
         });
         then(/^the bench should have (.*) health left$/, (arg0: string) => {

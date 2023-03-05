@@ -1,4 +1,4 @@
-import Actor from './actor';
-import Interactable from './interactable';
+import { Interactable } from './interactable';
+import { Actor } from './actor';
 
-export { Actor, Interactable };
+export { Interactable, Actor };

@@ -1,64 +1,59 @@
-import Interactable from './interactable';
+import { Interactable } from './';
+import {
+    BaseDamage,
+    Health,
+    HealthBarComponent,
+    MoveEvent,
+    Speed
+} from '@src/components';
+import { Movement } from '@components/movement';
+import { Attack } from '@components/attack';
+import { EventBus } from '@src/systems';
 
-export default class Actor extends Interactable {
-    protected focus?: Interactable;
-    protected damage = 1;
+export class Actor extends Interactable {
+    constructor(id: string, universeEventBus: EventBus) {
+        super(id, universeEventBus);
 
-    constructor(id: string) {
-        super(id);
+        this.addComponent(BaseDamage, 1);
+        this.addComponent(Attack, this.getComponent(BaseDamage)?.amount);
+        this.addComponent(Speed, 100);
+        this.addComponent(Movement, this.getComponent(Speed)?.amount);
+        this.addComponent(
+            HealthBarComponent,
+            this.getComponent(Health)?.amount
+        );
+        this.universeEventBus.subscribe(
+            'attackRequested',
+            this.handleAttackRequested
+        );
+        this.universeEventBus.subscribe('move', this.handleMove);
+        this.universeEventBus.subscribe('stop', this.handleStop);
     }
 
-    setSprite(sprite: Phaser.Physics.Arcade.Sprite): void {
-        super.setSprite(sprite);
-        if (this.sprite) {
-            this.sprite.setCollideWorldBounds(true);
-            this.sprite.setPushable(false);
-            this.sprite.setImmovable(false);
-            this.sprite.play('idle-down');
-        } else {
-            throw Error('No sprite defined for actor');
+    private handleAttackRequested(interactableId: string) {
+        if (interactableId === this.id) {
+            this.interactableEventBus.publish(
+                'performAttack',
+                this.universeEventBus
+            );
         }
     }
 
-    getFocus() {
-        return this.focus;
-    }
-
-    getDamage() {
-        return this.damage;
-    }
-
-    public update() {
-        super.update();
-        if (this.sprite) {
-            if (
-                this.sprite.body.velocity.x === 0 &&
-                this.sprite.body.velocity.y === 0
-            ) {
-                this.sprite.play(`idle-${this.direction}`, true);
-            } else {
-                this.sprite.scene.events.emit(`${this.id}PositionChanged`);
+    private handleMove(movement: MoveEvent) {
+        if (movement.interactableId === this.id) {
+            const movementComponent = this.getComponent(Movement);
+            if (movementComponent) {
+                this.interactableEventBus.publish('move', movement.direction);
             }
         }
     }
 
-    setFocus(interactable?: Interactable) {
-        if (this.focus) {
-            this.clearCurrentFocus();
-        }
-
-        if (interactable) {
-            this.focus = interactable;
-            if (interactable.sprite) {
-                interactable.addHealthBar();
+    private handleStop(id: string) {
+        if (id === this.id) {
+            const movementComponent = this.getComponent(Movement);
+            if (movementComponent) {
+                this.interactableEventBus.publish('stop', undefined);
             }
-        }
-    }
-
-    clearCurrentFocus() {
-        if (this.focus) {
-            this.focus.removeHealthBar();
-            this.focus = undefined;
         }
     }
 }

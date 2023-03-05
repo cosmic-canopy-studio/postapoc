@@ -1,19 +1,36 @@
-import { PlayerControl } from '.';
-import { Actor, Interactable } from '../entities';
-import { GameScene } from '../scenes/gameScene';
+import { EventBus, PlayerControl } from '.';
+import { Actor, Interactable } from '@entities/.';
+import { Sprite } from '@components/sprite';
+import { GameScene } from '@scenes/gameScene';
 
 export class Universe {
+    public eventBus: EventBus;
     private currentScene: Phaser.Scene;
     private currentControlledActor?: Actor;
-    private actors: Actor[] = [];
-    private interactables: Interactable[] = [];
+    private interactables: Map<string, Interactable> = new Map();
     private playerControl: PlayerControl;
+    private dirtyInteractables: Interactable[] = [];
 
     constructor(currentScene: Phaser.Scene) {
         this.currentScene = currentScene;
-        this.playerControl = new PlayerControl(this);
+        this.eventBus = new EventBus();
+        this.playerControl = new PlayerControl(this.eventBus);
         this.playerControl.loadKeyEvents(currentScene);
+        this.eventBus.subscribe(
+            'interactableDirty',
+            this.markInteractableDirty
+        );
+        this.eventBus.subscribe(
+            'interactableDestroyed',
+            this.deleteInteractable
+        );
     }
+
+    public markInteractableDirty = (interactable: Interactable): void => {
+        if (!this.dirtyInteractables.includes(interactable)) {
+            this.dirtyInteractables.push(interactable);
+        }
+    };
 
     setControlledActor(actor: Actor) {
         this.currentControlledActor = actor;
@@ -28,18 +45,12 @@ export class Universe {
     }
 
     setSceneCameraToPlayer() {
-        if (this.currentControlledActor?.sprite) {
-            this.currentScene.cameras.main.startFollow(
-                this.currentControlledActor.sprite,
-                true
-            );
-            this.currentScene.cameras.main.setFollowOffset(
-                -this.currentControlledActor.sprite.width,
-                -this.currentControlledActor.sprite.height
-            );
-        } else {
-            throw Error('No player actor for camera to follow');
+        const controlledActor = this.getControlledActor();
+        const sprite = controlledActor.getComponent(Sprite);
+        if (!sprite) {
+            throw Error('Player actor has no sprite');
         }
+        this.currentScene.cameras.main.startFollow(sprite.sprite);
     }
 
     setCurrentScene(scene: GameScene) {
@@ -51,41 +62,24 @@ export class Universe {
         return this.currentScene;
     }
 
-    getActors() {
-        return this.actors;
-    }
-
-    getInteractables() {
-        return this.interactables;
-    }
-
-    deleteActor(actor: Actor) {
-        this.actors = this.actors.filter((a) => a !== actor);
-    }
-
     deleteInteractable(interactable: Interactable) {
         interactable.destroy();
-        this.interactables = this.interactables.filter(
-            (i) => i !== interactable
-        );
-    }
-
-    addActor(actor: Actor) {
-        this.actors.push(actor);
+        this.interactables.delete(interactable.id);
     }
 
     addInteractable(interactable: Interactable) {
-        this.interactables.push(interactable);
+        if (!this.interactables.has(interactable.id)) {
+            this.interactables.set(interactable.id, interactable);
+            interactable.subscribe(this.eventBus);
+        }
     }
 
     update() {
-        for (const actor of this.actors) actor.update();
-        for (const interactable of this.interactables) {
-            if (interactable.health <= 0) {
-                this.deleteInteractable(interactable);
-            } else {
-                interactable.update();
+        for (const interactable of this.dirtyInteractables) {
+            if (this.interactables.has(interactable.id)) {
+                this.interactables.get(interactable.id)?.update();
             }
         }
+        this.dirtyInteractables = [];
     }
 }
