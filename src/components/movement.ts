@@ -1,5 +1,16 @@
 import { IComponent } from './';
-import { Direction, EventBus } from '@src/systems';
+import { EventBus } from '@src/systems';
+
+export enum Direction {
+    up = 'up',
+    left = 'left',
+    down = 'down',
+    right = 'right',
+    stopUp = 'stopUp',
+    stopLeft = 'stopLeft',
+    stopDown = 'stopDown',
+    stopRight = 'stopRight'
+}
 
 export interface MoveEvent {
     interactableId: string;
@@ -7,9 +18,10 @@ export interface MoveEvent {
 }
 
 export class Movement implements IComponent {
-    private _direction = Direction.down;
+    private _directions: Direction[] = [];
     private _velocity = new Phaser.Math.Vector2(0, 0);
     private _eventBus!: EventBus;
+    private _facingDirection: Direction = Direction.down;
 
     constructor(private _speed: number) {}
 
@@ -22,24 +34,40 @@ export class Movement implements IComponent {
         );
     }
 
-    handleStop() {}
+    handleStop() {
+        this._directions = [];
+    }
 
     public destroy(): void {
         this.unsubscribe();
     }
 
     private handleMove(direction: Direction) {
-        let animationKey;
-        if (direction === 'stop') {
-            this._velocity.x = 0;
-            this._velocity.y = 0;
-            animationKey = `idle-${this._direction}`;
+        const stopDirectionRegex = /^stop(Up|Down|Left|Right)$/;
+        if (stopDirectionRegex.test(direction)) {
+            const nonStopDirection = direction
+                .slice(4)
+                .toLowerCase() as Direction;
+            const index = this._directions.indexOf(nonStopDirection);
+            if (index !== -1) {
+                this._directions.splice(index, 1);
+            }
         } else {
-            this._direction = direction;
-            this._velocity.x = this.calcVelocity().x * this._speed;
-            this._velocity.y = this.calcVelocity().y * this._speed;
-            animationKey = `move-${this._direction}`;
+            const index = this._directions.indexOf(direction);
+            if (index === -1) {
+                this._directions.push(direction);
+            }
+            this._facingDirection = direction;
         }
+
+        let animationKey;
+        if (this._directions.length === 0) {
+            animationKey = `idle-${this._facingDirection}`;
+        } else {
+            animationKey = `move-${this._facingDirection}`;
+        }
+
+        this.updateVelocity();
 
         this._eventBus.publish('spriteShouldUpdate', {
             velocity: this._velocity,
@@ -48,23 +76,26 @@ export class Movement implements IComponent {
         });
     }
 
-    private calcVelocity() {
-        const velocity = new Phaser.Math.Vector2(0, 0);
-        switch (this._direction) {
-            case 'up':
-                velocity.y -= 1;
-                break;
-            case 'down':
-                velocity.y += 1;
-                break;
-            case 'left':
-                velocity.x -= 1;
-                break;
-            case 'right':
-                velocity.x += 1;
-                break;
+    private updateVelocity() {
+        const totalVelocity = new Phaser.Math.Vector2(0, 0);
+        for (const direction of this._directions) {
+            switch (direction) {
+                case 'up':
+                    totalVelocity.y -= 1;
+                    break;
+                case 'down':
+                    totalVelocity.y += 1;
+                    break;
+                case 'left':
+                    totalVelocity.x -= 1;
+                    break;
+                case 'right':
+                    totalVelocity.x += 1;
+                    break;
+            }
         }
-        return velocity.normalize();
+        this._velocity.x = totalVelocity.x * this._speed;
+        this._velocity.y = totalVelocity.y * this._speed;
     }
 
     private unsubscribe() {

@@ -47,7 +47,6 @@ export class EventBus {
         const subscribers = this.subscribers.get(eventType);
         if (subscribers) {
             subscribers.forEach(([handler, callingClass]) => {
-                handler(event);
                 if (this.debug) {
                     log.debug(
                         `${callingClass} received ${eventType} event: ${JSON.stringify(
@@ -55,6 +54,7 @@ export class EventBus {
                         )}`
                     );
                 }
+                handler(event);
             });
         }
     }

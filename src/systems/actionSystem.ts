@@ -1,5 +1,5 @@
 import { EventBus } from './';
-import { MoveEvent } from '@src/components';
+import { Direction, MoveEvent } from '@src/components';
 
 export enum Action {
     attack = 'attack',
@@ -12,14 +12,6 @@ export enum Action {
 export interface ActionEvent {
     action: Action;
     interactableId: string;
-}
-
-export enum Direction {
-    up = 'up',
-    left = 'left',
-    down = 'down',
-    right = 'right',
-    stop = 'stop'
 }
 
 export class ActionSystem {
@@ -60,15 +52,21 @@ export class ActionSystem {
     }
 
     handleResetAction(actionEvent: ActionEvent) {
-        const { interactableId } = actionEvent;
+        const interactableId = actionEvent.interactableId;
         switch (actionEvent.action) {
             case Action.attack:
                 break;
             case Action.moveUp:
+                this.publishMove(interactableId, Direction.stopUp);
+                break;
             case Action.moveDown:
+                this.publishMove(interactableId, Direction.stopDown);
+                break;
             case Action.moveLeft:
+                this.publishMove(interactableId, Direction.stopLeft);
+                break;
             case Action.moveRight:
-                this.publishMove(interactableId, Direction.stop);
+                this.publishMove(interactableId, Direction.stopRight);
         }
     }
 
