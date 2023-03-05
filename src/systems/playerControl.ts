@@ -2,27 +2,18 @@ import { log } from '../utilities';
 import { Action } from './actionSystem';
 import config from '../../config/config.json' assert { type: 'json' };
 import { EventBus } from '@src/systems';
+import { Debuggable } from '@systems/debuggable';
 
-export class PlayerControl {
+export class PlayerControl extends Debuggable {
+    protected debug = false;
     private keyMap: Map<string, string>;
-    private eventBus: EventBus;
-    private debug = false;
+    private universeEventBus: EventBus;
 
     constructor(eventBus: EventBus) {
+        super();
         const { controls } = config;
         this.keyMap = new Map(Object.entries(controls));
-        this.eventBus = eventBus;
-        this.eventBus.subscribe(
-            'toggleDebugMode',
-            () => {
-                this.toggleDebugMode();
-            },
-            this.constructor.name
-        );
-    }
-
-    public toggleDebugMode() {
-        this.debug = !this.debug;
+        this.universeEventBus = eventBus;
     }
 
     loadKeyEvents(scene: Phaser.Scene) {
@@ -42,7 +33,7 @@ export class PlayerControl {
         const action = this.getActionFromKeyCode(input.code);
         if (action) {
             if (this.debug) log.debug(`KeyDown Action: ${action}`);
-            this.eventBus.publish('actionEvent', {
+            this.universeEventBus.publish('actionEvent', {
                 action: action,
                 interactableId: 'player'
             });
@@ -56,7 +47,7 @@ export class PlayerControl {
         const action = this.getActionFromKeyCode(input.code);
         if (action) {
             if (this.debug) log.debug(`KeyUp Action: ${action}`);
-            this.eventBus.publish('resetEvent', {
+            this.universeEventBus.publish('resetEvent', {
                 action: action,
                 interactableId: 'player'
             });

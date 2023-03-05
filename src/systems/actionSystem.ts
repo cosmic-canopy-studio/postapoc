@@ -1,12 +1,18 @@
 import { EventBus } from './';
 import { Direction, MoveEvent } from '@src/components';
+import { log } from '@src/utilities';
+import { DebugEvent, Debuggable } from '@systems/debuggable';
 
 export enum Action {
     attack = 'attack',
     moveUp = 'moveUp',
     moveLeft = 'moveLeft',
     moveDown = 'moveDown',
-    moveRight = 'moveRight'
+    moveRight = 'moveRight',
+    toggleDebugAll = 'toggleDebugAll',
+    toggleGlobalDebugEvents = 'toggleGlobalDebugEvents',
+    toggleUniverseDebugEvents = 'toggleUniverseDebugEvents',
+    toggleInteractableDebugEvents = 'toggleInteractableDebugEvents'
 }
 
 export interface ActionEvent {
@@ -14,28 +20,35 @@ export interface ActionEvent {
     interactableId: string;
 }
 
-export class ActionSystem {
-    private eventBus: EventBus;
+export class ActionSystem extends Debuggable {
+    protected debug = false;
+    private universeEventBus: EventBus;
 
     constructor(eventBus: EventBus) {
-        this.eventBus = eventBus;
-        this.eventBus.subscribe(
+        super();
+        this.universeEventBus = eventBus;
+        this.universeEventBus.subscribe(
             'actionEvent',
             this.handleAction.bind(this),
             this.constructor.name
         );
-        this.eventBus.subscribe(
+        this.universeEventBus.subscribe(
             'resetEvent',
             this.handleResetAction.bind(this),
             this.constructor.name
         );
+        if (this.debug) log.debug('ActionSystem initialized');
     }
 
     handleAction(actionEvent: ActionEvent) {
+        if (this.debug) log.debug(`Action: ${actionEvent.action}`);
         const interactableId = actionEvent.interactableId;
         switch (actionEvent.action) {
             case Action.attack:
-                this.eventBus.publish('attackRequested', interactableId);
+                this.universeEventBus.publish(
+                    'attackRequested',
+                    interactableId
+                );
                 break;
             case Action.moveUp:
                 this.publishMove(interactableId, Direction.up);
@@ -48,10 +61,32 @@ export class ActionSystem {
                 break;
             case Action.moveRight:
                 this.publishMove(interactableId, Direction.right);
+                break;
+            case Action.toggleDebugAll:
+                this.globalEventBus.publish('toggleDebug', {
+                    className: 'all'
+                } as DebugEvent);
+                break;
+            case Action.toggleGlobalDebugEvents:
+                this.globalEventBus.publish('toggleDebug', {
+                    className: 'globalEventBus'
+                } as DebugEvent);
+                break;
+            case Action.toggleUniverseDebugEvents:
+                this.globalEventBus.publish('toggleDebug', {
+                    className: 'universeEventBus'
+                } as DebugEvent);
+                break;
+            case Action.toggleInteractableDebugEvents:
+                this.globalEventBus.publish('toggleDebug', {
+                    className: 'interactableEventBus'
+                } as DebugEvent);
+                break;
         }
     }
 
     handleResetAction(actionEvent: ActionEvent) {
+        if (this.debug) log.debug(`Reset Action: ${actionEvent.action}`);
         const interactableId = actionEvent.interactableId;
         switch (actionEvent.action) {
             case Action.attack:
@@ -71,8 +106,9 @@ export class ActionSystem {
     }
 
     destroy() {
-        this.eventBus.unsubscribe('actionEvent', this.handleAction);
-        this.eventBus.unsubscribe('resetEvent', this.handleResetAction);
+        if (this.debug) log.debug('Destroying ActionSystem');
+        this.universeEventBus.unsubscribe('actionEvent', this.handleAction);
+        this.universeEventBus.unsubscribe('resetEvent', this.handleResetAction);
     }
 
     private publishMove(interactableId: string, direction: Direction) {
@@ -80,6 +116,6 @@ export class ActionSystem {
             interactableId,
             direction
         };
-        this.eventBus.publish('move', moveEvent);
+        this.universeEventBus.publish('move', moveEvent);
     }
 }

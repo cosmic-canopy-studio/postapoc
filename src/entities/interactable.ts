@@ -1,14 +1,19 @@
 import { DamageEvent, Health } from '@components/health';
 import { ComponentMap, IComponent } from '@src/components';
 import { EventBus } from '@src/systems';
+import { log } from '@src/utilities';
+import { Debuggable } from '@systems/debuggable';
 
-export class Interactable {
-    public interactableEventBus: EventBus = new EventBus();
+export class Interactable extends Debuggable {
+    public interactableEventBus: EventBus;
     public universeEventBus!: EventBus;
     protected components: ComponentMap = {};
     protected dirtyComponents: string[] = [];
 
     constructor(id: string, universalEventBus: EventBus) {
+        super();
+        this.interactableEventBus = new EventBus(`interactableEventBus`);
+        this.interactableEventBus.initGlobalEventBusForInstance();
         this._id = id;
         this.addComponent(Health, 3);
         this.universeEventBus = universalEventBus;
@@ -27,16 +32,22 @@ export class Interactable {
             this.markComponentDirty,
             this.constructor.name
         );
+        if (this.debug) log.debug(`Interactable ${id} created`);
     }
 
     protected _id: string;
 
     public get id() {
+        if (this.debug) log.debug(`Interactable ${this._id} id requested`);
         return this._id;
     }
 
     public subscribe(universeEventBus: EventBus) {
         this.universeEventBus = universeEventBus;
+        if (this.debug)
+            log.debug(
+                `Interactable ${this._id} subscribed to universeEventBus`
+            );
     }
 
     public addComponent<T extends IComponent>(
@@ -51,8 +62,16 @@ export class Interactable {
         }
         const component = new type(...args);
         this.components[componentName] = component;
+        if (this.debug)
+            log.debug(
+                `Interactable ${this._id} added component ${componentName}`
+            );
         if (component.subscribe) {
             component.subscribe(this.interactableEventBus);
+            if (this.debug)
+                log.debug(
+                    `Interactable ${this._id} subscribed component ${componentName} to interactableEventBus`
+                );
         }
     }
 
@@ -60,6 +79,10 @@ export class Interactable {
         type: new (...args: any[]) => T
     ): T | undefined {
         const componentName = type.name;
+        if (this.debug)
+            log.debug(
+                `Interactable ${this._id} requested component ${componentName}`
+            );
         return this.components[componentName] as T | undefined;
     }
 
@@ -67,6 +90,10 @@ export class Interactable {
         type: new (...args: any[]) => T
     ): boolean {
         const componentName = type.name;
+        if (this.debug)
+            log.debug(
+                `Interactable ${this._id} confirmed existence of ${componentName}`
+            );
         return !!this.components[componentName];
     }
 
@@ -76,51 +103,82 @@ export class Interactable {
         const componentName = type.name;
         if (this.components[componentName]) {
             const component = this.components[componentName];
+            if (this.debug)
+                log.debug(
+                    `Interactable ${this._id} removing component ${componentName}`
+                );
             if (component.destroy) {
                 component.destroy();
+                if (this.debug)
+                    log.debug(
+                        `Interactable ${this._id} destroyed component ${componentName}`
+                    );
             }
             delete this.components[componentName];
             const index = this.dirtyComponents.indexOf(componentName);
             if (index !== -1) {
                 this.dirtyComponents.splice(index, 1);
+                if (this.debug)
+                    log.debug(
+                        `Interactable ${this._id} removed dirty component ${componentName}`
+                    );
             }
         }
     }
 
     public update(): void {
-        for (const componentName of this.dirtyComponents) {
+        const dirtyComponents = this.dirtyComponents;
+        this.dirtyComponents = [];
+        for (const componentName of dirtyComponents) {
             const component = this.components[componentName];
             if (component && component.update) {
+                if (this.debug)
+                    log.debug(
+                        `Interactable ${this._id} updating component ${componentName}`
+                    );
                 component.update();
             }
         }
-        this.dirtyComponents = [];
     }
 
     public destroy(): void {
         for (const componentName in this.components) {
             const component = this.components[componentName];
+            if (this.debug)
+                log.debug(
+                    `Interactable ${this._id} destroying component ${componentName}`
+                );
             if (component.destroy) {
                 component.destroy();
+                if (this.debug)
+                    log.debug(
+                        `Interactable ${this._id} destroyed component ${componentName}`
+                    );
             }
             delete this.components[componentName];
         }
+        if (this.debug) log.debug(`Interactable ${this._id} destroyed`);
         this.universeEventBus.publish('interactableDestroyed', this.id);
     }
 
     public markComponentDirty(componentName: string): void {
         if (!this.dirtyComponents.includes(componentName)) {
             this.dirtyComponents.push(componentName);
+            if (this.debug)
+                log.debug(
+                    `Interactable ${this._id} marked component ${componentName} dirty`
+                );
             this.universeEventBus.publish('interactableDirty', this);
         }
     }
 
-    private handleAttackPerformed = (targetDamage: DamageEvent) => {
-        if (targetDamage.target === this.id) {
-            this.interactableEventBus.publish(
-                'takeDamage',
-                targetDamage.damage
-            );
+    private handleAttackPerformed = (damageEvent: DamageEvent) => {
+        if (damageEvent.target === this.id) {
+            if (this.debug)
+                log.debug(
+                    `Interactable ${this._id} received ${damageEvent.damage} damage.`
+                );
+            this.interactableEventBus.publish('takeDamage', damageEvent.damage);
         }
     };
 }

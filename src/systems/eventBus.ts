@@ -1,24 +1,58 @@
 import { log } from '@src/utilities';
+import { DebugEvent } from '@systems/debuggable';
 
 type EventHandler = (event: any) => void;
 type Subscriber = [EventHandler, string];
 
 export class EventBus {
+    private static instance: EventBus;
     private subscribers: Map<string, Subscriber[]>;
-    private debug = true;
+    private debug = false;
+    private globalEventBus!: EventBus;
 
-    constructor() {
+    constructor(readonly _id: string) {
         this.subscribers = new Map<string, Subscriber[]>();
     }
 
-    public toggleDebugMode() {
-        this.debug = !this.debug;
+    public static getInstance(): EventBus {
+        if (!EventBus.instance) {
+            this.initSingleton();
+        }
+        return EventBus.instance;
+    }
+
+    private static initSingleton() {
+        EventBus.instance = new EventBus(`globalEventBus`);
+        const singletonEventBus = EventBus.instance;
+        singletonEventBus.debug = true;
+        if (singletonEventBus.debug) {
+            log.debug(`globalEventBus created`);
+        }
+        singletonEventBus.subscribe(
+            'toggleDebug',
+            singletonEventBus.toggleDebugMode.bind(singletonEventBus),
+            singletonEventBus._id
+        );
+    }
+
+    public toggleDebugMode(debugEvent: DebugEvent) {
+        if (
+            debugEvent.className === 'all' ||
+            debugEvent.className === this._id
+        ) {
+            this.debug = !this.debug;
+            log.debug(
+                `${this._id}: debug mode is now ${
+                    this.debug ? 'enabled' : 'disabled'
+                }`
+            );
+        }
     }
 
     public subscribe(
         eventType: string,
         handler: EventHandler,
-        callingClass = 'unknown'
+        callingClass: string
     ) {
         if (!this.subscribers.has(eventType)) {
             this.subscribers.set(eventType, []);
@@ -57,5 +91,14 @@ export class EventBus {
                 handler(event);
             });
         }
+    }
+
+    public initGlobalEventBusForInstance() {
+        this.globalEventBus = EventBus.getInstance();
+        this.globalEventBus.subscribe(
+            'toggleDebug',
+            this.toggleDebugMode.bind(this),
+            this._id
+        );
     }
 }
