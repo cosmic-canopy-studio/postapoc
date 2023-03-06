@@ -40,6 +40,8 @@ defineFeature(feature, (test) => {
             const health = bench.getComponent(Health);
             if (arg0 === 'destroyed') {
                 expect(health).toBeUndefined();
+            } else if (arg0 === 'broken') {
+                // Add broken check
             } else if (arg0 === 'not destroyed') {
                 expect(health).toBeDefined();
             }
