@@ -24,7 +24,7 @@ export class EventBus {
     private static initSingleton() {
         EventBus.instance = new EventBus(`globalEventBus`);
         const singletonEventBus = EventBus.instance;
-        singletonEventBus.debug = true;
+        singletonEventBus.debug = false;
         if (singletonEventBus.debug) {
             log.debug(`globalEventBus created`);
         }
@@ -41,7 +41,7 @@ export class EventBus {
             debugEvent.className === this._id
         ) {
             this.debug = !this.debug;
-            log.debug(
+            log.info(
                 `${this._id}: debug mode is now ${
                     this.debug ? 'enabled' : 'disabled'
                 }`

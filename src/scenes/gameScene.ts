@@ -2,7 +2,6 @@ import { Actor, Interactable } from '../entities';
 import { createSprite, log } from '../utilities';
 import { Universe } from '../systems';
 import { Sprite } from '@components/sprite';
-import { Health, HealthBarComponent } from '@src/components';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     active: false,
@@ -35,22 +34,8 @@ export class GameScene extends Phaser.Scene {
         };
 
         const initPlayer = () => {
-            const player = new Actor(
-                'player',
-                this._universe.universeEventBus,
-                this
-            );
-            player.addComponent(
-                Sprite,
-                createSprite(this, 100, 200, 'character')
-            );
-            const sprite = player.getComponent(Sprite);
-            sprite?.setPlayerSpriteProperties();
-            player.addComponent(
-                HealthBarComponent,
-                sprite,
-                player.getComponent(Health)?.amount
-            );
+            const player = new Actor('player');
+            player.create(this);
             this._universe.addInteractable(player);
             this._universe.setControlledActor(player);
             this._universe.setSceneCameraToPlayer();
@@ -59,22 +44,20 @@ export class GameScene extends Phaser.Scene {
         const initObjects = () => {
             const interactablesGroup = this.physics.add.group();
 
-            const bench = new Interactable(
-                'bench',
-                this._universe.universeEventBus
-            );
+            const bench = new Interactable('bench');
+            this._universe.addInteractable(bench);
             bench.addComponent(Sprite, createSprite(this, 200, 200, 'bench'));
             const benchSprite = bench.getComponent(Sprite);
+            if (!benchSprite) throw new Error(`benchSprite is undefined`);
             benchSprite.setObjectSpriteProperties();
             interactablesGroup.add(benchSprite.sprite);
             benchSprite.sprite.setData('interactable', bench);
 
-            const board = new Interactable(
-                'board',
-                this._universe.universeEventBus
-            );
+            const board = new Interactable('board');
+            this._universe.addInteractable(board);
             board.addComponent(Sprite, createSprite(this, 100, 100, 'board'));
             const boardSprite = board.getComponent(Sprite);
+            if (!boardSprite) throw new Error(`boardSprite is undefined`);
             boardSprite.setObjectSpriteProperties();
             interactablesGroup.add(boardSprite.sprite);
             boardSprite.sprite.setData('interactable', board);
@@ -82,22 +65,21 @@ export class GameScene extends Phaser.Scene {
             const currentPlayerActor = this._universe.getControlledActor();
             const playerSprite = currentPlayerActor.getComponent(Sprite);
 
-            if (!playerSprite) {
+            if (!playerSprite)
                 throw Error(`Player sprite is undefined: ${playerSprite}}`);
-            } else {
-                this.physics.add.collider(
-                    playerSprite.sprite,
-                    interactablesGroup,
-                    (playerSprite, interactableSprite) => {
-                        const interactable = interactableSprite.getData(
-                            'interactable'
-                        ) as Interactable;
-                        this.handlePlayerInteractableCollision(interactable);
-                    },
-                    undefined,
-                    this
-                );
-            }
+
+            this.physics.add.collider(
+                playerSprite.sprite,
+                interactablesGroup,
+                (playerSprite, interactableSprite) => {
+                    const interactable = interactableSprite.getData(
+                        'interactable'
+                    ) as Interactable;
+                    this.handlePlayerInteractableCollision(interactable);
+                },
+                undefined,
+                this
+            );
         };
 
         initTileset();

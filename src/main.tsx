@@ -6,14 +6,20 @@ import './phaserGame';
 import reportWebVitals from './utilities/reportWebVitals';
 
 export const main = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 main.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
+
+const canvas = document.querySelector('canvas');
+const context = canvas?.getContext('2d') as any;
+if (context && context.willReadFrequently) {
+    context.willReadFrequently = true;
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

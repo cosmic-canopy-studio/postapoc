@@ -1,31 +1,38 @@
 import { Interactable } from './';
-import { BaseDamage, MoveEvent, Speed } from '@src/components';
+import {
+    BaseDamage,
+    Health,
+    HealthBarComponent,
+    MoveEvent,
+    Speed
+} from '@src/components';
 import { Movement } from '@components/movement';
 import { Attack } from '@components/attack';
 import { EventBus } from '@src/systems';
 import { GameScene } from '@scenes/gameScene';
-import { log } from '@src/utilities';
+import { createSprite, log } from '@src/utilities';
+import { Sprite } from '@components/sprite';
 
 export class Actor extends Interactable {
-    constructor(id: string, universeEventBus: EventBus, scene: GameScene) {
-        super(id, universeEventBus);
+    constructor(id: string) {
+        super(id);
 
         this.addComponent(BaseDamage, 1);
         this.addComponent(Attack, this.getComponent(BaseDamage)?.amount);
         this.addComponent(Speed, 100);
-        this.addComponent(Movement, this.getComponent(Speed)?.amount, scene);
-        this.universeEventBus.subscribe(
-            'attackRequested',
-            this.handleAttackRequested.bind(this),
-            this.constructor.name
-        );
-        this.universeEventBus.subscribe(
-            'move',
-            this.handleMove.bind(this),
-            this.constructor.name
-        );
-
         if (this.debug) log.debug(`Actor ${id} created`);
+    }
+
+    public create(scene: GameScene) {
+        this.addComponent(Movement, this.getComponent(Speed)?.amount, scene);
+        this.addComponent(Sprite, createSprite(scene, 100, 200, 'character'));
+        const sprite = this.getComponent(Sprite);
+        sprite?.setPlayerSpriteProperties();
+        this.addComponent(
+            HealthBarComponent,
+            sprite,
+            this.getComponent(Health)?.amount
+        );
     }
 
     public destroy(): void {
@@ -36,6 +43,20 @@ export class Actor extends Interactable {
         this.universeEventBus.unsubscribe('move', this.handleMove.bind(this));
         if (this.debug) log.debug(`Actor ${this._id} destroyed`);
         super.destroy();
+    }
+
+    public subscribe(universeEventBus: EventBus) {
+        super.subscribe(universeEventBus);
+        this.universeEventBus.subscribe(
+            'attackRequested',
+            this.handleAttackRequested.bind(this),
+            this.constructor.name
+        );
+        this.universeEventBus.subscribe(
+            'move',
+            this.handleMove.bind(this),
+            this.constructor.name
+        );
     }
 
     private handleAttackRequested(interactableId: string) {

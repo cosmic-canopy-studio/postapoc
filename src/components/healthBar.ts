@@ -31,7 +31,7 @@ export class HealthBarComponent implements IComponent {
         this._healthBar.updatePosition(x, y);
     }
 
-    public destroy(): void {
+    public destroy() {
         this._healthBar.destroy();
         this.unsubscribe();
     }

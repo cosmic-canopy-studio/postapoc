@@ -32,6 +32,7 @@ export class Health implements IComponent {
         this._amount = amount;
         this._eventBus.publish('healthChanged', this._amount);
         if (this._amount <= 0) {
+            this._isDestroyed = true;
             log.info(`Object is destroyed`);
             this._eventBus.publish('destroyed', this.amount);
         }
@@ -50,6 +51,12 @@ export class Health implements IComponent {
 
     get isBroken(): boolean {
         return this._isBroken;
+    }
+
+    private _isDestroyed = false;
+
+    get isDestroyed(): boolean {
+        return this._isDestroyed;
     }
 
     get maxHealth(): number {

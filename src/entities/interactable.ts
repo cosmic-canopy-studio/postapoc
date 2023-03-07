@@ -10,21 +10,16 @@ export class Interactable extends Debuggable {
     protected components: ComponentMap = {};
     protected dirtyComponents: string[] = [];
 
-    constructor(id: string, universalEventBus: EventBus) {
+    constructor(id: string) {
         super();
         this.interactableEventBus = new EventBus(`interactableEventBus`);
         this.interactableEventBus.initGlobalEventBusForInstance();
         this._id = id;
         this.addComponent(Health, 3);
-        this.universeEventBus = universalEventBus;
-        this.universeEventBus.subscribe(
-            'attackPerformed',
-            this.handleAttackPerformed,
-            this.constructor.name
-        );
+
         this.interactableEventBus.subscribe(
             'destroyed',
-            this.destroy.bind(this),
+            this.handleDestruction.bind(this),
             this.constructor.name
         );
         this.interactableEventBus.subscribe(
@@ -44,6 +39,11 @@ export class Interactable extends Debuggable {
 
     public subscribe(universeEventBus: EventBus) {
         this.universeEventBus = universeEventBus;
+        this.universeEventBus.subscribe(
+            'attackPerformed',
+            this.handleAttackPerformed,
+            this.constructor.name
+        );
         if (this.debug)
             log.debug(
                 `Interactable ${this._id} subscribed to universeEventBus`
@@ -158,7 +158,6 @@ export class Interactable extends Debuggable {
             delete this.components[componentName];
         }
         if (this.debug) log.debug(`Interactable ${this._id} destroyed`);
-        this.universeEventBus.publish('interactableDestroyed', this.id);
     }
 
     public markComponentDirty(componentName: string): void {
@@ -170,6 +169,12 @@ export class Interactable extends Debuggable {
                 );
             this.universeEventBus.publish('interactableDirty', this);
         }
+    }
+
+    private handleDestruction() {
+        if (this.debug)
+            log.debug(`Interactable ${this._id} ready for destruction`);
+        this.universeEventBus.publish('interactableDestroyed', this.id); // TODO: Add event signature
     }
 
     private handleAttackPerformed = (damageEvent: DamageEvent) => {

@@ -9,9 +9,11 @@ defineFeature(feature, (test) => {
     let bench: Interactable;
 
     beforeEach(async () => {
-        const universeEventBus = new EventBus();
-        player = new Actor('player', universeEventBus);
-        bench = new Interactable('bench', universeEventBus);
+        const universeEventBus = new EventBus('universeEventBus');
+        player = new Actor('player');
+        player.subscribe(universeEventBus);
+        bench = new Interactable('bench');
+        bench.subscribe(universeEventBus);
     });
 
     test('A player attacking a bench', ({ given, when, then }) => {
@@ -30,20 +32,21 @@ defineFeature(feature, (test) => {
         then(/^the bench should have (\d+) health left$/, (amount) => {
             const num = parseInt(amount);
             const health = bench.getComponent(Health);
-            if (num > 0) {
-                expect(health?.amount).toBe(num);
-            } else {
-                expect(health).toBeUndefined();
-            }
+
+            expect(health?.amount).toBe(num);
         });
         then(/^the bench should be (.*)$/, (arg0) => {
             const health = bench.getComponent(Health);
+            if (!health) throw new Error('Health component not found');
             if (arg0 === 'destroyed') {
-                expect(health).toBeUndefined();
+                expect(health.isDestroyed).toBe(true);
+                expect(health.isBroken).toBe(true);
             } else if (arg0 === 'broken') {
-                // Add broken check
+                expect(health.isDestroyed).toBe(false);
+                expect(health.isBroken).toBe(true);
             } else if (arg0 === 'not destroyed') {
-                expect(health).toBeDefined();
+                expect(health.isDestroyed).toBe(false);
+                expect(health.isBroken).toBe(false);
             }
         });
     });

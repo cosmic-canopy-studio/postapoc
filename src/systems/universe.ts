@@ -1,4 +1,4 @@
-import { ActionSystem, EventBus, PlayerControl } from '.';
+import { EventBus, PlayerControl } from '.';
 import { Actor, Interactable } from '@entities/.';
 import { Sprite } from '@components/sprite';
 import { GameScene } from '@scenes/gameScene';
@@ -7,29 +7,29 @@ import { log } from '@src/utilities';
 
 export class Universe extends Debuggable {
     public universeEventBus: EventBus;
+    protected debug = true;
     private currentScene: Phaser.Scene;
     private currentControlledActor?: Actor;
-    private interactables: Map<string, Interactable> = new Map();
+    private interactables: Map<string, Interactable>;
     private playerControl: PlayerControl;
     private dirtyInteractables: Interactable[] = [];
-    private actionSystem: ActionSystem;
 
     constructor(currentScene: Phaser.Scene) {
         super();
         this.currentScene = currentScene;
+        this.interactables = new Map();
         this.universeEventBus = new EventBus('universeEventBus');
         this.universeEventBus.initGlobalEventBusForInstance();
         this.playerControl = new PlayerControl(this.universeEventBus);
         this.playerControl.loadKeyEvents(currentScene);
-        this.actionSystem = new ActionSystem(this.universeEventBus);
         this.universeEventBus.subscribe(
             'interactableDirty',
-            this.markInteractableDirty,
+            this.markInteractableDirty.bind(this),
             this.constructor.name
         );
         this.universeEventBus.subscribe(
             'interactableDestroyed',
-            this.deleteInteractable,
+            this.deleteInteractable.bind(this),
             this.constructor.name
         );
         if (this.debug) log.debug(`Universe created`);
@@ -82,18 +82,23 @@ export class Universe extends Debuggable {
         return this.currentScene;
     }
 
-    deleteInteractable(interactable: Interactable) {
+    deleteInteractable(interactableId: string) {
+        const interactable = this.interactables.get(interactableId);
+        interactable?.destroy();
+        const result = this.interactables.delete(interactableId);
         if (this.debug)
-            log.debug(`Interactable ${interactable.id} to be destroyed`);
-        interactable.destroy();
-        this.interactables.delete(interactable.id);
+            log.debug(
+                `Interactable ${interactableId} deleted from universe, result: ${result}. Interactables size: ${this.interactables.size}`
+            );
     }
 
     addInteractable(interactable: Interactable) {
         if (!this.interactables.has(interactable.id)) {
-            if (this.debug)
-                log.debug(`Interactable ${interactable.id} added to universe`);
             this.interactables.set(interactable.id, interactable);
+            if (this.debug)
+                log.debug(
+                    `Interactable ${interactable.id} added to universe Interactables size: ${this.interactables.size}`
+                );
             interactable.subscribe(this.universeEventBus);
         }
     }
