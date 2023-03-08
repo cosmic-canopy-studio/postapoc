@@ -72,7 +72,7 @@ export class GameScene extends Phaser.Scene {
             this.physics.add.collider(
                 playerSprite.sprite,
                 interactablesGroup,
-                (playerSprite, interactableSprite) => {
+                (_playerSprite, interactableSprite) => {
                     const interactable = interactableSprite.getData(
                         'interactable'
                     ) as Interactable;

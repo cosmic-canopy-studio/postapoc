@@ -5,7 +5,8 @@
         "lib": [
             "ESNext",
             "DOM",
-            "DOM.Iterable"
+            "DOM.Iterable",
+            "scripthost"
         ],
         "types": [
             "vite/client",
