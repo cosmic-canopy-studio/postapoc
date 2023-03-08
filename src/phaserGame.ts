@@ -29,13 +29,6 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     parent: 'phaser-container',
     backgroundColor: '#282c34',
     canvasStyle:
-        'width: 100%; height: 100%; will-change: transform; image-rendering: -moz-crisp-edges; image-rendering: -webkit-crisp-edges; image-rendering: pixelated; image-rendering: crisp-edges;',
-    render: {
-        pixelArt: true,
-        roundPixels: true,
-        antialias: false,
-        transparent: false,
-        clearBeforeRender: true
-    }
+        'width: 100%; height: 100%; will-change: transform; image-rendering: -moz-crisp-edges; image-rendering: -webkit-crisp-edges; image-rendering: pixelated; image-rendering: crisp-edges;'
 };
 export const phaser = new Phaser.Game(gameConfig);

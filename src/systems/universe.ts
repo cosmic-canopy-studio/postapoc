@@ -7,7 +7,7 @@ import { log } from '@src/utilities';
 
 export class Universe extends Debuggable {
     public universeEventBus: EventBus;
-    protected debug = true;
+    protected debug = false;
     private currentScene: Phaser.Scene;
     private currentControlledActor?: Actor;
     private interactables: Map<string, Interactable>;

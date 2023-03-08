@@ -33,7 +33,7 @@ defineFeature(feature, (test) => {
             const num = parseInt(amount);
             const health = bench.getComponent(Health);
 
-            expect(health?.amount).toBe(num);
+            expect(health?.value).toBe(num);
         });
         then(/^the bench should be (.*)$/, (arg0) => {
             const health = bench.getComponent(Health);

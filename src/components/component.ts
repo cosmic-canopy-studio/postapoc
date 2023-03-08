@@ -9,3 +9,8 @@ export interface IComponent {
     update?: () => void;
     destroy?: () => void;
 }
+
+export interface IValue {
+    value: number;
+    maxValue: number;
+}

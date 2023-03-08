@@ -1,5 +1,5 @@
 import { log } from '@src/utilities';
-import { IComponent } from './';
+import { IComponent, IValue } from './';
 import { EventBus } from '@src/systems';
 
 export interface DamageEvent {
@@ -7,44 +7,30 @@ export interface DamageEvent {
     damage: number;
 }
 
+export interface HealthValue extends IValue {
+    value: number;
+    maxValue: number;
+    brokenThreshold?: number;
+}
+
 export class Health implements IComponent {
-    private readonly _maxHealth: number;
-    private readonly _brokenThreshold: number;
     private _eventBus!: EventBus;
 
-    constructor(
-        amount: number,
-        maxHealth: number = amount,
-        brokenThreshold = 1
-    ) {
-        this._amount = amount;
-        this._maxHealth = maxHealth;
-        this._brokenThreshold = brokenThreshold;
+    constructor(private _healthValue: HealthValue) {}
+
+    get value() {
+        return this._healthValue.value;
     }
 
-    private _amount: number;
-
-    get amount() {
-        return this._amount;
-    }
-
-    set amount(amount) {
-        this._amount = amount;
-        this._eventBus.publish('healthChanged', this._amount);
-        if (this._amount <= 0) {
+    set value(amount) {
+        this._healthValue.value = amount;
+        this._eventBus.publish('healthChanged', this._healthValue.value);
+        if (this._healthValue.value <= 0) {
             this._isDestroyed = true;
             log.info(`Object is destroyed`);
-            this._eventBus.publish('destroyed', this.amount);
+            this._eventBus.publish('destroyed', this.constructor.name);
         }
-        if (this._amount <= this._brokenThreshold && !this._isBroken) {
-            this._isBroken = true;
-            this._eventBus.publish('broken', this._amount);
-            log.info(`Object is broken`); // TODO: move logging to subscriber
-        } else if (this._amount >= this._brokenThreshold && this._isBroken) {
-            this._isBroken = false;
-            this._eventBus.publish('fixed', this._amount);
-            log.info(`Object is no longer broken`);
-        }
+        this.checkBroken();
     }
 
     private _isBroken = false;
@@ -55,12 +41,12 @@ export class Health implements IComponent {
 
     private _isDestroyed = false;
 
-    get isDestroyed(): boolean {
+    get isDestroyed() {
         return this._isDestroyed;
     }
 
-    get maxHealth(): number {
-        return this._maxHealth;
+    get healthValue() {
+        return this._healthValue;
     }
 
     public subscribe(eventBus: EventBus) {
@@ -77,11 +63,27 @@ export class Health implements IComponent {
     }
 
     public handleTakeDamage = (amount: number) => {
-        this.takeDamage(amount);
+        this.value -= amount;
     };
 
-    public takeDamage(amount: number) {
-        this.amount = Math.max(0, this.amount - amount);
+    private checkBroken() {
+        if (this._healthValue.brokenThreshold) {
+            if (
+                this._healthValue.value <= this._healthValue.brokenThreshold &&
+                !this._isBroken
+            ) {
+                this._isBroken = true;
+                this._eventBus.publish('broken', this._healthValue.value);
+                log.info(`Object is broken`); // TODO: move logging to subscriber
+            } else if (
+                this._healthValue.value >= this._healthValue.brokenThreshold &&
+                this._isBroken
+            ) {
+                this._isBroken = false;
+                this._eventBus.publish('fixed', this._healthValue.value);
+                log.info(`Object is no longer broken`);
+            }
+        }
     }
 
     private unsubscribe() {

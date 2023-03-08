@@ -1,3 +1,8 @@
-import { HealthBarUI } from './healthBarUI';
+import {
+    defaultBarDimensions,
+    HealthBarUI,
+    UIBarDimensions
+} from './healthBarUI';
 
-export { HealthBarUI };
+export { HealthBarUI, defaultBarDimensions };
+export type { UIBarDimensions };

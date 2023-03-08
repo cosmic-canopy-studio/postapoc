@@ -9,13 +9,18 @@ export class Interactable extends Debuggable {
     public universeEventBus!: EventBus;
     protected components: ComponentMap = {};
     protected dirtyComponents: string[] = [];
+    protected debug = false;
 
     constructor(id: string) {
         super();
         this.interactableEventBus = new EventBus(`interactableEventBus`);
         this.interactableEventBus.initGlobalEventBusForInstance();
         this._id = id;
-        this.addComponent(Health, 3);
+        this.addComponent(Health, {
+            value: 3,
+            maxValue: 3,
+            brokenThreshold: 1
+        });
 
         this.interactableEventBus.subscribe(
             'destroyed',
@@ -24,7 +29,7 @@ export class Interactable extends Debuggable {
         );
         this.interactableEventBus.subscribe(
             'componentDirty',
-            this.markComponentDirty,
+            this.markComponentDirty.bind(this),
             this.constructor.name
         );
         if (this.debug) log.debug(`Interactable ${id} created`);

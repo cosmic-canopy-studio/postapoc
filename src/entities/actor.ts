@@ -26,12 +26,18 @@ export class Actor extends Interactable {
     public create(scene: GameScene) {
         this.addComponent(Movement, this.getComponent(Speed)?.amount, scene);
         this.addComponent(Sprite, createSprite(scene, 100, 200, 'character'));
+    }
+
+    public initPlayer() {
         const sprite = this.getComponent(Sprite);
-        sprite?.setPlayerSpriteProperties();
+        if (!sprite) throw new Error('Sprite component not found');
+        sprite.setPlayerSpriteProperties();
+        const health: Health | undefined = this.getComponent(Health);
+        if (!health) throw new Error('Health component not found');
         this.addComponent(
             HealthBarComponent,
-            sprite,
-            this.getComponent(Health)?.amount
+            sprite.sprite,
+            health.healthValue
         );
     }
 

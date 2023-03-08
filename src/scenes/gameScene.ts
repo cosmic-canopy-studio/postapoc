@@ -39,6 +39,7 @@ export class GameScene extends Phaser.Scene {
             this._universe.addInteractable(player);
             this._universe.setControlledActor(player);
             this._universe.setSceneCameraToPlayer();
+            player.initPlayer(); // TODO: refactor dependency chain
         };
 
         const initObjects = () => {
@@ -96,7 +97,7 @@ export class GameScene extends Phaser.Scene {
 
     private handlePlayerInteractableCollision(interactable: Interactable) {
         const player = this._universe.getControlledActor();
-        console.log(`interactable: ${interactable.id}`);
+        log.info(`Player collided with ${interactable.id}`);
         if (interactable) {
             player.interactableEventBus.publish(
                 'focusChanged',

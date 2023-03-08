@@ -1,4 +1,4 @@
-import { ComponentMap, IComponent } from './component';
+import { ComponentMap, IComponent, IValue } from './component';
 import { DamageEvent, Health } from './health';
 import { Direction, MoveEvent, Movement } from './movement';
 import { BaseDamage, Speed, Stat } from './stats';
@@ -13,4 +13,4 @@ export {
     Speed,
     Direction
 };
-export type { IComponent, ComponentMap, DamageEvent, MoveEvent };
+export type { IComponent, IValue, ComponentMap, DamageEvent, MoveEvent };
