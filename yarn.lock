@@ -4264,6 +4264,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gh-pages@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@types/gh-pages@npm:3.2.1"
+  checksum: dfb1c36fb99bca0d11285cd6bc73d6ca735c6faaf572e284d6796a99fd9d9913e6508b3ad700036fdd07df001d7df09bdb9b393ded669c4baa70043aa5387d66
+  languageName: node
+  linkType: hard
+
 "@types/glob@npm:^7.1.3":
   version: 7.2.0
   resolution: "@types/glob@npm:7.2.0"
@@ -12182,6 +12189,7 @@ __metadata:
     "@types/babel__preset-env": ^7
     "@types/eslint": ^8.21.0
     "@types/eslint-plugin-prettier": ^3.1.0
+    "@types/gh-pages": ^3.2.1
     "@types/jest": ^29.4.0
     "@types/node": ^18.14.0
     "@types/prettier": ^2.7.2
