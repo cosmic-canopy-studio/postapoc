@@ -39,6 +39,21 @@
             "eslint --fix\", \"git add ."
         ]
     },
+    "commitlint": {
+        "extends": [
+            "@commitlint/config-conventional"
+        ],
+        "rules": {
+            "subject-case": [
+                2,
+                "never",
+                [
+                    "start-case",
+                    "pascal-case"
+                ]
+            ]
+        }
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
@@ -86,6 +101,8 @@
         "@typescript-eslint/parser": "^5.51.0",
         "@vitejs/plugin-react-swc": "^3.2.0",
         "babel-jest": "^29.4.3",
+        "commitizen": "^4.3.0",
+        "cz-conventional-changelog": "^3.3.0",
         "eslint": "^8.35.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-define-config": "^1.15.0",
@@ -112,7 +129,7 @@
         "phasereditor2d-launcher": "^3.36.2",
         "prettier": "^2.8.4",
         "prettier-eslint": "^15.0.1",
-        "putout": "^28.17.0",
+        "putout": "^29.0.5",
         "ts-jest": "^29.0.5",
         "ts-node": "^10.9.1",
         "tslib": "^2.5.0",
