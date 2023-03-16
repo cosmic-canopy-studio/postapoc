@@ -14,8 +14,7 @@ export default {
     moduleFileExtensions: ['feature', 'js', 'jsx', 'json', 'ts', 'tsx', 'node'],
     testMatch: ['**/test/**/?(*.)+(spec|test|steps).+(ts|tsx|js)'],
     transform: {
-        '^.+\\.(ts|tsx)$': 'ts-jest',
-        '^.+\\.(js|jsx)?$': 'babel-jest'
+        '^.+\\.(ts|tsx)$': 'ts-jest'
     },
     setupFiles: ['jest-canvas-mock'],
     setupFilesAfterEnv: [

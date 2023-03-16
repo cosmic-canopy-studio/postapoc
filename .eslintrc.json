@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest/recommended",
+        "plugin:react/recommended"
+    ],
+    "overrides": [],
+    "plugins": [
+        "@typescript-eslint",
+        "regexp",
+        "react"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": "latest",
+        "project": [
+            "./tsconfig.json"
+        ],
+        "tsconfigRootDir": "./",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        }
+    },
+    "root": true,
+    "ignorePatterns": [
+        "tests/**/*.(test|steps).ts"
+    ]
+}

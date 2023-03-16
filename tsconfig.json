@@ -69,7 +69,7 @@
     ],
     "include": [
         "src",
-        "test",
+        "tests",
         "./vite.config.ts",
         "./jest.config.ts"
     ]
