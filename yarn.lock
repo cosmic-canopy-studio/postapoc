@@ -515,6 +515,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@commitlint/cz-commitlint@npm:^17.4.4":
+  version: 17.4.4
+  resolution: "@commitlint/cz-commitlint@npm:17.4.4"
+  dependencies:
+    "@commitlint/ensure": ^17.4.4
+    "@commitlint/load": ^17.4.4
+    "@commitlint/types": ^17.4.4
+    chalk: ^4.1.0
+    lodash.isplainobject: ^4.0.6
+    word-wrap: ^1.2.3
+  peerDependencies:
+    commitizen: ^4.0.3
+    inquirer: ^8.0.0
+  checksum: 968a18456611f9af0e3ad9f79212196313c913d0cb8d3f3de35b7eea77cb2360978ccd5127abcd12a9da5b948bbf8f4b4ff9d0d23e87d1c13bb89b67a55ea2ff
+  languageName: node
+  linkType: hard
+
 "@commitlint/ensure@npm:^17.4.4":
   version: 17.4.4
   resolution: "@commitlint/ensure@npm:17.4.4"
@@ -9393,9 +9410,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:^13.1.2":
-  version: 13.1.4
-  resolution: "lint-staged@npm:13.1.4"
+"lint-staged@npm:^13.2.0":
+  version: 13.2.0
+  resolution: "lint-staged@npm:13.2.0"
   dependencies:
     chalk: 5.2.0
     cli-truncate: ^3.1.0
@@ -9409,11 +9426,10 @@ __metadata:
     object-inspect: ^1.12.3
     pidtree: ^0.6.0
     string-argv: ^0.3.1
-    supports-color: 9.3.1
     yaml: ^2.2.1
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 75729290bd78c026351b1fd39f9bcbee3744f93e6d66a0125119c59de108205872b6fb7732437dc3bd363716bf7c3585e0c1f93a3419eae87aaa2878de0225e3
+  checksum: dcaa8fbbde567eb8ac27230a18b3a22f30c278c524c0e27cf7d4110d662d5d33ed68a585a2e1b05075ef1c262e853f557a5ae046188b723603246d63e6b9f07b
   languageName: node
   linkType: hard
 
@@ -11103,6 +11119,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^17.4.4
     "@commitlint/config-conventional": ^17.4.4
+    "@commitlint/cz-commitlint": ^17.4.4
     "@nabla/vite-plugin-eslint": ^1.5.0
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^14.0.0
@@ -11124,7 +11141,7 @@ __metadata:
     jest: ^29.5.0
     jest-cli: ^29.5.0
     jest-cucumber: ^3.0.2
-    lint-staged: ^13.1.2
+    lint-staged: ^13.2.0
     phaser: ^3.55.2
     prettier: ^2.8.4
     prettier-eslint: ^15.0.1
@@ -12998,13 +13015,6 @@ __metadata:
   bin:
     stylelint: bin/stylelint.js
   checksum: bc24050415e3c357a76d8ca2799e74ce31f33c9158b4086462512b0191db5d6a161b81ef35b064039c6eacf98a5553e45fca4c5f21eb4d45e7f1d44b2d226e9b
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:9.3.1":
-  version: 9.3.1
-  resolution: "supports-color@npm:9.3.1"
-  checksum: 00c4d1082a7ba0ee21cba1d4e4a466642635412e40476777b530aa5110d035e99a420cd048e1fb6811f2254c0946095fbb87a1eccf1af1d1ca45ab0a4535db93
   languageName: node
   linkType: hard
 
