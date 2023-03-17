@@ -3,3 +3,23 @@
 
 # Check staged files with Lint-Staged
 yarn test && yarn lint-staged
+
+# Bump version based on commit message
+last_commit_message=$(git log --format=%B -n 1 HEAD)
+
+if echo "$last_commit_message" | grep -q 'bump major'; then
+  # bump major version
+  yarn version --major
+elif echo "$last_commit_message" | grep -q 'bump minor'; then
+  # bump minor version
+  yarn version --minor
+elif echo "$last_commit_message" | grep -q 'bump skip'; then
+  echo "Skipping version bump"
+else
+  # bump patch version
+  yarn version --patch
+fi
+
+# Commit the version bump & CHANGELOG
+git add package.json
+git add CHANGELOG.md
