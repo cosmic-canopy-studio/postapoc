@@ -1,7 +1,7 @@
 import { Actor, Interactable } from '../entities';
 import { createSprite, log } from '../utilities';
 import { Universe } from '../systems';
-import { Sprite } from '@components/sprite';
+import { Sprite } from '@src/components/sprite';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     active: false,

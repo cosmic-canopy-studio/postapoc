@@ -4,13 +4,11 @@
         "module": "ESNext",
         "lib": [
             "ESNext",
-            "DOM",
-            "DOM.Iterable",
+            "dom",
             "scripthost"
         ],
         "types": [
             "vite/client",
-            "jest",
             "node"
         ],
         "moduleResolution": "Node",
@@ -29,38 +27,12 @@
         "emitDecoratorMetadata": true,
         "allowSyntheticDefaultImports": true,
         "noFallthroughCasesInSwitch": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
         "baseUrl": ".",
         "paths": {
             "@src/*": [
                 "src/*"
-            ],
-            "@components/*": [
-                "src/components/*"
-            ],
-            "@entities/*": [
-                "src/entities/*"
-            ],
-            "@scenes/*": [
-                "src/scenes/*"
-            ],
-            "@systems/*": [
-                "src/systems/*"
-            ],
-            "@ui/*": [
-                "src/ui/*"
-            ],
-            "@utils/*": [
-                "src/utils/*"
             ]
         }
-    },
-    "typedocOptions": {
-        "entryPoints": [
-            "src/main.ts"
-        ],
-        "out": "docs/typedocs"
     },
     "exclude": [
         "node_modules",
@@ -70,7 +42,6 @@
     "include": [
         "src",
         "tests",
-        "./vite.config.ts",
-        "./jest.config.ts"
+        "./vite.config.ts"
     ]
 }

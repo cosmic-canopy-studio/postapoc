@@ -1,7 +1,7 @@
 import { EventBus } from './';
 import { Direction, MoveEvent } from '@src/components';
 import { log } from '@src/utilities';
-import { DebugEvent, Debuggable } from '@systems/debuggable';
+import { DebugEvent, Debuggable } from '@src/systems/debuggable';
 
 export enum Action {
     attack = 'attack',

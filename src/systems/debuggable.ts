@@ -1,4 +1,4 @@
-import { EventBus } from '@systems/eventBus';
+import { EventBus } from '@src/systems/eventBus';
 import { log } from '@src/utilities';
 
 export interface DebugEvent {

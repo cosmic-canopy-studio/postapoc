@@ -2,7 +2,7 @@ import { log } from '../utilities';
 import { Action, ActionSystem } from './actionSystem';
 import config from '../../config/config.json' assert { type: 'json' };
 import { EventBus } from '@src/systems';
-import { Debuggable } from '@systems/debuggable';
+import { Debuggable } from '@src/systems/debuggable';
 
 export class PlayerControl extends Debuggable {
     protected debug = false;

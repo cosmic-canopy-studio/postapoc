@@ -1,5 +1,5 @@
 import { EventBus } from '@src/systems';
-import { IComponent } from '@components/component';
+import { IComponent } from '@src/components/component';
 
 export class Attack implements IComponent {
     private _eventBus!: EventBus;

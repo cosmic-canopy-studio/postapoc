@@ -1,8 +1,8 @@
-import { DamageEvent, Health } from '@components/health';
+import { DamageEvent, Health } from '@src/components/health';
 import { ComponentMap, IComponent } from '@src/components';
 import { EventBus } from '@src/systems';
 import { log } from '@src/utilities';
-import { Debuggable } from '@systems/debuggable';
+import { Debuggable } from '@src/systems/debuggable';
 
 export class Interactable extends Debuggable {
     public interactableEventBus: EventBus;

@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { HealthValue } from '@components/health';
+import { HealthValue } from '@src/components/health';
 
 export interface UIBarDimensions {
     gapSize: number;

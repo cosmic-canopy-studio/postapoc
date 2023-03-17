@@ -14,3 +14,4 @@ Feature: Basic player interaction
                 | 1     | 2      | fine      |
                 | 2     | 1      | broken    |
                 | 3     | 0      | destroyed |
+

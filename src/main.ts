@@ -15,8 +15,8 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
 
     scale: {
         mode: Phaser.Scale.ScaleModes.RESIZE,
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: 800,
+        height: 600
     },
 
     physics: {

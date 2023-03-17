@@ -1,8 +1,8 @@
 import { EventBus, PlayerControl } from '.';
-import { Actor, Interactable } from '@entities/.';
-import { Sprite } from '@components/sprite';
-import { GameScene } from '@scenes/gameScene';
-import { Debuggable } from '@systems/debuggable';
+import { Actor, Interactable } from '@src/entities/.';
+import { Sprite } from '@src/components/sprite';
+import { GameScene } from '@src/scenes/gameScene';
+import { Debuggable } from '@src/systems/debuggable';
 import { log } from '@src/utilities';
 
 export class Universe extends Debuggable {

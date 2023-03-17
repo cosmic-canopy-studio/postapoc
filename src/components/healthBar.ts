@@ -1,7 +1,7 @@
 import { IComponent } from './';
 import { defaultBarDimensions, HealthBarUI, UIBarDimensions } from '@src/ui';
 import { EventBus } from '@src/systems';
-import { HealthValue } from '@components/health';
+import { HealthValue } from '@src/components/health';
 
 export class HealthBarComponent implements IComponent {
     private _eventBus!: EventBus;

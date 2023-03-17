@@ -6,12 +6,12 @@ import {
     MoveEvent,
     Speed
 } from '@src/components';
-import { Movement } from '@components/movement';
-import { Attack } from '@components/attack';
+import { Movement } from '@src/components/movement';
+import { Attack } from '@src/components/attack';
 import { EventBus } from '@src/systems';
-import { GameScene } from '@scenes/gameScene';
+import { GameScene } from '@src/scenes/gameScene';
 import { createSprite, log } from '@src/utilities';
-import { Sprite } from '@components/sprite';
+import { Sprite } from '@src/components/sprite';
 
 export class Actor extends Interactable {
     constructor(id: string) {

@@ -1,5 +1,5 @@
 import { log } from '@src/utilities';
-import { DebugEvent } from '@systems/debuggable';
+import { DebugEvent } from '@src/systems/debuggable';
 
 type EventHandler = (event: any) => void;
 type Subscriber = [EventHandler, string];
