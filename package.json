@@ -1,6 +1,6 @@
 {
     "name": "postapoc",
-    "version": "0.0.5",
+    "version": "0.0.7",
     "type": "module",
     "packageManager": "yarn@1.22.19",
     "description": "Mashing up all the things from our favorite survival games.",
@@ -29,7 +29,8 @@
         "lint": "eslint src --fix",
         "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
         "putout": "putout src",
-        "test": "cucumber-js"
+        "test": "cucumber-js",
+        "commitlog": "conventional-changelog -p angular -i COMMITLOG.md -s -r 0\n"
     },
     "dependencies": {
         "phaser": "^3.55.2",
@@ -45,6 +46,7 @@
         "@typescript-eslint/eslint-plugin": "^5.54.1",
         "@typescript-eslint/parser": "^5.54.1",
         "commitizen": "^4.3.0",
+        "conventional-changelog-cli": "^2.2.2",
         "cz-conventional-changelog": "^3.3.0",
         "eslint": "^8.35.0",
         "eslint-plugin-import": "^2.27.5",
