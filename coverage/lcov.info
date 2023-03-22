@@ -6,9 +6,11 @@ DA:1,0
 DA:2,0
 DA:3,0
 DA:4,0
-DA:6,0
-DA:13,0
-LF:6
+DA:5,0
+DA:7,0
+DA:14,0
+DA:15,0
+LF:8
 LH:0
 BRF:0
 BRH:0
@@ -180,7 +182,7 @@ BRF:8
 BRH:0
 end_of_record
 TN:
-SF:src/scenes/BootScene.ts
+SF:src/phaser/scenes/BootScene.ts
 FN:3,(anonymous_7)
 FN:4,BootScene
 FN:8,(anonymous_9)
@@ -203,7 +205,7 @@ BRF:2
 BRH:0
 end_of_record
 TN:
-SF:src/scenes/PreloadScene.ts
+SF:src/phaser/scenes/PreloadScene.ts
 FN:3,(anonymous_7)
 FN:4,PreloadScene
 FN:8,(anonymous_9)
