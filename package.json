@@ -1,65 +1,48 @@
 {
-    "name": "postapoc",
-    "version": "0.0.7",
-    "type": "module",
-    "packageManager": "yarn@1.22.19",
-    "description": "Mashing up all the things from our favorite survival games.",
-    "main": "src/main.ts",
-    "author": {
-        "name": "Sam Biggins",
-        "email": "sam@weneedadomain.com",
-        "url": "https://github.com/smileynet"
-    },
-    "contributors": [
-        {
-            "name": "Daniel Whitehead",
-            "email": "daniel@weneedadomain.com",
-            "url": "https://github.com/Unnamed-GameDev-Studio"
-        }
-    ],
-    "license": "MIT",
-    "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
-    "private": true,
-    "homepage": "https://github.com/Unnamed-GameDev-Studio/postapoc#readme",
-    "scripts": {
-        "dev": "vite",
-        "build": "tsc && vite build",
-        "serve": "vite preview",
-        "postinstall": "husky install",
-        "lint": "eslint src --fix",
-        "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-        "putout": "putout src",
-        "test": "cucumber-js",
-        "commitlog": "conventional-changelog -p angular -i COMMITLOG.md -s -r 0\n"
-    },
-    "dependencies": {
-        "phaser": "^3.55.2",
-        "tslog": "^4.8.2"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^17.4.4",
-        "@commitlint/config-conventional": "^17.4.4",
-        "@commitlint/cz-commitlint": "^17.4.4",
-        "@cucumber/cucumber": "^9.0.1",
-        "@nabla/vite-plugin-eslint": "^1.5.0",
-        "@types/node": "^18.15.0",
-        "@typescript-eslint/eslint-plugin": "^5.54.1",
-        "@typescript-eslint/parser": "^5.54.1",
-        "commitizen": "^4.3.0",
-        "conventional-changelog-cli": "^2.2.2",
-        "cz-conventional-changelog": "^3.3.0",
-        "eslint": "^8.35.0",
-        "eslint-plugin-import": "^2.27.5",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-regexp": "^1.12.0",
-        "husky": "^8.0.3",
-        "inquirer": "^9.1.4",
-        "lint-staged": "^13.2.0",
-        "prettier": "^2.8.4",
-        "prettier-eslint": "^15.0.1",
-        "putout": "^29.0.5",
-        "ts-node": "^10.9.1",
-        "typescript": "^4.9.5",
-        "vite": "^4.1.4"
-    }
+  "name": "postapoc",
+  "version": "0.0.4",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "prettier": "prettier --write .",
+    "postinstall": "husky install",
+    "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+    "commitlog": "conventional-changelog -p angular -i COMMITLOG.md -s -r 0\n"
+  },
+  "dependencies": {
+    "bitecs": "^0.3.38",
+    "mitt": "^3.0.0",
+    "phaser": "3",
+    "tiled": "^0.3.0",
+    "tweakpane": "^3.1.7",
+    "winston": "^3.8.2"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cz-commitlint": "^17.4.4",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.5",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^2.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "inquirer": "^9.1.4",
+    "jest": "^29.5.0",
+    "lint-staged": "^13.2.0",
+    "parcel": "^2.8.3",
+    "prettier": "^2.8.6",
+    "prettier-eslint": "^15.0.1",
+    "ts-jest": "^29.0.5",
+    "typescript-eslint-parser": "^22.0.0"
+  }
 }
