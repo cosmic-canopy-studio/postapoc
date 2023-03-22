@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import BootScene from './scenes/BootScene';
 import PreloadScene from './scenes/PreloadScene';
 import MainScene from './scenes/MainScene';
+import DebugPanel from './DebugPanel';
 
 const config = {
   type: Phaser.AUTO,
@@ -11,3 +12,4 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
+const debugPanel = new DebugPanel();
