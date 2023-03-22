@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "outDir": "dist",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
+      "@src/*": [
+        "src/*"
       ]
     },
     "strict": true,
@@ -17,6 +17,11 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "types": [
+    "node",
+    "jest"
   ]
 }

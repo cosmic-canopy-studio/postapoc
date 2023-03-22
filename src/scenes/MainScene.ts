@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { addEntity, createWorld } from 'bitecs';
-import { addMovement } from '@/ecs/components/Movement';
-import createMovementSystem from '@/ecs/systems/MovementSystem';
+import { addMovement } from '@src/ecs/components/Movement';
+import createMovementSystem from '@src/ecs/systems/MovementSystem';
 
 export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;

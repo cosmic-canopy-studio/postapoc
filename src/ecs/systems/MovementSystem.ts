@@ -1,16 +1,14 @@
 // src/ecs/systems/MovementSystem.ts
-import { pipe } from 'bitecs';
-import Movement from '@components/Movement';
-import logger from '@/logger';
+import { defineQuery, IWorld } from 'bitecs';
+import { Movement } from '@src/ecs/components/Movement';
 
-export function createMovementSystem() {
-  return pipe((world) => {
-    for (const entity of world.query(Movement)) {
-      Movement.x[entity] += Movement.speed[entity];
-      Movement.y[entity] += Movement.speed[entity];
-      logger.debug(`Updated movement for entity ${entity}`);
-    }
-  });
+export function movementSystem(world: IWorld, deltaTime: number) {
+  const { x, y, speed } = Movement;
+  const movementQuery = defineQuery([Movement]);
+  const entities = movementQuery(world);
+
+  for (const eid of entities) {
+    x[eid] += speed[eid] * deltaTime;
+    y[eid] += speed[eid] * deltaTime;
+  }
 }
-
-export default createMovementSystem;
