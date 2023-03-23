@@ -1,11 +1,12 @@
 {
   "name": "postapoc",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
     "test": "jest",
+    "coverage": "jest --coverage --collectCoverageFrom=\"./src/**\"",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "prettier": "prettier --write .",
@@ -17,8 +18,11 @@
   },
   "dependencies": {
     "bitecs": "^0.3.38",
+    "inversify": "^6.0.1",
+    "inversify-inject-decorators": "^3.1.0",
     "mitt": "^3.0.0",
     "phaser": "3",
+    "reflect-metadata": "^0.1.13",
     "tiled": "^0.3.0",
     "tweakpane": "^3.1.7",
     "winston": "^3.8.2"
