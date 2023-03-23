@@ -2,8 +2,10 @@ const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
 
+const rootDir = path.resolve(__dirname, '../..');
+const filePattern = path.join(rootDir, '{src,tests}/**/*.{js,ts}');
+
 // Add a comment to the top of JavaScript and TypeScript files
-const filePattern = '{src,tests}/**/*.{js,ts}'; // Adjust this pattern to match your project structure
 const commentTemplate = (relativePath) => `// Part: ${relativePath}\n\n`;
 
 glob(filePattern, (err, files) => {
@@ -13,7 +15,7 @@ glob(filePattern, (err, files) => {
   }
 
   files.forEach((file) => {
-    constrelativePath = path.relative(process.cwd(), file);
+    const relativePath = path.relative(process.cwd(), file);
     const content = fs.readFileSync(file, 'utf8');
 
     // Check if the comment already exists
