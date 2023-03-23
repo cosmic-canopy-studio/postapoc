@@ -1,10 +1,10 @@
 // Part: src/main.ts
 
 import Phaser from 'phaser';
-import BootScene from './phaser/scenes/BootScene';
-import PreloadScene from './phaser/scenes/PreloadScene';
-import MainScene from './phaser/scenes/MainScene';
-import DebugPanel from './DebugPanel';
+import BootScene from '@src/phaser/scenes/BootScene';
+import PreloadScene from '@src/phaser/scenes/PreloadScene';
+import MainScene from '@src/phaser/scenes/MainScene';
+import DebugPanel from '@src/DebugPanel';
 
 const config = {
   type: Phaser.AUTO,

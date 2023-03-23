@@ -1,17 +1,17 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import path from 'path';
 
-// This helper function returns the resolved absolute path for a given folder
-const resolvePath = (folder: string) => path.resolve(__dirname, folder);
-
 export default defineConfig({
-  server: {
-    port: 4000,
+  build: {
+    outDir: 'dist',
   },
-  build: { outDir: 'dist' },
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
-      '@src': resolvePath('src'),
+      '@src': path.resolve(__dirname, 'src'),
     },
   },
 });

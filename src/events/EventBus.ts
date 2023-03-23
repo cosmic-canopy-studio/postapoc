@@ -3,7 +3,10 @@
 import mitt, { Emitter, WildcardHandler } from 'mitt';
 import logger from '@src/logger';
 
-export type Events = Record<string, unknown>;
+export type Events = {
+  timeScaleChange: number;
+  testEvent: string;
+};
 
 const EventBus: Emitter<Events> = mitt<Events>();
 

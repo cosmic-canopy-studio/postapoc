@@ -2,7 +2,10 @@
 import { addEntity, createWorld } from 'bitecs';
 import { addMovement, Movement } from '@src/ecs/components/Movement';
 import { movementSystem } from '@src/ecs/systems/MovementSystem';
-import { TimeState, TimeSystem } from '@src/ecs/systems/TimeSystem';
+import { TimeState } from '@src/ecs/systems/TimeSystem';
+import { ITimeSystem } from '@src/interfaces';
+import { TIME_SYSTEM } from '@src/constants';
+import container from '@src/inversify.config';
 
 describe('Movement System', () => {
   it('updates the position of an entity with a movement component', () => {
@@ -10,10 +13,9 @@ describe('Movement System', () => {
     const entity = addEntity(world);
     addMovement(world, entity, 100, 200, 50);
 
-    // Use TimeSystem
-    const timeSystem = new TimeSystem();
+    const timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     timeSystem.setTimeState(TimeState.RUNNING);
-    const deltaTime = 1; // Set deltaTime value
+    const deltaTime = 1;
     const adjustedDeltaTime = timeSystem.getDeltaTime(deltaTime);
 
     movementSystem(world, adjustedDeltaTime);

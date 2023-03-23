@@ -1,28 +1,18 @@
-// Part: src/phaser/systems/TimeController.ts
+// src/phaser/systems/TimeController.ts
 
-// src/TimeController.ts
-import { Game } from 'phaser';
+import { Scene } from 'phaser';
+import { ITimeController } from '@src/interfaces';
+import EventBus from '@src/events/EventBus';
 
-export class TimeController {
-  private game: Game;
+export class TimeController implements ITimeController {
+  private scene: Scene;
 
-  constructor(game: Game) {
-    this.game = game;
+  constructor(scene: Scene) {
+    this.scene = scene;
+    EventBus.on('timeScaleChange', this.setTimeScale.bind(this));
   }
 
-  pause() {
-    this.game.setTimeScale(0);
-  }
-
-  slowDown(factor: number) {
-    this.game.setTimeScale(factor);
-  }
-
-  speedUp(factor: number) {
-    this.game.setTimeScale(factor);
-  }
-
-  resume() {
-    this.game.setTimeScale(1);
+  setTimeScale(factor: number) {
+    this.scene.time.timeScale = factor;
   }
 }

@@ -1,6 +1,7 @@
-// Part: src/ecs/systems/TimeSystem.ts
-
 // src/ecs/systems/TimeSystem.ts
+import { injectable } from 'inversify';
+import EventBus from '@src/events/EventBus';
+
 export enum TimeState {
   PAUSED,
   RUNNING,
@@ -8,6 +9,7 @@ export enum TimeState {
   FAST_FORWARD,
 }
 
+@injectable()
 export class TimeSystem {
   private timeState: TimeState;
   private slowedDownSpeed: number;
@@ -21,6 +23,8 @@ export class TimeSystem {
 
   setTimeState(timeState: TimeState) {
     this.timeState = timeState;
+    const timeScale = this.getTimeScale();
+    EventBus.emit('timeScaleChange', timeScale);
   }
 
   getTimeState(): TimeState {
@@ -28,16 +32,20 @@ export class TimeSystem {
   }
 
   getDeltaTime(deltaTime: number): number {
+    return deltaTime * this.getTimeScale();
+  }
+
+  private getTimeScale(): number {
     switch (this.timeState) {
       case TimeState.PAUSED:
         return 0;
       case TimeState.SLOWED_DOWN:
-        return deltaTime * this.slowedDownSpeed;
+        return this.slowedDownSpeed;
       case TimeState.FAST_FORWARD:
-        return deltaTime * this.fastForwardSpeed;
+        return this.fastForwardSpeed;
       case TimeState.RUNNING:
       default:
-        return deltaTime;
+        return 1;
     }
   }
 }
