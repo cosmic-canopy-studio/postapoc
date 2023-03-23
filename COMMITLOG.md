@@ -1,4 +1,4 @@
-## [0.0.22](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.22) (2023-03-23)
+## [0.0.23](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.23) (2023-03-23)
 
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -26,8 +26,7 @@
     "phaser": "3",
     "reflect-metadata": "^0.1.13",
     "tiled": "^0.3.0",
-    "tweakpane": "^3.1.7",
-    "winston": "^3.8.2"
+    "tweakpane": "^3.1.7"
   },
   "main": "index.js",
   "license": "MIT",
@@ -35,6 +34,7 @@
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@commitlint/cz-commitlint": "^17.4.4",
+    "@tweakpane/core": "^1.1.6",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.5",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
@@ -52,6 +52,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-playwright-preset": "^3.0.1",
     "lint-staged": "^13.2.0",
+    "loglevel": "^1.8.1",
     "playwright": "^1.32.0",
     "prettier": "^2.8.6",
     "prettier-eslint": "^15.0.1",
