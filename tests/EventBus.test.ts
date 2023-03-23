@@ -1,4 +1,4 @@
-import EventBus from '@src/events/EventBus';
+import EventBus from '@src/core/EventBus';
 
 describe('Event Bus', () => {
   it('emits and listens to events', (done) => {

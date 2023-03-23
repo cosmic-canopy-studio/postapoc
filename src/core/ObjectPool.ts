@@ -1,7 +1,9 @@
+// Part: src/core/ObjectPool.ts
+
 // Part: src/utils/ObjectPool.ts
 
 // src/utils/ObjectPool.ts
-import logger from '@src/logger';
+import logger from '@src/core/logger';
 
 export default class ObjectPool<T> {
   private pool: T[];

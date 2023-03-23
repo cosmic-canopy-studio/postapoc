@@ -1,12 +1,12 @@
 // Part: src/ecs/systems/MovementSystem.ts
 
-// src/ecs/systems/MovementSystem.ts
 import { defineQuery, IWorld } from 'bitecs';
 import { Movement } from '@src/ecs/components/Movement';
 
+const movementQuery = defineQuery([Movement]);
+
 export function movementSystem(world: IWorld, deltaTime: number) {
   const { x, y, speed } = Movement;
-  const movementQuery = defineQuery([Movement]);
   const entities = movementQuery(world);
 
   for (const eid of entities) {

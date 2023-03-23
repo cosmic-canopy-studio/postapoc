@@ -1,8 +1,7 @@
 // Part: src/ecs/components/Movement.ts
 
-// src/ecs/components/Movement.ts
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
-import logger from '@src/logger';
+import logger from '@src/core/logger';
 
 export const Movement = defineComponent({
   x: Types.f32,

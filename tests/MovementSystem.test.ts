@@ -3,9 +3,9 @@ import { addEntity, createWorld } from 'bitecs';
 import { addMovement, Movement } from '@src/ecs/components/Movement';
 import { movementSystem } from '@src/ecs/systems/MovementSystem';
 import { TimeState } from '@src/ecs/systems/TimeSystem';
-import { ITimeSystem } from '@src/interfaces';
-import { TIME_SYSTEM } from '@src/constants';
-import container from '@src/inversify.config';
+import { ITimeSystem } from '@src/utils/interfaces';
+import { TIME_SYSTEM } from '@src/utils/constants';
+import container from '@src/core/inversify.config';
 
 describe('Movement System', () => {
   it('updates the position of an entity with a movement component', () => {

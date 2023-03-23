@@ -1,12 +1,9 @@
-// Part: src/events/EventBus.ts
+// Part: src/core/EventBus.ts
 
 import mitt, { Emitter, WildcardHandler } from 'mitt';
-import logger from '@src/logger';
+import logger from '@src/core/logger';
 
-export type Events = {
-  timeScaleChange: number;
-  testEvent: string;
-};
+export type Events = Record<string, any>;
 
 const EventBus: Emitter<Events> = mitt<Events>();
 

@@ -1,6 +1,8 @@
+// Part: src/ecs/systems/TimeSystem.ts
+
 // src/ecs/systems/TimeSystem.ts
+import EventBus from '@src/core/EventBus';
 import { injectable } from 'inversify';
-import EventBus from '@src/events/EventBus';
 
 export enum TimeState {
   PAUSED,
@@ -12,8 +14,8 @@ export enum TimeState {
 @injectable()
 export class TimeSystem {
   private timeState: TimeState;
-  private slowedDownSpeed: number;
-  private fastForwardSpeed: number;
+  private readonly slowedDownSpeed: number;
+  private readonly fastForwardSpeed: number;
 
   constructor() {
     this.timeState = TimeState.RUNNING;

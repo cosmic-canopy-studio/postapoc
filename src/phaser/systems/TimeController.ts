@@ -3,8 +3,8 @@
 // src/phaser/systems/TimeController.ts
 
 import { Scene } from 'phaser';
-import { ITimeController } from '@src/interfaces';
-import EventBus from '@src/events/EventBus';
+import { ITimeController } from '@src/utils/interfaces';
+import EventBus from '@src/core/EventBus';
 
 export class TimeController implements ITimeController {
   private scene: Scene;

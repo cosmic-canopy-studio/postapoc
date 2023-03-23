@@ -1,3 +1,5 @@
+// Part: src/utils/interfaces.ts
+
 // Part: src/interfaces.ts
 
 // src/interfaces.ts
