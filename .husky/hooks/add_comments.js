@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Add a comment to the top of JavaScript and TypeScript files
-const filePattern = '../../src/**/*.{js,ts}'; // Adjust this pattern to match your project structure
+const filePattern = '{src,tests}/**/*.{js,ts}'; // Adjust this pattern to match your project structure
 const commentTemplate = (relativePath) => `// Part: ${relativePath}\n\n`;
 
 glob(filePattern, (err, files) => {
