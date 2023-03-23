@@ -5,13 +5,16 @@ import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';
 // Set the log level
 log.setLevel(log.levels.DEBUG);
 
+// Store the original methodFactory
+const originalMethodFactory = log.methodFactory;
+
 // Customize the methodFactory to modify the log output format
 const customMethodFactory = (
   methodName: LogLevelNames,
   logLevel: LogLevelNumbers,
   loggerName: string | symbol = 'defaultLogger'
 ) => {
-  const rawMethod = log.methodFactory(methodName, logLevel, loggerName);
+  const rawMethod = originalMethodFactory(methodName, logLevel, loggerName);
   return (...args: any[]) => {
     const timestamp = new Date().toISOString();
     rawMethod(`[${timestamp}] ${methodName.toUpperCase()}:`, ...args);

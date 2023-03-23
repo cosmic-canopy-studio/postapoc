@@ -1,6 +1,5 @@
 // Part: src/ecs/systems/timeSystem.ts
 
-// src/ecs/systems/timeSystem.ts
 import EventBus from '@src/core/eventBus';
 import { injectable } from 'inversify';
 

@@ -3,6 +3,7 @@
 // Part: src/inversify.config.ts
 
 import { Container } from 'inversify';
+import 'reflect-metadata';
 import { ITimeSystem } from '@src/utils/interfaces';
 import { TIME_SYSTEM } from '@src/utils/constants';
 import { TimeSystem } from '@src/ecs/systems/timeSystem';
