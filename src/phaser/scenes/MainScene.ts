@@ -5,7 +5,7 @@ import { addEntity, createWorld } from 'bitecs';
 import { addMovement } from '@src/ecs/components/Movement';
 import { movementSystem } from '@src/ecs/systems/MovementSystem';
 import { ITimeController, ITimeSystem } from '@src/utils/interfaces';
-import container from '@src/utils/inversify.config';
+import container from '@src/core/inversify.config';
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from '@src/utils/constants';
 
 export default class MainScene extends Phaser.Scene {
