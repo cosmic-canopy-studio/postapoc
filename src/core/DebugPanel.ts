@@ -1,13 +1,15 @@
+// Part: src/core/DebugPanel.ts
+
 // Part: src/DebugPanel.ts
 
-import Tweakpane from 'tweakpane';
-import logger from './logger';
-import EventBus from './events/EventBus';
+import { Pane } from 'tweakpane';
+import { getLogger } from '@src/core/logger';
+import EventBus from '@src/core/EventBus';
 
 export default class DebugPanel {
-  private pane: Tweakpane;
-  private modules: Record<string, boolean>;
-  private events: Record<string, boolean>;
+  private pane: Pane;
+  private readonly modules: Record<string, boolean>;
+  private readonly events: Record<string, boolean>;
 
   constructor() {
     this.modules = {
@@ -21,7 +23,7 @@ export default class DebugPanel {
       // Add more events here
     };
 
-    this.pane = new Tweakpane({ title: 'Debug Panel' });
+    this.pane = new Pane({ title: 'Debug Panel' });
     this.setupModuleDebug();
     this.setupEventDebug();
 
@@ -32,8 +34,14 @@ export default class DebugPanel {
     const moduleFolder = this.pane.addFolder({ title: 'Modules' });
 
     for (const moduleName in this.modules) {
+      const moduleLogger = getLogger(moduleName);
+
       moduleFolder.addInput(this.modules, moduleName).on('change', (value) => {
-        logger.transports[0].silent = !value;
+        if (value) {
+          moduleLogger.setLevel(moduleLogger.levels.DEBUG);
+        } else {
+          moduleLogger.setLevel(moduleLogger.levels.SILENT);
+        }
       });
     }
   }
@@ -45,7 +53,7 @@ export default class DebugPanel {
       eventFolder.addInput(this.events, eventName).on('change', (value) => {
         if (value) {
           EventBus.on(eventName, (eventData) => {
-            logger.debug(`Event triggered: ${eventName}`, eventData);
+            console.debug(`Event triggered: ${eventName}`, eventData);
           });
         } else {
           EventBus.off(eventName);
@@ -55,6 +63,7 @@ export default class DebugPanel {
   }
 
   private listenToDebugChanges() {
+    const logger = getLogger('DebugPanel');
     logger.debug('DebugPanel initialized');
   }
 }
