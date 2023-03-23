@@ -1,3 +1,5 @@
+// Part: src/events/EventBus.ts
+
 import mitt, { Emitter, WildcardHandler } from 'mitt';
 import logger from '@src/logger';
 

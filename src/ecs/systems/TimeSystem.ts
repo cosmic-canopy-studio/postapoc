@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/TimeSystem.ts
+
 // src/ecs/systems/TimeSystem.ts
 export enum TimeState {
   PAUSED,

@@ -1,3 +1,5 @@
+// Part: src/logger/index.ts
+
 import winston from 'winston';
 
 const logger = winston.createLogger({

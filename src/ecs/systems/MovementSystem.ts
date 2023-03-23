@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/MovementSystem.ts
+
 // src/ecs/systems/MovementSystem.ts
 import { defineQuery, IWorld } from 'bitecs';
 import { Movement } from '@src/ecs/components/Movement';

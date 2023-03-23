@@ -1,3 +1,5 @@
+// Part: src/phaser/scenes/PreloadScene.ts
+
 import Phaser from 'phaser';
 
 export default class PreloadScene extends Phaser.Scene {

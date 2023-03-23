@@ -1,3 +1,5 @@
+// Part: src/DebugPanel.ts
+
 import Tweakpane from 'tweakpane';
 import logger from './logger';
 import EventBus from './events/EventBus';

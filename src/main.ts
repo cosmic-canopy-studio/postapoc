@@ -1,7 +1,9 @@
+// Part: src/main.ts
+
 import Phaser from 'phaser';
-import BootScene from './scenes/BootScene';
-import PreloadScene from './scenes/PreloadScene';
-import MainScene from './scenes/MainScene';
+import BootScene from './phaser/scenes/BootScene';
+import PreloadScene from './phaser/scenes/PreloadScene';
+import MainScene from './phaser/scenes/MainScene';
 import DebugPanel from './DebugPanel';
 
 const config = {

@@ -3,19 +3,20 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '../..');
-const filePattern = path.join(rootDir, '{src,tests}/**/*.{js,ts}');
+console.log('Root directory:', rootDir);
+const filePattern = path.join(rootDir, '{src,test}/**/*.{js,ts}');
+console.log('File pattern:', filePattern);
 
 // Add a comment to the top of JavaScript and TypeScript files
 const commentTemplate = (relativePath) => `// Part: ${relativePath}\n\n`;
 
-glob(filePattern, (err, files) => {
-  if (err) {
-    console.error('Error finding files:', err);
-    process.exit(1);
-  }
+try {
+  const files = glob.sync(filePattern);
+
+  console.log('Matched files:', files);
 
   files.forEach((file) => {
-    const relativePath = path.relative(process.cwd(), file);
+    const relativePath = path.relative(rootDir, file);
     const content = fs.readFileSync(file, 'utf8');
 
     // Check if the comment already exists
@@ -24,7 +25,11 @@ glob(filePattern, (err, files) => {
 
     // If the comment doesn't exist, add it
     if (!hasComment) {
+      console.log(`Adding comment to ${relativePath}...`);
       fs.writeFileSync(file, comment + content);
     }
   });
-});
+} catch (err) {
+  console.error('Error finding files:', err);
+  process.exit(1);
+}
