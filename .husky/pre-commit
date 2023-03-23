@@ -1,28 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Check staged files with Lint-Staged
-yarn test && yarn lint-staged
-
-# Bump version based on commit message
-last_commit_message=$(git log --format=%B -n 1 HEAD)
-
-if echo "$last_commit_message" | grep -q 'bump major'; then
-  # bump major version
-  yarn version --major --no-commit-hooks --no-git-tag-version
-elif echo "$last_commit_message" | grep -q 'bump minor'; then
-  # bump minor version
-  yarn version --minor --no-commit-hooks --no-git-tag-version
-elif echo "$last_commit_message" | grep -q 'bump skip'; then
-  echo "Skipping version bump"
-else
-  # bump patch version
-  yarn version --patch --no-commit-hooks --no-git-tag-version
-fi
-
-# Update COMMITLOG
-yarn commitlog
-
-# Commit the version bump & COMMITLOG
-git add package.json
-git add COMMITLOG.md
+# Run the linting, tests, bump version, update commit log, and add comments
+. "$(dirname "$0")/hooks/lint_and_test.sh"
+. "$(dirname "$0")/hooks/bump_version.sh"
+. "$(dirname "$0")/hooks/update_commitlog.sh"
+. "$(dirname "$0")/hooks/add_comments.sh"
