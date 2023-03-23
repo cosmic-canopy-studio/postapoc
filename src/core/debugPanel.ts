@@ -1,10 +1,10 @@
-// Part: src/core/DebugPanel.ts
+// Part: src/core/debugPanel.ts
 
-// Part: src/DebugPanel.ts
+// Part: src/debugPanel.ts
 
 import { Pane } from 'tweakpane';
 import { getLogger } from '@src/core/logger';
-import EventBus from '@src/core/EventBus';
+import EventBus from '@src/core/eventBus';
 
 export default class DebugPanel {
   private pane: Pane;

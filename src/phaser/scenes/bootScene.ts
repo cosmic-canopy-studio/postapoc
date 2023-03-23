@@ -1,4 +1,4 @@
-// Part: src/phaser/scenes/BootScene.ts
+// Part: src/phaser/scenes/bootScene.ts
 
 import Phaser from 'phaser';
 

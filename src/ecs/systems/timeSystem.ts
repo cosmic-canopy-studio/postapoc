@@ -1,7 +1,7 @@
-// Part: src/ecs/systems/TimeSystem.ts
+// Part: src/ecs/systems/timeSystem.ts
 
-// src/ecs/systems/TimeSystem.ts
-import EventBus from '@src/core/EventBus';
+// src/ecs/systems/timeSystem.ts
+import EventBus from '@src/core/eventBus';
 import { injectable } from 'inversify';
 
 export enum TimeState {

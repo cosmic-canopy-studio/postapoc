@@ -5,7 +5,7 @@
 import { Container } from 'inversify';
 import { ITimeSystem } from '@src/utils/interfaces';
 import { TIME_SYSTEM } from '@src/utils/constants';
-import { TimeSystem } from '@src/ecs/systems/TimeSystem';
+import { TimeSystem } from '@src/ecs/systems/timeSystem';
 
 const container = new Container();
 

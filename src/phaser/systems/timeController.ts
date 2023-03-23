@@ -1,10 +1,10 @@
-// Part: src/phaser/systems/TimeController.ts
+// Part: src/phaser/systems/timeController.ts
 
-// src/phaser/systems/TimeController.ts
+// src/phaser/systems/timeController.ts
 
 import { Scene } from 'phaser';
 import { ITimeController } from '@src/utils/interfaces';
-import EventBus from '@src/core/EventBus';
+import EventBus from '@src/core/eventBus';
 
 export class TimeController implements ITimeController {
   private scene: Scene;

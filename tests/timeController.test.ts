@@ -1,5 +1,5 @@
-// Start of file: TimeController.test.ts
-import { TimeController } from '@src/phaser/systems/TimeController';
+// Start of file: timeController.test.ts
+import { TimeController } from '@src/phaser/systems/timeController';
 
 describe('Time Controller', () => {
   const mockScene = {
@@ -28,4 +28,4 @@ describe('Time Controller', () => {
     expect(mockScene.time.timeScale).toEqual(1);
   });
 });
-// End of file: TimeController.test.ts
+// End of file: timeController.test.ts

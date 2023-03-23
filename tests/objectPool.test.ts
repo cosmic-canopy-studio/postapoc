@@ -1,4 +1,4 @@
-import ObjectPool from '@src/core/ObjectPool';
+import ObjectPool from '@src/core/objectPool';
 
 describe('Object Pool', () => {
   it('creates and manages an object pool', () => {

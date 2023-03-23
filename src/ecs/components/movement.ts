@@ -1,4 +1,4 @@
-// Part: src/ecs/components/Movement.ts
+// Part: src/ecs/components/movement.ts
 
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import logger from '@src/core/logger';

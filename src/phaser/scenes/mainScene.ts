@@ -1,9 +1,9 @@
-// Part: src/phaser/scenes/MainScene.ts
+// Part: src/phaser/scenes/mainScene.ts
 
 import Phaser, { Scene } from 'phaser';
 import { addEntity, createWorld } from 'bitecs';
-import { addMovement } from '@src/ecs/components/Movement';
-import { movementSystem } from '@src/ecs/systems/MovementSystem';
+import { addMovement } from '@src/ecs/components/movement';
+import { movementSystem } from '@src/ecs/systems/movementSystem';
 import { ITimeController, ITimeSystem } from '@src/utils/interfaces';
 import container from '@src/core/inversify.config';
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from '@src/utils/constants';

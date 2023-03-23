@@ -1,8 +1,8 @@
-// Part: src/core/ObjectPool.ts
+// Part: src/core/objectPool.ts
 
-// Part: src/utils/ObjectPool.ts
+// Part: src/utils/objectPool.ts
 
-// src/utils/ObjectPool.ts
+// src/utils/objectPool.ts
 import logger from '@src/core/logger';
 
 export default class ObjectPool<T> {

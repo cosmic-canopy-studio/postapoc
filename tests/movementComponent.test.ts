@@ -1,5 +1,5 @@
 import { addEntity, createWorld } from 'bitecs';
-import { addMovement, Movement } from '@src/ecs/components/Movement';
+import { addMovement, Movement } from '@src/ecs/components/movement';
 
 describe('Movement Component', () => {
   it('adds a movement component to an entity', () => {

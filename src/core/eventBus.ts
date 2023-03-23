@@ -1,4 +1,4 @@
-// Part: src/core/EventBus.ts
+// Part: src/core/eventBus.ts
 
 import mitt, { Emitter, WildcardHandler } from 'mitt';
 import logger from '@src/core/logger';

@@ -1,4 +1,4 @@
-// Part: src/objects/Player.ts
+// Part: src/objects/player.ts
 
 import Phaser from 'phaser';
 
