@@ -1,3 +1,5 @@
+// Part: src/phaser/systems/TimeController.ts
+
 // src/phaser/systems/TimeController.ts
 
 import { Scene } from 'phaser';

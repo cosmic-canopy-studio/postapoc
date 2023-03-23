@@ -1,3 +1,5 @@
+// Part: src/inversify.config.ts
+
 // src/inversify.config.ts
 import { Container } from 'inversify';
 import { ITimeSystem } from '@src/interfaces';

@@ -1,0 +1,1 @@
+// Part: src/enums.ts

@@ -1,3 +1,5 @@
+// Part: src/phaser/scenes/MainScene.ts
+
 // src/phaser/scenes/MainScene.ts
 
 import Phaser, { Scene } from 'phaser';

@@ -1,3 +1,5 @@
+// Part: src/factories.ts
+
 // src/factories.ts
 import { Scene } from 'phaser';
 import { TimeController } from '@src/phaser/systems/TimeController';
