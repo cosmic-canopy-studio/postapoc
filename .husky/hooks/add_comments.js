@@ -13,8 +13,6 @@ const commentTemplate = (relativePath) => `// Part: ${relativePath}\n\n`;
 try {
   const files = glob.sync(filePattern);
 
-  console.log('Matched files:', files);
-
   files.forEach((file) => {
     const relativePath = path.relative(rootDir, file);
     const content = fs.readFileSync(file, 'utf8');
