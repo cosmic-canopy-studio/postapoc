@@ -4,9 +4,9 @@ import Phaser, { Scene } from "phaser";
 import { addEntity, createWorld } from "bitecs";
 import { addMovement } from "@src/ecs/components/movement";
 import { movementSystem } from "@src/ecs/systems/movementSystem";
-import { ITimeController, ITimeSystem } from "@src/core/interfaces";
+import {ITerrainGenerator, ITimeController, ITimeSystem} from "@src/core/interfaces";
 import container from "@src/core/inversify.config";
-import { TERRAIN_GENERATOR, TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
+import {STATIC_TERRAIN_GENERATOR, TERRAIN_GENERATOR, TIME_CONTROLLER_FACTORY, TIME_SYSTEM} from "@src/core/constants";
 import { TerrainGenerator } from "@src/core/terrainGenerator";
 import DebugPanel from "@src/core/debugPanel";
 
@@ -14,15 +14,9 @@ export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;
   private timeController!: ITimeController;
   private timeSystem!: ITimeSystem;
-  private terrainGenerator!: TerrainGenerator;
 
   constructor() {
     super("MainScene");
-  }
-
-  preload() {
-    // Initialize the TerrainGenerator
-    this.terrainGenerator = container.get<TerrainGenerator>(TERRAIN_GENERATOR);
   }
 
   create() {
@@ -40,15 +34,16 @@ export default class MainScene extends Phaser.Scene {
       this
     );
 
+    // In the create method of MainScene
+    new DebugPanel(this.world, player);
+
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
     this.timeController = timeControllerFactory(this);
 
-    // Call the function to generate the terrain
-    this.terrainGenerator.generateTerrain(this);
+    const worldGenerator = new WorldGenerator(this, this.world);
+    worldGenerator.generateWorld(grasslandBiome, 100, 100);
 
-    // In the create method of MainScene
-    new DebugPanel(this.world, player);
   }
 
   update(time: number, deltaTime: number) {

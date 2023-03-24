@@ -13,3 +13,4 @@ export interface ITimeSystem {
 
   getDeltaTime(deltaTime: number): number;
 }
+
