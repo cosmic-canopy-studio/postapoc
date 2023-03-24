@@ -1,7 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
-  <polygon points="0,600 100,450 200,600" fill="#011108"/>
-  <polygon points="150,600 250,400 350,600" fill="#011108"/>
-  <polygon points="300,600 400,500 500,600" fill="#011108"/>
-  <polygon points="450,600 550,350 650,600" fill="#011108"/>
-  <polygon points="600,600 700,480 800,600" fill="#011108"/>
+  <polygon points="0,600 50,525 100,600" fill="#042305"/>
+  <polygon points="50,600 100,550 150,600" fill="#021103"/>
+  <polygon points="100,600 150,525 200,600" fill="#021103"/>
+  <polygon points="150,600 200,500 250,600" fill="#021103"/>
+  <polygon points="200,600 250,525 300,600" fill="#042305"/>
+  <polygon points="250,600 300,520 350,600" fill="#021103"/>
+  <polygon points="300,600 350,500 400,600" fill="#042305"/>
+  <polygon points="350,600 400,525 450,600" fill="#042305"/>
+  <polygon points="400,600 450,525 500,600" fill="#021103"/>
+  <polygon points="450,600 500,550 550,600" fill="#021103"/>
+  <polygon points="500,600 550,525 600,600" fill="#042305"/>
+  <polygon points="550,600 600,500 650,600" fill="#021103"/>
+  <polygon points="600,600 650,525 700,600" fill="#042305"/>
+  <polygon points="650,600 700,550 750,600" fill="#021103"/>
+  <polygon points="700,600 750,525 800,600" fill="#021103"/>
 </svg>

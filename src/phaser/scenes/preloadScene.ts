@@ -4,7 +4,6 @@ import Phaser from 'phaser';
 
 export default class PreloadScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
-  private mushroomCloud!: Phaser.GameObjects.Image;
 
   constructor() {
     super('PreloadScene');
@@ -58,12 +57,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     // Show the title "PostApoc" in the foreground
     const title = this.add.image(400, 150, 'PostApoc_title');
-    title.setScale(1.25);
-
-    this.mushroomCloud = this.add
-      .image(400, 300, 'mushroom_cloud')
-      .setScale(0.1)
-      .setDepth(1);
+    title.setScale(2);
 
     // Set up input listeners
     this.input.on('pointerdown', () => this.startMainScene());
@@ -77,13 +71,41 @@ export default class PreloadScene extends Phaser.Scene {
 
   private async growMushroomCloud() {
     return new Promise<void>((resolve) => {
+      const mushroomCloud = this.add.image(400, 300, 'mushroom_cloud');
+      mushroomCloud.setScale(0.1).setDepth(1);
+      mushroomCloud.originY = mushroomCloud.height;
       this.tweens.add({
-        targets: this.mushroomCloud,
+        targets: mushroomCloud,
         scale: 20,
         duration: 2000,
         ease: 'Sine.easeInOut',
         onComplete: () => {
           resolve();
+        },
+      });
+
+      // Add the screen overlay
+      const orangeRect = this.add.rectangle(400, 300, 800, 600, 0xff6600, 0);
+      orangeRect.setDepth(2);
+
+      const blackRect = this.add.rectangle(400, 300, 800, 600, 0x000000, 0);
+      blackRect.setDepth(3);
+
+      this.tweens.add({
+        targets: orangeRect,
+        fillAlpha: 0.5,
+        duration: 800,
+        ease: 'Linear',
+        onComplete: () => {
+          this.tweens.add({
+            targets: blackRect,
+            fillAlpha: 1,
+            duration: 1600,
+            ease: 'Expo.easeOut',
+            onComplete: () => {
+              resolve();
+            },
+          });
         },
       });
     });
