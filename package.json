@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,6 +19,7 @@
     "update_comments": "node .husky/hooks/add_comments.js"
   },
   "dependencies": {
+    "alea": "^1.0.1",
     "bitecs": "^0.3.38",
     "inversify": "^6.0.1",
     "inversify-inject-decorators": "^3.1.0",
@@ -56,6 +57,7 @@
     "playwright": "^1.32.0",
     "prettier": "^2.8.6",
     "prettier-eslint": "^15.0.1",
+    "simplex-noise": "^4.0.1",
     "ts-jest": "^29.0.5",
     "typescript-eslint-parser": "^22.0.0",
     "vite": "^4.2.1"

@@ -1,4 +1,4 @@
-## [0.0.34](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.34) (2023-03-24)
+## [0.0.35](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.35) (2023-03-24)
 
 
 ### Features
@@ -8,7 +8,7 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
-* initial main scene implementation ([50a6ea6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/50a6ea62a52a4e02303a5fa13f2a51fc474be9c4))
+* initial main scene implementation ([9b8d3e1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b8d3e1b21cafa942bdb3f57fb87db4193ab44f7))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
 
 
