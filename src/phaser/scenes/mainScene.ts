@@ -8,6 +8,7 @@ import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import container from "@src/core/inversify.config";
 import { TERRAIN_GENERATOR, TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
 import { TerrainGenerator } from "@src/core/terrainGenerator";
+import DebugPanel from "@src/core/debugPanel";
 
 export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;
@@ -44,6 +45,9 @@ export default class MainScene extends Phaser.Scene {
 
     // Call the function to generate the terrain
     this.terrainGenerator.generateTerrain(this);
+
+    // In the create method of MainScene
+    const debugPanel = new DebugPanel(this.world, player);
   }
 
   update(time: number, deltaTime: number) {
