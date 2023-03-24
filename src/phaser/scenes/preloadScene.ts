@@ -1,6 +1,7 @@
 // Part: src/phaser/scenes/preloadScene.ts
 
 import Phaser from 'phaser';
+import { config } from '@src/core/config';
 
 export default class PreloadScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -62,6 +63,10 @@ export default class PreloadScene extends Phaser.Scene {
     // Set up input listeners
     this.input.on('pointerdown', () => this.startMainScene());
     this.input.keyboard.on('keydown', () => this.startMainScene());
+
+    if (config.developmentMode) {
+      this.startMainScene();
+    }
   }
 
   private async startMainScene() {
