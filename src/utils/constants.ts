@@ -1,7 +1,5 @@
 // Part: src/utils/constants.ts
 
-// Part: src/constants.ts
-
-// src/constants.ts
-export const TIME_SYSTEM = 'TimeSystem';
-export const TIME_CONTROLLER_FACTORY = 'TimeControllerFactory';
+export const TIME_CONTROLLER = Symbol("TimeController");
+export const TIME_CONTROLLER_FACTORY = Symbol("TimeControllerFactory");
+export const TIME_SYSTEM = Symbol("TimeSystem");
