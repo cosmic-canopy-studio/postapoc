@@ -65,7 +65,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.input.keyboard.on('keydown', () => this.startMainScene());
 
     if (config.developmentMode) {
-      this.startMainScene();
+      this.scene.start('MainScene');
     }
   }
 
