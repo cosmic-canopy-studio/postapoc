@@ -35,7 +35,8 @@ export default class MainScene extends Phaser.Scene {
       player,
       this.cameras.main.centerX,
       this.cameras.main.centerY,
-      100,
+      0,
+      0,
       this
     );
 
@@ -47,7 +48,7 @@ export default class MainScene extends Phaser.Scene {
     this.terrainGenerator.generateTerrain(this);
 
     // In the create method of MainScene
-    const debugPanel = new DebugPanel(this.world, player);
+    new DebugPanel(this.world, player);
   }
 
   update(time: number, deltaTime: number) {

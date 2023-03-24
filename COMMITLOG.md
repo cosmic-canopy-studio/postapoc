@@ -1,4 +1,4 @@
-## [0.0.37](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.37) (2023-03-24)
+## 0.0.38 (2023-03-24)
 
 
 ### Features
@@ -8,14 +8,11 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
+* **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * initial main scene implementation ([9b8d3e1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b8d3e1b21cafa942bdb3f57fb87db4193ab44f7))
 * initial terrain generation implementation ([1eb1bda](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1eb1bda4517a70b15295e4b71ad14312fbfab6ea))
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
-
-
-
-## 0.0.5 (2023-03-17)
 
 
 

@@ -5,7 +5,6 @@ import "reflect-metadata";
 import BootScene from "@src/phaser/scenes/bootScene";
 import PreloadScene from "@src/phaser/scenes/preloadScene";
 import MainScene from "@src/phaser/scenes/mainScene";
-import DebugPanel from "@src/core/debugPanel";
 
 const config = {
   type: Phaser.AUTO,
@@ -23,4 +22,3 @@ const config = {
 };
 
 const game = new Phaser.Game(config);
-const debugPanel = new DebugPanel();

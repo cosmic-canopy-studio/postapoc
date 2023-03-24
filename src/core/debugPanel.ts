@@ -66,18 +66,35 @@ export default class DebugPanel {
     }
   }
 
+  private playerPosition = {
+    x: 0,
+    y: 0,
+    direction: 0,
+    speed: 0
+  };
+
+  private updatePlayerPosition() {
+    this.playerPosition.x = Movement.x[this.player];
+    this.playerPosition.y = Movement.y[this.player];
+    this.playerPosition.direction = Movement.direction[this.player];
+    this.playerPosition.speed = Movement.speed[this.player];
+  }
+
   private setupPlayerDebug() {
     this.playerFolder = this.pane.addFolder({ title: "Player" });
-    this.playerFolder.addMonitor(Movement.x, "x", { eid: this.player });
-    this.playerFolder.addMonitor(Movement.y, "y", { eid: this.player });
-
-    //this.playerFolder.addMonitor(this.world.velocity.x, "vx");
-    //this.playerFolder.addMonitor(this.world.velocity.y, "vy");
-    // Add more player properties here
+    this.playerFolder.addMonitor(this.playerPosition, 'x');
+    this.playerFolder.addMonitor(this.playerPosition, 'y');
+    this.playerFolder.addMonitor(this.playerPosition, 'direction');
+    this.playerFolder.addMonitor(this.playerPosition, 'speed');
   }
 
   private listenToDebugChanges() {
     const logger = getLogger("DebugPanel");
     logger.debug("DebugPanel initialized");
+
+    setInterval(() => {
+      this.updatePlayerPosition();
+    }, 100); // Update the position every 100 ms
   }
+
 }

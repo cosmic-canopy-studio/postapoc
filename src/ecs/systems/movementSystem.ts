@@ -11,8 +11,11 @@ export function movementSystem(world: IWorld, delta: number) {
 
   for (const eid of entities) {
     const speed = Movement.speed[eid];
-    const vx = Movement.x[eid];
-    const vy = Movement.y[eid];
+    const direction = Movement.direction[eid]; // Added direction
+
+    // Calculate the velocity based on speed and direction
+    const vx = Math.cos(direction) * speed;
+    const vy = Math.sin(direction) * speed;
 
     // Update the position based on the velocity
     Movement.x[eid] += vx * delta;
