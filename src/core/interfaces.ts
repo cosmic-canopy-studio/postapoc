@@ -1,8 +1,5 @@
-// Part: src/utils/interfaces.ts
+// Part: src/core/interfaces.ts
 
-// Part: src/interfaces.ts
-
-// src/interfaces.ts
 import { TimeState } from "@src/ecs/systems/timeSystem";
 
 export interface ITimeController {
