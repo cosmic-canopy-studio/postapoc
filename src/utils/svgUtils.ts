@@ -1,3 +1,5 @@
+// Part: src/utils/svgUtils.ts
+
 import { SVG } from "@svgdotjs/svg.js";
 
 export function createFallbackSVG(assetName: string, width: number, height: number): string {

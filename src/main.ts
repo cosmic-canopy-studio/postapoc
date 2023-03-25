@@ -3,14 +3,14 @@
 import Phaser from "phaser";
 import "reflect-metadata";
 import BootScene from "@src/phaser/scenes/bootScene";
-import PreloadScene from "@src/phaser/scenes/preloadScene";
+import TitleScene from "@src/phaser/scenes/titleScene";
 import MainScene from "@src/phaser/scenes/mainScene";
 
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: [BootScene, PreloadScene, MainScene],
+  scene: [BootScene, TitleScene, MainScene],
   parent: "game-container",
   physics: {
     default: "arcade",

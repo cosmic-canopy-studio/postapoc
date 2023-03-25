@@ -1,4 +1,4 @@
-// src/core/objectPool.ts
+// Part: src/core/world/objectPool.ts
 
 import logger from "@src/core/logger";
 
