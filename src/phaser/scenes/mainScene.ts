@@ -4,10 +4,9 @@ import Phaser, { Scene } from "phaser";
 import { addEntity, createWorld } from "bitecs";
 import { addMovement } from "@src/ecs/components/movement";
 import { movementSystem } from "@src/ecs/systems/movementSystem";
-import {ITerrainGenerator, ITimeController, ITimeSystem} from "@src/core/interfaces";
+import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import container from "@src/core/inversify.config";
-import {STATIC_TERRAIN_GENERATOR, TERRAIN_GENERATOR, TIME_CONTROLLER_FACTORY, TIME_SYSTEM} from "@src/core/constants";
-import { TerrainGenerator } from "@src/core/terrainGenerator";
+import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
 import DebugPanel from "@src/core/debugPanel";
 
 export default class MainScene extends Phaser.Scene {
@@ -41,9 +40,8 @@ export default class MainScene extends Phaser.Scene {
     const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
     this.timeController = timeControllerFactory(this);
 
-    const worldGenerator = new WorldGenerator(this, this.world);
-    worldGenerator.generateWorld(grasslandBiome, 100, 100);
-
+    console.log(this.add.image(200, 300, "tree"));
+    this.add.image(200, 200, "tree");
   }
 
   update(time: number, deltaTime: number) {

@@ -1,9 +1,6 @@
-// Part: src/core/objectPool.ts
+// src/core/objectPool.ts
 
-// Part: src/utils/objectPool.ts
-
-// src/utils/objectPool.ts
-import logger from '@src/core/logger';
+import logger from "@src/core/logger";
 
 export default class ObjectPool<T> {
   private pool: T[];
@@ -23,13 +20,13 @@ export default class ObjectPool<T> {
     if (this.pool.length === 0) {
       this.pool.push(this.factory());
     }
-    logger.debug('Retrieved object from pool');
+    logger.debug("Retrieved object from pool");
     return this.pool.pop() as T;
   }
 
   release(item: T): void {
     this.pool.push(item);
-    logger.debug('Released object back to pool');
+    logger.debug("Released object back to pool");
   }
 
   size(): number {

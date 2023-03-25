@@ -2,6 +2,7 @@
 
 import Phaser from "phaser";
 import { config } from "@src/core/config";
+import { createFallbackSVG } from "@src/utils/svgUtils";
 
 export default class PreloadScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -11,7 +12,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-
     // Set up the progress bar
     this.progressBar = this.add.graphics();
     this.progressBar.fillStyle(0xffffff, 1);
@@ -28,14 +28,25 @@ export default class PreloadScene extends Phaser.Scene {
       this.progressBar.fillStyle(0xffffff, 1);
       this.progressBar.fillRect(240, 290, 320 * value, 20);
     });
+
+    this.load.on(Phaser.Loader.Events.FILE_LOAD_ERROR, (file: Phaser.Loader.File) => {
+      const key = file.key;
+      file.destroy();
+      const fallbackSVG = createFallbackSVG(key, 32, 32);
+      if (this.textures.exists(key)) {
+        this.textures.remove(key);
+      }
+      console.log(fallbackSVG);
+      this.load.svg(key, fallbackSVG);
+      this.load.emit(Phaser.Loader.Events.FILE_COMPLETE, file);
+    }, this);
+  }
+
+
+  create() {
     this.loadTitleMenuAssets();
     this.loadTerrainAssets();
     this.loadObjectAssets();
-
-
-  }
-
-  create() {
     // Show the starry night background
     this.add.image(400, 300, "starry_night");
 
@@ -134,5 +145,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.svg("pipe", "assets/objects/pipe.svg");
     this.load.svg("bench", "assets/objects/bench.svg");
     this.load.svg("door", "assets/objects/door.svg");
+    this.load.svg("tree", "assets/objects/tree.svg");
   }
 }

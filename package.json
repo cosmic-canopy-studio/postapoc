@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,6 +19,7 @@
     "update_comments": "node .husky/hooks/add_comments.js"
   },
   "dependencies": {
+    "@svgdotjs/svg.js": "^3.1.2",
     "alea": "^1.0.1",
     "bitecs": "^0.3.38",
     "inversify": "^6.0.1",
