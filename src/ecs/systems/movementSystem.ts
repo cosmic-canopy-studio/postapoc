@@ -10,26 +10,42 @@ const movementQuery = defineQuery([Movement]);
 function initMovementEvents() {
   EventBus.on("move_up", (event) => {
     const eid = event.entity;
-    Movement.direction[eid] = -Math.PI / 2;
-    Movement.speed[eid] = 200;
+    Movement.ySpeed[eid] = -200;
   });
 
   EventBus.on("move_down", (event) => {
     const eid = event.entity;
-    Movement.direction[eid] = Math.PI / 2;
-    Movement.speed[eid] = 200;
+    Movement.ySpeed[eid] = 200;
   });
 
   EventBus.on("move_left", (event) => {
     const eid = event.entity;
-    Movement.direction[eid] = Math.PI;
-    Movement.speed[eid] = 200;
+    Movement.xSpeed[eid] = -200;
   });
 
   EventBus.on("move_right", (event) => {
     const eid = event.entity;
-    Movement.direction[eid] = 0;
-    Movement.speed[eid] = 200;
+    Movement.xSpeed[eid] = 200;
+  });
+
+  EventBus.on("move_up_up", (event) => {
+    const eid = event.entity;
+    Movement.ySpeed[eid] = 0;
+  });
+
+  EventBus.on("move_down_up", (event) => {
+    const eid = event.entity;
+    Movement.ySpeed[eid] = 0;
+  });
+
+  EventBus.on("move_left_up", (event) => {
+    const eid = event.entity;
+    Movement.xSpeed[eid] = 0;
+  });
+
+  EventBus.on("move_right_up", (event) => {
+    const eid = event.entity;
+    Movement.xSpeed[eid] = 0;
   });
 }
 
@@ -39,16 +55,12 @@ export function movementSystem(world: IWorld, delta: number) {
   initMovementEvents();
 
   for (const eid of entities) {
-    const speed = Movement.speed[eid];
-    const direction = Movement.direction[eid]; // Added direction
-
-    // Calculate the velocity based on speed and direction
-    const vx = Math.cos(direction) * speed;
-    const vy = Math.sin(direction) * speed;
+    const xSpeed = Movement.xSpeed[eid];
+    const ySpeed = Movement.ySpeed[eid];
 
     // Update the position based on the velocity
-    Movement.x[eid] += vx * delta;
-    Movement.y[eid] += vy * delta;
+    Movement.x[eid] += xSpeed * delta;
+    Movement.y[eid] += ySpeed * delta;
 
     // Update the sprite's position based on the Movement component
     const sprite = phaserEntityMapper[eid] as Phaser.GameObjects.Sprite;

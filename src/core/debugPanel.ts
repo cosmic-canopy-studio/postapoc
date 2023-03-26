@@ -17,8 +17,8 @@ export default class DebugPanel {
   private playerPosition: IMovement = {
     x: 0,
     y: 0,
-    direction: 0,
-    speed: 0
+    xSpeed: 0,
+    ySpeed: 0
   };
 
   constructor(world: IWorld, player: number) {
@@ -87,16 +87,16 @@ export default class DebugPanel {
   private updatePlayerPosition() {
     this.playerPosition.x = Movement.x[this.player];
     this.playerPosition.y = Movement.y[this.player];
-    this.playerPosition.direction = Movement.direction[this.player];
-    this.playerPosition.speed = Movement.speed[this.player];
+    this.playerPosition.xSpeed = Movement.xSpeed[this.player];
+    this.playerPosition.ySpeed = Movement.ySpeed[this.player];
   }
 
   private setupPlayerDebug() {
     this.playerFolder = this.pane.addFolder({ title: "Player" });
     this.playerFolder.addMonitor(this.playerPosition, "x");
     this.playerFolder.addMonitor(this.playerPosition, "y");
-    this.playerFolder.addMonitor(this.playerPosition, "direction");
-    this.playerFolder.addMonitor(this.playerPosition, "speed");
+    this.playerFolder.addMonitor(this.playerPosition, "xSpeed");
+    this.playerFolder.addMonitor(this.playerPosition, "ySpeed");
   }
 
   private listenToDebugChanges() {

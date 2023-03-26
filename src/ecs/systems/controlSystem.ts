@@ -8,12 +8,14 @@ import { getLogger } from "@src/core/logger";
 export default class ControlSystem {
   private controlMapping: IControlMapping;
   private logger = getLogger("controls");
+  private controlledEntity!: number;
 
   constructor() {
     this.controlMapping = controlMapping;
   }
 
-  initialize(scene: Phaser.Scene) {
+  initialize(scene: Phaser.Scene, controlledEntity: number) {
+    this.controlledEntity = controlledEntity;
     scene.input.removeAllListeners();
 
     scene.input.keyboard.on("keydown", (event: KeyboardEvent) => {
@@ -21,7 +23,8 @@ export default class ControlSystem {
       if (!event.repeat) {
         const action = this.controlMapping[event.code];
         if (action) {
-          EventBus.emit(action, { entity: this.entity });
+          console.log(action);
+          EventBus.emit(action, { entity: this.controlledEntity });
         }
       }
     });
@@ -31,7 +34,7 @@ export default class ControlSystem {
 
       const action = this.controlMapping[event.code];
       if (action) {
-        EventBus.emit(`${action}_up`, { entity: this.entity });
+        EventBus.emit(`${action}_up`, { entity: this.controlledEntity });
       }
     });
   }

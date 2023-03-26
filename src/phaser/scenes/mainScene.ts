@@ -29,7 +29,7 @@ export default class MainScene extends Phaser.Scene {
 
     const player = this.initPlayer();
     const controlSystem = new ControlSystem();
-    controlSystem.initialize(this);
+    controlSystem.initialize(this, player);
 
     new DebugPanel(this.world, player);
 
