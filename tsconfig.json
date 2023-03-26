@@ -12,13 +12,17 @@
       ]
     },
     "strict": true,
-    "target": "es6",
+    "target": "esnext",
     "lib": [
-      "es6",
+      "esnext",
       "dom"
     ],
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "types": [
+      "vite/client",
+      "@types/jest"
+    ]
   },
   "exclude": [
     "node_modules"

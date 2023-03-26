@@ -7,7 +7,7 @@ export default class TitleScene extends Phaser.Scene {
   constructor() {
     super("TitleScene");
   }
-  
+
   create() {
     // Show the starry night background
     this.add.image(400, 300, "starry_night");
@@ -17,7 +17,7 @@ export default class TitleScene extends Phaser.Scene {
     forestSilhouette.setScale(1);
 
     // Show the title "PostApoc" in the foreground
-    const title = this.add.image(400, 150, "PostApoc_title");
+    const title = this.add.image(400, 150, "postapoc_title");
     title.setScale(2);
 
     // Set up input listeners

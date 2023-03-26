@@ -2,7 +2,6 @@
 
 import Phaser from "phaser";
 import { createFallbackSVG } from "@src/utils/svgUtils";
-import { config } from "@src/core/config";
 import MainScene from "@src/phaser/scenes/mainScene";
 import TitleScene from "@src/phaser/scenes/titleScene";
 
@@ -49,7 +48,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   create() {
-    if (config.developmentMode) {
+    if (import.meta.env.DEV) {
       this.scene.start("MainScene");
     } else {
       this.scene.start("TitleScene");
@@ -66,7 +65,7 @@ export default class BootScene extends Phaser.Scene {
       width: 800,
       height: 600
     });
-    this.load.svg("PostApoc_title", "assets/ui/PostApoc_title.svg", {
+    this.load.svg("postapoc_title", "assets/ui/postapoc_title.svg", {
       width: 800,
       height: 100
     });
