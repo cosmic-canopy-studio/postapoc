@@ -1,7 +1,5 @@
 // Part: src/objects/moveableObject.ts
 
-// Part: src/objects/movableObject.ts
-
 import Phaser from "phaser";
 
 export default class MovableObject extends Phaser.GameObjects.Sprite {

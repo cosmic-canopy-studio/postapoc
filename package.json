@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -41,6 +41,7 @@
     "@tweakpane/core": "^1.1.6",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.5",
+    "@types/rbush": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "commitizen": "^4.3.0",
     "conventional-changelog-cli": "^2.2.2",

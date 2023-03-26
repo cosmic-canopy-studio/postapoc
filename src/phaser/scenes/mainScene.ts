@@ -12,10 +12,6 @@ import StaticObject from "@src/objects/staticObject";
 import ObjectPool from "@src/core/world/objectPool";
 import RBush from "rbush";
 
-const TILE_SIZE = 32;
-const MAP_WIDTH = 50;
-const MAP_HEIGHT = 50;
-
 export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;
   private timeController!: ITimeController;
@@ -28,30 +24,43 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    const player = this.initObjects();
+
+    new DebugPanel(this.world, player);
+
+    this.initTime();
+  }
+
+  private initTime() {
+    this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
+    const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
+    this.timeController = timeControllerFactory(this);
+  }
+
+  private initObjects() {
     this.world = createWorld();
 
-    // Create an object pool for StaticObjects
-    this.objectPool = new ObjectPool(() => {
-      const object = new StaticObject(this, 0, 0, "grass");
-      object.setActive(false);
-      object.setVisible(false);
-      return object;
-    }, MAP_WIDTH * MAP_HEIGHT);
+    const tileSize = 32;
+    const mapWidth = 50;
+    const mapHeight = 50;
 
-    this.objectSpatialIndex = new RBush<StaticObject>();
+    this.initHelpers(mapWidth, mapHeight);
 
-    // Generate the tileset
-    for (let x = 0; x < MAP_WIDTH; x++) {
-      for (let y = 0; y < MAP_HEIGHT; y++) {
-        const tileType = Math.random() > 0.5 ? "grass" : "grass2";
-        const object = this.objectPool.get();
-        object.setTexture(tileType);
-        object.setPosition(x * TILE_SIZE, y * TILE_SIZE);
-        object.setActive(true);
-        object.setVisible(true);
-        this.objectSpatialIndex.insert(object);
-      }
-    }
+    this.generateTileset(mapWidth, mapHeight, tileSize);
+
+    const player = this.initEntities();
+
+    return player;
+  }
+
+  private initEntities() {
+    // Add a tree to the scene
+    const tree = this.objectPool.get();
+    tree.setTexture("tree");
+    tree.setPosition(200, 200);
+    tree.setActive(true);
+    tree.setVisible(true);
+    this.objectSpatialIndex.insert(tree);
 
     // Create an entity for the player character
     const player = addEntity(this.world);
@@ -64,16 +73,34 @@ export default class MainScene extends Phaser.Scene {
       0,
       this
     );
+    return player;
+  }
 
-    // In the create method of MainScene
-    new DebugPanel(this.world, player);
+  private initHelpers(mapWidth: number, mapHeight: number) {
+    // Create an object pool for StaticObjects
+    this.objectPool = new ObjectPool(() => {
+      const object = new StaticObject(this, 0, 0, "grass");
+      object.setActive(false);
+      object.setVisible(false);
+      return object;
+    }, mapWidth * mapHeight);
 
-    this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
-    const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
-    this.timeController = timeControllerFactory(this);
+    this.objectSpatialIndex = new RBush<StaticObject>();
+  }
 
-    console.log(this.add.image(200, 300, "tree"));
-    this.add.image(200, 200, "tree");
+  private generateTileset(mapWidth: number, mapHeight: number, tileSize: number) {
+    // Generate the tileset
+    for (let x = 0; x < mapWidth; x++) {
+      for (let y = 0; y < mapHeight; y++) {
+        const tileType = Math.random() > 0.5 ? "grass" : "grass2";
+        const object = this.objectPool.get();
+        object.setTexture(tileType);
+        object.setPosition(x * tileSize, y * tileSize);
+        object.setActive(true);
+        object.setVisible(true);
+        this.objectSpatialIndex.insert(object);
+      }
+    }
   }
 
   update(time: number, deltaTime: number) {

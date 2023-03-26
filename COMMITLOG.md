@@ -1,4 +1,4 @@
-## 0.0.45 (2023-03-26)
+## 0.0.46 (2023-03-26)
 
 
 ### Features
@@ -14,6 +14,7 @@
 * initial terrain generation implementation ([1eb1bda](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1eb1bda4517a70b15295e4b71ad14312fbfab6ea))
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))
+* **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
 * **world:** initial world generator ([6838bb7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6838bb71fde59b80c3380c083c3aa07ae06a98ae))
 
