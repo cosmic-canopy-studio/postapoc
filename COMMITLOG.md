@@ -1,4 +1,4 @@
-## [0.0.47](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.47) (2023-03-26)
+## [0.0.48](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.48) (2023-03-26)
 
 
 ### Features
@@ -11,6 +11,7 @@
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * initial main scene implementation ([9b8d3e1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b8d3e1b21cafa942bdb3f57fb87db4193ab44f7))
+* initial player control implementation ([91e8198](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/91e8198c8c91ad1a6e928c5e96e847ea0d94ca64))
 * initial terrain generation implementation ([1eb1bda](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1eb1bda4517a70b15295e4b71ad14312fbfab6ea))
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))

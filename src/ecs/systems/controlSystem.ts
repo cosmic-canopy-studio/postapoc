@@ -1,4 +1,4 @@
-// Part: src/core/controlSystem.ts
+// Part: src/ecs/systems/controlSystem.ts
 
 import { IControlMapping } from "@src/core/interfaces";
 import EventBus from "@src/core/eventBus";
