@@ -22,7 +22,8 @@
     "types": [
       "vite/client",
       "@types/jest"
-    ]
+    ],
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules"

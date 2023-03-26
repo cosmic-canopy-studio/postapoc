@@ -11,6 +11,7 @@ import DebugPanel from "@src/core/debugPanel";
 import StaticObject from "@src/objects/staticObject";
 import ObjectPool from "@src/core/world/objectPool";
 import RBush from "rbush";
+import ControlSystem from "@src/ecs/systems/controlSystem";
 
 export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;
@@ -24,11 +25,19 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    const player = this.initObjects();
+    this.initObjects();
+
+    const player = this.initPlayer();
+    const controlSystem = new ControlSystem();
+    controlSystem.initialize(this);
 
     new DebugPanel(this.world, player);
 
     this.initTime();
+  }
+
+  update(time: number, deltaTime: number) {
+    movementSystem(this.world, deltaTime / 1000);
   }
 
   private initTime() {
@@ -44,13 +53,12 @@ export default class MainScene extends Phaser.Scene {
     const mapWidth = 50;
     const mapHeight = 50;
 
-    this.initHelpers(mapWidth, mapHeight);
+    this.initObjectHelpers(mapWidth, mapHeight);
 
     this.generateTileset(mapWidth, mapHeight, tileSize);
 
-    const player = this.initEntities();
+    this.initEntities();
 
-    return player;
   }
 
   private initEntities() {
@@ -61,9 +69,11 @@ export default class MainScene extends Phaser.Scene {
     tree.setActive(true);
     tree.setVisible(true);
     this.objectSpatialIndex.insert(tree);
+  }
 
-    // Create an entity for the player character
+  private initPlayer() {
     const player = addEntity(this.world);
+
     addMovement(
       this.world,
       player,
@@ -73,10 +83,11 @@ export default class MainScene extends Phaser.Scene {
       0,
       this
     );
+
     return player;
   }
 
-  private initHelpers(mapWidth: number, mapHeight: number) {
+  private initObjectHelpers(mapWidth: number, mapHeight: number) {
     // Create an object pool for StaticObjects
     this.objectPool = new ObjectPool(() => {
       const object = new StaticObject(this, 0, 0, "grass");
@@ -101,9 +112,5 @@ export default class MainScene extends Phaser.Scene {
         this.objectSpatialIndex.insert(object);
       }
     }
-  }
-
-  update(time: number, deltaTime: number) {
-    movementSystem(this.world, deltaTime / 1000);
   }
 }

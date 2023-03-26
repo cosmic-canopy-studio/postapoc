@@ -4,11 +4,18 @@ import { addComponent, defineComponent, IWorld, Types } from "bitecs";
 import MovableObject from "@src/objects/moveableObject";
 import { addPhaserEntitySprite } from "@src/ecs/components/phaserEntity";
 
-const Movement = defineComponent({
+export interface IMovement {
+  x: number;
+  y: number;
+  speed: number;
+  direction: number;
+}
+
+export const Movement = defineComponent({
   x: Types.f32,
   y: Types.f32,
   speed: Types.f32,
-  direction: Types.f32,
+  direction: Types.f32
 });
 
 export function addMovement(

@@ -1,6 +1,6 @@
 // Part: src/core/logger.ts
 
-import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';
+import log, { LogLevelNames, LogLevelNumbers } from "loglevel";
 
 // Set the log level
 log.setLevel(log.levels.DEBUG);
@@ -12,11 +12,11 @@ const originalMethodFactory = log.methodFactory;
 const customMethodFactory = (
   methodName: LogLevelNames,
   logLevel: LogLevelNumbers,
-  loggerName: string | symbol = 'defaultLogger'
+  loggerName: string | symbol = "defaultLogger"
 ) => {
   const rawMethod = originalMethodFactory(methodName, logLevel, loggerName);
   return (...args: any[]) => {
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleTimeString();
     rawMethod(`[${timestamp}] ${methodName.toUpperCase()}:`, ...args);
   };
 };

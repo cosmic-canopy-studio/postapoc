@@ -9,13 +9,11 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    strictPort: true,
-    open: true
+    strictPort: true
   },
   preview: {
     port: 4173,
-    strictPort: true,
-    open: false
+    strictPort: true
   },
   resolve: {
     alias: {

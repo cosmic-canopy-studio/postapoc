@@ -4,7 +4,9 @@ import { Pane } from "tweakpane";
 import { getLogger } from "@src/core/logger";
 import EventBus from "@src/core/eventBus";
 import { IWorld } from "bitecs";
-import Movement from "@src/ecs/components/movement";
+import Movement, { IMovement } from "@src/ecs/components/movement";
+import debug from "@src/config/debug.json";
+import { Logger } from "loglevel";
 
 export default class DebugPanel {
   private pane: Pane;
@@ -12,40 +14,56 @@ export default class DebugPanel {
   private readonly events: Record<string, boolean>;
   private playerFolder: any;
   private player: number;
+  private playerPosition: IMovement = {
+    x: 0,
+    y: 0,
+    direction: 0,
+    speed: 0
+  };
 
-  constructor(private world: IWorld, private player: number) {
+  constructor(world: IWorld, player: number) {
+    const initDebug = debug.global === "true";
     this.modules = {
-      movement: false,
-      eventBus: false
-      // Add more modules here
+      movement: initDebug,
+      eventBus: initDebug,
+      controls: initDebug
     };
     this.player = player;
 
     this.events = {
-      testEvent: false
-      // Add more events here
+      keyDown: false
     };
 
     this.pane = new Pane({ title: "Debug Panel" });
-    this.setupModuleDebug();
-    this.setupEventDebug();
+    this.setupModuleDebug(initDebug);
+    this.setupEventDebug(initDebug);
     this.setupPlayerDebug();
 
     this.listenToDebugChanges();
+    setInterval(() => {
+      this.updatePlayerPosition();
+    }, 100); // Update the position every 100 ms
   }
 
-  private setupModuleDebug() {
+  private setLoggingDebug(logger: Logger, enableDebug: boolean) {
+    logger.info(`Setting ${logger.name} to ${enableDebug}`);
+    if (enableDebug) {
+      logger.setLevel(logger.levels.DEBUG);
+    } else {
+      logger.setLevel(logger.levels.INFO);
+    }
+  }
+
+  private setupModuleDebug(initDebug) {
     const moduleFolder = this.pane.addFolder({ title: "Modules" });
 
     for (const moduleName in this.modules) {
       const moduleLogger = getLogger(moduleName);
-
+      this.setLoggingDebug(moduleLogger, initDebug);
+      console.log(moduleLogger);
+      console.log(moduleLogger.getLevel());
       moduleFolder.addInput(this.modules, moduleName).on("change", (value) => {
-        if (value) {
-          moduleLogger.setLevel(moduleLogger.levels.DEBUG);
-        } else {
-          moduleLogger.setLevel(moduleLogger.levels.SILENT);
-        }
+        this.setLoggingDebug(moduleLogger, value.value);
       });
     }
   }
@@ -55,7 +73,7 @@ export default class DebugPanel {
 
     for (const eventName in this.events) {
       eventFolder.addInput(this.events, eventName).on("change", (value) => {
-        if (value) {
+        if (value.value) {
           EventBus.on(eventName, (eventData) => {
             console.debug(`Event triggered: ${eventName}`, eventData);
           });
@@ -66,13 +84,6 @@ export default class DebugPanel {
     }
   }
 
-  private playerPosition = {
-    x: 0,
-    y: 0,
-    direction: 0,
-    speed: 0
-  };
-
   private updatePlayerPosition() {
     this.playerPosition.x = Movement.x[this.player];
     this.playerPosition.y = Movement.y[this.player];
@@ -82,19 +93,15 @@ export default class DebugPanel {
 
   private setupPlayerDebug() {
     this.playerFolder = this.pane.addFolder({ title: "Player" });
-    this.playerFolder.addMonitor(this.playerPosition, 'x');
-    this.playerFolder.addMonitor(this.playerPosition, 'y');
-    this.playerFolder.addMonitor(this.playerPosition, 'direction');
-    this.playerFolder.addMonitor(this.playerPosition, 'speed');
+    this.playerFolder.addMonitor(this.playerPosition, "x");
+    this.playerFolder.addMonitor(this.playerPosition, "y");
+    this.playerFolder.addMonitor(this.playerPosition, "direction");
+    this.playerFolder.addMonitor(this.playerPosition, "speed");
   }
 
   private listenToDebugChanges() {
     const logger = getLogger("DebugPanel");
     logger.debug("DebugPanel initialized");
-
-    setInterval(() => {
-      this.updatePlayerPosition();
-    }, 100); // Update the position every 100 ms
   }
 
 }

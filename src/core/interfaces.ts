@@ -14,3 +14,8 @@ export interface ITimeSystem {
   getDeltaTime(deltaTime: number): number;
 }
 
+export interface IControlMapping {
+  [key: string]: string;
+}
+
+
