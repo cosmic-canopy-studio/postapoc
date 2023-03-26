@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -26,6 +26,7 @@
     "inversify-inject-decorators": "^3.1.0",
     "mitt": "^3.0.0",
     "phaser": "3",
+    "rbush": "^3.0.1",
     "reflect-metadata": "^0.1.13",
     "tiled": "^0.3.0",
     "tweakpane": "^3.1.7"
