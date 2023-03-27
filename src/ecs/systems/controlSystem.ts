@@ -7,7 +7,7 @@ import { getLogger } from "@src/core/logger";
 
 export default class ControlSystem {
   private controlMapping: IControlMapping;
-  private logger = getLogger("controls");
+  private logger = getLogger("controlSystem");
   private controlledEntity!: number;
 
   constructor() {
@@ -19,8 +19,8 @@ export default class ControlSystem {
     scene.input.removeAllListeners();
 
     scene.input.keyboard.on("keydown", (event: KeyboardEvent) => {
-      this.logger.debug(`Key Pressed: ${event.code}`);
       if (!event.repeat) {
+        this.logger.debug(`Key Pressed: ${event.code}`);
         const action = this.controlMapping[event.code];
         if (action) {
           console.log(action);

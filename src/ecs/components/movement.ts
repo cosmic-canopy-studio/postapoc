@@ -1,7 +1,7 @@
 // Part: src/ecs/components/movement.ts
 
 import { addComponent, defineComponent, IWorld, Types } from "bitecs";
-import MovableObject from "@src/objects/moveableObject";
+import MovableObject from "@src/phaser/objects/moveableObject";
 import { addPhaserEntitySprite } from "@src/ecs/components/phaserEntity";
 
 export interface IMovement {

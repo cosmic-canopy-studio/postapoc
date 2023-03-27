@@ -25,8 +25,9 @@ export default class DebugPanel {
     const initDebug = debug.global === "true";
     this.modules = {
       movement: initDebug,
-      eventBus: initDebug,
-      controls: initDebug
+      controlSystem: initDebug,
+      collisionSystem: initDebug,
+      eventBus: initDebug
     };
     this.player = player;
 

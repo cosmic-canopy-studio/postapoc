@@ -1,4 +1,9 @@
-## [0.0.49](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.49) (2023-03-26)
+## [0.0.50](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.50) (2023-03-27)
+
+
+### Bug Fixes
+
+* key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
 
 
 ### Features
