@@ -1,4 +1,4 @@
-// Part: src/core/logger.ts
+// Part: src/core/devTools/logger.ts
 
 import log, { LogLevelNames, LogLevelNumbers } from "loglevel";
 

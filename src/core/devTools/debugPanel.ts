@@ -1,4 +1,4 @@
-// Part: src/core/debugPanel.ts
+// Part: src/core/devTools/debugPanel.ts
 
 import debug from "@src/config/debug.json";
 import { getLogger } from "@src/core/devTools/logger";
