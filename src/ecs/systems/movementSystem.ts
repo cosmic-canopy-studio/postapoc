@@ -20,24 +20,25 @@ export function movementSystem(
     const xSpeed = Movement.xSpeed[eid];
     const ySpeed = Movement.ySpeed[eid];
 
-    let collisionModifier = 1;
     const sprite = phaserEntityMapper[eid] as Phaser.GameObjects.Sprite;
     if (sprite) {
-      // Handle collisions and update the movement component's position
-      collisionModifier = handleCollision(sprite, staticObjects);
-      if (collisionModifier === 0) {
-        Movement.x[eid] = sprite.x -= xSpeed * delta;
-        Movement.y[eid] = sprite.y -= ySpeed * delta;
+      const collisionModifier = handleCollision(sprite, staticObjects);
+
+      let newX, newY;
+      if (collisionModifier > 0) {
+        newX = Movement.x[eid] + xSpeed * collisionModifier * delta;
+        newY = Movement.y[eid] + ySpeed * collisionModifier * delta;
+      } else {
+        newX = Movement.x[eid] - xSpeed * delta;
+        newY = Movement.y[eid] - ySpeed * delta;
         Movement.xSpeed[eid] = 0;
         Movement.ySpeed[eid] = 0;
       }
+
+      Movement.x[eid] = newX;
+      Movement.y[eid] = newY;
+
+      sprite.setPosition(newX, newY);
     }
-
-    // Update the position based on the velocity
-    Movement.x[eid] += xSpeed * collisionModifier * delta;
-    Movement.y[eid] += ySpeed * collisionModifier * delta;
-
-    // Update the sprite's position based on the Movement component
-    sprite.setPosition(Movement.x[eid], Movement.y[eid]);
   }
 }

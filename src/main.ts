@@ -11,14 +11,7 @@ const config = {
   width: 800,
   height: 600,
   scene: [BootScene, TitleScene, MainScene],
-  parent: "game-container",
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 0 },
-      debug: false
-    }
-  }
+  parent: "game-container"
 };
 
 const game = new Phaser.Game(config);

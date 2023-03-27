@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/initMovementEvents.ts
+
 import EventBus from "@src/core/eventBus";
 import Movement from "@src/ecs/components/movement";
 

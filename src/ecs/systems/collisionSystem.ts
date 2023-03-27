@@ -7,7 +7,7 @@ import { getLogger } from "@src/core/logger";
 export function handleCollision(
   sprite: Phaser.GameObjects.Sprite,
   objectsSpatialIndex: RBush<StaticObject>
-) {
+): number {
   const nearbyObjects = objectsSpatialIndex.search({
     minX: sprite.x,
     minY: sprite.y,
@@ -19,7 +19,7 @@ export function handleCollision(
   for (const staticObject of nearbyObjects) {
     if (Phaser.Geom.Intersects.RectangleToRectangle(sprite.getBounds(), staticObject.getBounds())) {
       getLogger("collisionSystem").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
-      collisionModifier = staticObject.collisionModifier;
+      collisionModifier *= staticObject.collisionModifier;
     }
   }
 
