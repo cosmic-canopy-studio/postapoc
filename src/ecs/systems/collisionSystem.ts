@@ -8,11 +8,13 @@ export function handleCollision(
   sprite: Phaser.GameObjects.Sprite,
   objectsSpatialIndex: RBush<StaticObject>
 ): number {
+  const spriteBounds = sprite.getBounds();
+
   const nearbyObjects = objectsSpatialIndex.search({
-    minX: sprite.x,
-    minY: sprite.y,
-    maxX: sprite.x + sprite.width,
-    maxY: sprite.y + sprite.height
+    minX: spriteBounds.x,
+    minY: spriteBounds.y,
+    maxX: spriteBounds.x + spriteBounds.width,
+    maxY: spriteBounds.y + spriteBounds.height
   });
 
   let collisionModifier = 1;

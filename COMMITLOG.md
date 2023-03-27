@@ -1,8 +1,9 @@
-## [0.0.51](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.51) (2023-03-27)
+## [0.0.52](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.52) (2023-03-27)
 
 
 ### Bug Fixes
 
+* collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
 
 

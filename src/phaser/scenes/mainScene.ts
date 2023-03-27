@@ -57,10 +57,9 @@ export default class MainScene extends Phaser.Scene {
     const mapHeight = 50;
 
     this.initObjectHelpers(mapWidth, mapHeight);
-
     this.generateTileset(mapWidth, mapHeight, tileSize);
-
     this.initStaticObjects();
+
   }
 
   private initPlayer() {
@@ -93,8 +92,6 @@ export default class MainScene extends Phaser.Scene {
 
 
   private initStaticObjects() {
-    this.objectSpatialIndex = new RBush<StaticObject>();
-
     // Add a tree to the scene
     const tree = new StaticObject(this, 200, 200, "tree");
     this.objectSpatialIndex.insert(tree);

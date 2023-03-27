@@ -23,7 +23,6 @@ export default class StaticObject extends Phaser.GameObjects.Rectangle {
 
     this.collisionModifier = 0;
 
-    // Add the static object to the scene
     scene.add.existing(this);
 
     if (texture) {
@@ -34,11 +33,7 @@ export default class StaticObject extends Phaser.GameObjects.Rectangle {
       this.name = name ?? "unnamed";
     }
 
-    // Initialize the bounding box properties
-    this.minX = this.x;
-    this.minY = this.y;
-    this.maxX = this.x + this.width;
-    this.maxY = this.y + this.height;
+    this.updateBoundingBox();
   }
 
   setPosition(x: number, y: number): this {
