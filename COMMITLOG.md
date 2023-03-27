@@ -1,9 +1,10 @@
-## [0.0.56](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.56) (2023-03-27)
+## [0.0.57](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.57) (2023-03-27)
 
 
 ### Bug Fixes
 
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
+* event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
 
