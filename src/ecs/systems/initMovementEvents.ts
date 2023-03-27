@@ -6,22 +6,22 @@ import Movement from "@src/ecs/components/movement";
 export function initMovementEvents() {
   EventBus.on("move_up", (event) => {
     const eid = event.entity;
-    Movement.ySpeed[eid] = -200;
+    Movement.ySpeed[eid] = -250;
   });
 
   EventBus.on("move_down", (event) => {
     const eid = event.entity;
-    Movement.ySpeed[eid] = 200;
+    Movement.ySpeed[eid] = 250;
   });
 
   EventBus.on("move_left", (event) => {
     const eid = event.entity;
-    Movement.xSpeed[eid] = -200;
+    Movement.xSpeed[eid] = -250;
   });
 
   EventBus.on("move_right", (event) => {
     const eid = event.entity;
-    Movement.xSpeed[eid] = 200;
+    Movement.xSpeed[eid] = 250;
   });
 
   EventBus.on("move_up_up", (event) => {

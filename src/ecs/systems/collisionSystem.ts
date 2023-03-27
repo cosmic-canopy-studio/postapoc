@@ -20,8 +20,10 @@ export function handleCollision(
   let collisionModifier = 1;
   for (const staticObject of nearbyObjects) {
     if (Phaser.Geom.Intersects.RectangleToRectangle(sprite.getBounds(), staticObject.getBounds())) {
-      getLogger("collisionSystem").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
       collisionModifier *= staticObject.collisionModifier;
+      if (staticObject.collisionModifier === 0) {
+        getLogger("collisionSystem").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
+      }
     }
   }
 
