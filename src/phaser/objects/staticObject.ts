@@ -33,7 +33,10 @@ export default class StaticObject extends Phaser.GameObjects.Rectangle {
       this.name = name ?? "unnamed";
     }
 
-    this.updateBoundingBox();
+    this.minX = this.x;
+    this.minY = this.y;
+    this.maxX = this.x + this.width;
+    this.maxY = this.y + this.height;
   }
 
   setPosition(x: number, y: number): this {

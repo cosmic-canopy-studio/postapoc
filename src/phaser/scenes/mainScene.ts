@@ -1,18 +1,18 @@
 // Part: src/phaser/scenes/mainScene.ts
 
-import Phaser, { Scene } from "phaser";
-import { addEntity, createWorld } from "bitecs";
-import { addMovement } from "@src/ecs/components/movement";
-import { movementSystem } from "@src/ecs/systems/movementSystem";
+import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
+import DebugPanel from "@src/core/devTools/debugPanel";
 import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import container from "@src/core/inversify.config";
-import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
-import DebugPanel from "@src/core/debugPanel";
-import StaticObject from "@src/phaser/objects/staticObject";
 import ObjectPool from "@src/core/world/objectPool";
-import RBush from "rbush";
+import { addMovement } from "@src/ecs/components/movement";
 import ControlSystem from "@src/ecs/systems/controlSystem";
 import { initMovementEvents } from "@src/ecs/systems/initMovementEvents";
+import { movementSystem } from "@src/ecs/systems/movementSystem";
+import StaticObject from "@src/phaser/objects/staticObject";
+import { addEntity, createWorld } from "bitecs";
+import Phaser, { Scene } from "phaser";
+import RBush from "rbush";
 
 export default class MainScene extends Phaser.Scene {
   private world!: ReturnType<typeof createWorld>;
@@ -89,7 +89,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.objectSpatialIndex = new RBush<StaticObject>();
   }
-
 
   private initStaticObjects() {
     // Add a tree to the scene

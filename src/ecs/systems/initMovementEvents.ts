@@ -1,46 +1,59 @@
 // Part: src/ecs/systems/initMovementEvents.ts
 
 import EventBus from "@src/core/eventBus";
+import { MoveEventPayload } from "@src/core/eventTypes";
 import Movement from "@src/ecs/components/movement";
 
+export enum MoveDirections {
+  UP = "up",
+  DOWN = "down",
+  LEFT = "left",
+  RIGHT = "right",
+}
+
 export function initMovementEvents() {
-  EventBus.on("move_up", (event) => {
-    const eid = event.entity;
-    Movement.ySpeed[eid] = -250;
+  let movementEventDebug = false;
+
+  EventBus.on("moveEvents", (event) => {
+    movementEventDebug = event.value;
   });
 
-  EventBus.on("move_down", (event) => {
-    const eid = event.entity;
-    Movement.ySpeed[eid] = 250;
-  });
+  const movementEventHandler = (state: boolean, direction: MoveDirections, eid: number) => {
+    if (state) {
+      switch (direction) {
+        case MoveDirections.UP:
+          Movement.ySpeed[eid] = -250;
+          break;
+        case MoveDirections.DOWN:
+          Movement.ySpeed[eid] = 250;
+          break;
+        case MoveDirections.LEFT:
+          Movement.xSpeed[eid] = -250;
+          break;
+        case MoveDirections.RIGHT:
+          Movement.xSpeed[eid] = 250;
+          break;
+      }
+    } else {
+      switch (direction) {
+        case MoveDirections.UP:
+        case MoveDirections.DOWN:
+          Movement.ySpeed[eid] = 0;
+          break;
+        case MoveDirections.LEFT:
+        case MoveDirections.RIGHT:
+          Movement.xSpeed[eid] = 0;
+          break;
+      }
+    }
 
-  EventBus.on("move_left", (event) => {
-    const eid = event.entity;
-    Movement.xSpeed[eid] = -250;
-  });
+    if (movementEventDebug) {
+      console.debug(`Movement event: ${state ? "move" : "stop"}_${direction} Entity: ${eid}`);
+    }
+  };
 
-  EventBus.on("move_right", (event) => {
-    const eid = event.entity;
-    Movement.xSpeed[eid] = 250;
-  });
-
-  EventBus.on("move_up_up", (event) => {
-    const eid = event.entity;
-    Movement.ySpeed[eid] = 0;
-  });
-
-  EventBus.on("move_down_up", (event) => {
-    const eid = event.entity;
-    Movement.ySpeed[eid] = 0;
-  });
-
-  EventBus.on("move_left_up", (event) => {
-    const eid = event.entity;
-    Movement.xSpeed[eid] = 0;
-  });
-
-  EventBus.on("move_right_up", (event) => {
-    const eid = event.entity;
-    Movement.xSpeed[eid] = 0;
+  EventBus.on("move", (event: MoveEventPayload) => {
+    const { entity, state, action } = event;
+    movementEventHandler(state, action, entity);
   });
 }

@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
+    "module": "esnext",
     "outDir": "dist",
     "paths": {
       "@src/*": [

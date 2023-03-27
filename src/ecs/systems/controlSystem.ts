@@ -1,9 +1,10 @@
 // Part: src/ecs/systems/controlSystem.ts
 
-import { IControlMapping } from "@src/core/interfaces";
-import EventBus from "@src/core/eventBus";
 import controlMapping from "@src/config/controlMapping.json";
-import { getLogger } from "@src/core/logger";
+import { getLogger } from "@src/core/devTools/logger";
+import EventBus from "@src/core/eventBus";
+import { IControlMapping } from "@src/core/interfaces";
+import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
 
 export default class ControlSystem {
   private controlMapping: IControlMapping;
@@ -11,7 +12,7 @@ export default class ControlSystem {
   private controlledEntity!: number;
 
   constructor() {
-    this.controlMapping = controlMapping;
+    this.controlMapping = controlMapping.move;
   }
 
   initialize(scene: Phaser.Scene, controlledEntity: number) {
@@ -23,8 +24,7 @@ export default class ControlSystem {
         this.logger.debug(`Key Pressed: ${event.code}`);
         const action = this.controlMapping[event.code];
         if (action) {
-          console.log(action);
-          EventBus.emit(action, { entity: this.controlledEntity });
+          EventBus.emit("move", { state: true, action: action as MoveDirections, entity: this.controlledEntity });
         }
       }
     });
@@ -34,7 +34,7 @@ export default class ControlSystem {
 
       const action = this.controlMapping[event.code];
       if (action) {
-        EventBus.emit(`${action}_up`, { entity: this.controlledEntity });
+        EventBus.emit("move", { state: false, action: action as MoveDirections, entity: this.controlledEntity });
       }
     });
   }

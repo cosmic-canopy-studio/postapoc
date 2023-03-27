@@ -1,3 +1,10 @@
 {
-  "global": "true"
+  "modules": {
+    "controlSystem": false,
+    "collisionSystem": false,
+    "eventBus": false
+  },
+  "events": {
+    "moveEvents": false
+  }
 }

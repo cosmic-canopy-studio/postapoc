@@ -1,14 +1,13 @@
 // Part: src/core/eventBus.ts
 
+import { getLogger } from "@src/core/devTools/logger";
+import { Events } from "@src/core/eventTypes";
 import mitt, { Emitter, WildcardHandler } from "mitt";
-import logger from "@src/core/logger";
-
-export type Events = Record<string, any>;
 
 const EventBus: Emitter<Events> = mitt<Events>();
 
 const wildcardHandler: WildcardHandler<Events> = (event, type) => {
-  logger.debug(`Event triggered: ${event} ${JSON.stringify(type)}`);
+  getLogger("eventBus").debug(`Event triggered: ${event} ${JSON.stringify(type)}`);
 };
 
 EventBus.on("*", wildcardHandler);

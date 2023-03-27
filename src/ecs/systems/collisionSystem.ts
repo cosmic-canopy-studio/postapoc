@@ -1,8 +1,8 @@
 // Part: src/ecs/systems/collisionSystem.ts
 
-import RBush from "rbush";
+import { getLogger } from "@src/core/devTools/logger";
 import StaticObject from "@src/phaser/objects/staticObject";
-import { getLogger } from "@src/core/logger";
+import RBush from "rbush";
 
 export function handleCollision(
   sprite: Phaser.GameObjects.Sprite,

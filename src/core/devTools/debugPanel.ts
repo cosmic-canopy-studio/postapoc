@@ -1,12 +1,12 @@
 // Part: src/core/debugPanel.ts
 
-import { Pane } from "tweakpane";
-import { getLogger } from "@src/core/logger";
-import EventBus from "@src/core/eventBus";
-import { IWorld } from "bitecs";
-import Movement, { IMovement } from "@src/ecs/components/movement";
 import debug from "@src/config/debug.json";
+import { getLogger } from "@src/core/devTools/logger";
+import EventBus from "@src/core/eventBus";
+import Movement, { IMovement } from "@src/ecs/components/movement";
+import { IWorld } from "bitecs";
 import { Logger } from "loglevel";
+import { Pane } from "tweakpane";
 
 export default class DebugPanel {
   private pane: Pane;
@@ -22,22 +22,13 @@ export default class DebugPanel {
   };
 
   constructor(world: IWorld, player: number) {
-    const initDebug = debug.global === "true";
-    this.modules = {
-      movement: initDebug,
-      controlSystem: initDebug,
-      collisionSystem: initDebug,
-      eventBus: initDebug
-    };
+    this.modules = debug.modules;
+    this.events = debug.events;
     this.player = player;
 
-    this.events = {
-      keyDown: false
-    };
-
     this.pane = new Pane({ title: "Debug Panel" });
-    this.setupModuleDebug(initDebug);
-    this.setupEventDebug(initDebug);
+    this.setupModuleDebug();
+    this.setupEventDebug();
     this.setupPlayerDebug();
 
     this.listenToDebugChanges();
@@ -55,14 +46,12 @@ export default class DebugPanel {
     }
   }
 
-  private setupModuleDebug(initDebug) {
+  private setupModuleDebug() {
     const moduleFolder = this.pane.addFolder({ title: "Modules" });
 
     for (const moduleName in this.modules) {
       const moduleLogger = getLogger(moduleName);
-      this.setLoggingDebug(moduleLogger, initDebug);
-      console.log(moduleLogger);
-      console.log(moduleLogger.getLevel());
+      this.setLoggingDebug(moduleLogger, this.modules[moduleName]);
       moduleFolder.addInput(this.modules, moduleName).on("change", (value) => {
         this.setLoggingDebug(moduleLogger, value.value);
       });
@@ -104,5 +93,4 @@ export default class DebugPanel {
     const logger = getLogger("DebugPanel");
     logger.debug("DebugPanel initialized");
   }
-
 }

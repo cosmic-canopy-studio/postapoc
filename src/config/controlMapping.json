@@ -1,10 +1,12 @@
 {
-  "ArrowUp": "move_up",
-  "ArrowDown": "move_down",
-  "ArrowLeft": "move_left",
-  "ArrowRight": "move_right",
-  "KeyW": "move_up",
-  "KeyS": "move_down",
-  "KeyA": "move_left",
-  "KeyD": "move_right"
+  "move": {
+    "ArrowUp": "up",
+    "ArrowDown": "down",
+    "ArrowLeft": "left",
+    "ArrowRight": "right",
+    "KeyW": "up",
+    "KeyS": "down",
+    "KeyA": "left",
+    "KeyD": "right"
+  }
 }
