@@ -1,7 +1,8 @@
 {
   "modules": {
-    "controlSystem": false,
-    "collisionSystem": false,
+    "control": false,
+    "collision": false,
+    "movement": false,
     "eventBus": false
   },
   "events": {

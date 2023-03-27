@@ -8,7 +8,7 @@ import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
 
 export default class ControlSystem {
   private controlMapping: IControlMapping;
-  private logger = getLogger("controlSystem");
+  private logger = getLogger("control");
   private controlledEntity!: number;
 
   constructor() {

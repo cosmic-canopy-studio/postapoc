@@ -34,7 +34,7 @@ export default class DebugPanel {
     this.listenToDebugChanges();
     setInterval(() => {
       this.updatePlayerPosition();
-    }, 100); // Update the position every 100 ms
+    }, 100);
   }
 
   private setLoggingDebug(logger: Logger, enableDebug: boolean) {
@@ -63,13 +63,7 @@ export default class DebugPanel {
 
     for (const eventName in this.events) {
       eventFolder.addInput(this.events, eventName).on("change", (value) => {
-        if (value.value) {
-          EventBus.on(eventName, (eventData) => {
-            console.debug(`Event triggered: ${eventName}`, eventData);
-          });
-        } else {
-          EventBus.off(eventName);
-        }
+        EventBus.emit("debug", { state: value.value, type: eventName });
       });
     }
   }

@@ -22,7 +22,7 @@ export function handleCollision(
     if (Phaser.Geom.Intersects.RectangleToRectangle(sprite.getBounds(), staticObject.getBounds())) {
       collisionModifier *= staticObject.collisionModifier;
       if (staticObject.collisionModifier === 0) {
-        getLogger("collisionSystem").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
+        getLogger("collision").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
       }
     }
   }

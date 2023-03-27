@@ -6,6 +6,11 @@ export interface EventPayload {
   state: boolean;
 }
 
+export interface DebugEventPayload extends EventPayload {
+  state: boolean;
+  type: string;
+}
+
 export interface MoveEventPayload extends EventPayload {
   state: boolean;
   action: MoveDirections;
@@ -14,6 +19,7 @@ export interface MoveEventPayload extends EventPayload {
 
 export interface EventsMap {
   move: MoveEventPayload;
+  debug: DebugEventPayload;
 }
 
 export type Events = {

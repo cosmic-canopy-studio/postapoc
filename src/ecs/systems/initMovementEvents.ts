@@ -1,5 +1,6 @@
 // Part: src/ecs/systems/initMovementEvents.ts
 
+import { getLogger } from "@src/core/devTools/logger";
 import EventBus from "@src/core/eventBus";
 import { MoveEventPayload } from "@src/core/eventTypes";
 import Movement from "@src/ecs/components/movement";
@@ -12,12 +13,6 @@ export enum MoveDirections {
 }
 
 export function initMovementEvents() {
-  let movementEventDebug = false;
-
-  EventBus.on("moveEvents", (event) => {
-    movementEventDebug = event.value;
-  });
-
   const movementEventHandler = (state: boolean, direction: MoveDirections, eid: number) => {
     if (state) {
       switch (direction) {
@@ -47,9 +42,7 @@ export function initMovementEvents() {
       }
     }
 
-    if (movementEventDebug) {
-      console.debug(`Movement event: ${state ? "move" : "stop"}_${direction} Entity: ${eid}`);
-    }
+    getLogger("movement").debug(`Entity ${eid} move ${direction} ${state ? "start" : "stop"}`);
   };
 
   EventBus.on("move", (event: MoveEventPayload) => {
