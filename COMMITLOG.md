@@ -1,4 +1,4 @@
-## [0.0.59](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.59) (2023-03-27)
+## 0.0.60 (2023-03-28)
 
 
 ### Bug Fixes
@@ -28,10 +28,6 @@
 * **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
 * **world:** initial world generator ([6838bb7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6838bb71fde59b80c3380c083c3aa07ae06a98ae))
-
-
-
-## 0.0.5 (2023-03-17)
 
 
 
