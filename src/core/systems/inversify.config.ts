@@ -1,12 +1,11 @@
 // Part: src/core/inversify.config.ts
 
-import { Container } from "inversify";
-import {TERRAIN_GENERATOR, TIME_CONTROLLER_FACTORY, TIME_SYSTEM} from "@src/core/constants";
-import { TimeController } from "@src/phaser/systems/timeController";
+import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
+import { ITimeController } from "@src/core/interfaces";
 import { TimeSystem } from "@src/ecs/systems/timeSystem";
-import {ITerrainGenerator, ITimeController} from "@src/core/interfaces";
+import { TimeController } from "@src/phaser/systems/timeController";
+import { Container } from "inversify";
 import { Scene } from "phaser";
-import StaticTerrainGenerator from "@src/core/staticTerrainGenerator";
 
 const container = new Container();
 

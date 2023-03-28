@@ -1,7 +1,7 @@
 // Part: src/ecs/systems/timeSystem.ts
 
-import EventBus from '@src/core/eventBus';
-import { injectable } from 'inversify';
+import EventBus from "@src/core/systems/eventBus";
+import { injectable } from "inversify";
 
 export enum TimeState {
   PAUSED,
@@ -25,7 +25,7 @@ export class TimeSystem {
   setTimeState(timeState: TimeState) {
     this.timeState = timeState;
     const timeScale = this.getTimeScale();
-    EventBus.emit('timeScaleChange', timeScale);
+    EventBus.emit("timeScaleChange", timeScale);
   }
 
   getTimeState(): TimeState {

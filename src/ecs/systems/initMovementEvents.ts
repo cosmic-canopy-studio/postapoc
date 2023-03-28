@@ -1,8 +1,8 @@
 // Part: src/ecs/systems/initMovementEvents.ts
 
-import { getLogger } from "@src/core/devTools/logger";
-import EventBus from "@src/core/eventBus";
-import { MoveEventPayload } from "@src/core/eventTypes";
+import { getLogger } from "@src/core/components/logger";
+import EventBus from "@src/core/systems/eventBus";
+import { MoveEventPayload } from "@src/core/systems/eventTypes";
 import Movement from "@src/ecs/components/movement";
 
 export enum MoveDirections {

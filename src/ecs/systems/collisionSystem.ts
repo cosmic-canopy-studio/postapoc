@@ -1,6 +1,6 @@
 // Part: src/ecs/systems/collisionSystem.ts
 
-import { getLogger } from "@src/core/devTools/logger";
+import { getLogger } from "@src/core/components/logger";
 import StaticObject from "@src/phaser/objects/staticObject";
 import RBush from "rbush";
 

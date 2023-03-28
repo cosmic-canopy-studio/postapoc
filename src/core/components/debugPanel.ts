@@ -1,8 +1,8 @@
 // Part: src/core/devTools/debugPanel.ts
 
 import debug from "@src/config/debug.json";
-import { getLogger } from "@src/core/devTools/logger";
-import EventBus from "@src/core/eventBus";
+import { getLogger } from "@src/core/components/logger";
+import EventBus from "@src/core/systems/eventBus";
 import Movement, { IMovement } from "@src/ecs/components/movement";
 import { IWorld } from "bitecs";
 import { Logger } from "loglevel";

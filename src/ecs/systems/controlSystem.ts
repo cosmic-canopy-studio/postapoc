@@ -1,9 +1,9 @@
 // Part: src/ecs/systems/controlSystem.ts
 
 import controlMapping from "@src/config/controlMapping.json";
-import { getLogger } from "@src/core/devTools/logger";
-import EventBus from "@src/core/eventBus";
+import { getLogger } from "@src/core/components/logger";
 import { IControlMapping } from "@src/core/interfaces";
+import EventBus from "@src/core/systems/eventBus";
 import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
 
 export default class ControlSystem {

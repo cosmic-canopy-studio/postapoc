@@ -1,6 +1,6 @@
 // Part: src/core/eventBus.ts
 
-import { getLogger } from "@src/core/devTools/logger";
+import { getLogger } from "@src/core/components/logger";
 import { Events } from "@src/core/eventTypes";
 import mitt, { Emitter, WildcardHandler } from "mitt";
 
