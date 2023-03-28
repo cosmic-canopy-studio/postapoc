@@ -50,16 +50,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private initObjects() {
-    this.world = createWorld();
-
-    const tileSize = 32;
-    const mapWidth = 50;
-    const mapHeight = 50;
-
-    this.initObjectHelpers(mapWidth, mapHeight);
-    this.generateTileset(mapWidth, mapHeight, tileSize);
+    this.initObjectHelpers();
+    this.generateTileset();
     this.initStaticObjects();
-
   }
 
   private initPlayer() {
@@ -78,44 +71,32 @@ export default class MainScene extends Phaser.Scene {
     return player;
   }
 
-  private initObjectHelpers(mapWidth: number, mapHeight: number) {
-    // Create an object pool for StaticObjects
+  private initObjectHelpers() {
+    this.world = createWorld();
+
     this.objectPool = new ObjectPool(() => {
-      const object = new StaticObject(this, 0, 0, "grass");
-      object.setActive(false);
-      object.setVisible(false);
-      return object;
-    }, mapWidth * mapHeight);
+      return new StaticObject(this);
+    });
 
     this.objectSpatialIndex = new RBush<StaticObject>();
   }
 
   private initStaticObjects() {
-    // Add a tree to the scene
-    const tree = new StaticObject(this, 200, 200, "tree");
+    const tree = this.objectPool.get();
+    tree.initialize(200, 200, "tree");
     this.objectSpatialIndex.insert(tree);
-
-    // Add world bounds
-    this.objectSpatialIndex.insert(
-      new StaticObject(this, -1, -1, null, this.cameras.main.width + 1, 1, "worldBounds")
-    );
-    this.objectSpatialIndex.insert(
-      new StaticObject(this, -1, this.cameras.main.height, null, this.cameras.main.width + 1, 1, "worldBounds")
-    );
-    this.objectSpatialIndex.insert(
-      new StaticObject(this, -1, 0, null, 1, this.cameras.main.height, "worldBounds")
-    );
-    this.objectSpatialIndex.insert(
-      new StaticObject(this, this.cameras.main.width, 0, null, 1, this.cameras.main.height, "worldBounds")
-    );
   }
 
-  private generateTileset(mapWidth: number, mapHeight: number, tileSize: number) {
-    // Generate the tileset
+  private generateTileset() {
+    const tileSize = 32;
+    const mapWidth = 50;
+    const mapHeight = 50;
+
     for (let x = 0; x < mapWidth; x++) {
       for (let y = 0; y < mapHeight; y++) {
         const tileType = Math.random() > 0.5 ? "grass" : "grass2";
-        const object = new StaticObject(this, x * tileSize, y * tileSize, tileType);
+        const object = this.objectPool.get();
+        object.initialize(x * tileSize, y * tileSize, tileType);
         object.collisionModifier = 0.9;
         this.objectSpatialIndex.insert(object);
       }

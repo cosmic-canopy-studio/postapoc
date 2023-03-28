@@ -1,9 +1,9 @@
 // Part: src/phaser/scenes/bootScene.ts
 
-import Phaser from "phaser";
-import { createFallbackSVG } from "@src/utils/svgUtils";
 import MainScene from "@src/phaser/scenes/mainScene";
 import TitleScene from "@src/phaser/scenes/titleScene";
+import { createFallbackSVG } from "@src/utils/svgUtils";
+import Phaser from "phaser";
 
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;

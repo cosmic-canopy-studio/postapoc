@@ -1,39 +1,35 @@
-// Part: src/core/world/objectPool.ts
-
-import logger from "@src/core/devTools/logger";
+import { getLogger } from "@src/core/devTools/logger";
 
 export default class ObjectPool<T> {
+  private logger = getLogger("ObjectPool");
   private pool: T[];
   private factory: () => T;
 
-  constructor(factory: () => T, initialSize = 0) {
+  constructor(factory: () => T) {
     this.pool = [];
     this.factory = factory;
-
-    for (let i = 0; i < initialSize; i++) {
-      this.pool.push(this.factory());
-    }
-    logger.debug(`Object pool created with initial size: ${initialSize}`);
   }
 
   get(): T {
     if (this.pool.length === 0) {
       this.pool.push(this.factory());
     }
-    logger.debug("Retrieved object from pool");
+    this.logger.debug("Got object from pool");
     return this.pool.pop() as T;
   }
 
   release(item: T): void {
     this.pool.push(item);
-    logger.debug("Released object back to pool");
+    this.logger.debug("Released object back to pool");
   }
 
   size(): number {
+    this.logger.debug(`Object pool size: ${this.pool.length}`);
     return this.pool.length;
   }
 
   clear(): void {
     this.pool = [];
+    this.logger.debug("Cleared object pool");
   }
 }
