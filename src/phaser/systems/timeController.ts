@@ -1,10 +1,10 @@
 // Part: src/phaser/systems/timeController.ts
 
-import { Scene } from "phaser";
-import { ITimeController } from "@src/core/interfaces";
-import EventBus from "@src/core/eventBus";
-import { inject, injectable } from "inversify";
 import { TIME_CONTROLLER } from "@src/core/constants";
+import { ITimeController } from "@src/core/interfaces";
+import EventBus from "@src/core/systems/eventBus";
+import { inject, injectable } from "inversify";
+import { Scene } from "phaser";
 
 @injectable()
 export class TimeController implements ITimeController {

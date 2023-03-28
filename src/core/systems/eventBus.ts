@@ -1,7 +1,7 @@
 // Part: src/core/systems/eventBus.ts
 
 import { getLogger } from "@src/core/components/logger";
-import { Events } from "@src/core/eventTypes";
+import { Events } from "@src/core/systems/eventTypes";
 import mitt, { Emitter, WildcardHandler } from "mitt";
 
 const EventBus: Emitter<Events> = mitt<Events>();
