@@ -1,3 +1,5 @@
+// Part: src/core/systems/eventBus.ts
+
 // Part: src/core/eventBus.ts
 
 import { getLogger } from "@src/core/components/logger";

@@ -1,3 +1,5 @@
+// Part: src/phaser/systems/universe.ts
+
 // src/phaser/systems/universe.ts
 import DebugPanel from "@src/core/components/debugPanel";
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";

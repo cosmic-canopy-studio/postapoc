@@ -1,3 +1,5 @@
+// Part: src/phaser/factories/playerFactory.ts
+
 // src/phaser/factories/playerFactory.ts
 
 import { addMovement } from "@src/ecs/components/movement";

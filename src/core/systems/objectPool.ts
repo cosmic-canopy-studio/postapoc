@@ -1,3 +1,5 @@
+// Part: src/core/systems/objectPool.ts
+
 // Part: src/core/world/objectPool.ts
 
 import { getLogger } from "@src/core/components/logger";
