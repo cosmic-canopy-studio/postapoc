@@ -9,22 +9,17 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    // Show the starry night background
     this.add.image(400, 300, "starry_night");
 
-    // Show the silhouette of a forest at the bottom
     const forestSilhouette = this.add.image(400, 300, "forest_silhouette");
     forestSilhouette.setScale(1);
 
-    // Show the title "PostApoc" in the foreground
     const title = this.add.image(400, 150, "postapoc_title");
     title.setScale(2);
 
-    // Set up input listeners
     this.input.on("pointerdown", () => this.startMainScene());
     this.input.keyboard.on("keydown", () => this.startMainScene());
   }
-
 
   private async startMainScene() {
     await this.growMushroomCloud();
@@ -72,6 +67,5 @@ export default class TitleScene extends Phaser.Scene {
       });
     });
   }
-
 
 }

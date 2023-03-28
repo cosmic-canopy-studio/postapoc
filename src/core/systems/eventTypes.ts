@@ -1,7 +1,5 @@
 // Part: src/core/systems/eventTypes.ts
 
-// Part: src/core/eventTypes.ts
-
 import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
 
 export interface EventPayload {

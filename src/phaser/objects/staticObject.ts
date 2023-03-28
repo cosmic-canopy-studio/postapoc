@@ -1,4 +1,5 @@
-// staticObject.ts
+// Part: src/phaser/objects/staticObject.ts
+
 import Phaser from "phaser";
 
 export default class StaticObject extends Phaser.GameObjects.Sprite {

@@ -13,17 +13,14 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    // Set up the progress bar
     this.progressBar = this.add.graphics();
     this.progressBar.fillStyle(0xffffff, 1);
     this.progressBar.fillRect(240, 290, 320, 20);
 
-    // Set up the background for the progress bar
     const backgroundBar = this.add.graphics();
     backgroundBar.lineStyle(4, 0xffffff, 1);
     backgroundBar.strokeRect(240, 290, 320, 20);
 
-    // Update the progress bar during loading
     this.load.on("progress", (value: number) => {
       this.progressBar.clear();
       this.progressBar.fillStyle(0xffffff, 1);

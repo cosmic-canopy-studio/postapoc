@@ -1,7 +1,5 @@
 // Part: src/phaser/factories/playerFactory.ts
 
-// src/phaser/factories/playerFactory.ts
-
 import { addMovement } from "@src/ecs/components/movement";
 import { addEntity, IWorld } from "bitecs";
 import Phaser from "phaser";

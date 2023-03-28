@@ -1,7 +1,5 @@
 // Part: src/core/systems/inversify.config.ts
 
-// Part: src/core/inversify.config.ts
-
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
 import { ITimeController } from "@src/core/interfaces";
 import { TimeSystem } from "@src/ecs/systems/timeSystem";

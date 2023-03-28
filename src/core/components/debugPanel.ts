@@ -1,7 +1,5 @@
 // Part: src/core/components/debugPanel.ts
 
-// Part: src/core/devTools/debugPanel.ts
-
 import debug from "@src/config/debug.json";
 import { getLogger } from "@src/core/components/logger";
 import EventBus from "@src/core/systems/eventBus";
