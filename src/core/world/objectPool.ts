@@ -1,3 +1,5 @@
+// Part: src/core/world/objectPool.ts
+
 import { getLogger } from "@src/core/devTools/logger";
 
 export default class ObjectPool<T> {
