@@ -2,7 +2,7 @@
 
 import { getLogger } from "@src/core/components/logger";
 
-export default class ObjectPool<T> {
+export default class ObjectPool<T extends { deinitialize: () => void }> {
   private logger = getLogger("ObjectPool");
   private pool: T[];
   private factory: () => T;
@@ -13,14 +13,18 @@ export default class ObjectPool<T> {
   }
 
   get(): T {
+    let item: T;
     if (this.pool.length === 0) {
-      this.pool.push(this.factory());
+      item = this.factory();
+    } else {
+      item = this.pool.pop() as T;
     }
     this.logger.debug("Got object from pool");
-    return this.pool.pop() as T;
+    return item;
   }
 
   release(item: T): void {
+    item.deinitialize();
     this.pool.push(item);
     this.logger.debug("Released object back to pool");
   }
@@ -35,3 +39,4 @@ export default class ObjectPool<T> {
     this.logger.debug("Cleared object pool");
   }
 }
+

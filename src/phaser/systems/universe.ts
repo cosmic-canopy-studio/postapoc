@@ -87,7 +87,7 @@ export default class Universe {
     if (this.focusedObject) {
       this.objectSpatialIndex.remove(this.focusedObject);
       this.logger.info(`Destroying ${this.focusedObject.name}`);
-      this.focusedObject.destroy();
+      this.objectPool.release(this.focusedObject);
       this.focusedObject = null;
     }
   }
