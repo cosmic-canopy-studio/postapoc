@@ -14,19 +14,20 @@ export enum MoveDirections {
 
 export function initMovementEvents() {
   const movementEventHandler = (state: boolean, direction: MoveDirections, eid: number) => {
+    const speed = 350;
     if (state) {
       switch (direction) {
         case MoveDirections.UP:
-          Movement.ySpeed[eid] = -250;
+          Movement.ySpeed[eid] = -speed;
           break;
         case MoveDirections.DOWN:
-          Movement.ySpeed[eid] = 250;
+          Movement.ySpeed[eid] = speed;
           break;
         case MoveDirections.LEFT:
-          Movement.xSpeed[eid] = -250;
+          Movement.xSpeed[eid] = -speed;
           break;
         case MoveDirections.RIGHT:
-          Movement.xSpeed[eid] = 250;
+          Movement.xSpeed[eid] = speed;
           break;
       }
     } else {
