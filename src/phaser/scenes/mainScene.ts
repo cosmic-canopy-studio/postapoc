@@ -23,6 +23,7 @@ export default class MainScene extends Phaser.Scene {
     this.universe.initialize(this);
     this.universe.generateTileset();
     this.universe.generateStaticObject(200, 200, "tree");
+    this.universe.generateStaticObject(400, 400, "bench");
     this.universe.spawnPlayer();
   }
 }

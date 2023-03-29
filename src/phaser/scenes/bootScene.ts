@@ -82,7 +82,7 @@ export default class BootScene extends Phaser.Scene {
   private loadObjectAssets() {
     this.load.svg("player", "assets/objects/player.svg");
     this.load.svg("pipe", "assets/objects/pipe.svg");
-    this.load.svg("bench", "assets/objects/bench.svg");
+    this.load.svg("bench", "assets/objects/bench.svg", { scale: 1.5 });
     this.load.svg("door", "assets/objects/door.svg");
     this.load.svg("tree", "assets/objects/tree.svg");
   }

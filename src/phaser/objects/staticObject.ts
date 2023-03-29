@@ -26,6 +26,7 @@ export default class StaticObject extends Phaser.GameObjects.Sprite {
   initialize(x: number, y: number, texture: string, name?: string): void {
     this.setTexture(texture);
     this.setPosition(x, y);
+    this.setOrigin(0, 0);
     this.setActive(true);
     this.setVisible(true);
     this.name = name ?? texture;
