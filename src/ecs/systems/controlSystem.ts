@@ -24,7 +24,11 @@ export default class ControlSystem {
         this.logger.debug(`Key Pressed: ${event.code}`);
         const action = this.controlMapping[event.code];
         if (action) {
-          EventBus.emit("move", { state: true, action: action as MoveDirections, entity: this.controlledEntity });
+          if (action === "attack") {
+            EventBus.emit("attack", { entity: this.controlledEntity });
+          } else {
+            EventBus.emit("move", { state: true, action: action as MoveDirections, entity: this.controlledEntity });
+          }
         }
       }
     });
@@ -33,7 +37,7 @@ export default class ControlSystem {
       this.logger.debug(`Key Released: ${event.code}`);
 
       const action = this.controlMapping[event.code];
-      if (action) {
+      if (action && action !== "attack") {
         EventBus.emit("move", { state: false, action: action as MoveDirections, entity: this.controlledEntity });
       }
     });

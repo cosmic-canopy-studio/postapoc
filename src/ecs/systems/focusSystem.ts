@@ -48,7 +48,9 @@ export function focusSystem(
     arrow.setPosition(arrowX, arrowY);
     arrow.setVisible(true);
     arrow.setDepth(10);
+    return nearestObject;
   } else {
     arrow.setVisible(false);
+    return null;
   }
 }

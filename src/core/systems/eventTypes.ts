@@ -3,7 +3,7 @@
 import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
 
 export interface EventPayload {
-  state: boolean;
+  state?: boolean;
 }
 
 export interface DebugEventPayload extends EventPayload {
@@ -17,8 +17,13 @@ export interface MoveEventPayload extends EventPayload {
   entity: number;
 }
 
+export interface AttackEventPayload extends EventPayload {
+  entity: number;
+}
+
 export interface EventsMap {
   move: MoveEventPayload;
+  attack: AttackEventPayload;
   debug: DebugEventPayload;
 }
 
