@@ -42,6 +42,7 @@ export default class BootScene extends Phaser.Scene {
     this.loadTitleMenuAssets();
     this.loadTerrainAssets();
     this.loadObjectAssets();
+    this.loadUIAssets();
   }
 
   create() {
@@ -82,8 +83,13 @@ export default class BootScene extends Phaser.Scene {
   private loadObjectAssets() {
     this.load.svg("player", "assets/objects/player.svg");
     this.load.svg("pipe", "assets/objects/pipe.svg");
-    this.load.svg("bench", "assets/objects/bench.svg", { scale: 1.5 });
+    this.load.svg("bench", "assets/objects/bench.svg");
     this.load.svg("door", "assets/objects/door.svg");
     this.load.svg("tree", "assets/objects/tree.svg");
+  }
+
+  private loadUIAssets() {
+    this.load.svg("grey_arrow", "assets/ui/grey_arrow.svg");
+    this.load.svg("red_arrow", "assets/ui/red_arrow.svg");
   }
 }

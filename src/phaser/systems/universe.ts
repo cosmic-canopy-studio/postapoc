@@ -6,6 +6,7 @@ import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import container from "@src/core/systems/inversify.config";
 import ObjectPool from "@src/core/systems/objectPool";
 import ControlSystem from "@src/ecs/systems/controlSystem";
+import { focusSystem } from "@src/ecs/systems/focusSystem";
 import { initMovementEvents } from "@src/ecs/systems/initMovementEvents";
 import { movementSystem } from "@src/ecs/systems/movementSystem";
 import PlayerFactory from "@src/phaser/factories/playerFactory";
@@ -18,19 +19,21 @@ export default class Universe {
   private scene!: Phaser.Scene;
   private world!: IWorld;
   private objectPool!: ObjectPool<StaticObject>;
-  private objectRBush!: RBush<StaticObject>;
+  private objectSpatialIndex!: RBush<StaticObject>;
   private playerFactory!: PlayerFactory;
   private timeController!: ITimeController;
   private timeSystem!: ITimeSystem;
+  private arrow!: StaticObject;
+  private player!: number;
 
   public generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
     for (let x = 0; x < mapWidth; x++) {
       for (let y = 0; y < mapHeight; y++) {
         const tileType = Math.random() > 0.5 ? "grass" : "grass2";
         const object = this.objectPool.get();
-        object.initialize(x * tileSize, y * tileSize, tileType);
+        object.initialize(x * tileSize, y * tileSize, tileType, true);
         object.collisionModifier = 0.9;
-        this.objectRBush.insert(object);
+        this.objectSpatialIndex.insert(object);
       }
     }
   }
@@ -38,7 +41,7 @@ export default class Universe {
   public generateStaticObject(x: number, y: number, type: string) {
     const object = this.objectPool.get();
     object.initialize(x, y, type);
-    this.objectRBush.insert(object);
+    this.objectSpatialIndex.insert(object);
   }
 
   initialize(scene: Phaser.Scene) {
@@ -47,24 +50,29 @@ export default class Universe {
     this.objectPool = new ObjectPool(() => {
       return new StaticObject(this.scene);
     });
-    this.objectRBush = new RBush<StaticObject>();
+    this.objectSpatialIndex = new RBush<StaticObject>();
 
     initMovementEvents();
 
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
     this.timeController = timeControllerFactory(this.scene);
+    this.arrow = new StaticObject(this.scene);
+    this.arrow.initialize(0, 0, "red_arrow", true);
+    this.arrow.setVisible(false);
   }
 
   update(time: number, deltaTime: number) {
-    movementSystem(this.world, deltaTime / 1000, this.objectRBush);
+    movementSystem(this.world, deltaTime / 1000, this.objectSpatialIndex);
+    focusSystem(this.world, this.player, this.objectSpatialIndex, this.arrow);
+
   }
 
   spawnPlayer() {
     this.playerFactory = new PlayerFactory(this.scene, this.world);
-    const player = this.playerFactory.createPlayer();
+    this.player = this.playerFactory.createPlayer();
     const controlSystem = new ControlSystem();
-    controlSystem.initialize(this.scene, player);
-    new DebugPanel(this.world, player);
+    controlSystem.initialize(this.scene, this.player);
+    new DebugPanel(this.world, this.player);
   }
 }
