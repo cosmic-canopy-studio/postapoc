@@ -9,7 +9,8 @@ export default class StaticObject extends Phaser.GameObjects.Sprite {
   public maxX: number;
   public maxY: number;
   public name: string;
-  public exempt: boolean;
+  public exempt = false;
+  public eid: number | null = null;
 
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0, "");
@@ -24,7 +25,8 @@ export default class StaticObject extends Phaser.GameObjects.Sprite {
     scene.add.existing(this);
   }
 
-  initialize(x: number, y: number, texture: string, exempt = false, name?: string): void {
+  initialize(x: number, y: number, texture: string, entityId: number, exempt = false, name?: string): void {
+    this.eid = entityId;
     this.setTexture(texture);
     this.setPosition(x, y);
     this.setOrigin(0, 0);
@@ -47,6 +49,7 @@ export default class StaticObject extends Phaser.GameObjects.Sprite {
   }
 
   deinitialize(): void {
+    this.eid = null;
     this.setActive(false);
     this.setVisible(false);
     this.setTexture("");

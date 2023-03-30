@@ -1,5 +1,6 @@
 // Part: src/phaser/factories/playerFactory.ts
 
+import { addHealth } from "@src/ecs/components/health";
 import { addMovement } from "@src/ecs/components/movement";
 import { addEntity, IWorld } from "bitecs";
 import Phaser from "phaser";
@@ -25,6 +26,8 @@ export default class PlayerFactory {
       0,
       this.scene
     );
+
+    addHealth(this.world, player, 100, 100);
 
     return player;
   }

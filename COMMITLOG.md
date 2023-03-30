@@ -1,4 +1,4 @@
-## [0.0.72](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.72) (2023-03-29)
+## [0.0.73](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.73) (2023-03-30)
 
 
 ### Bug Fixes
