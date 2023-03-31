@@ -1,3 +1,5 @@
+// Part: src/ecs/components/phaserSprite.ts
+
 // src/ecs/components/phaserSprite.ts
 
 import { addComponent, defineComponent, IWorld, removeComponent, Types } from "bitecs";

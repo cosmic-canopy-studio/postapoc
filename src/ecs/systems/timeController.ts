@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/timeController.ts
+
 // Part: src/phaser/systems/timeController.ts
 
 import { TIME_CONTROLLER } from "@src/core/constants";

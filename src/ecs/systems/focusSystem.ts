@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/focusSystem.ts
+
 import Collider, { getBoundingBox, ICollider } from "@src/ecs/components/collider";
 import { IWorld } from "bitecs";
 import { getLogger } from "loglevel";

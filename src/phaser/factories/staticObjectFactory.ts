@@ -1,5 +1,7 @@
 // src/phaser/factories/staticObjectFactory.ts
 
+// src/phaser/factories/staticObjectFactory.ts
+
 import ObjectPool from "@src/core/systems/objectPool";
 import { addCollider } from "@src/ecs/components/collider";
 import { addHealth } from "@src/ecs/components/health";

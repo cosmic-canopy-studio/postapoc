@@ -1,3 +1,5 @@
+// Part: src/phaser/factories/playerFactory.ts
+
 // src/phaser/factories/playerFactory.ts
 
 import { addCollider } from "@src/ecs/components/collider";

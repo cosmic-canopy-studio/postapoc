@@ -1,4 +1,4 @@
-## [0.0.74](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.74) (2023-03-31)
+## [0.0.75](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.75) (2023-03-31)
 
 
 ### Bug Fixes
@@ -17,6 +17,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
+* collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
