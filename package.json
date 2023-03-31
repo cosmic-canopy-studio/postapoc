@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.73",
+  "version": "0.0.74",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +10,7 @@
     "test:e2e": "start-server-and-test serve http://localhost:4173 cypress run",
     "coverage": "jest --coverage --collectCoverageFrom=\"./src/**\"",
     "type-check": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint": "eslint . --ext .js,.ts --fix",
     "prettier": "prettier --write .",
     "postinstall": "husky install",
     "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",

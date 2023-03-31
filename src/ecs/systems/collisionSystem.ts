@@ -1,30 +1,28 @@
-// Part: src/ecs/systems/collisionSystem.ts
-
 import { getLogger } from "@src/core/components/logger";
-import StaticObject from "@src/phaser/objects/staticObject";
+import { getBoundingBox, ICollider } from "@src/ecs/components/collider";
+import { IWorld } from "bitecs";
 import RBush from "rbush";
 
 export function handleCollision(
-  sprite: Phaser.GameObjects.Sprite,
-  objectsSpatialIndex: RBush<StaticObject>
+  eid: number,
+  world: IWorld,
+  objectsSpatialIndex: RBush<ICollider>
 ): number {
-  const spriteBounds = sprite.getBounds();
+  const logger = getLogger("collision");
+  const searchBounds = getBoundingBox(eid);
+  if (!searchBounds) {
+    logger.error(`Could not find bounding box for entity ${eid}`);
+    return 1;
+  }
 
-  const nearbyObjects = objectsSpatialIndex.search({
-    minX: spriteBounds.x,
-    minY: spriteBounds.y,
-    maxX: spriteBounds.x + spriteBounds.width,
-    maxY: spriteBounds.y + spriteBounds.height
-  });
+  const nearbyObjects = objectsSpatialIndex.search(searchBounds);
+
+  logger.debug(`Found ${nearbyObjects.length} nearby objects for entity ${eid}`);
 
   let collisionModifier = 1;
   for (const staticObject of nearbyObjects) {
-    if (Phaser.Geom.Intersects.RectangleToRectangle(sprite.getBounds(), staticObject.getBounds())) {
-      collisionModifier *= staticObject.collisionModifier;
-      if (staticObject.collisionModifier === 0) {
-        getLogger("collision").debug(`${sprite.texture.key} collided with ${staticObject.name}`);
-      }
-    }
+    collisionModifier *= staticObject.collisionModifier;
+    logger.debug(`Collision detected between ${eid} and ${staticObject.eid}`);
   }
 
   return collisionModifier;

@@ -1,56 +1,76 @@
-// Part: src/ecs/systems/focusSystem.ts
-
-import { phaserEntityMapper } from "@src/ecs/components/phaserEntity";
-import StaticObject from "@src/phaser/objects/staticObject";
+import Collider, { getBoundingBox, ICollider } from "@src/ecs/components/collider";
 import { IWorld } from "bitecs";
+import { getLogger } from "loglevel";
 import RBush from "rbush";
 
 const PLAYER_DISTANCE = 100;
 
+interface IFocusTarget {
+  distance: number;
+  target: ICollider;
+}
+
 export function focusSystem(
   world: IWorld,
   eid: number,
-  objectsSpatialIndex: RBush<StaticObject>,
-  arrow: StaticObject
+  objectsSpatialIndex: RBush<ICollider>,
+  arrow: Phaser.GameObjects.Sprite
 ) {
-  const playerSprite = phaserEntityMapper[eid] as Phaser.GameObjects.Sprite;
-  const playerBounds = playerSprite.getBounds();
-  let nearestObject: StaticObject | null = null;
-  let minDistance = Infinity;
+  const logger = getLogger("focus");
+  const playerBounds = getBoundingBox(eid);
+  if (!playerBounds) {
+    logger.warn("Player has no bounds");
+    return null;
+  }
 
   const nearbyObjects = objectsSpatialIndex.search({
-    minX: playerBounds.x - PLAYER_DISTANCE,
-    minY: playerBounds.y - PLAYER_DISTANCE,
-    maxX: playerBounds.x + playerBounds.width + PLAYER_DISTANCE,
-    maxY: playerBounds.y + playerBounds.height + PLAYER_DISTANCE
+    minX: playerBounds.minX - PLAYER_DISTANCE,
+    minY: playerBounds.minY - PLAYER_DISTANCE,
+    maxX: playerBounds.maxX + PLAYER_DISTANCE,
+    maxY: playerBounds.maxY + PLAYER_DISTANCE
   });
 
-  for (const staticObject of nearbyObjects) {
-    if (!staticObject.exempt) {
-      const objectBounds = staticObject.getBounds();
-      const distance = Phaser.Math.Distance.Between(
-        playerBounds.centerX,
-        playerBounds.centerY,
-        objectBounds.centerX,
-        objectBounds.centerY
-      );
+  if (nearbyObjects === undefined || nearbyObjects.length === 0) {
+    arrow.setVisible(false);
+    logger.debug("No nearby objects");
+    return null;
+  }
 
-      if (distance < PLAYER_DISTANCE && distance < minDistance) {
-        nearestObject = staticObject;
-        minDistance = distance;
-      }
+  const objectsInRange: IFocusTarget[] = [];
+
+  for (const staticObject of nearbyObjects) {
+    if (!Collider.exempt[staticObject.eid]) {
+      const distance = Phaser.Math.Distance.Between(
+        playerBounds.minX + playerBounds.maxX / 2,
+        playerBounds.minY + playerBounds.maxY / 2,
+        staticObject.minX + staticObject.maxX / 2,
+        staticObject.minY + staticObject.maxY / 2
+      );
+      objectsInRange.push({ distance, target: staticObject });
     }
   }
 
+  const sortedObjects = objectsInRange.sort((a, b) => a.distance - b.distance);
+  logger.debug("Sorted objects", sortedObjects);
+  logger.debug("Nearest object", sortedObjects[0]);
+  const nearestObject = sortedObjects[0];
   if (nearestObject) {
-    const arrowX = nearestObject.x + nearestObject.width / 2 - arrow.width / 2;
-    const arrowY = nearestObject.y - nearestObject.height;
-    arrow.setPosition(arrowX, arrowY);
-    arrow.setVisible(true);
-    arrow.setDepth(10);
-    return nearestObject;
+    return setFocus(nearestObject.target, arrow);
   } else {
     arrow.setVisible(false);
     return null;
   }
+}
+
+export function setFocus(target: ICollider, arrow: Phaser.GameObjects.Sprite) {
+  const logger = getLogger("focusSystem");
+  logger.debug(`Setting focus to ${target.eid}`);
+  const centerX = target.minX + (target.maxX - target.minX);
+
+  const arrowX = centerX - arrow.width / 2;
+  const arrowY = target.minY - arrow.height / 2;
+  arrow.setPosition(arrowX, arrowY);
+  arrow.setVisible(true);
+  arrow.setDepth(10);
+  return target.eid;
 }

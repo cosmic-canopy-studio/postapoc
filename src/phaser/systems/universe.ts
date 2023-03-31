@@ -7,6 +7,7 @@ import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import EventBus from "@src/core/systems/eventBus";
 import { DamageEventPayload } from "@src/core/systems/eventTypes";
 import container from "@src/core/systems/inversify.config";
+import { getBoundingBox, ICollider } from "@src/ecs/components/collider";
 import Health from "@src/ecs/components/health";
 import ControlSystem from "@src/ecs/systems/controlSystem";
 import { focusSystem } from "@src/ecs/systems/focusSystem";
@@ -15,7 +16,6 @@ import { initMovementEvents } from "@src/ecs/systems/initMovementEvents";
 import { movementSystem } from "@src/ecs/systems/movementSystem";
 import PlayerFactory from "@src/phaser/factories/playerFactory";
 import StaticObjectFactory from "@src/phaser/factories/staticObjectFactory";
-import StaticObject from "@src/phaser/objects/staticObject";
 import { createWorld, IWorld } from "bitecs";
 import Phaser, { Scene } from "phaser";
 import RBush from "rbush";
@@ -24,19 +24,19 @@ export default class Universe {
   private scene!: Phaser.Scene;
   private world!: IWorld;
   private staticObjectFactory!: StaticObjectFactory;
-  private objectSpatialIndex!: RBush<StaticObject>;
+  private objectSpatialIndex!: RBush<ICollider>;
   private playerFactory!: PlayerFactory;
   private timeController!: ITimeController;
   private timeSystem!: ITimeSystem;
-  private arrow!: StaticObject;
+  private arrow!: Phaser.GameObjects.Sprite;
   private player!: number;
-  private focusedObject: StaticObject | null = null;
+  private focusedObject: number | null = null;
   private logger = getLogger("universe");
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
     this.world = createWorld();
-    this.objectSpatialIndex = new RBush<StaticObject>();
+    this.objectSpatialIndex = new RBush<ICollider>();
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
 
@@ -46,7 +46,7 @@ export default class Universe {
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
     this.timeController = timeControllerFactory(this.scene);
-    this.arrow = this.staticObjectFactory.create(0, 0, "red_arrow", true);
+    this.arrow = this.scene.add.sprite(0, 0, "red_arrow");
     this.arrow.setVisible(false);
 
     EventBus.on("attack", () => {
@@ -58,16 +58,8 @@ export default class Universe {
 
   update(time: number, deltaTime: number) {
     movementSystem(this.world, deltaTime / 1000, this.objectSpatialIndex);
-    healthSystem(this.world, this.objectSpatialIndex, this.staticObjectFactory);
+    healthSystem(this.world);
     this.focusedObject = focusSystem(this.world, this.player, this.objectSpatialIndex, this.arrow);
-  }
-
-  addObject(object: StaticObject) {
-    this.objectSpatialIndex.insert(object);
-  }
-
-  addObjects(objects: StaticObject[]) {
-    this.objectSpatialIndex.load(objects);
   }
 
   spawnPlayer() {
@@ -77,20 +69,39 @@ export default class Universe {
     new DebugPanel(this.world, this.player);
   }
 
-  generateTileset() {
-    const objects = this.staticObjectFactory.generateTileset();
-    this.addObjects(objects);
+  generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
+    const collisionModifier = 0.9;
+    for (let x = 0; x < mapWidth; x++) {
+      for (let y = 0; y < mapHeight; y++) {
+        const tileType = Math.random() > 0.5 ? "grass" : "grass2";
+        this.generateStaticObject(x * tileSize, y * tileSize, tileType, true, collisionModifier);
+      }
+    }
   }
 
-  generateStaticObject(x: number, y: number, texture: string) {
-    const object = this.staticObjectFactory.create(x, y, texture);
-    this.addObject(object);
+  generateStaticObject(x: number, y: number, texture: string, exempt = false, collisionModifier = 0) {
+    const objectID = this.staticObjectFactory.create(x, y, texture, exempt);
+    const bounds = getBoundingBox(objectID);
+    if (!bounds) {
+      this.logger.info(`No bounds for ${objectID}`);
+    }
+    this.objectSpatialIndex.insert({
+      eid: objectID,
+      exempt: true,
+      collisionModifier: collisionModifier,
+      minX: bounds.minX,
+      minY: bounds.minY,
+      maxX: bounds.maxX,
+      maxY: bounds.maxY
+    });
+    this.logger.debug(`Added static object ${objectID} with texture ${texture} to spatial index`);
   }
 
   private destroyFocusTarget() {
+    const damage = 25;
     if (this.focusedObject) {
-      EventBus.emit("damage", { entity: this.focusedObject.eid, damage: 10 });
-      this.logger.info(`Damaging ${this.focusedObject.name}`);
+      EventBus.emit("damage", { entity: this.focusedObject, damage });
+      this.logger.info(`Damaging ${this.focusedObject}`);
     }
   }
 

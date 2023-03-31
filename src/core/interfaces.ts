@@ -17,5 +17,3 @@ export interface ITimeSystem {
 export interface IControlMapping {
   [key: string]: string;
 }
-
-

@@ -1,6 +1,5 @@
 // Part: src/ecs/components/movement.ts
 
-import MovableObject from "@src/phaser/objects/moveableObject";
 import { addComponent, defineComponent, IWorld, Types } from "bitecs";
 
 export interface IMovement {
@@ -23,16 +22,13 @@ export function addMovement(
   x: number,
   y: number,
   xSpeed: number,
-  ySpeed: number,
-  scene: Phaser.Scene
+  ySpeed: number
 ) {
   addComponent(world, Movement, entity);
   Movement.x[entity] = x;
   Movement.y[entity] = y;
   Movement.xSpeed[entity] = xSpeed;
   Movement.ySpeed[entity] = ySpeed;
-
-  const sprite = new MovableObject(scene, x, y, "player");
 }
 
 export default Movement;

@@ -44,6 +44,7 @@ export function initMovementEvents() {
     }
 
     getLogger("movement").debug(`Entity ${eid} move ${direction} ${state ? "start" : "stop"}`);
+
   };
 
   EventBus.on("move", (event: MoveEventPayload) => {

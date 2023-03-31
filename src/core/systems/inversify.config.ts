@@ -2,8 +2,8 @@
 
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
 import { ITimeController } from "@src/core/interfaces";
+import { TimeController } from "@src/ecs/systems/timeController";
 import { TimeSystem } from "@src/ecs/systems/timeSystem";
-import { TimeController } from "@src/phaser/systems/timeController";
 import { Container } from "inversify";
 import { Scene } from "phaser";
 

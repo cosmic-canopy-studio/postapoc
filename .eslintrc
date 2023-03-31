@@ -12,6 +12,11 @@
   "plugins": [
     "@typescript-eslint"
   ],
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "assets/"
+  ],
   "rules": {
   },
   "overrides": [
@@ -19,6 +24,10 @@
       "files": [
         "*.ts",
         "*.tsx"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",

@@ -2,8 +2,10 @@
   "modules": {
     "control": false,
     "collision": false,
+    "focus": false,
     "movement": false,
-    "eventBus": false
+    "eventBus": false,
+    "universe": false
   },
   "events": {
     "moveEvents": false

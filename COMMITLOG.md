@@ -1,4 +1,4 @@
-## [0.0.73](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.73) (2023-03-30)
+## [0.0.74](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.74) (2023-03-31)
 
 
 ### Bug Fixes
@@ -20,6 +20,7 @@
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
+* health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
 * initial focus system ([8f15821](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8f158217956c15e09bc57403ed2b28f52b01583d))
 * initial main scene implementation ([9b8d3e1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b8d3e1b21cafa942bdb3f57fb87db4193ab44f7))
 * initial player control implementation ([94178de](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/94178de432213b6cd94fa3c7a0669eb21c5a682b))

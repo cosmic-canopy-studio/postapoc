@@ -1,18 +1,18 @@
 // Part: src/ecs/systems/movementSystem.ts
 
-import { defineQuery, IWorld } from "bitecs";
+import { ICollider, updateSpriteColliderBounds } from "@src/ecs/components/collider";
 import Movement from "@src/ecs/components/movement";
-import { phaserEntityMapper } from "@src/ecs/components/phaserEntity";
-import StaticObject from "@src/phaser/objects/staticObject";
-import RBush from "rbush";
+import { getSprite } from "@src/ecs/components/phaserSprite";
 import { handleCollision } from "@src/ecs/systems/collisionSystem";
+import { defineQuery, IWorld } from "bitecs";
+import RBush from "rbush";
 
 const movementQuery = defineQuery([Movement]);
 
 export function movementSystem(
   world: IWorld,
   delta: number,
-  staticObjects: RBush<StaticObject>
+  staticObjects: RBush<ICollider>
 ) {
   const entities = movementQuery(world);
 
@@ -20,9 +20,9 @@ export function movementSystem(
     const xSpeed = Movement.xSpeed[eid];
     const ySpeed = Movement.ySpeed[eid];
 
-    const sprite = phaserEntityMapper[eid] as Phaser.GameObjects.Sprite;
+    const sprite = getSprite(eid);
     if (sprite) {
-      const collisionModifier = handleCollision(sprite, staticObjects);
+      const collisionModifier = handleCollision(eid, world, staticObjects);
 
       let newX, newY;
       if (collisionModifier > 0) {
@@ -39,6 +39,7 @@ export function movementSystem(
       Movement.y[eid] = newY;
 
       sprite.setPosition(newX, newY);
+      updateSpriteColliderBounds(eid);
     }
   }
 }

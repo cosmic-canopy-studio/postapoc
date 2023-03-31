@@ -1,49 +1,57 @@
-// Part: src/phaser/factories/staticObjectFactory.ts
+// src/phaser/factories/staticObjectFactory.ts
 
 import ObjectPool from "@src/core/systems/objectPool";
+import { addCollider } from "@src/ecs/components/collider";
 import { addHealth } from "@src/ecs/components/health";
-import StaticObject from "@src/phaser/objects/staticObject";
-import { addEntity, IWorld } from "bitecs";
+import { addPhaserSprite, getSprite, removePhaserSprite } from "@src/ecs/components/phaserSprite";
+import { addEntity, IWorld, removeEntity } from "bitecs";
 import Phaser from "phaser";
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
   private world: IWorld;
-  private objectPool: ObjectPool<StaticObject>;
+  private spritePool: ObjectPool<Phaser.GameObjects.Sprite>;
 
   constructor(scene: Phaser.Scene, world: IWorld) {
     this.scene = scene;
     this.world = world;
-    this.objectPool = new ObjectPool(() => {
-      return new StaticObject(this.scene);
+
+    this.spritePool = new ObjectPool<Phaser.GameObjects.Sprite>(() => {
+      const sprite = new Phaser.GameObjects.Sprite(scene, 0, 0, "");
+      sprite.setOrigin(0, 0);
+      return sprite;
     });
   }
 
-  generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
-    let objects = [];
-    for (let x = 0; x < mapWidth; x++) {
-      for (let y = 0; y < mapHeight; y++) {
-        const tileType = Math.random() > 0.5 ? "grass" : "grass2";
-        const object = this.objectPool.get();
-        const objectID = addEntity(this.world);
-        object.initialize(x * tileSize, y * tileSize, tileType, objectID, true);
-        object.collisionModifier = 0.9;
-        objects.push(object);
-      }
-    }
-    return objects;
-  }
-
-  public create(x: number, y: number, texture: string, exempt = false) {
-    const object = this.objectPool.get();
+  public create(x: number, y: number, texture: string, exempt = false, collisionModifier = 0) {
     const objectID = addEntity(this.world);
-    object.initialize(x, y, texture, objectID, exempt);
+    const sprite = this.spritePool.get();
+
+    sprite.setTexture(texture);
+    sprite.setPosition(x, y);
+    sprite.setActive(true);
+    sprite.setVisible(true);
+
+    this.scene.add.existing(sprite);
+    addPhaserSprite(this.world, objectID, sprite);
     addHealth(this.world, objectID, 100, 100);
-    return object;
+    addCollider(this.world, objectID, exempt, collisionModifier);
+
+    return objectID;
   }
 
-  release(item: StaticObject): void {
-    item.deinitialize();
-    this.objectPool.release(item);
+  release(entityId: number): void {
+    const sprite = getSprite(entityId);
+    if (!sprite) {
+      throw new Error("No sprite found for entity");
+    }
+
+    sprite.setActive(false);
+    sprite.setVisible(false);
+    sprite.setTexture("");
+
+    this.spritePool.release(sprite);
+    removePhaserSprite(this.world, entityId);
+    removeEntity(this.world, entityId);
   }
 }

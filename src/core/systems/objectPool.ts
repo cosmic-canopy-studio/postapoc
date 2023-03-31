@@ -1,8 +1,6 @@
-// Part: src/core/systems/objectPool.ts
-
 import { getLogger } from "@src/core/components/logger";
 
-export default class ObjectPool<T extends { deinitialize: () => void }> {
+export default class ObjectPool<T> {
   private logger = getLogger("ObjectPool");
   private pool: T[];
   private factory: () => T;
@@ -24,7 +22,6 @@ export default class ObjectPool<T extends { deinitialize: () => void }> {
   }
 
   release(item: T): void {
-    item.deinitialize();
     this.pool.push(item);
     this.logger.debug("Released object back to pool");
   }
@@ -39,4 +36,3 @@ export default class ObjectPool<T extends { deinitialize: () => void }> {
     this.logger.debug("Cleared object pool");
   }
 }
-
