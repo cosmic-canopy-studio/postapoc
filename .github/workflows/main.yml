@@ -1,0 +1,49 @@
+# .github/workflows/main.yml
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Unit tests
+        run: yarn test:unit
+
+      - name: Run Phaser tests
+        run: yarn test:phaser
+
+      - name: Setup Playwright
+        run: npx playwright install
+
+      - name: Run Playwright tests
+        run: yarn test:e2e
+
+      - name: Run Coverage
+        run: yarn coverage
