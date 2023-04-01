@@ -1,15 +1,19 @@
 // Part: src/core/systems/objectPool.ts
 
-import { getLogger } from "@src/core/components/logger";
+import { getLogger } from '@src/core/components/logger';
 
 export default class ObjectPool<T> {
-  private logger = getLogger("ObjectPool");
+  private logger = getLogger('ObjectPool');
   private pool: T[];
   private factory: () => T;
 
-  constructor(factory: () => T) {
+  constructor(factory: () => T, initialSize?: number) {
     this.pool = [];
     this.factory = factory;
+
+    if (initialSize && initialSize > 0) {
+      this.createInitialObjects(initialSize);
+    }
   }
 
   get(): T {
@@ -19,13 +23,13 @@ export default class ObjectPool<T> {
     } else {
       item = this.pool.pop() as T;
     }
-    this.logger.debug("Got object from pool");
+    this.logger.debug('Got object from pool');
     return item;
   }
 
   release(item: T): void {
     this.pool.push(item);
-    this.logger.debug("Released object back to pool");
+    this.logger.debug('Released object back to pool');
   }
 
   size(): number {
@@ -35,6 +39,13 @@ export default class ObjectPool<T> {
 
   clear(): void {
     this.pool = [];
-    this.logger.debug("Cleared object pool");
+    this.logger.debug('Cleared object pool');
+  }
+
+  private createInitialObjects(size: number): void {
+    for (let i = 0; i < size; i++) {
+      this.pool.push(this.factory());
+    }
+    this.logger.debug(`Created ${size} initial objects`);
   }
 }

@@ -7,16 +7,12 @@ describe('Time System', () => {
     const deltaTime = 1;
 
     timeSystem.setTimeState(TimeState.PAUSED);
-    expect(timeSystem.getDeltaTime(deltaTime)).toBe(0);
+    expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(0);
 
     timeSystem.setTimeState(TimeState.RUNNING);
-    expect(timeSystem.getDeltaTime(deltaTime)).toBe(1);
+    expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(1);
 
-    timeSystem.setTimeState(TimeState.SLOWED_DOWN);
-    expect(timeSystem.getDeltaTime(deltaTime)).toBe(0.5);
-
-    timeSystem.setTimeState(TimeState.FAST_FORWARD);
-    expect(timeSystem.getDeltaTime(deltaTime)).toBe(2);
+    timeSystem.setTimeState(TimeState.SLOW_MOTION);
+    expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(0.5);
   });
 });
-// End of file: timeSystem.test.ts

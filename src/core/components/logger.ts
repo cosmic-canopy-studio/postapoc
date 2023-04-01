@@ -1,14 +1,14 @@
 // Part: src/core/components/logger.ts
 
-import chalk from "chalk";
-import log, { LogLevelNames, LogLevelNumbers } from "loglevel";
+import chalk from 'chalk';
+import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';
 
 const colors = {
   trace: chalk.magenta,
   debug: chalk.cyan,
   info: chalk.blue,
   warn: chalk.yellow,
-  error: chalk.red
+  error: chalk.red,
 };
 
 log.setLevel(log.levels.INFO);
@@ -18,14 +18,18 @@ const originalMethodFactory = log.methodFactory;
 const customMethodFactory = (
   methodName: LogLevelNames,
   logLevel: LogLevelNumbers,
-  loggerName: string | symbol = "global"
+  loggerName: string | symbol = 'global'
 ) => {
-  const rawMethod = originalMethodFactory(methodName, logLevel, loggerName);
+  const loggerNameStr = String(loggerName);
+  const rawMethod = originalMethodFactory(methodName, logLevel, loggerNameStr);
   return (...args: any[]) => {
     const timestamp = new Date().toLocaleTimeString();
-    rawMethod(`${chalk.gray(`[${timestamp}]`)} ` +
-      `${colors[methodName](methodName.toUpperCase())} ` +
-      `${chalk.green(`${loggerName}`)}\n`, ...args);
+    rawMethod(
+      `${chalk.gray(`[${timestamp}]`)} ` +
+        `${colors[methodName](methodName.toUpperCase())} ` +
+        `${chalk.green(`${loggerNameStr}`)}\n`,
+      ...args
+    );
   };
 };
 

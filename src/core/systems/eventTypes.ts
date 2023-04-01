@@ -1,6 +1,6 @@
 // Part: src/core/systems/eventTypes.ts
 
-import { MoveDirections } from "@src/ecs/systems/initMovementEvents";
+import { MoveDirections } from '@src/ecs/systems/initMovementEvents';
 
 export interface EventPayload {
   state?: boolean;
@@ -31,6 +31,7 @@ export interface DestroyEntityEventPayload {
 }
 
 export interface EventsMap {
+  testEvent: EventPayload;
   move: MoveEventPayload;
   attack: AttackEventPayload;
   damage: DamageEventPayload;

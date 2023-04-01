@@ -1,7 +1,7 @@
-import ObjectPool from "@src/core/systems/objectPool";
+import ObjectPool from '@src/core/systems/objectPool';
 
-describe("Object Pool", () => {
-  it("creates and manages an object pool", () => {
+describe('Object Pool', () => {
+  it('creates and manages an object pool', () => {
     const factory = () => ({ x: 0, y: 0 });
     const pool = new ObjectPool(factory, 5);
     expect(pool.size()).toBe(5);
