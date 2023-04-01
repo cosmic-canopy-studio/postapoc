@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/collisionSystem.ts
+
 import { getLogger } from "@src/core/components/logger";
 import { getBoundingBox, ICollider } from "@src/ecs/components/collider";
 import { IWorld } from "bitecs";

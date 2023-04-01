@@ -1,6 +1,4 @@
-// src/ecs/systems/controlSystem.ts
-
-// src/ecs/systems/controlSystem.ts
+// Part: src/ecs/systems/controlSystem.ts
 
 import controlMapping from "@src/config/controlMapping.json";
 import { getLogger } from "@src/core/components/logger";
