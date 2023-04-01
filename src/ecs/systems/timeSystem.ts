@@ -1,52 +1,52 @@
-// Part: src/ecs/systems/timeSystem.ts
-
+import { getLogger } from "@src/core/components/logger";
+import { ITimeSystem } from "@src/core/interfaces";
 import EventBus from "@src/core/systems/eventBus";
 import { injectable } from "inversify";
 
 export enum TimeState {
   PAUSED,
   RUNNING,
-  SLOWED_DOWN,
-  FAST_FORWARD,
+  SLOW_MOTION,
 }
 
 @injectable()
-export class TimeSystem {
+export class TimeSystem implements ITimeSystem {
   private timeState: TimeState;
-  private readonly slowedDownSpeed: number;
-  private readonly fastForwardSpeed: number;
+  private logger = getLogger("time");
+  private lastUpdateTime: number;
 
   constructor() {
     this.timeState = TimeState.RUNNING;
-    this.slowedDownSpeed = 0.5;
-    this.fastForwardSpeed = 2;
+    this.lastUpdateTime = Date.now();
+    EventBus.on("togglePause", this.togglePause.bind(this));
+    EventBus.on("toggleSlowTime", this.toggleSlowTime.bind(this));
+    this.logger.debug("Initialized");
   }
 
   setTimeState(timeState: TimeState) {
     this.timeState = timeState;
-    const timeScale = this.getTimeScale();
-    EventBus.emit("timeScaleChange", timeScale);
+    this.logger.debug(`Time state: ${TimeState[this.timeState]}`);
   }
 
   getTimeState(): TimeState {
+    this.logger.debug(`Time state: ${TimeState[this.timeState]}`);
     return this.timeState;
   }
 
-  getDeltaTime(deltaTime: number): number {
-    return deltaTime * this.getTimeScale();
+  getAdjustedDeltaTime(deltaTime: number): number {
+    const adjustedDeltaTime = deltaTime * (this.timeState === TimeState.SLOW_MOTION ? 0.5 : 1);
+    const now = Date.now();
+    const deltaTimeSeconds = (now - this.lastUpdateTime);
+    this.lastUpdateTime = now;
+    this.logger.debug(`Delta time: ${deltaTimeSeconds}`);
+    return adjustedDeltaTime > deltaTimeSeconds ? deltaTimeSeconds : adjustedDeltaTime;
   }
 
-  private getTimeScale(): number {
-    switch (this.timeState) {
-      case TimeState.PAUSED:
-        return 0;
-      case TimeState.SLOWED_DOWN:
-        return this.slowedDownSpeed;
-      case TimeState.FAST_FORWARD:
-        return this.fastForwardSpeed;
-      case TimeState.RUNNING:
-      default:
-        return 1;
-    }
+  togglePause() {
+    this.setTimeState(this.timeState === TimeState.PAUSED ? TimeState.RUNNING : TimeState.PAUSED);
+  }
+
+  toggleSlowTime() {
+    this.setTimeState(this.timeState === TimeState.SLOW_MOTION ? TimeState.RUNNING : TimeState.SLOW_MOTION);
   }
 }

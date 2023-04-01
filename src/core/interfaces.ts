@@ -11,9 +11,5 @@ export interface ITimeSystem {
 
   getTimeState(): TimeState;
 
-  getDeltaTime(deltaTime: number): number;
-}
-
-export interface IControlMapping {
-  [key: string]: string;
+  getAdjustedDeltaTime(deltaTime: number): number;
 }

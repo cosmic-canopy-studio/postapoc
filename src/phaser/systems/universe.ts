@@ -14,6 +14,7 @@ import { focusSystem } from "@src/ecs/systems/focusSystem";
 import { healthSystem } from "@src/ecs/systems/healthSystem";
 import { initMovementEvents } from "@src/ecs/systems/initMovementEvents";
 import { movementSystem } from "@src/ecs/systems/movementSystem";
+import { TimeState } from "@src/ecs/systems/timeSystem";
 import PlayerFactory from "@src/phaser/factories/playerFactory";
 import StaticObjectFactory from "@src/phaser/factories/staticObjectFactory";
 import { createWorld, IWorld } from "bitecs";
@@ -55,9 +56,16 @@ export default class Universe {
   }
 
   update(time: number, deltaTime: number) {
-    movementSystem(this.world, deltaTime / 1000, this.objectSpatialIndex);
-    healthSystem(this.world);
-    this.focusedObject = focusSystem(this.world, this.player, this.objectSpatialIndex, this.arrow);
+    const adjustedDeltaTime = this.timeSystem.getAdjustedDeltaTime(deltaTime);
+    const timeState = this.timeSystem.getTimeState();
+    if (timeState !== TimeState.PAUSED) {
+      this.logger.debug(`Time state: ${timeState}, delta time: ${adjustedDeltaTime}`);
+      movementSystem(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
+      healthSystem(this.world);
+      this.focusedObject = focusSystem(this.world, this.player, this.objectSpatialIndex, this.arrow);
+    } else {
+      this.logger.debug(`Time state: ${timeState}`);
+    }
   }
 
   spawnPlayer() {

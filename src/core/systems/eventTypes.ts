@@ -36,6 +36,8 @@ export interface EventsMap {
   damage: DamageEventPayload;
   debug: DebugEventPayload;
   destroyEntity: DestroyEntityEventPayload;
+  togglePause: EventPayload;
+  toggleSlowTime: EventPayload;
 }
 
 export type Events = {

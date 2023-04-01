@@ -1,7 +1,4 @@
-// Part: src/ecs/systems/timeController.ts
-
-// Part: src/phaser/systems/timeController.ts
-
+import { getLogger } from "@src/core/components/logger";
 import { TIME_CONTROLLER } from "@src/core/constants";
 import { ITimeController } from "@src/core/interfaces";
 import EventBus from "@src/core/systems/eventBus";
@@ -11,13 +8,35 @@ import { Scene } from "phaser";
 @injectable()
 export class TimeController implements ITimeController {
   private scene: Scene;
+  private logger = getLogger("time");
 
   constructor(@inject(TIME_CONTROLLER) scene: Scene) {
     this.scene = scene;
-    EventBus.on("timeScaleChange", this.setTimeScale.bind(this));
+    EventBus.on("togglePause", this.togglePause.bind(this));
+    EventBus.on("toggleSlowTime", this.toggleSlowTime.bind(this));
+    this.logger.debug("Initialized");
   }
 
-  setTimeScale(factor: number) {
-    this.scene.time.timeScale = factor;
+  setTimeScale(scale: number) {
+    this.scene.time.timeScale = scale;
+    this.logger.debug(`Time scale: ${this.scene.time.timeScale}`);
+  }
+
+  togglePause() {
+    if (this.scene.time.timeScale === 0) {
+      this.setTimeScale(1);
+    } else if (this.scene.time.timeScale === 1) {
+      this.setTimeScale(0);
+    } else {
+      this.setTimeScale(1);
+    }
+  }
+
+  toggleSlowTime() {
+    if (this.scene.time.timeScale === 1) {
+      this.setTimeScale(0.5);
+    } else {
+      this.setTimeScale(1);
+    }
   }
 }

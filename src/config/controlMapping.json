@@ -11,6 +11,7 @@
   },
   "action": {
     "KeyP": "pause",
-    "Space": "attack"
+    "Space": "attack",
+    "KeyZ": "slowTime"
   }
 }

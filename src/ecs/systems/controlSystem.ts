@@ -58,7 +58,7 @@ export default class ControlSystem {
   }
 
   private handleAction(action: GameAction, state: boolean) {
-    this.logger.debug(`Handling action ${action} with state ${state}`);
+    this.logger.debug(`Handling action ${GameAction[action]} with state ${state}`);
     switch (action) {
       case GameAction.MoveUp:
         EventBus.emit("move", { action: MoveDirections.UP, state, entity: this.player });
@@ -79,7 +79,12 @@ export default class ControlSystem {
         break;
       case GameAction.Pause:
         if (state) {
-          // Add your pause logic here
+          EventBus.emit("togglePause", {});
+        }
+        break;
+      case GameAction.SlowTime:
+        if (state) {
+          EventBus.emit("toggleSlowTime", {});
         }
         break;
     }

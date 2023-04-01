@@ -10,7 +10,7 @@ export enum GameAction {
   MoveRight,
   Attack,
   Pause,
-  // Add more game actions as needed
+  SlowTime,
 }
 
 export class KeyBindings {
@@ -62,6 +62,9 @@ export class KeyBindings {
           break;
         case "attack":
           this.bind(GameAction.Attack, key);
+          break;
+        case "slowTime":
+          this.bind(GameAction.SlowTime, key);
           break;
       }
     }
