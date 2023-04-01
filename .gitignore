@@ -7,6 +7,11 @@ dist/
 .yarn/
 .eslintcache
 
+# Report output
+coverage/
+playwright-report/
+test-results/
+
 # Editor directories and files
 .vscode/
 .idea/
@@ -15,3 +20,4 @@ dist/
 *.swn
 *.bak
 *.tiled-session
+.DS_Store
