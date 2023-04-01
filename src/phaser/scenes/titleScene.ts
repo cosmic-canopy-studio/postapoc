@@ -1,44 +1,45 @@
 // Part: src/phaser/scenes/titleScene.ts
+// Code Reference:
+// Documentation:
 
-import Phaser from "phaser";
+import Phaser from 'phaser';
 
 export default class TitleScene extends Phaser.Scene {
-
   constructor() {
-    super("TitleScene");
+    super('TitleScene');
   }
 
   create() {
-    this.add.image(400, 300, "starry_night");
+    this.add.image(400, 300, 'starry_night');
 
-    const forestSilhouette = this.add.image(400, 300, "forest_silhouette");
+    const forestSilhouette = this.add.image(400, 300, 'forest_silhouette');
     forestSilhouette.setScale(1);
 
-    const title = this.add.image(400, 150, "postapoc_title");
+    const title = this.add.image(400, 150, 'postapoc_title');
     title.setScale(2);
 
-    this.input.on("pointerdown", () => this.startMainScene());
-    this.input.keyboard.on("keydown", () => this.startMainScene());
+    this.input.on('pointerdown', () => this.startMainScene());
+    this.input.keyboard.on('keydown', () => this.startMainScene());
   }
 
   private async startMainScene() {
     await this.growMushroomCloud();
-    this.scene.start("MainScene");
+    this.scene.start('MainScene');
   }
 
   private async growMushroomCloud() {
     return new Promise<void>((resolve) => {
-      const mushroomCloud = this.add.image(400, 300, "mushroom_cloud");
+      const mushroomCloud = this.add.image(400, 300, 'mushroom_cloud');
       mushroomCloud.setScale(0.1).setDepth(1);
       mushroomCloud.originY = mushroomCloud.height;
       this.tweens.add({
         targets: mushroomCloud,
         scale: 20,
         duration: 2000,
-        ease: "Sine.easeInOut",
+        ease: 'Sine.easeInOut',
         onComplete: () => {
           resolve();
-        }
+        },
       });
 
       // Add the screen overlay
@@ -52,20 +53,19 @@ export default class TitleScene extends Phaser.Scene {
         targets: orangeRect,
         fillAlpha: 0.5,
         duration: 800,
-        ease: "Linear",
+        ease: 'Linear',
         onComplete: () => {
           this.tweens.add({
             targets: blackRect,
             fillAlpha: 1,
             duration: 1600,
-            ease: "Expo.easeOut",
+            ease: 'Expo.easeOut',
             onComplete: () => {
               resolve();
-            }
+            },
           });
-        }
+        },
       });
     });
   }
-
 }

@@ -1,7 +1,9 @@
 // Part: src/core/systems/keyBindings.ts
+// Code Reference:
+// Documentation:
 
-import { getLogger } from "@src/core/components/logger";
-import { ControlMapping } from "@src/core/systems/controlMapping";
+import { getLogger } from '@src/core/components/logger';
+import { ControlMapping } from '@src/core/systems/controlMapping';
 
 export enum GameAction {
   MoveUp,
@@ -15,11 +17,11 @@ export enum GameAction {
 
 export class KeyBindings {
   private bindings: Map<string, GameAction> = new Map();
-  private logger = getLogger("keyBindings");
+  private logger = getLogger('keyBindings');
 
   constructor(controlMapping: ControlMapping) {
     this.loadBindingsFromControlMapping(controlMapping);
-    this.logger.debug("Key bindings loaded", this.bindings);
+    this.logger.debug('Key bindings loaded', this.bindings);
   }
 
   bind(action: GameAction, key: string) {
@@ -33,21 +35,24 @@ export class KeyBindings {
   }
 
   private loadBindingsFromControlMapping(controlMapping: ControlMapping) {
-    this.logger.debug("Loading key bindings from control mapping", controlMapping);
+    this.logger.debug(
+      'Loading key bindings from control mapping',
+      controlMapping
+    );
     for (const key in controlMapping.move) {
       this.logger.debug(`Loading key binding for ${key}`);
       const action = controlMapping.move[key];
       switch (action) {
-        case "up":
+        case 'up':
           this.bind(GameAction.MoveUp, key);
           break;
-        case "down":
+        case 'down':
           this.bind(GameAction.MoveDown, key);
           break;
-        case "left":
+        case 'left':
           this.bind(GameAction.MoveLeft, key);
           break;
-        case "right":
+        case 'right':
           this.bind(GameAction.MoveRight, key);
           break;
       }
@@ -57,13 +62,13 @@ export class KeyBindings {
       this.logger.debug(`Loading key binding for ${key}`);
       const action = controlMapping.action[key];
       switch (action) {
-        case "pause":
+        case 'pause':
           this.bind(GameAction.Pause, key);
           break;
-        case "attack":
+        case 'attack':
           this.bind(GameAction.Attack, key);
           break;
-        case "slowTime":
+        case 'slowTime':
           this.bind(GameAction.SlowTime, key);
           break;
       }

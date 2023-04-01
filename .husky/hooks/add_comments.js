@@ -16,7 +16,7 @@ const commentTemplate = (relativePath) => {
 };
 
 const removeOldPathComment = (content) => {
-  const regex = /^\/\/\s*path:.*\n?/i;
+  const regex = /^\/\/\s*(Part:)?\s*[\w-.\/\\]+.*\n?/i;
   return content.replace(regex, '');
 };
 
@@ -33,14 +33,16 @@ try {
     const relativePath = path.relative(rootDir, file);
     const content = fs.readFileSync(file, 'utf8');
 
-    // Remove old path comments
-    const contentWithoutOldComments = removeOldPathComment(content);
-
     // Check if the new comment structure already exists
-    if (!hasNewCommentStructure(contentWithoutOldComments)) {
+    if (!hasNewCommentStructure(content)) {
+      // Remove old path comments
+      const contentWithoutOldComments = removeOldPathComment(content);
+
       console.log(`Adding comment to ${relativePath}...`);
       const comment = commentTemplate(relativePath);
       fs.writeFileSync(file, comment + contentWithoutOldComments);
+    } else {
+      console.log(`New comment structure already exists in ${relativePath}`);
     }
   });
 } catch (err) {

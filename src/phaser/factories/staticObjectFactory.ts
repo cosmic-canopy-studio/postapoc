@@ -1,11 +1,13 @@
 // Part: src/phaser/factories/staticObjectFactory.ts
+// Code Reference:
+// Documentation:
 
-import ObjectPool from "@src/core/systems/objectPool";
-import { addCollider } from "@src/ecs/components/collider";
-import { addHealth } from "@src/ecs/components/health";
-import { addPhaserSprite, getSprite } from "@src/ecs/components/phaserSprite";
-import { addEntity, IWorld, removeEntity } from "bitecs";
-import Phaser from "phaser";
+import ObjectPool from '@src/core/systems/objectPool';
+import { addCollider } from '@src/ecs/components/collider';
+import { addHealth } from '@src/ecs/components/health';
+import { addPhaserSprite, getSprite } from '@src/ecs/components/phaserSprite';
+import { addEntity, IWorld, removeEntity } from 'bitecs';
+import Phaser from 'phaser';
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
@@ -17,13 +19,19 @@ export default class StaticObjectFactory {
     this.world = world;
 
     this.spritePool = new ObjectPool<Phaser.GameObjects.Sprite>(() => {
-      const sprite = new Phaser.GameObjects.Sprite(scene, 0, 0, "");
+      const sprite = new Phaser.GameObjects.Sprite(scene, 0, 0, '');
       sprite.setOrigin(0, 0);
       return sprite;
     });
   }
 
-  public create(x: number, y: number, texture: string, exempt = false, collisionModifier = 0) {
+  public create(
+    x: number,
+    y: number,
+    texture: string,
+    exempt = false,
+    collisionModifier = 0
+  ) {
     const objectID = addEntity(this.world);
     const sprite = this.spritePool.get();
 
@@ -43,12 +51,12 @@ export default class StaticObjectFactory {
   release(entityId: number): void {
     const sprite = getSprite(entityId);
     if (!sprite) {
-      throw new Error("No sprite found for entity");
+      throw new Error('No sprite found for entity');
     }
 
     sprite.setActive(false);
     sprite.setVisible(false);
-    sprite.setTexture("");
+    sprite.setTexture('');
 
     this.spritePool.release(sprite);
     removeEntity(this.world, entityId);

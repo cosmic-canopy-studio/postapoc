@@ -1,14 +1,22 @@
 // Part: src/ecs/components/phaserSprite.ts
+// Code Reference:
+// Documentation:
 
 // src/ecs/components/phaserSprite.ts
 
-import { addComponent, defineComponent, IWorld, removeComponent, Types } from "bitecs";
-import Phaser from "phaser";
+import {
+  addComponent,
+  defineComponent,
+  IWorld,
+  removeComponent,
+  Types,
+} from 'bitecs';
+import Phaser from 'phaser';
 
 const phaserSprites: Phaser.GameObjects.Sprite[] = [];
 
 const PhaserSprite = defineComponent({
-  spriteIndex: Types.ui16
+  spriteIndex: Types.ui16,
 });
 
 export function addPhaserSprite(

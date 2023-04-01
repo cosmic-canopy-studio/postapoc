@@ -1,9 +1,11 @@
 // Part: src/ecs/components/collider.ts
+// Code Reference:
+// Documentation:
 
-import logger from "@src/core/components/logger";
-import { getSprite } from "@src/ecs/components/phaserSprite";
-import { addComponent, defineComponent, IWorld, Types } from "bitecs";
-import { BBox } from "rbush";
+import logger from '@src/core/components/logger';
+import { getSprite } from '@src/ecs/components/phaserSprite';
+import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
+import { BBox } from 'rbush';
 
 export interface ICollider {
   eid: number;
@@ -21,7 +23,7 @@ export const Collider = defineComponent({
   minX: Types.f32,
   minY: Types.f32,
   maxX: Types.f32,
-  maxY: Types.f32
+  maxY: Types.f32,
 });
 
 export function addCollider(
@@ -45,14 +47,16 @@ export function getCollider(entity: number) {
     minX: Collider.minX[entity],
     minY: Collider.minY[entity],
     maxX: Collider.maxX[entity],
-    maxY: Collider.maxY[entity]
+    maxY: Collider.maxY[entity],
   } as ICollider;
 }
 
 export function updateSpriteColliderBounds(entity: number) {
   const sprite = getSprite(entity);
   if (!sprite) {
-    logger.error(`Could not update collider bounds for entity ${entity}, no sprite found`);
+    logger.error(
+      `Could not update collider bounds for entity ${entity}, no sprite found`
+    );
     return;
   }
   Collider.minX[entity] = sprite.x;
@@ -67,7 +71,7 @@ export function getBoundingBox(entity: number) {
     minX: Collider.minX[entity],
     minY: Collider.minY[entity],
     maxX: Collider.maxX[entity],
-    maxY: Collider.maxY[entity]
+    maxY: Collider.maxY[entity],
   } as BBox;
 }
 

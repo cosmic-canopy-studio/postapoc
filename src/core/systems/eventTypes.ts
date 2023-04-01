@@ -1,4 +1,6 @@
 // Part: src/core/systems/eventTypes.ts
+// Code Reference:
+// Documentation:
 
 import { MoveDirections } from '@src/ecs/systems/initMovementEvents';
 

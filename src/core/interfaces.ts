@@ -1,6 +1,8 @@
 // Part: src/core/interfaces.ts
+// Code Reference:
+// Documentation:
 
-import { TimeState } from "@src/ecs/systems/timeSystem";
+import { TimeState } from '@src/ecs/systems/timeSystem';
 
 export interface ITimeController {
   setTimeScale(scale: number): void;

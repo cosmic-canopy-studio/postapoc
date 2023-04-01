@@ -1,4 +1,6 @@
 // Part: src/core/systems/objectPool.ts
+// Code Reference:
+// Documentation:
 
 import { getLogger } from '@src/core/components/logger';
 

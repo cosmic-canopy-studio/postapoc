@@ -1,4 +1,6 @@
 // Part: src/core/components/logger.ts
+// Code Reference:
+// Documentation:
 
 import chalk from 'chalk';
 import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';

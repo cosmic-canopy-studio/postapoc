@@ -1,25 +1,34 @@
 // Part: src/phaser/systems/universe.ts
+// Code Reference:
+// Documentation:
 
-import DebugPanel from "@src/core/components/debugPanel";
-import { getLogger } from "@src/core/components/logger";
-import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
-import { ITimeController, ITimeSystem } from "@src/core/interfaces";
-import EventBus from "@src/core/systems/eventBus";
-import { DamageEventPayload, DestroyEntityEventPayload } from "@src/core/systems/eventTypes";
-import container from "@src/core/systems/inversify.config";
-import { getBoundingBox, getCollider, ICollider } from "@src/ecs/components/collider";
-import Health from "@src/ecs/components/health";
-import ControlSystem from "@src/ecs/systems/controlSystem";
-import { focusSystem } from "@src/ecs/systems/focusSystem";
-import { healthSystem } from "@src/ecs/systems/healthSystem";
-import { initMovementEvents } from "@src/ecs/systems/initMovementEvents";
-import { movementSystem } from "@src/ecs/systems/movementSystem";
-import { TimeState } from "@src/ecs/systems/timeSystem";
-import PlayerFactory from "@src/phaser/factories/playerFactory";
-import StaticObjectFactory from "@src/phaser/factories/staticObjectFactory";
-import { createWorld, IWorld } from "bitecs";
-import Phaser, { Scene } from "phaser";
-import RBush from "rbush";
+import DebugPanel from '@src/core/components/debugPanel';
+import { getLogger } from '@src/core/components/logger';
+import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from '@src/core/constants';
+import { ITimeController, ITimeSystem } from '@src/core/interfaces';
+import EventBus from '@src/core/systems/eventBus';
+import {
+  DamageEventPayload,
+  DestroyEntityEventPayload,
+} from '@src/core/systems/eventTypes';
+import container from '@src/core/systems/inversify.config';
+import {
+  getBoundingBox,
+  getCollider,
+  ICollider,
+} from '@src/ecs/components/collider';
+import Health from '@src/ecs/components/health';
+import ControlSystem from '@src/ecs/systems/controlSystem';
+import { focusSystem } from '@src/ecs/systems/focusSystem';
+import { healthSystem } from '@src/ecs/systems/healthSystem';
+import { initMovementEvents } from '@src/ecs/systems/initMovementEvents';
+import { movementSystem } from '@src/ecs/systems/movementSystem';
+import { TimeState } from '@src/ecs/systems/timeSystem';
+import PlayerFactory from '@src/phaser/factories/playerFactory';
+import StaticObjectFactory from '@src/phaser/factories/staticObjectFactory';
+import { createWorld, IWorld } from 'bitecs';
+import Phaser, { Scene } from 'phaser';
+import RBush from 'rbush';
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -32,7 +41,7 @@ export default class Universe {
   private arrow!: Phaser.GameObjects.Sprite;
   private player!: number;
   private focusedObject: number | null = null;
-  private logger = getLogger("universe");
+  private logger = getLogger('universe');
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
@@ -45,24 +54,37 @@ export default class Universe {
     initMovementEvents();
 
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
-    const timeControllerFactory = container.get<(scene: Scene) => ITimeController>(TIME_CONTROLLER_FACTORY);
+    const timeControllerFactory = container.get<
+      (scene: Scene) => ITimeController
+    >(TIME_CONTROLLER_FACTORY);
     this.timeController = timeControllerFactory(this.scene);
-    this.arrow = this.scene.add.sprite(0, 0, "red_arrow");
+    this.arrow = this.scene.add.sprite(0, 0, 'red_arrow');
     this.arrow.setVisible(false);
 
-    EventBus.on("attack", this.attackFocusTarget.bind(this));
-    EventBus.on("damage", this.onDamage.bind(this));
-    EventBus.on("destroyEntity", this.onEntityDestroyed.bind(this));
+    EventBus.on('attack', this.attackFocusTarget.bind(this));
+    EventBus.on('damage', this.onDamage.bind(this));
+    EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
   }
 
   update(time: number, deltaTime: number) {
     const adjustedDeltaTime = this.timeSystem.getAdjustedDeltaTime(deltaTime);
     const timeState = this.timeSystem.getTimeState();
     if (timeState !== TimeState.PAUSED) {
-      this.logger.debug(`Time state: ${timeState}, delta time: ${adjustedDeltaTime}`);
-      movementSystem(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
+      this.logger.debug(
+        `Time state: ${timeState}, delta time: ${adjustedDeltaTime}`
+      );
+      movementSystem(
+        this.world,
+        adjustedDeltaTime / 1000,
+        this.objectSpatialIndex
+      );
       healthSystem(this.world);
-      this.focusedObject = focusSystem(this.world, this.player, this.objectSpatialIndex, this.arrow);
+      this.focusedObject = focusSystem(
+        this.world,
+        this.player,
+        this.objectSpatialIndex,
+        this.arrow
+      );
     } else {
       this.logger.debug(`Time state: ${timeState}`);
     }
@@ -79,13 +101,25 @@ export default class Universe {
     const collisionModifier = 0.9;
     for (let x = 0; x < mapWidth; x++) {
       for (let y = 0; y < mapHeight; y++) {
-        const tileType = Math.random() > 0.5 ? "grass" : "grass2";
-        this.generateStaticObject(x * tileSize, y * tileSize, tileType, true, collisionModifier);
+        const tileType = Math.random() > 0.5 ? 'grass' : 'grass2';
+        this.generateStaticObject(
+          x * tileSize,
+          y * tileSize,
+          tileType,
+          true,
+          collisionModifier
+        );
       }
     }
   }
 
-  generateStaticObject(x: number, y: number, texture: string, exempt = false, collisionModifier = 0) {
+  generateStaticObject(
+    x: number,
+    y: number,
+    texture: string,
+    exempt = false,
+    collisionModifier = 0
+  ) {
     const objectID = this.staticObjectFactory.create(x, y, texture, exempt);
     const bounds = getBoundingBox(objectID);
     if (!bounds) {
@@ -98,9 +132,11 @@ export default class Universe {
       minX: bounds.minX,
       minY: bounds.minY,
       maxX: bounds.maxX,
-      maxY: bounds.maxY
+      maxY: bounds.maxY,
     });
-    this.logger.debug(`Added static object ${objectID} with texture ${texture} to spatial index`);
+    this.logger.debug(
+      `Added static object ${objectID} with texture ${texture} to spatial index`
+    );
   }
 
   private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {
@@ -119,13 +155,15 @@ export default class Universe {
   private attackFocusTarget() {
     const damage = 25;
     if (this.focusedObject) {
-      EventBus.emit("damage", { entity: this.focusedObject, damage });
+      EventBus.emit('damage', { entity: this.focusedObject, damage });
       this.logger.info(`Damaging ${this.focusedObject}`);
     }
   }
 
   private onDamage({ entity, damage }: DamageEventPayload) {
     Health.current[entity] -= damage;
-    this.logger.info(`Damage ${damage} to ${entity}, health: ${Health.current[entity]}`);
+    this.logger.info(
+      `Damage ${damage} to ${entity}, health: ${Health.current[entity]}`
+    );
   }
 }

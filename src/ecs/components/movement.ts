@@ -1,6 +1,8 @@
 // Part: src/ecs/components/movement.ts
+// Code Reference:
+// Documentation:
 
-import { addComponent, defineComponent, IWorld, Types } from "bitecs";
+import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 
 export interface IMovement {
   x: number;
@@ -13,7 +15,7 @@ export const Movement = defineComponent({
   x: Types.f32,
   y: Types.f32,
   xSpeed: Types.f32,
-  ySpeed: Types.f32
+  ySpeed: Types.f32,
 });
 
 export function addMovement(

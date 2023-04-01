@@ -1,19 +1,25 @@
 // Part: src/ecs/systems/initMovementEvents.ts
+// Code Reference:
+// Documentation:
 
-import { getLogger } from "@src/core/components/logger";
-import EventBus from "@src/core/systems/eventBus";
-import { MoveEventPayload } from "@src/core/systems/eventTypes";
-import Movement from "@src/ecs/components/movement";
+import { getLogger } from '@src/core/components/logger';
+import EventBus from '@src/core/systems/eventBus';
+import { MoveEventPayload } from '@src/core/systems/eventTypes';
+import Movement from '@src/ecs/components/movement';
 
 export enum MoveDirections {
-  UP = "up",
-  DOWN = "down",
-  LEFT = "left",
-  RIGHT = "right",
+  UP = 'up',
+  DOWN = 'down',
+  LEFT = 'left',
+  RIGHT = 'right',
 }
 
 export function initMovementEvents() {
-  const movementEventHandler = (state: boolean, direction: MoveDirections, eid: number) => {
+  const movementEventHandler = (
+    state: boolean,
+    direction: MoveDirections,
+    eid: number
+  ) => {
     const speed = 350;
     if (state) {
       switch (direction) {
@@ -43,11 +49,12 @@ export function initMovementEvents() {
       }
     }
 
-    getLogger("movement").debug(`Entity ${eid} move ${direction} ${state ? "start" : "stop"}`);
-
+    getLogger('movement').debug(
+      `Entity ${eid} move ${direction} ${state ? 'start' : 'stop'}`
+    );
   };
 
-  EventBus.on("move", (event: MoveEventPayload) => {
+  EventBus.on('move', (event: MoveEventPayload) => {
     const { entity, state, action } = event;
     movementEventHandler(state, action, entity);
   });

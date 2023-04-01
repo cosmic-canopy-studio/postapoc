@@ -1,12 +1,14 @@
 // Part: src/core/components/debugPanel.ts
+// Code Reference:
+// Documentation:
 
-import debug from "@src/config/debug.json";
-import { getLogger } from "@src/core/components/logger";
-import EventBus from "@src/core/systems/eventBus";
-import Movement, { IMovement } from "@src/ecs/components/movement";
-import { IWorld } from "bitecs";
-import { Logger } from "loglevel";
-import { Pane } from "tweakpane";
+import debug from '@src/config/debug.json';
+import { getLogger } from '@src/core/components/logger';
+import EventBus from '@src/core/systems/eventBus';
+import Movement, { IMovement } from '@src/ecs/components/movement';
+import { IWorld } from 'bitecs';
+import { Logger } from 'loglevel';
+import { Pane } from 'tweakpane';
 
 export default class DebugPanel {
   private pane: Pane;
@@ -18,7 +20,7 @@ export default class DebugPanel {
     x: 0,
     y: 0,
     xSpeed: 0,
-    ySpeed: 0
+    ySpeed: 0,
   };
 
   constructor(world: IWorld, player: number) {
@@ -26,7 +28,7 @@ export default class DebugPanel {
     this.events = debug.events;
     this.player = player;
 
-    this.pane = new Pane({ title: "Debug Panel" });
+    this.pane = new Pane({ title: 'Debug Panel' });
     this.setupModuleDebug();
     this.setupEventDebug();
     this.setupPlayerDebug();
@@ -47,23 +49,23 @@ export default class DebugPanel {
   }
 
   private setupModuleDebug() {
-    const moduleFolder = this.pane.addFolder({ title: "Modules" });
+    const moduleFolder = this.pane.addFolder({ title: 'Modules' });
 
     for (const moduleName in this.modules) {
       const moduleLogger = getLogger(moduleName);
       this.setLoggingDebug(moduleLogger, this.modules[moduleName]);
-      moduleFolder.addInput(this.modules, moduleName).on("change", (value) => {
+      moduleFolder.addInput(this.modules, moduleName).on('change', (value) => {
         this.setLoggingDebug(moduleLogger, value.value);
       });
     }
   }
 
   private setupEventDebug() {
-    const eventFolder = this.pane.addFolder({ title: "Events" });
+    const eventFolder = this.pane.addFolder({ title: 'Events' });
 
     for (const eventName in this.events) {
-      eventFolder.addInput(this.events, eventName).on("change", (value) => {
-        EventBus.emit("debug", { state: value.value, type: eventName });
+      eventFolder.addInput(this.events, eventName).on('change', (value) => {
+        EventBus.emit('debug', { state: value.value, type: eventName });
       });
     }
   }
@@ -76,15 +78,15 @@ export default class DebugPanel {
   }
 
   private setupPlayerDebug() {
-    this.playerFolder = this.pane.addFolder({ title: "Player" });
-    this.playerFolder.addMonitor(this.playerPosition, "x");
-    this.playerFolder.addMonitor(this.playerPosition, "y");
-    this.playerFolder.addMonitor(this.playerPosition, "xSpeed");
-    this.playerFolder.addMonitor(this.playerPosition, "ySpeed");
+    this.playerFolder = this.pane.addFolder({ title: 'Player' });
+    this.playerFolder.addMonitor(this.playerPosition, 'x');
+    this.playerFolder.addMonitor(this.playerPosition, 'y');
+    this.playerFolder.addMonitor(this.playerPosition, 'xSpeed');
+    this.playerFolder.addMonitor(this.playerPosition, 'ySpeed');
   }
 
   private listenToDebugChanges() {
-    const logger = getLogger("DebugPanel");
-    logger.debug("DebugPanel initialized");
+    const logger = getLogger('DebugPanel');
+    logger.debug('DebugPanel initialized');
   }
 }

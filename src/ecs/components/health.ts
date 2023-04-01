@@ -1,6 +1,8 @@
 // Part: src/ecs/components/health.ts
+// Code Reference:
+// Documentation:
 
-import { addComponent, defineComponent, IWorld, Types } from "bitecs";
+import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 
 export interface IHealth {
   current: number;
@@ -9,7 +11,7 @@ export interface IHealth {
 
 export const Health = defineComponent({
   current: Types.f32,
-  max: Types.f32
+  max: Types.f32,
 });
 
 export function addHealth(

@@ -1,9 +1,14 @@
 // Part: src/ecs/systems/focusSystem.ts
+// Code Reference:
+// Documentation:
 
-import Collider, { getBoundingBox, ICollider } from "@src/ecs/components/collider";
-import { IWorld } from "bitecs";
-import { getLogger } from "loglevel";
-import RBush from "rbush";
+import Collider, {
+  getBoundingBox,
+  ICollider,
+} from '@src/ecs/components/collider';
+import { IWorld } from 'bitecs';
+import { getLogger } from 'loglevel';
+import RBush from 'rbush';
 
 const PLAYER_DISTANCE = 100;
 
@@ -18,10 +23,10 @@ export function focusSystem(
   objectsSpatialIndex: RBush<ICollider>,
   arrow: Phaser.GameObjects.Sprite
 ) {
-  const logger = getLogger("focus");
+  const logger = getLogger('focus');
   const playerBounds = getBoundingBox(eid);
   if (!playerBounds) {
-    logger.warn("Player has no bounds");
+    logger.warn('Player has no bounds');
     return null;
   }
 
@@ -29,12 +34,12 @@ export function focusSystem(
     minX: playerBounds.minX - PLAYER_DISTANCE,
     minY: playerBounds.minY - PLAYER_DISTANCE,
     maxX: playerBounds.maxX + PLAYER_DISTANCE,
-    maxY: playerBounds.maxY + PLAYER_DISTANCE
+    maxY: playerBounds.maxY + PLAYER_DISTANCE,
   });
 
   if (nearbyObjects === undefined || nearbyObjects.length === 0) {
     arrow.setVisible(false);
-    logger.debug("No nearby objects");
+    logger.debug('No nearby objects');
     return null;
   }
 
@@ -53,8 +58,8 @@ export function focusSystem(
   }
 
   const sortedObjects = objectsInRange.sort((a, b) => a.distance - b.distance);
-  logger.debug("Sorted objects", sortedObjects);
-  logger.debug("Nearest object", sortedObjects[0]);
+  logger.debug('Sorted objects', sortedObjects);
+  logger.debug('Nearest object', sortedObjects[0]);
   const nearestObject = sortedObjects[0];
   if (nearestObject) {
     return setFocus(nearestObject.target, arrow);
@@ -65,7 +70,7 @@ export function focusSystem(
 }
 
 export function setFocus(target: ICollider, arrow: Phaser.GameObjects.Sprite) {
-  const logger = getLogger("focusSystem");
+  const logger = getLogger('focusSystem');
   logger.debug(`Setting focus to ${target.eid}`);
   const centerX = target.minX + (target.maxX - target.minX);
 

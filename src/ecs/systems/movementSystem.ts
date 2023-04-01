@@ -1,11 +1,16 @@
 // Part: src/ecs/systems/movementSystem.ts
+// Code Reference:
+// Documentation:
 
-import { ICollider, updateSpriteColliderBounds } from "@src/ecs/components/collider";
-import Movement from "@src/ecs/components/movement";
-import { getSprite } from "@src/ecs/components/phaserSprite";
-import { handleCollision } from "@src/ecs/systems/collisionSystem";
-import { defineQuery, IWorld } from "bitecs";
-import RBush from "rbush";
+import {
+  ICollider,
+  updateSpriteColliderBounds,
+} from '@src/ecs/components/collider';
+import Movement from '@src/ecs/components/movement';
+import { getSprite } from '@src/ecs/components/phaserSprite';
+import { handleCollision } from '@src/ecs/systems/collisionSystem';
+import { defineQuery, IWorld } from 'bitecs';
+import RBush from 'rbush';
 
 const movementQuery = defineQuery([Movement]);
 
