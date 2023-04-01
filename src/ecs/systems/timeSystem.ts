@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/timeSystem.ts
+
 import { getLogger } from "@src/core/components/logger";
 import { ITimeSystem } from "@src/core/interfaces";
 import EventBus from "@src/core/systems/eventBus";

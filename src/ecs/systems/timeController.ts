@@ -1,3 +1,5 @@
+// Part: src/ecs/systems/timeController.ts
+
 import { getLogger } from "@src/core/components/logger";
 import { TIME_CONTROLLER } from "@src/core/constants";
 import { ITimeController } from "@src/core/interfaces";
