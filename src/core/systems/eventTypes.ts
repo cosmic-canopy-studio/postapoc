@@ -26,11 +26,16 @@ export interface DamageEventPayload extends EventPayload {
   damage: number;
 }
 
+export interface DestroyEntityEventPayload {
+  entityId: number;
+}
+
 export interface EventsMap {
   move: MoveEventPayload;
   attack: AttackEventPayload;
   damage: DamageEventPayload;
   debug: DebugEventPayload;
+  destroyEntity: DestroyEntityEventPayload;
 }
 
 export type Events = {

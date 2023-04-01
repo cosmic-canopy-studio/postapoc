@@ -37,6 +37,18 @@ export function addCollider(
   logger.debug(`Added collider to entity ${entity}`);
 }
 
+export function getCollider(entity: number) {
+  return {
+    eid: entity,
+    exempt: Collider.exempt[entity] === 1,
+    collisionModifier: Collider.collisionModifier[entity],
+    minX: Collider.minX[entity],
+    minY: Collider.minY[entity],
+    maxX: Collider.maxX[entity],
+    maxY: Collider.maxY[entity]
+  } as ICollider;
+}
+
 export function updateSpriteColliderBounds(entity: number) {
   const sprite = getSprite(entity);
   if (!sprite) {

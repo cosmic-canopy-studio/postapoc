@@ -5,9 +5,9 @@ import { getLogger } from "@src/core/components/logger";
 import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from "@src/core/constants";
 import { ITimeController, ITimeSystem } from "@src/core/interfaces";
 import EventBus from "@src/core/systems/eventBus";
-import { DamageEventPayload } from "@src/core/systems/eventTypes";
+import { DamageEventPayload, DestroyEntityEventPayload } from "@src/core/systems/eventTypes";
 import container from "@src/core/systems/inversify.config";
-import { getBoundingBox, ICollider } from "@src/ecs/components/collider";
+import { getBoundingBox, getCollider, ICollider } from "@src/ecs/components/collider";
 import Health from "@src/ecs/components/health";
 import ControlSystem from "@src/ecs/systems/controlSystem";
 import { focusSystem } from "@src/ecs/systems/focusSystem";
@@ -49,11 +49,9 @@ export default class Universe {
     this.arrow = this.scene.add.sprite(0, 0, "red_arrow");
     this.arrow.setVisible(false);
 
-    EventBus.on("attack", () => {
-      this.destroyFocusTarget();
-    });
-
+    EventBus.on("attack", this.attackFocusTarget.bind(this));
     EventBus.on("damage", this.onDamage.bind(this));
+    EventBus.on("destroyEntity", this.onEntityDestroyed.bind(this));
   }
 
   update(time: number, deltaTime: number) {
@@ -97,7 +95,20 @@ export default class Universe {
     this.logger.debug(`Added static object ${objectID} with texture ${texture} to spatial index`);
   }
 
-  private destroyFocusTarget() {
+  private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {
+    if (this.focusedObject === entityId) {
+      this.focusedObject = null;
+      this.arrow.setVisible(false);
+    }
+    const collider = getCollider(entityId);
+    this.objectSpatialIndex.remove(collider, (a, b) => {
+      return a.eid === b.eid;
+    });
+    this.staticObjectFactory.release(entityId);
+    this.logger.info(`Entity ${entityId} destroyed`);
+  }
+
+  private attackFocusTarget() {
     const damage = 25;
     if (this.focusedObject) {
       EventBus.emit("damage", { entity: this.focusedObject, damage });

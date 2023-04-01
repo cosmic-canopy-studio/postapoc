@@ -3,9 +3,10 @@
     "control": false,
     "collision": false,
     "focus": false,
+    "health": false,
     "movement": false,
     "eventBus": false,
-    "universe": false
+    "universe": true
   },
   "events": {
     "moveEvents": false

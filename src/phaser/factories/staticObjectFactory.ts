@@ -5,7 +5,7 @@
 import ObjectPool from "@src/core/systems/objectPool";
 import { addCollider } from "@src/ecs/components/collider";
 import { addHealth } from "@src/ecs/components/health";
-import { addPhaserSprite, getSprite, removePhaserSprite } from "@src/ecs/components/phaserSprite";
+import { addPhaserSprite, getSprite } from "@src/ecs/components/phaserSprite";
 import { addEntity, IWorld, removeEntity } from "bitecs";
 import Phaser from "phaser";
 
@@ -53,7 +53,6 @@ export default class StaticObjectFactory {
     sprite.setTexture("");
 
     this.spritePool.release(sprite);
-    removePhaserSprite(this.world, entityId);
     removeEntity(this.world, entityId);
   }
 }
