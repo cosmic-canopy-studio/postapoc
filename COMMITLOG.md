@@ -1,4 +1,4 @@
-## [0.0.77](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.77) (2023-04-01)
+## [0.0.78](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.78) (2023-04-01)
 
 
 ### Bug Fixes
@@ -7,6 +7,7 @@
 * event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
+* object destruction ([387e2f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/387e2f0b90265c43869725704558b188a8021c42))
 * object destruction ([36f6f29](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/36f6f29212c5fe23f23f5342e3c8726e47b08212))
 
 

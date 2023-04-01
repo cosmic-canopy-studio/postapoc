@@ -4,9 +4,10 @@
     "collision": false,
     "focus": false,
     "health": false,
+    "keyBindings": false,
     "movement": false,
     "eventBus": false,
-    "universe": true
+    "universe": false
   },
   "events": {
     "moveEvents": false

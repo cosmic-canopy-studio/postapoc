@@ -36,11 +36,11 @@ export default class Universe {
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
     this.world = createWorld();
+
     this.objectSpatialIndex = new RBush<ICollider>();
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
 
-    this.spawnPlayer();
     initMovementEvents();
 
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
