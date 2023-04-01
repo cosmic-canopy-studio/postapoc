@@ -7,8 +7,24 @@ console.log('Root directory:', rootDir);
 const filePattern = path.join(rootDir, '{src,test}/**/*.{js,ts}');
 console.log('File pattern:', filePattern);
 
-// Add a comment to the top of JavaScript and TypeScript files
-const commentTemplate = (relativePath) => `// Part: ${relativePath}\n\n`;
+const commentTemplate = (relativePath) => {
+  return (
+    `// Part: ${relativePath}\n` +
+    `// Code Reference: \n` +
+    `// Documentation: \n\n`
+  );
+};
+
+const removeOldPathComment = (content) => {
+  const regex = /^\/\/\s*path:.*\n?/i;
+  return content.replace(regex, '');
+};
+
+const hasNewCommentStructure = (content) => {
+  const regex =
+    /^\/\/\s*Part:.*\n\/\/\s*Code Reference:.*\n\/\/\s*Documentation:.*\n\n/i;
+  return regex.test(content);
+};
 
 try {
   const files = glob.sync(filePattern);
@@ -17,14 +33,14 @@ try {
     const relativePath = path.relative(rootDir, file);
     const content = fs.readFileSync(file, 'utf8');
 
-    // Check if the comment already exists
-    const comment = commentTemplate(relativePath);
-    const hasComment = content.startsWith(comment);
+    // Remove old path comments
+    const contentWithoutOldComments = removeOldPathComment(content);
 
-    // If the comment doesn't exist, add it
-    if (!hasComment) {
+    // Check if the new comment structure already exists
+    if (!hasNewCommentStructure(contentWithoutOldComments)) {
       console.log(`Adding comment to ${relativePath}...`);
-      fs.writeFileSync(file, comment + content);
+      const comment = commentTemplate(relativePath);
+      fs.writeFileSync(file, comment + contentWithoutOldComments);
     }
   });
 } catch (err) {
