@@ -1,4 +1,4 @@
-// src/core/systems/keyBindings.ts
+// Part: src/core/systems/keyBindings.ts
 
 import { getLogger } from "@src/core/components/logger";
 import { ControlMapping } from "@src/core/systems/controlMapping";

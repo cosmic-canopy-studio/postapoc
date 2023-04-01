@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.78",
+  "version": "0.0.79",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
