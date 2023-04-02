@@ -1,4 +1,4 @@
-## [0.0.87](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.87) (2023-04-01)
+## [0.0.88](https://github.com/Unnamed-GameDev-Studio/postapoc/compare/v0.0.5...v0.0.88) (2023-04-02)
 
 
 ### Bug Fixes
@@ -7,7 +7,8 @@
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
 * event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))
-* fix comment header hook ([66070c9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/66070c91f69a5133a27075b951d4e9b39c5e8889))
+* fix comment header hook ([5a108ed](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a108eddb1cc8ad1ee2cf627788b0d1e14052e64))
+* fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
 * object destruction ([387e2f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/387e2f0b90265c43869725704558b188a8021c42))

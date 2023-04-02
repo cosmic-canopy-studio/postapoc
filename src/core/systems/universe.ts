@@ -23,7 +23,7 @@ import { focusSystem } from '@src/ecs/systems/focusSystem';
 import { healthSystem } from '@src/ecs/systems/healthSystem';
 import { initMovementEvents } from '@src/ecs/systems/initMovementEvents';
 import { movementSystem } from '@src/ecs/systems/movementSystem';
-import { TimeState } from '@src/ecs/systems/timeSystem';
+import { TimeState } from '@src/core/systems/timeSystem';
 import PlayerFactory from '@src/phaser/factories/playerFactory';
 import StaticObjectFactory from '@src/phaser/factories/staticObjectFactory';
 import { createWorld, IWorld } from 'bitecs';

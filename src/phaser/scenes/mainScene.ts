@@ -2,7 +2,7 @@
 // Code Reference:
 // Documentation:
 
-import Universe from '@src/phaser/systems/universe';
+import Universe from '@src/core/systems/universe';
 import Phaser from 'phaser';
 
 export default class MainScene extends Phaser.Scene {

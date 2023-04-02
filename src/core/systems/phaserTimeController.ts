@@ -1,4 +1,4 @@
-// Part: src/ecs/systems/timeController.ts
+// Part: src/ecs/systems/phaserTimeController.ts
 // Code Reference:
 // Documentation:
 
@@ -10,7 +10,7 @@ import { inject, injectable } from 'inversify';
 import { Scene } from 'phaser';
 
 @injectable()
-export class TimeController implements ITimeController {
+export class PhaserTimeController implements ITimeController {
   private scene: Scene;
   private logger = getLogger('time');
 

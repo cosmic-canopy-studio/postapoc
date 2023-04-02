@@ -2,7 +2,7 @@
 // Code Reference:
 // Documentation:
 
-import { TimeState } from '@src/ecs/systems/timeSystem';
+import { TimeState } from '@src/core/systems/timeSystem';
 
 export interface ITimeController {
   setTimeScale(scale: number): void;

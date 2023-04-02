@@ -1,5 +1,5 @@
 // Start of file: timeController.test.ts
-import { TimeController } from '@src/ecs/systems/timeController';
+import { PhaserTimeController } from '@src/core/systems/phaserTimeController';
 
 describe('Time Controller', () => {
   const mockScene = {
@@ -8,7 +8,7 @@ describe('Time Controller', () => {
     },
   };
 
-  const timeController = new TimeController(mockScene as any);
+  const timeController = new PhaserTimeController(mockScene as any);
 
   afterEach(() => {
     jest.clearAllMocks();

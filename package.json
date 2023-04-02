@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.87",
+  "version": "0.0.88",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -52,6 +52,7 @@
     "eslint": "^8.36.0",
     "esm": "^3.2.25",
     "glob": "^9.3.2",
+    "hallmark": "^4.2.0",
     "husky": "^8.0.3",
     "inquirer": "^9.1.4",
     "jest": "^29.5.0",
