@@ -1,17 +1,33 @@
-import { defineConfig } from 'vite';
-import eslintPlugin from '@nabla/vite-plugin-eslint';
-import path from 'path';
+// vite.config.js
+import { defineConfig } from "vite";
+import path from "path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
-    base: '/postapoc',
-    plugins: [eslintPlugin()],
-    server: { host: '0.0.0.0', port: 8000 },
-    resolve: {
-        alias: {
-            '@src': path.resolve(__dirname, 'src')
-        }
-    },
-    build: {
-        sourcemap: true
+  build: {
+    outDir: "dist"
+  },
+  server: {
+    port: 3000,
+    strictPort: true
+  },
+  preview: {
+    port: 4173,
+    strictPort: true
+  },
+  resolve: {
+    alias: {
+      "@src": path.resolve(__dirname, "src")
     }
+  },
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: "assets/*",
+          dest: "assets"
+        }
+      ]
+    })
+  ]
 });

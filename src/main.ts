@@ -1,34 +1,19 @@
+// Part: src/main.ts
+// Code Reference: https://github.com/photonstorm/phaser
+// Documentation: https://photonstorm.github.io/phaser3-docs/
+
+import 'reflect-metadata';
+import BootScene from '@src/phaser/scenes/bootScene';
+import MainScene from '@src/phaser/scenes/mainScene';
+import TitleScene from '@src/phaser/scenes/titleScene';
 import Phaser from 'phaser';
-import Scenes from './scenes';
 
-export const gameConfig: Phaser.Types.Core.GameConfig = {
-    title: 'Survival Game',
-    url: 'https://github.com/Unnamed-GameDev-Studio/survival-game',
-    version: '0.0.1', // TODO: Link this to the package version
-    type: Phaser.AUTO,
-
-    scene: Scenes,
-
-    input: {
-        keyboard: true
-    },
-
-    scale: {
-        mode: Phaser.Scale.ScaleModes.RESIZE,
-        width: 800,
-        height: 600
-    },
-
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
-    },
-
-    parent: 'phaser-container',
-    backgroundColor: '#282c34',
-    canvasStyle:
-        'width: 100%; height: 100%; will-change: transform; image-rendering: -moz-crisp-edges; image-rendering: -webkit-crisp-edges; image-rendering: pixelated; image-rendering: crisp-edges;'
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  scene: [BootScene, TitleScene, MainScene],
+  parent: 'game-container',
 };
-export const phaser = new Phaser.Game(gameConfig);
+
+const game = new Phaser.Game(config);

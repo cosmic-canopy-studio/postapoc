@@ -1,47 +1,36 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": [
-            "ESNext",
-            "dom",
-            "scripthost"
-        ],
-        "types": [
-            "vite/client",
-            "node"
-        ],
-        "moduleResolution": "Node",
-        "strict": true,
-        "useDefineForClassFields": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "allowSyntheticDefaultImports": true,
-        "noFallthroughCasesInSwitch": true,
-        "baseUrl": ".",
-        "paths": {
-            "@src/*": [
-                "src/*"
-            ]
-        }
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "outDir": "dist",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
     },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "docs"
+    "strict": true,
+    "target": "esnext",
+    "lib": [
+      "esnext",
+      "dom"
     ],
-    "include": [
-        "src",
-        "tests",
-        "./vite.config.ts"
-    ]
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "types": [
+      "vite/client",
+      "@types/jest"
+    ],
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ]
 }
