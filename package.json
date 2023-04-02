@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.0.89",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,7 +15,7 @@
     "prettier": "prettier --write .",
     "postinstall": "husky install",
     "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-    "commitlog": "conventional-changelog -p angular -i COMMITLOG.md -s -r 0\n",
+    "commitlog": "conventional-changelog -p conventionalcommits -i COMMITLOG.md -s -r 0\n",
     "index": "ctix create -p ./tsconfig.json",
     "update_comments": "node .husky/hooks/add_comments.js"
   },
