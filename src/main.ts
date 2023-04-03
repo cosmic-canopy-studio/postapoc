@@ -8,8 +8,10 @@ import MainScene from '@src/phaser/scenes/mainScene';
 import TitleScene from '@src/phaser/scenes/titleScene';
 import Phaser from 'phaser';
 
+const isTestEnvironment = process.env.NODE_ENV === 'test';
+
 const config = {
-  type: Phaser.AUTO,
+  type: isTestEnvironment ? Phaser.HEADLESS : Phaser.AUTO,
   width: 800,
   height: 600,
   scene: [BootScene, TitleScene, MainScene],

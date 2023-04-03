@@ -8,9 +8,9 @@ test.describe('When the game loads', () => {
   test('the canvas loads and matches the screenshot', async ({ page }) => {
     await page.waitForLoadState('networkidle');
     await page.waitForSelector('canvas');
-    await expect(page).toHaveScreenshot('titleScreen.png');
     await page.screenshot({
-      path: '.reports/playwright-screenshots/titleScreen.png',
+      path: 'playwright-screenshots/titleScreen.png',
     });
+    await expect(page).toHaveScreenshot('titleScreen.png');
   });
 });
