@@ -66,21 +66,6 @@
 * update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
 
 
-### Chores
-
-*  coverate ([996fbf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/996fbf254dc286705870e1cadd2a566aef925c7c))
-* add bench to scene ([c9306ad](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c9306ad5450bdb5cb16e1187ca0e35175083ea21))
-* bump minor ([27df48f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/27df48fc1b81e5b8a8607f8069b2e17456796ad8))
-* bump minor ([e1f64a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e1f64a7e32aa36a6bf0460dc1e5af4d4a9787567))
-* bump minor ([6f399df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6f399df3a7d5b348a480c5ac95382e05508eedd6))
-* correct version ([ff6d620](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ff6d6203ba3ad7859705bd4035c596c67fa6780f))
-* coverage ([d3f4c96](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d3f4c966e1e63b3661daa6b661d794bcc909df14))
-* fix filenames ([0390e4a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0390e4a56ae588255d077269685575c50e93cc84))
-* ignore tiled-session ([aa08be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aa08be32921b3dfd3e85b2cfb4d724f5666406ca))
-* remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
-* update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
-
-
 ### Continuous Integration
 
 * add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
@@ -121,7 +106,26 @@
 * add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
 * refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
 * remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
+* remove auto-versioning ([dff284a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dff284a4e5d53b802fa1b149fb2c6e4b7f437986))
 * remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
 * remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
 * update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
+
+
+### Chores
+
+*  coverate ([996fbf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/996fbf254dc286705870e1cadd2a566aef925c7c))
+* add bench to scene ([c9306ad](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c9306ad5450bdb5cb16e1187ca0e35175083ea21))
+* bump minor ([27df48f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/27df48fc1b81e5b8a8607f8069b2e17456796ad8))
+* bump minor ([e1f64a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e1f64a7e32aa36a6bf0460dc1e5af4d4a9787567))
+* bump minor ([6f399df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6f399df3a7d5b348a480c5ac95382e05508eedd6))
+* correct version ([49e39a4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/49e39a491833a1e2ee4322a5eea784ad7f1bdfa2))
+* correct version ([6affe73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6affe73b4756ee45a4fe8e639aef3384d6bae5f3))
+* correct version ([2d8816b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2d8816bb43d71357eb413682cb06eef4265efb48))
+* correct version ([ff6d620](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ff6d6203ba3ad7859705bd4035c596c67fa6780f))
+* coverage ([d3f4c96](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d3f4c966e1e63b3661daa6b661d794bcc909df14))
+* fix filenames ([0390e4a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0390e4a56ae588255d077269685575c50e93cc84))
+* ignore tiled-session ([aa08be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aa08be32921b3dfd3e85b2cfb4d724f5666406ca))
+* remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
+* update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
 
