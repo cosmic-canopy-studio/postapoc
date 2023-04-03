@@ -87,18 +87,6 @@
 * update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
 
 
-### Build System
-
-* add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
-* add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
-* add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
-* add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
-* refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
-* remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
-* remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
-* update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
-
-
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -123,4 +111,17 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+
+
+### Build System
+
+* add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
+* add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
+* add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
+* add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
+* refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
+* remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
+* remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
+* remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
+* update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
 
