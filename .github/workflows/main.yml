@@ -56,10 +56,10 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-report
-          path: .reports/coverage
+          path: coverage
 
-      - name: Upload Playwright screenshots
+      - name: Upload Playwright test results
         uses: actions/upload-artifact@v2
         with:
-          name: playwright-screenshots
-          path: .reports/playwright-screenshots
+          name: playwright-test-results
+          path: test-results
