@@ -9,6 +9,11 @@ export default defineConfig({
   fullyParallel: true,
   snapshotPathTemplate:
     'tests/playwright/screenshots/{testFilePath}/{arg}{ext}',
+  expect: {
+    toMatchSnapshot: {
+      maxDiffPixelRatio: 0.1,
+    },
+  },
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,

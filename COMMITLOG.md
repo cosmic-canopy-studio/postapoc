@@ -58,15 +58,6 @@
 * pretty logging ([d92efd8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d92efd8f5531bd036c2a1d10e1c490116e1147e3))
 
 
-### Tests
-
-* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
-* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
-* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
-* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
-* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
-
-
 ### Continuous Integration
 
 * add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
@@ -129,4 +120,14 @@
 * ignore tiled-session ([aa08be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aa08be32921b3dfd3e85b2cfb4d724f5666406ca))
 * remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
 * update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
+
+
+### Tests
+
+* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
+* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
+* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
+* update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
+* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
+* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
 
