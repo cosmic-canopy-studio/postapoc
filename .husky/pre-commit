@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Run the linting, tests, bump version, update commit log, and add comments
 . "$(dirname "$0")/hooks/lint_and_test.sh"
-. "$(dirname "$0")/hooks/bump_version.sh"
 . "$(dirname "$0")/hooks/update_commitlog.sh"
 node "$(dirname "$0")/hooks/add_comments.js"
