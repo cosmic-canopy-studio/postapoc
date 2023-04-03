@@ -1,0 +1,13 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="tilePattern" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="8" height="8" fill="#eee" stroke="#FEF4E6" stroke-width="0.2"/>
+      <rect x="0" y="8" width="8" height="8" fill="#fff" stroke="#FEF4E6" stroke-width="0.2"/>
+      <rect x="8" y="0" width="8" height="8" fill="#fff" stroke="#FEF4E6" stroke-width="0.2"/>
+      <rect x="8" y="8" width="8" height="8" fill="#eee" stroke="#FEF4E6" stroke-width="0.2"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="32" height="32" fill="url(#tilePattern)"/>
+
+</svg>

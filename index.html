@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>PostApoc: Surviving and Thriving</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico" />
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta http-equiv="cleartype" content="on" />
+<head>
+  <meta charset="UTF-8" />
+  <title>PostApoc: Surviving and Thriving</title>
 
-    <style>
-      html,
-      body,
-      canvas {
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-      }
-    </style>
-  </head>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <link href="/icons/favicon.ico" rel="icon" type="image/x-icon" />
+  <meta content="True" name="HandheldFriendly" />
+  <meta content="320" name="MobileOptimized" />
+  <meta content="on" http-equiv="content-type" />
 
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <style>
+    html,
+    body,
+    canvas {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      background: #111;
+    }
+  </style>
+</head>
+
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="game-container"></div>
+<script src="src/main.ts" type="module"></script>
+</body>
 </html>

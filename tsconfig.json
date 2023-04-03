@@ -1,76 +1,36 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": [
-            "ESNext",
-            "DOM",
-            "DOM.Iterable",
-            "scripthost"
-        ],
-        "types": [
-            "vite/client",
-            "jest",
-            "node"
-        ],
-        "moduleResolution": "Node",
-        "strict": true,
-        "useDefineForClassFields": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "forceConsistentCasingInFileNames": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "allowSyntheticDefaultImports": true,
-        "noFallthroughCasesInSwitch": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
-        "baseUrl": ".",
-        "paths": {
-            "@src/*": [
-                "src/*"
-            ],
-            "@components/*": [
-                "src/components/*"
-            ],
-            "@entities/*": [
-                "src/entities/*"
-            ],
-            "@scenes/*": [
-                "src/scenes/*"
-            ],
-            "@systems/*": [
-                "src/systems/*"
-            ],
-            "@ui/*": [
-                "src/ui/*"
-            ],
-            "@utils/*": [
-                "src/utils/*"
-            ]
-        }
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "outDir": "dist",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
     },
-    "typedocOptions": {
-        "entryPoints": [
-            "src/main.ts"
-        ],
-        "out": "docs/typedocs"
-    },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "docs"
+    "strict": true,
+    "target": "esnext",
+    "lib": [
+      "esnext",
+      "dom"
     ],
-    "include": [
-        "src",
-        "test",
-        "./vite.config.ts",
-        "./jest.config.ts"
-    ]
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "types": [
+      "vite/client",
+      "@types/jest"
+    ],
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ]
 }
