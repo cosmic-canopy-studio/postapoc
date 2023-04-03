@@ -1,6 +1,6 @@
 {
   "name": "postapoc",
-  "version": "0.1.5",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -15,9 +15,10 @@
     "prettier": "prettier --write .",
     "postinstall": "husky install",
     "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
-    "commitlog": "conventional-changelog -p conventionalcommits --config conventional-changelog.config.js",
+    "commitlog": "conventional-changelog -i COMMITLOG.md -s -r 0 -n conventional-changelog.config.js",
     "index": "ctix create -p ./tsconfig.json",
     "update_comments": "node .husky/hooks/add_comments.js",
+    "patch": "yarn version --patch",
     "minor": "yarn version --minor",
     "major": "yarn version --major"
   },
@@ -50,6 +51,7 @@
     "canvas": "^2.11.0",
     "commitizen": "^4.3.0",
     "conventional-changelog-cli": "^2.2.2",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.36.0",
     "esm": "^3.2.25",
