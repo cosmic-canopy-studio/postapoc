@@ -9,21 +9,25 @@ on:
     branches:
       - main
 
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.yarn
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -31,7 +35,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Run Unit tests
         run: yarn test:unit
@@ -40,10 +44,22 @@ jobs:
         run: yarn test:phaser
 
       - name: Setup Playwright
-        run: npx playwright install
+        run: npx playwright install  --with-deps
 
       - name: Run Playwright tests
         run: yarn test:e2e
 
       - name: Run Coverage
         run: yarn coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: .reports/coverage
+
+      - name: Upload Playwright screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: playwright-screenshots
+          path: .reports/playwright-screenshots
