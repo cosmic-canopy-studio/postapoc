@@ -1,82 +1,117 @@
-import { PlayerControl } from '.';
-import { Actor, Interactable } from '../entities';
-import { GameScene } from '../scenes/gameScene';
+import { EventBus, PlayerControl } from '.';
+import { Actor, Interactable } from '@entities/.';
+import { Sprite } from '@components/sprite';
+import { GameScene } from '@scenes/gameScene';
+import { Debuggable } from '@systems/debuggable';
+import { log } from '@src/utilities';
 
-export class Universe {
-  private currentScene: Phaser.Scene;
-  private currentControlledActor?: Actor;
-  private actors: Actor[] = [];
-  private interactables: Interactable[] = [];
-  private playerControl: PlayerControl;
+export class Universe extends Debuggable {
+    public universeEventBus: EventBus;
+    protected debug = false;
+    private currentScene: Phaser.Scene;
+    private currentControlledActor?: Actor;
+    private interactables: Map<string, Interactable>;
+    private playerControl: PlayerControl;
+    private dirtyInteractables: Interactable[] = [];
 
-  constructor(currentScene: Phaser.Scene) {
-    this.currentScene = currentScene;
-    this.playerControl = new PlayerControl(this);
-    this.playerControl.loadKeyEvents(currentScene);
-  }
-
-  setControlledActor(actor: Actor) {
-    this.currentControlledActor = actor;
-  }
-
-  getControlledActor() {
-    if (this.currentControlledActor) {
-      return this.currentControlledActor;
-    } else {
-      throw new Error('No player actor');
+    constructor(currentScene: Phaser.Scene) {
+        super();
+        this.currentScene = currentScene;
+        this.interactables = new Map();
+        this.universeEventBus = new EventBus('universeEventBus');
+        this.universeEventBus.initGlobalEventBusForInstance();
+        this.playerControl = new PlayerControl(this.universeEventBus);
+        this.playerControl.loadKeyEvents(currentScene);
+        this.universeEventBus.subscribe(
+            'interactableDirty',
+            this.markInteractableDirty.bind(this),
+            this.constructor.name
+        );
+        this.universeEventBus.subscribe(
+            'interactableDestroyed',
+            this.deleteInteractable.bind(this),
+            this.constructor.name
+        );
+        if (this.debug) log.debug(`Universe created`);
     }
-  }
 
-  setSceneCameraToPlayer() {
-    if (this.currentControlledActor && this.currentControlledActor.sprite) {
-      this.currentScene.cameras.main.startFollow(
-        this.currentControlledActor.sprite,
-        true
-      );
-      this.currentScene.cameras.main.setFollowOffset(
-        -this.currentControlledActor.sprite.width,
-        -this.currentControlledActor.sprite.height
-      );
-    } else {
-      throw new Error('No player actor for camera to follow');
+    public markInteractableDirty = (interactable: Interactable): void => {
+        if (!this.dirtyInteractables.includes(interactable)) {
+            if (this.debug)
+                log.debug(`Interactable ${interactable.id} marked dirty`);
+            this.dirtyInteractables.push(interactable);
+        }
+    };
+
+    setControlledActor(actor: Actor) {
+        this.currentControlledActor = actor;
+        if (this.debug) log.debug(`Actor ${actor.id} is now being controlled`);
     }
-  }
 
-  setCurrentScene(scene: GameScene) {
-    this.currentScene = scene;
-    this.playerControl.loadKeyEvents(scene);
-  }
+    getControlledActor() {
+        if (this.currentControlledActor) {
+            if (this.debug)
+                log.debug(
+                    `Actor ${this.currentControlledActor.id} is currently being controlled.`
+                );
+            return this.currentControlledActor;
+        }
 
-  getCurrentScene() {
-    return this.currentScene;
-  }
+        throw Error('No player actor');
+    }
 
-  getActors() {
-    return this.actors;
-  }
+    setSceneCameraToPlayer() {
+        const controlledActor = this.getControlledActor();
+        const sprite = controlledActor.getComponent(Sprite);
+        if (!sprite) {
+            throw Error('Player actor has no sprite');
+        }
+        this.currentScene.cameras.main.startFollow(sprite.sprite);
+        if (this.debug) log.debug(`Camera set to follow player`);
+    }
 
-  getInteractables() {
-    return this.interactables;
-  }
+    setCurrentScene(scene: GameScene) {
+        this.currentScene = scene;
+        this.playerControl.loadKeyEvents(scene);
+        if (this.debug) log.debug(`Current scene set to ${scene.scene.key}`);
+    }
 
-  deleteActor(actor: Actor) {
-    this.actors = this.actors.filter((a) => a !== actor);
-  }
+    getCurrentScene() {
+        if (this.debug)
+            log.debug(`Current scene is ${this.currentScene.scene.key}`);
+        return this.currentScene;
+    }
 
-  deleteInteractable(interactable: Interactable) {
-    this.interactables = this.interactables.filter((i) => i !== interactable);
-  }
+    deleteInteractable(interactableId: string) {
+        const interactable = this.interactables.get(interactableId);
+        interactable?.destroy();
+        const result = this.interactables.delete(interactableId);
+        if (this.debug)
+            log.debug(
+                `Interactable ${interactableId} deleted from universe, result: ${result}. Interactables size: ${this.interactables.size}`
+            );
+    }
 
-  addActor(actor: Actor) {
-    this.actors.push(actor);
-  }
+    addInteractable(interactable: Interactable) {
+        if (!this.interactables.has(interactable.id)) {
+            this.interactables.set(interactable.id, interactable);
+            if (this.debug)
+                log.debug(
+                    `Interactable ${interactable.id} added to universe Interactables size: ${this.interactables.size}`
+                );
+            interactable.subscribe(this.universeEventBus);
+        }
+    }
 
-  addInteractable(interactable: Interactable) {
-    this.interactables.push(interactable);
-  }
-
-  update() {
-    this.actors.forEach((actor) => actor.update());
-    this.interactables.forEach((interactable) => interactable.update());
-  }
+    update() {
+        const dirtyInteractables = this.dirtyInteractables;
+        this.dirtyInteractables = [];
+        for (const interactable of dirtyInteractables) {
+            if (this.interactables.has(interactable.id)) {
+                if (this.debug)
+                    log.debug(`Interactable ${interactable.id} updated`);
+                this.interactables.get(interactable.id)?.update();
+            }
+        }
+    }
 }

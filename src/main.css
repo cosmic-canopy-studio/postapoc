@@ -1,0 +1,17 @@
+body {
+    font-family: 'Avenir', 'Helvetica', 'Arial', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: auto;
+    padding: auto;
+    text-align: center;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+canvas {
+    display: block;
+}

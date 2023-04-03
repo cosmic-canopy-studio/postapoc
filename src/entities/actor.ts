@@ -1,118 +1,87 @@
-import { Directions } from '../systems';
-import { log } from '../utilities';
-import Interactable from './interactable';
+import { Interactable } from './';
+import {
+    BaseDamage,
+    Health,
+    HealthBarComponent,
+    MoveEvent,
+    Speed
+} from '@src/components';
+import { Movement } from '@components/movement';
+import { Attack } from '@components/attack';
+import { EventBus } from '@src/systems';
+import { GameScene } from '@scenes/gameScene';
+import { createSprite, log } from '@src/utilities';
+import { Sprite } from '@components/sprite';
 
-export default class Actor extends Interactable {
-  protected focus?: Interactable;
-  protected speed = 100;
-  protected direction = 'down';
+export class Actor extends Interactable {
+    constructor(id: string) {
+        super(id);
 
-  constructor(id: string) {
-    super(id);
-  }
-
-  setSprite(sprite: Phaser.Physics.Arcade.Sprite): void {
-    super.setSprite(sprite);
-    if (this.sprite) {
-      this.sprite.setCollideWorldBounds(true);
-      this.sprite.setPushable(false);
-      this.sprite.setImmovable(false);
-      this.sprite.play('idle-down');
-    } else {
-      throw new Error('No sprite defined for actor');
+        this.addComponent(BaseDamage, 1);
+        this.addComponent(Attack, this.getComponent(BaseDamage)?.amount);
+        this.addComponent(Speed, 100);
+        if (this.debug) log.debug(`Actor ${id} created`);
     }
-  }
 
-  getFocus() {
-    return this.focus;
-  }
+    public create(scene: GameScene) {
+        this.addComponent(Movement, this.getComponent(Speed)?.amount, scene);
+        this.addComponent(Sprite, createSprite(scene, 100, 200, 'character'));
+    }
 
-  update() {
-    if (this.sprite) {
-      if (this.thing.health < 1) {
-        log.debug(`${this.thing.id} dead`);
-        this.sprite.destroy();
-        return;
-      } else {
-        if (
-          this.sprite.body.velocity.x === 0 &&
-          this.sprite.body.velocity.y === 0
-        ) {
-          this.sprite.play(`idle-${this.direction}`, true);
+    public initPlayer() {
+        const sprite = this.getComponent(Sprite);
+        if (!sprite) throw new Error('Sprite component not found');
+        sprite.setPlayerSpriteProperties();
+        const health: Health | undefined = this.getComponent(Health);
+        if (!health) throw new Error('Health component not found');
+        this.addComponent(
+            HealthBarComponent,
+            sprite.sprite,
+            health.healthValue
+        );
+    }
+
+    public destroy(): void {
+        this.universeEventBus.unsubscribe(
+            'attackRequested',
+            this.handleAttackRequested.bind(this)
+        );
+        this.universeEventBus.unsubscribe('move', this.handleMove.bind(this));
+        if (this.debug) log.debug(`Actor ${this._id} destroyed`);
+        super.destroy();
+    }
+
+    public subscribe(universeEventBus: EventBus) {
+        super.subscribe(universeEventBus);
+        this.universeEventBus.subscribe(
+            'attackRequested',
+            this.handleAttackRequested.bind(this),
+            this.constructor.name
+        );
+        this.universeEventBus.subscribe(
+            'move',
+            this.handleMove.bind(this),
+            this.constructor.name
+        );
+    }
+
+    private handleAttackRequested(interactableId: string) {
+        if (interactableId === this._id) {
+            if (this.debug) log.debug(`Actor ${this._id} attack requested`);
+            this.interactableEventBus.publish(
+                'performAttack',
+                this.universeEventBus
+            );
         }
-      }
     }
-  }
 
-  setFocus(interactable: Interactable) {
-    this.focus = interactable;
-  }
-
-  clearFocus() {
-    this.focus = undefined;
-  }
-
-  attack() {
-    if (this.focus) {
-      this.focus.thing.takeDamage(1);
-      this.sprite?.play(`action-${this.direction}`);
-    } else {
-      log.debug('Nothing to attack');
+    private handleMove(movement: MoveEvent) {
+        if (movement.interactableId === this.id) {
+            if (this.debug) log.debug(`Actor ${this._id} move requested`);
+            const movementComponent = this.getComponent(Movement);
+            if (movementComponent) {
+                this.interactableEventBus.publish('move', movement.direction);
+            }
+        }
     }
-  }
-
-  move(direction: Directions) {
-    if (this.sprite) {
-      const normalizedVelocity = this.calcVelocity(direction);
-      this.sprite.setVelocity(
-        normalizedVelocity.x * this.speed,
-        normalizedVelocity.y * this.speed
-      );
-      this.sprite.play(`walk-${direction}`, true);
-      this.direction = direction;
-      this.focus = undefined;
-    }
-  }
-
-  calcVelocity(direction: string) {
-    const velocity = new Phaser.Math.Vector2(0, 0);
-    switch (direction) {
-      case 'up':
-        velocity.y -= 1;
-        break;
-      case 'down':
-        velocity.y += 1;
-        break;
-      case 'left':
-        velocity.x -= 1;
-        break;
-      case 'right':
-        velocity.x += 1;
-        break;
-    }
-    return velocity.normalize();
-  }
-
-  stop() {
-    if (this.sprite) {
-      this.sprite.setVelocity(0, 0);
-      this.sprite.play(`idle-${this.direction}`, true);
-    }
-  }
-
-  setSpeed(speed: number) {
-    this.speed = speed;
-  }
-
-  getSpeed() {
-    return this.speed;
-  }
-
-  setDirection(direction: string) {
-    this.direction = direction;
-  }
-
-  getDirection() {
-    return this.direction;
-  }
 }

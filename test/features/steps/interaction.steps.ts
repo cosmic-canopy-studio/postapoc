@@ -1,28 +1,53 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
-import { Actor, Interactable } from '../../../src/entities';
-import { Action, Actions } from '../../../src/systems';
+import { Actor, Interactable } from '@src/entities';
+import { EventBus } from '@src/systems';
+import { Health, HealthBarComponent } from '@src/components';
 
 const feature = loadFeature('test/features/player-interaction.feature');
-
 defineFeature(feature, (test) => {
-  let player: Actor;
-  let bench: Interactable;
+    let player: Actor;
+    let bench: Interactable;
 
-  beforeEach(() => {});
+    beforeEach(async () => {
+        const universeEventBus = new EventBus('universeEventBus');
+        player = new Actor('player');
+        player.subscribe(universeEventBus);
+        bench = new Interactable('bench');
+        bench.subscribe(universeEventBus);
+    });
 
-  test('A player attacking a bench', ({ given, when, then }) => {
-    given('a player focused on a bench', () => {
-      player = new Actor('player');
-      bench = new Interactable('bench');
-      player.setFocus(bench);
+    test('A player attacking a bench', ({ given, when, then }) => {
+        given('a player focused on a bench', () => {
+            player.interactableEventBus.publish('focusChanged', 'bench');
+        });
+        when(/^the player attacks the bench (.*) times$/, (arg0: string) => {
+            for (let i = 0; i < parseInt(arg0); i++) {
+                player.universeEventBus.publish('attackRequested', player.id);
+            }
+        });
+        then('the bench should have a healthBar', () => {
+            const healthBar = bench.getComponent(HealthBarComponent);
+            expect(healthBar).not.toBeNull();
+        });
+        then(/^the bench should have (\d+) health left$/, (amount) => {
+            const num = parseInt(amount);
+            const health = bench.getComponent(Health);
+
+            expect(health?.value).toBe(num);
+        });
+        then(/^the bench should be (.*)$/, (arg0) => {
+            const health = bench.getComponent(Health);
+            if (!health) throw new Error('Health component not found');
+            if (arg0 === 'destroyed') {
+                expect(health.isDestroyed).toBe(true);
+                expect(health.isBroken).toBe(true);
+            } else if (arg0 === 'broken') {
+                expect(health.isDestroyed).toBe(false);
+                expect(health.isBroken).toBe(true);
+            } else if (arg0 === 'not destroyed') {
+                expect(health.isDestroyed).toBe(false);
+                expect(health.isBroken).toBe(false);
+            }
+        });
     });
-    when(/^the player attacks the bench (.*) times$/, (arg0) => {
-      for (let i = 0; i < parseInt(arg0); i++) {
-        Action.performAction(Actions.attack, player);
-      }
-    });
-    then(/^the bench should have (.*) health left$/, (arg0) => {
-      expect(bench.thing.health).toBe(parseInt(arg0));
-    });
-  });
 });

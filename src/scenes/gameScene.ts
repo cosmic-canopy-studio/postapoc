@@ -1,85 +1,108 @@
 import { Actor, Interactable } from '../entities';
-import { log } from '../utilities';
-import { Universe } from '../systems/universe';
+import { createSprite, log } from '../utilities';
+import { Universe } from '../systems';
+import { Sprite } from '@components/sprite';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
-  active: false,
-  visible: false,
-  key: 'Game'
+    active: false,
+    visible: false,
+    key: 'Game'
 };
 
 export class GameScene extends Phaser.Scene {
-  private universe!: Universe;
-
-  constructor() {
-    super(sceneConfig);
-  }
-
-  public create(): void {
-    this.universe = new Universe(this);
-
-    this.initTileset();
-
-    this.initPlayer();
-
-    this.initObjects();
-    log.debug('game scene created');
-  }
-
-  private initObjects() {
-    const bench = new Interactable('bench');
-    bench.setSprite(this.createSprite(200, 200, 'bench'));
-    this.universe.addInteractable(bench);
-
-    const currentPlayerActor = this.universe.getControlledActor();
-    if (!currentPlayerActor.sprite || !bench.sprite) {
-      throw new Error('Collision object not defined');
-    } else {
-      this.physics.add.collider(
-        currentPlayerActor.sprite,
-        bench.sprite,
-        () => this.handlePlayerInteractableCollision(bench),
-        undefined,
-        this
-      );
+    constructor() {
+        super(sceneConfig);
     }
-  }
 
-  private initPlayer() {
-    const player = new Actor('player');
-    player.setSprite(this.createSprite(100, 200, 'character', true));
-    this.universe.addActor(player);
-    this.universe.setControlledActor(player);
-    this.universe.setSceneCameraToPlayer();
-  }
+    private _universe!: Universe;
 
-  private initTileset() {
-    const interiorTilemap = this.make.tilemap({ key: 'basic-interior' });
-    interiorTilemap.addTilesetImage('interior', 'interior');
-    for (let i = 0; i < interiorTilemap.layers.length; i++) {
-      interiorTilemap.createLayer(i, 'interior', 0, 0);
+    get universe() {
+        return this._universe;
     }
-  }
 
-  private handlePlayerInteractableCollision(interactable: Interactable) {
-    this.universe.getControlledActor().setFocus(interactable);
-  }
+    public create(): void {
+        this._universe = new Universe(this);
 
-  private createSprite(x: number, y: number, key: string, moveable = false) {
-    const sprite = new Phaser.Physics.Arcade.Sprite(this, x, y, key);
-    this.add.existing(sprite);
-    this.physics.add.existing(sprite);
-    if (moveable) {
-      sprite.setPushable(true);
-      sprite.setDrag(200, 200);
-    } else {
-      sprite.setPushable(false);
-      sprite.setImmovable(true);
+        const initTileset = () => {
+            const interiorTilemap = this.make.tilemap({
+                key: 'basic-interior'
+            });
+            interiorTilemap.addTilesetImage('interior', 'interior');
+            for (let i = 0; i < interiorTilemap.layers.length; i++) {
+                interiorTilemap.createLayer(i, 'interior', 0, 0);
+            }
+        };
+
+        const initPlayer = () => {
+            const player = new Actor('player');
+            player.create(this);
+            this._universe.addInteractable(player);
+            this._universe.setControlledActor(player);
+            this._universe.setSceneCameraToPlayer();
+            player.initPlayer(); // TODO: refactor dependency chain
+        };
+
+        const initObjects = () => {
+            const interactablesGroup = this.physics.add.group();
+
+            const bench = new Interactable('bench');
+            this._universe.addInteractable(bench);
+            bench.addComponent(Sprite, createSprite(this, 200, 200, 'bench'));
+            const benchSprite = bench.getComponent(Sprite);
+            if (!benchSprite) throw new Error(`benchSprite is undefined`);
+            benchSprite.setObjectSpriteProperties();
+            interactablesGroup.add(benchSprite.sprite);
+            benchSprite.sprite.setData('interactable', bench);
+
+            const board = new Interactable('board');
+            this._universe.addInteractable(board);
+            board.addComponent(Sprite, createSprite(this, 100, 100, 'board'));
+            const boardSprite = board.getComponent(Sprite);
+            if (!boardSprite) throw new Error(`boardSprite is undefined`);
+            boardSprite.setObjectSpriteProperties();
+            interactablesGroup.add(boardSprite.sprite);
+            boardSprite.sprite.setData('interactable', board);
+
+            const currentPlayerActor = this._universe.getControlledActor();
+            const playerSprite = currentPlayerActor.getComponent(Sprite);
+
+            if (!playerSprite)
+                throw Error(`Player sprite is undefined: ${playerSprite}}`);
+
+            this.physics.add.collider(
+                playerSprite.sprite,
+                interactablesGroup,
+                (_playerSprite, interactableSprite) => {
+                    const interactable = interactableSprite.getData(
+                        'interactable'
+                    ) as Interactable;
+                    this.handlePlayerInteractableCollision(interactable);
+                },
+                undefined,
+                this
+            );
+        };
+
+        initTileset();
+        initPlayer();
+        initObjects();
+
+        log.debug('game scene created');
+        log.debug('ui scene launched');
     }
-    return sprite;
-  }
 
-  update() {
-    this.universe.update();
-  }
+    update() {
+        this._universe.update();
+    }
+
+    private handlePlayerInteractableCollision(interactable: Interactable) {
+        const player = this._universe.getControlledActor();
+        log.info(`Player collided with ${interactable.id}`);
+        if (interactable) {
+            player.interactableEventBus.publish(
+                'focusChanged',
+                interactable.id
+            );
+        }
+    }
 }

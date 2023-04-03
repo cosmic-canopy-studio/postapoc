@@ -1,4 +1,5 @@
-import { getGameWidth, getGameHeight } from './helpers';
+import { createSprite, getGameHeight, getGameWidth } from './helpers';
 import log from './logging';
+import { assetPackUrl } from './constants';
 
-export { getGameWidth, getGameHeight, log };
+export { getGameWidth, getGameHeight, createSprite, log, assetPackUrl };

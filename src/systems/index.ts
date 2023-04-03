@@ -1,5 +1,7 @@
-import { Actions, Action, Directions } from './action';
-import { PlayerControl } from './playerControl';
-import { Universe } from './universe';
+import { Action, ActionSystem } from '@systems/actionSystem';
+import { PlayerControl } from '@systems/playerControl';
+import { Universe } from '@systems/universe';
+import { EventBus } from '@systems/eventBus';
+import { Direction } from '@src/components';
 
-export { Actions, Action, Directions, PlayerControl, Universe };
+export { Action, ActionSystem, Direction, PlayerControl, Universe, EventBus };
