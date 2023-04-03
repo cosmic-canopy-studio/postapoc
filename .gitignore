@@ -11,6 +11,7 @@ dist/
 coverage/
 playwright-report/
 test-results/
+reports/
 
 # Editor directories and files
 .vscode/

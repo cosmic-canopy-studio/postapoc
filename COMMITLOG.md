@@ -101,13 +101,6 @@
 * update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
 
 
-### Continuous Integration
-
-* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
-* update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
-* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
-
-
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -133,4 +126,12 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+
+
+### Continuous Integration
+
+* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
+* update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
+* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
+* update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
 
