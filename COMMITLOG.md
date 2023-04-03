@@ -58,12 +58,6 @@
 * pretty logging ([d92efd8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d92efd8f5531bd036c2a1d10e1c490116e1147e3))
 
 
-### Continuous Integration
-
-* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
-* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
-
-
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -131,4 +125,11 @@
 * update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
 * update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
 * update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
+
+
+### Continuous Integration
+
+* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
+* update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
+* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
 

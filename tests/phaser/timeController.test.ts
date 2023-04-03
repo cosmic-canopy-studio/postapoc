@@ -16,8 +16,7 @@ describe('Time Controller', () => {
 
   it('correctly updates the time scale to 0 in Phaser', () => {
     timeController.setTimeScale(0);
-    const timeScale = mockScene.time.timeScale;
-    expect(timeScale).toEqual(0);
+    expect(mockScene.time.timeScale).toEqual(0);
   });
 
   it('correctly updates the time scale to 0.5 in Phaser', () => {
