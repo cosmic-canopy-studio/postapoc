@@ -1,4 +1,4 @@
-## 0.0.1 (2023-04-03)
+## 0.0.1 (2023-04-05)
 
 
 ### Features
@@ -128,6 +128,7 @@
 * project cleanup ([8c91038](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c910380919c2cf5b64a6ed9fb5eba3e2cb8dc13))
 * project cleanup ([54aa0bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/54aa0bda5748964d28af0bfc64f125330fc6928e))
 * refactor main scene init ([07bb7d7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/07bb7d7fe8b0d5c8a8508c33df01a08f4c613fd4))
+* remove phaser testing ([45716f2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/45716f2957769cd5f2b8d52063646bd387cddaf5))
 * remove phaser testing ([d9399d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9399d0b34527450f55dba2af798bb3592e9bb5e))
 * remove unneeded variable ([570c6a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/570c6a9814eacaac8d2b2b577e1002f2f3f4c97f))
 * removing react and other excess packages to simplify project ([9030395](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/903039591eb1faf1adfed9aa14148eae38eff852))
