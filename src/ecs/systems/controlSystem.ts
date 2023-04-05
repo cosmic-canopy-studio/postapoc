@@ -107,6 +107,11 @@ export default class ControlSystem {
           EventBus.emit('toggleSlowTime', {});
         }
         break;
+      case GameAction.DebugPanel:
+        if (state) {
+          EventBus.emit('debugPanel', {});
+        }
+        break;
     }
   }
 }

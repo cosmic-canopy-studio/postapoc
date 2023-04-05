@@ -1,6 +1,6 @@
 // Part: src/core/components/debugPanel.ts
-// Code Reference:
-// Documentation:
+// Code Reference: https://github.com/cocopon/tweakpane
+// Documentation: https://cocopon.github.io/tweakpane/
 
 import debug from '@src/config/debug.json';
 import { getLogger } from '@src/core/components/logger';
@@ -12,6 +12,7 @@ import { Pane } from 'tweakpane';
 
 export default class DebugPanel {
   private pane: Pane;
+  private logger = getLogger('DebugPanel');
   private readonly modules: Record<string, boolean>;
   private readonly events: Record<string, boolean>;
   private playerFolder: any;
@@ -37,6 +38,9 @@ export default class DebugPanel {
     setInterval(() => {
       this.updatePlayerPosition();
     }, 100);
+
+    this.listenToDebugPanelToggleEvent();
+    this.pane.hidden = true;
   }
 
   private setLoggingDebug(logger: Logger, enableDebug: boolean) {
@@ -86,7 +90,17 @@ export default class DebugPanel {
   }
 
   private listenToDebugChanges() {
-    const logger = getLogger('DebugPanel');
-    logger.debug('DebugPanel initialized');
+    this.logger.debug('DebugPanel initialized');
+  }
+
+  private listenToDebugPanelToggleEvent() {
+    EventBus.on('debugPanel', () => {
+      this.toggleDebugPanel();
+    });
+  }
+
+  private toggleDebugPanel() {
+    this.logger.debug(`Toggling debug panel to ${this.pane.hidden}`);
+    this.pane.hidden = !this.pane.hidden;
   }
 }

@@ -13,6 +13,7 @@ export enum GameAction {
   Attack,
   Pause,
   SlowTime,
+  DebugPanel,
 }
 
 export class KeyBindings {
@@ -71,6 +72,8 @@ export class KeyBindings {
         case 'slowTime':
           this.bind(GameAction.SlowTime, key);
           break;
+        case 'debugPanel':
+          this.bind(GameAction.DebugPanel, key);
       }
     }
   }
