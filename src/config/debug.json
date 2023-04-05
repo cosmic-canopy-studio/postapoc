@@ -7,7 +7,7 @@
     "keyBindings": false,
     "movement": false,
     "eventBus": false,
-    "time": true,
+    "time": false,
     "universe": false
   },
   "events": {
