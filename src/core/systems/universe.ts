@@ -1,7 +1,8 @@
 // Part: src/core/systems/universe.ts
 // Code Reference: https://github.com/developit/mitt
-// Code Reference: https://github.com/mourner/rbush
 // Documentation:
+
+// Code Reference: https://github.com/mourner/rbush
 
 import DebugPanel from '@src/core/components/debugPanel';
 import { getLogger } from '@src/core/components/logger';
