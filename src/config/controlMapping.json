@@ -12,6 +12,7 @@
   "action": {
     "KeyP": "pause",
     "Space": "attack",
+    "KeyE": "interact",
     "KeyZ": "slowTime",
     "KeyL": "debugPanel"
   }
