@@ -31,6 +31,8 @@ import StaticObjectFactory from '@src/phaser/factories/staticObjectFactory';
 import { createWorld, IWorld } from 'bitecs';
 import Phaser, { Scene } from 'phaser';
 import RBush from 'rbush';
+import { LootTable } from '@src/core/systems/lootTable';
+import { getSprite } from '@src/ecs/components/phaserSprite';
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -44,12 +46,14 @@ export default class Universe {
   private player!: number;
   private focusedObject: number | null = null;
   private logger = getLogger('universe');
+  private lootTable!: LootTable;
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
     this.world = createWorld();
-
+    this.lootTable = new LootTable();
     this.objectSpatialIndex = new RBush<ICollider>();
+
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
 
@@ -72,9 +76,6 @@ export default class Universe {
     const adjustedDeltaTime = this.timeSystem.getAdjustedDeltaTime(deltaTime);
     const timeState = this.timeSystem.getTimeState();
     if (timeState !== TimeState.PAUSED) {
-      this.logger.debug(
-        `Time state: ${timeState}, delta time: ${adjustedDeltaTime}`
-      );
       movementSystem(
         this.world,
         adjustedDeltaTime / 1000,
@@ -87,8 +88,6 @@ export default class Universe {
         this.objectSpatialIndex,
         this.arrow
       );
-    } else {
-      this.logger.debug(`Time state: ${timeState}`);
     }
   }
 
@@ -101,9 +100,11 @@ export default class Universe {
 
   generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
     const collisionModifier = 0.9;
+    const grassVariants = ['grass', 'grass2', 'grass3', 'grass4'];
     for (let x = 0; x < mapWidth; x++) {
       for (let y = 0; y < mapHeight; y++) {
-        const tileType = Math.random() > 0.5 ? 'grass' : 'grass2';
+        const randomIndex = Math.floor(Math.random() * grassVariants.length);
+        const tileType = grassVariants[randomIndex];
         this.generateStaticObject(
           x * tileSize,
           y * tileSize,
@@ -150,12 +151,40 @@ export default class Universe {
       this.focusedObject = null;
       this.arrow.setVisible(false);
     }
+    const objectSprite = getSprite(entityId);
+    if (!objectSprite) {
+      this.logger.error(`No sprite for entity ${entityId}`);
+      return;
+    }
+
+    const objectName = objectSprite.texture.key;
+    const droppedItems = this.lootTable.generateDrops(objectName);
+    this.logger.info(`Dropping items ${droppedItems} from ${objectName}`);
+    const objectPosition = objectSprite.getCenter();
+    this.handleDrops(droppedItems, objectPosition);
+
     const collider = getCollider(entityId);
     this.objectSpatialIndex.remove(collider, (a, b) => {
       return a.eid === b.eid;
     });
     this.staticObjectFactory.release(entityId);
     this.logger.info(`Entity ${entityId} destroyed`);
+  }
+
+  private handleDrops(
+    droppedItems: string[],
+    objectPosition: Phaser.Math.Vector2
+  ) {
+    const spreadRadius = 50;
+    droppedItems.forEach((item) => {
+      const offsetX = Math.random() * spreadRadius - spreadRadius / 2;
+      const offsetY = Math.random() * spreadRadius - spreadRadius / 2;
+      this.generateStaticObject(
+        objectPosition.x + offsetX,
+        objectPosition.y + offsetY,
+        item
+      );
+    });
   }
 
   private attackFocusTarget() {

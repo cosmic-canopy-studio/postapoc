@@ -11,6 +11,7 @@
 * add json file based asset loading ([d041013](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d04101305ef08b989ccd8281e35fb8867f71a130))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
+* **assets:** add svgs for new objects ([bc6ea0a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/bc6ea0a104840b88723b4b426916a8c5bc3154d8))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
