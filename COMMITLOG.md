@@ -9,6 +9,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add debug panel toggle ([9353379](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9353379ed589bb9c4309ae7a68eba2574538d833))
 * add json file based asset loading ([d041013](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d04101305ef08b989ccd8281e35fb8867f71a130))
+* add loot drop system ([0855a51](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0855a515a3d16ff7633b12d40cd5f5f2739c48ad))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **assets:** add svgs for new objects ([bc6ea0a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/bc6ea0a104840b88723b4b426916a8c5bc3154d8))

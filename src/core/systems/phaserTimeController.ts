@@ -3,11 +3,11 @@
 // Documentation:
 
 import { getLogger } from '@src/core/components/logger';
-import { TIME_CONTROLLER } from '@src/core/constants';
-import { ITimeController } from '@src/core/interfaces';
 import EventBus from '@src/core/systems/eventBus';
 import { inject, injectable } from 'inversify';
 import { Scene } from 'phaser';
+import { ITimeController } from '@src/core/definitions/interfaces';
+import { TIME_CONTROLLER } from '@src/core/definitions/constants';
 
 @injectable()
 export class PhaserTimeController implements ITimeController {

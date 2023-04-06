@@ -29,15 +29,7 @@ export default class PlayerFactory {
     addPhaserSprite(this.world, player, sprite);
     addMovement(this.world, player, centerX, centerY, 0, 0);
     addHealth(this.world, player, 100, 100);
-
-    const playerBoundingBox = new Phaser.Geom.Rectangle(
-      centerX,
-      centerY,
-      sprite.width,
-      sprite.height
-    );
-    addCollider(this.world, player, true, 1, playerBoundingBox);
-
+    addCollider(this.world, player, true, 1);
     return player;
   }
 }

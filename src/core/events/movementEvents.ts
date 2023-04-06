@@ -1,11 +1,11 @@
-// Part: src/ecs/systems/initMovementEvents.ts
+// Part: src/ecs/systems/movementEvents.ts
 // Code Reference:
 // Documentation:
 
 import { getLogger } from '@src/core/components/logger';
 import EventBus from '@src/core/systems/eventBus';
-import { MoveEventPayload } from '@src/core/systems/eventTypes';
 import Movement from '@src/ecs/components/movement';
+import { MoveEventPayload } from '@src/core/definitions/eventTypes';
 
 export enum MoveDirections {
   UP = 'up',
@@ -14,7 +14,7 @@ export enum MoveDirections {
   RIGHT = 'right',
 }
 
-export function initMovementEvents() {
+export function movementEvents() {
   const movementEventHandler = (
     state: boolean,
     direction: MoveDirections,

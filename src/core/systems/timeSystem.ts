@@ -5,9 +5,9 @@
 // Part: src/ecs/systems/timeSystem.ts
 
 import { getLogger } from '@src/core/components/logger';
-import { ITimeSystem } from '@src/core/interfaces';
 import EventBus from '@src/core/systems/eventBus';
 import { injectable } from 'inversify';
+import { ITimeSystem } from '@src/core/definitions/interfaces';
 
 export enum TimeState {
   PAUSED = 0,

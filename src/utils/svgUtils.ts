@@ -20,12 +20,3 @@ export function createFallbackSVG(
   const blob = new Blob([svgString], { type: 'image/svg+xml' });
   return URL.createObjectURL(blob);
 }
-
-/*
-return `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
-      <rect width="${width}" height="${height}" fill="red" />
-      <text x="50%" y="50%" font-size="14" text-anchor="middle" fill="white" dy=".3em">
-        ${assetName}
-      </text>
-    </svg>`;*/

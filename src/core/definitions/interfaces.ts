@@ -25,3 +25,8 @@ export interface IDrop {
 export interface IItemGroup {
   [key: string]: IDrop[];
 }
+
+export interface ControlMapping {
+  move: Record<string, string>;
+  action: Record<string, string>;
+}

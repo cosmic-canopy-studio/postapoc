@@ -6,13 +6,7 @@
 
 import DebugPanel from '@src/core/components/debugPanel';
 import { getLogger } from '@src/core/components/logger';
-import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from '@src/core/constants';
-import { ITimeController, ITimeSystem } from '@src/core/interfaces';
 import EventBus from '@src/core/systems/eventBus';
-import {
-  DamageEventPayload,
-  DestroyEntityEventPayload,
-} from '@src/core/systems/eventTypes';
 import container from '@src/core/systems/inversify.config';
 import {
   getBoundingBox,
@@ -20,10 +14,8 @@ import {
   ICollider,
 } from '@src/ecs/components/collider';
 import Health from '@src/ecs/components/health';
-import ControlSystem from '@src/ecs/systems/controlSystem';
 import { focusSystem } from '@src/ecs/systems/focusSystem';
 import { healthSystem } from '@src/ecs/systems/healthSystem';
-import { initMovementEvents } from '@src/ecs/systems/initMovementEvents';
 import { movementSystem } from '@src/ecs/systems/movementSystem';
 import { TimeState } from '@src/core/systems/timeSystem';
 import PlayerFactory from '@src/phaser/factories/playerFactory';
@@ -33,6 +25,19 @@ import Phaser, { Scene } from 'phaser';
 import RBush from 'rbush';
 import { LootTable } from '@src/core/systems/lootTable';
 import { getSprite } from '@src/ecs/components/phaserSprite';
+import { movementEvents } from '@src/core/events/movementEvents';
+import {
+  ActionEventPayload,
+  DamageEventPayload,
+  DestroyEntityEventPayload,
+} from '@src/core/definitions/eventTypes';
+import { ITimeController, ITimeSystem } from '@src/core/definitions/interfaces';
+import ControlSystem from '@src/core/systems/controlSystem';
+import {
+  TIME_CONTROLLER_FACTORY,
+  TIME_SYSTEM,
+} from '@src/core/definitions/constants';
+import { Actions } from '@src/core/events/actionEvents';
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -57,7 +62,7 @@ export default class Universe {
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
 
-    initMovementEvents();
+    movementEvents();
 
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     const timeControllerFactory = container.get<
@@ -67,9 +72,20 @@ export default class Universe {
     this.arrow = this.scene.add.sprite(0, 0, 'red_arrow');
     this.arrow.setVisible(false);
 
-    EventBus.on('attack', this.attackFocusTarget.bind(this));
     EventBus.on('damage', this.onDamage.bind(this));
+    EventBus.on('action', this.onAction.bind(this));
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
+  }
+
+  onAction(payload: ActionEventPayload) {
+    switch (payload.action) {
+      case Actions.ATTACK:
+        this.onAttack(payload.entity);
+        break;
+      case Actions.INTERACT:
+        this.onInteract(payload.entity);
+        break;
+    }
   }
 
   update(time: number, deltaTime: number) {
@@ -146,6 +162,16 @@ export default class Universe {
     return this.timeSystem.getTimeState();
   }
 
+  private onInteract(interactingEntity: number) {
+    if (this.focusedObject) {
+      this.logger.info(`Interacting with ${this.focusedObject}`);
+    }
+    // TODO: Implement interaction component
+    // TODO: Implement interaction system
+    // TODO: Get interaction component from focused object
+    // TODO: Call interaction component's interact method
+  }
+
   private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {
     if (this.focusedObject === entityId) {
       this.focusedObject = null;
@@ -187,7 +213,8 @@ export default class Universe {
     });
   }
 
-  private attackFocusTarget() {
+  private onAttack(attackingEntity: number) {
+    // TODO: Use attack component
     const damage = 25;
     if (this.focusedObject) {
       EventBus.emit('damage', { entity: this.focusedObject, damage });
