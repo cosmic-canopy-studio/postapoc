@@ -1,5 +1,6 @@
 // Part: src/phaser/systems/universe.ts
-// Code Reference:
+// Code Reference: https://github.com/developit/mitt
+// Code Reference: https://github.com/mourner/rbush
 // Documentation:
 
 import DebugPanel from '@src/core/components/debugPanel';
@@ -137,6 +138,10 @@ export default class Universe {
     this.logger.debug(
       `Added static object ${objectID} with texture ${texture} to spatial index`
     );
+  }
+
+  getTimeState(): TimeState {
+    return this.timeSystem.getTimeState();
   }
 
   private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {
