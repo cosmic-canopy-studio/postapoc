@@ -1,4 +1,4 @@
-// Part: src/phaser/systems/universe.ts
+// Part: src/core/systems/universe.ts
 // Code Reference: https://github.com/developit/mitt
 // Code Reference: https://github.com/mourner/rbush
 // Documentation:
