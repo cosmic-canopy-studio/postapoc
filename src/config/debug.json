@@ -5,6 +5,7 @@
     "focus": false,
     "health": false,
     "keyBindings": false,
+    "lootTable": false,
     "movement": false,
     "eventBus": false,
     "time": false,

@@ -1,0 +1,26 @@
+{
+  "tree": [
+    {
+      "id": "stick",
+      "weight": 80,
+      "count": 5
+    },
+    {
+      "id": "log",
+      "weight": 50,
+      "count": 2
+    }
+  ],
+  "bench": [
+    {
+      "id": "pipe",
+      "weight": 70,
+      "count": 2
+    },
+    {
+      "id": "board",
+      "weight": 90,
+      "count": 4
+    }
+  ]
+}
