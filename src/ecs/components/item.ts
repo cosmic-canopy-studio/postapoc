@@ -4,8 +4,6 @@
 
 import { addComponent, createType, IWorld, removeComponent } from 'bitecs';
 
-// Part: src/ecs/interfaces/IItem.ts
-
 export interface IItem {
   name: string;
   weight: number;

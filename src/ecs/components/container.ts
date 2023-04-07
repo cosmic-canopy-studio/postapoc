@@ -2,13 +2,37 @@
 // Code Reference:
 // Documentation:
 
-import { addComponent, createType, IWorld, removeComponent } from 'bitecs';
+import { Item } from './item';
 
-export const Container = createType();
-export const addContainer = (world: IWorld, eid: number) => {
-  addComponent(world, Container, eid);
-  return eid;
-};
-export const removeContainer = (world: IWorld, eid: number) => {
-  removeComponent(world, Container, eid);
-};
+export class Container extends Item {
+  private items: Item[] = [];
+
+  constructor(id: string, name: string, weight: number, volume: number) {
+    super(id, name, weight, volume);
+  }
+
+  addItem(item: Item): void {
+    this.items.push(item);
+  }
+
+  removeItem(item: Item): boolean {
+    const index = this.items.indexOf(item);
+    if (index > -1) {
+      this.items.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+
+  organizeItems(): void {
+    this.items.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  getTotalWeight(): number {
+    return this.items.reduce((total, item) => total + item.weight, this.weight);
+  }
+
+  getTotalVolume(): number {
+    return this.items.reduce((total, item) => total + item.volume, this.volume);
+  }
+}
