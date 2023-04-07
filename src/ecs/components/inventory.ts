@@ -1,4 +1,6 @@
 // Part: src/ecs/components/inventory.ts
+// Code Reference:
+// Documentation:
 
 import { addComponent, createType, IWorld, removeComponent } from 'bitecs';
 

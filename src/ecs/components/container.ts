@@ -1,4 +1,6 @@
 // Part: src/ecs/components/container.ts
+// Code Reference:
+// Documentation:
 
 import { addComponent, createType, IWorld, removeComponent } from 'bitecs';
 
