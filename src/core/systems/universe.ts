@@ -39,6 +39,10 @@ import {
 } from '@src/core/definitions/constants';
 import { Actions } from '@src/core/events/actionEvents';
 import { ContainerFactory } from '@src/phaser/factories/containerFactory';
+import { interactionSystem } from '@src/ecs/systems/interactionSystem';
+import { getInteractionComponent } from '@src/ecs/components/interactionComponent';
+import { InventorySystem } from '@src/ecs/systems/inventorySystem';
+import { Item } from '@src/ecs/components/item';
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -54,6 +58,7 @@ export default class Universe {
   private logger = getLogger('universe');
   private lootTable!: LootTable;
   private containerFactory!: ContainerFactory;
+  private inventorySystem!: InventorySystem;
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
@@ -62,6 +67,7 @@ export default class Universe {
     this.objectSpatialIndex = new RBush<ICollider>();
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
+    this.inventorySystem = new InventorySystem(this.playerFactory);
     this.containerFactory = new ContainerFactory();
 
     movementEvents();
@@ -77,6 +83,14 @@ export default class Universe {
     EventBus.on('damage', this.onDamage.bind(this));
     EventBus.on('action', this.onAction.bind(this));
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
+  }
+
+  addItemToPlayerInventory(item: Item): void {
+    this.inventorySystem.addItemToPlayerInventory(item);
+  }
+
+  removeItemFromPlayerInventory(item: Item): boolean {
+    return this.inventorySystem.removeItemFromPlayerInventory(item);
   }
 
   onAction(payload: ActionEventPayload) {
@@ -167,11 +181,16 @@ export default class Universe {
   private onInteract(interactingEntity: number) {
     if (this.focusedObject) {
       this.logger.info(`Interacting with ${this.focusedObject}`);
+      const interactionComponent = getInteractionComponent(this.focusedObject);
+      if (interactionComponent) {
+        const interactionName = 'PickUp';
+        interactionSystem(interactingEntity, interactionName);
+      } else {
+        this.logger.info(
+          `No interaction component found for ${this.focusedObject}`
+        );
+      }
     }
-    // TODO: Implement interaction component
-    // TODO: Implement interaction system
-    // TODO: Get interaction component from focused object
-    // TODO: Call interaction component's interact method
   }
 
   private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {

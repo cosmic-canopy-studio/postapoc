@@ -32,6 +32,7 @@
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * **inventory:** add item and container factories ([fa174e0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fa174e07b51104505aa5a9251d4abba2c19bb44d))
 * **inventory:** add item and container factories ([7424953](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/742495321eed4fc3629042c1619d8fc280894cfe))
+* **inventory:** implement item json config, backpack item ([97c369e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/97c369e8f798fc76812ef33abe0314fb9cbbce1c))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))
 * **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))

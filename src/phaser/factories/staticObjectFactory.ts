@@ -8,6 +8,8 @@ import { addHealth } from '@src/ecs/components/health';
 import { addPhaserSprite, getSprite } from '@src/ecs/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
+import { addInteractionComponent } from '@src/ecs/components/interactionComponent';
+import { interactionMapping } from '@src/config/interactions';
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
@@ -44,6 +46,11 @@ export default class StaticObjectFactory {
     addPhaserSprite(this.world, objectID, sprite);
     addHealth(this.world, objectID, 100, 100);
     addCollider(this.world, objectID, exempt, collisionModifier);
+
+    const interactionComponent = interactionMapping[texture];
+    if (interactionComponent) {
+      addInteractionComponent(this.world, objectID, interactionComponent);
+    }
 
     return objectID;
   }

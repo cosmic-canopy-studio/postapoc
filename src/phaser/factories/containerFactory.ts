@@ -4,7 +4,7 @@
 
 import ObjectPool from '@src/core/systems/objectPool';
 import { Container } from '@src/ecs/components/container';
-import items from '@src/config/items.json';
+import items from '@src/data/items.json';
 
 export class ContainerFactory {
   private containerPool: ObjectPool<Container>;

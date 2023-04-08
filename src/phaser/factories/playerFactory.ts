@@ -38,4 +38,8 @@ export default class PlayerFactory {
     this.inventory.addItem(backpack);
     return player;
   }
+
+  public getInventory(): Inventory {
+    return this.inventory;
+  }
 }

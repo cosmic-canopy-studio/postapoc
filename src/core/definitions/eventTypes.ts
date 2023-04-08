@@ -34,6 +34,10 @@ export interface DestroyEntityEventPayload {
   entityId: number;
 }
 
+export interface ItemPickedUpEventPayload extends EventPayload {
+  eid: number;
+}
+
 export interface EventsMap {
   testEvent: EventPayload;
   move: MoveEventPayload;
@@ -44,6 +48,7 @@ export interface EventsMap {
   togglePause: EventPayload;
   toggleSlowTime: EventPayload;
   debugPanel: EventPayload;
+  itemPickedUp: ItemPickedUpEventPayload;
 }
 
 export type Events = {
