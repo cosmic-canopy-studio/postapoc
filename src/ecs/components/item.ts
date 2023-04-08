@@ -2,8 +2,6 @@
 // Code Reference:
 // Documentation:
 
-import { addComponent, createType, IWorld, removeComponent } from 'bitecs';
-
 export interface IItem {
   name: string;
   weight: number;
@@ -13,11 +11,36 @@ export interface IItem {
   condition?: number;
 }
 
-export const Item = createType();
-export const addItem = (world: IWorld, eid: number) => {
-  addComponent(world, Item, eid);
-  return eid;
-};
-export const removeItem = (world: IWorld, eid: number) => {
-  removeComponent(world, Item, eid);
-};
+export class Item implements IItem {
+  id!: string;
+  name!: string;
+  weight!: number;
+  volume!: number;
+  category!: string;
+  durability?: number;
+  condition?: number;
+
+  constructor(
+    id: string,
+    name: string,
+    weight: number,
+    volume: number,
+    category: string
+  ) {
+    this.initialize(id, name, weight, volume, category);
+  }
+
+  initialize(
+    id: string,
+    name: string,
+    weight: number,
+    volume: number,
+    category: string
+  ): void {
+    this.id = id;
+    this.name = name;
+    this.weight = weight;
+    this.volume = volume;
+    this.category = category;
+  }
+}

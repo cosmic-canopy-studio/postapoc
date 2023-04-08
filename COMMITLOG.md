@@ -5,7 +5,7 @@
 
 * add attack action ([31fa593](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31fa59399e97e3ecea040562db98fd1b61fe23af))
 * add collision system ([ea1294b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ea1294b51721cae8f8199d78d7bed16ccb28c2dc))
-* add components for inventory system ([ba1b19a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ba1b19a095e6e50ac9f2eeecc3b5b88d97500d0e))
+* add components for inventory system ([66f9f07](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/66f9f07cb19eda37815f831e7c02065b33086b75))
 * add components for inventory system ([7639151](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7639151b3c28d3a7f2349f9525e6ab82ad536d08))
 * add components for inventory system ([0afe535](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0afe53533fba618786e9bec24b32e5804d7ebc49))
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))

@@ -7,8 +7,26 @@ import { Item } from './item';
 export class Container extends Item {
   private items: Item[] = [];
 
-  constructor(id: string, name: string, weight: number, volume: number) {
-    super(id, name, weight, volume);
+  constructor(
+    id: string,
+    name: string,
+    weight: number,
+    volume: number,
+    category: string
+  ) {
+    super(id, name, weight, volume, category);
+    this.initialize(id, name, weight, volume, category);
+  }
+
+  initialize(
+    id: string,
+    name: string,
+    weight: number,
+    volume: number,
+    category: string
+  ) {
+    super.initialize(id, name, weight, volume, category);
+    this.items = []; // Reset items array when reusing the container
   }
 
   addItem(item: Item): void {
