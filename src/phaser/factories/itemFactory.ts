@@ -1,3 +1,7 @@
+// Part: src/phaser/factories/itemFactory.ts
+// Code Reference:
+// Documentation:
+
 import { Item } from '@src/ecs/components/item';
 import ObjectPool from '@src/core/systems/objectPool';
 

@@ -1,3 +1,7 @@
+// Part: src/phaser/factories/containerFactory.ts
+// Code Reference:
+// Documentation:
+
 import ObjectPool from '@src/core/systems/objectPool';
 import { Container } from '@src/ecs/components/container';
 
