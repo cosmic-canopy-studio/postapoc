@@ -4,6 +4,7 @@
 
 import { Item } from '@src/ecs/components/item';
 import ObjectPool from '@src/core/systems/objectPool';
+import items from '@src/config/items.json';
 
 export class ItemFactory {
   private itemPool: ObjectPool<Item>;
@@ -12,15 +13,19 @@ export class ItemFactory {
     this.itemPool = new ObjectPool<Item>(() => new Item('', '', 0, 0, ''));
   }
 
-  createItem(
-    id: string,
-    name: string,
-    weight: number,
-    volume: number,
-    category: string
-  ): Item {
+  createItem(id: string): Item {
+    const itemConfig = items.items.find((item) => item.id === id);
+    if (!itemConfig) {
+      throw new Error(`Item config not found for id: ${id}`);
+    }
     const item = this.itemPool.get();
-    item.initialize(id, name, weight, volume, category);
+    item.initialize(
+      itemConfig.id,
+      itemConfig.name,
+      itemConfig.weight,
+      itemConfig.volume,
+      itemConfig.category
+    );
     return item;
   }
 

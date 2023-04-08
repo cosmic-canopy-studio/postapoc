@@ -4,6 +4,7 @@
 
 import ObjectPool from '@src/core/systems/objectPool';
 import { Container } from '@src/ecs/components/container';
+import items from '@src/config/items.json';
 
 export class ContainerFactory {
   private containerPool: ObjectPool<Container>;
@@ -14,15 +15,21 @@ export class ContainerFactory {
     );
   }
 
-  createContainer(
-    id: string,
-    name: string,
-    weight: number,
-    volume: number,
-    category: string
-  ): Container {
+  createContainer(id: string): Container {
+    const containerConfig = items.items.find(
+      (item) => item.id === id && item.category === 'container'
+    );
+    if (!containerConfig) {
+      throw new Error(`Container config not found for id: ${id}`);
+    }
     const container = this.containerPool.get();
-    container.initialize(id, name, weight, volume, category);
+    container.initialize(
+      containerConfig.id,
+      containerConfig.name,
+      containerConfig.weight,
+      containerConfig.volume,
+      containerConfig.category
+    );
     return container;
   }
 

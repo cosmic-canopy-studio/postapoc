@@ -38,6 +38,7 @@ import {
   TIME_SYSTEM,
 } from '@src/core/definitions/constants';
 import { Actions } from '@src/core/events/actionEvents';
+import { ContainerFactory } from '@src/phaser/factories/containerFactory';
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -52,15 +53,16 @@ export default class Universe {
   private focusedObject: number | null = null;
   private logger = getLogger('universe');
   private lootTable!: LootTable;
+  private containerFactory!: ContainerFactory;
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
     this.world = createWorld();
     this.lootTable = new LootTable();
     this.objectSpatialIndex = new RBush<ICollider>();
-
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
+    this.containerFactory = new ContainerFactory();
 
     movementEvents();
 
@@ -108,7 +110,7 @@ export default class Universe {
   }
 
   spawnPlayer() {
-    this.player = this.playerFactory.createPlayer();
+    this.player = this.playerFactory.createPlayer(this.containerFactory);
     const controlSystem = new ControlSystem();
     controlSystem.initialize(this.scene, this.player);
     new DebugPanel(this.world, this.player);
