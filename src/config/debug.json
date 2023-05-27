@@ -2,14 +2,16 @@
   "modules": {
     "control": false,
     "collision": false,
+    "factories": true,
     "focus": false,
     "health": false,
+    "interaction": true,
     "keyBindings": false,
     "lootTable": false,
     "movement": false,
-    "eventBus": false,
+    "eventBus": true    ,
     "time": false,
-    "universe": false
+    "universe": true
   },
   "events": {
     "moveEvents": false

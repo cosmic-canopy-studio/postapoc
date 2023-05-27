@@ -4,11 +4,12 @@
 
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import { Interaction } from '@src/config/interactions';
+import {getLogger} from "@src/core/components/logger";
 
 export interface IInteractionComponent {
   interactions: Interaction[];
   getInteractionNames: () => string[];
-  executeInteraction: (name: string) => void;
+  executeInteraction: (name: string, data: any) => void;
 }
 
 const interactions: IInteractionComponent[] = [];
@@ -37,16 +38,21 @@ export function getInteractionComponent(
 }
 
 export class InteractionComponentImpl implements IInteractionComponent {
+  private logger = getLogger('interaction');
+
   constructor(public interactions: Interaction[]) {}
 
   getInteractionNames(): string[] {
     return this.interactions.map((interaction) => interaction.name);
   }
 
-  executeInteraction(name: string): void {
+  executeInteraction(name: string, data: any): void {
     const interaction = this.interactions.find((i) => i.name === name);
     if (interaction) {
-      interaction.action(interaction.data);
+      this.logger.debug(`Executing interaction ${name} with data ${data}`);
+      interaction.action(data);
+    } else {
+      this.logger.error(`No interaction found with name ${name}`);
     }
   }
 }

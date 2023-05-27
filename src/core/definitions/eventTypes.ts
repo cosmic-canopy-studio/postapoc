@@ -7,6 +7,7 @@ import { Actions } from '@src/core/events/actionEvents';
 
 export interface EventPayload {
   state?: boolean;
+  eid?: number;
 }
 
 export interface DebugEventPayload extends EventPayload {
@@ -34,8 +35,8 @@ export interface DestroyEntityEventPayload {
   entityId: number;
 }
 
-export interface ItemPickedUpEventPayload extends EventPayload {
-  eid: number;
+export interface EntityIDPayload extends EventPayload {
+  entityId: number;
 }
 
 export interface EventsMap {
@@ -48,7 +49,7 @@ export interface EventsMap {
   togglePause: EventPayload;
   toggleSlowTime: EventPayload;
   debugPanel: EventPayload;
-  itemPickedUp: ItemPickedUpEventPayload;
+  itemPickedUp: EntityIDPayload;
 }
 
 export type Events = {

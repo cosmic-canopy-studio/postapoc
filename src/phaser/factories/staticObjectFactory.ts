@@ -10,11 +10,13 @@ import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
 import { addInteractionComponent } from '@src/ecs/components/interactionComponent';
 import { interactionMapping } from '@src/config/interactions';
+import {getLogger} from "@src/core/components/logger";
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
   private world: IWorld;
   private spritePool: ObjectPool<Phaser.GameObjects.Sprite>;
+  private logger = getLogger('factories');
 
   constructor(scene: Phaser.Scene, world: IWorld) {
     this.scene = scene;
@@ -49,6 +51,7 @@ export default class StaticObjectFactory {
 
     const interactionComponent = interactionMapping[texture];
     if (interactionComponent) {
+      this.logger.debug(`id ${objectID} ${texture} adding interaction component`, interactionComponent)
       addInteractionComponent(this.world, objectID, interactionComponent);
     }
 
@@ -56,9 +59,10 @@ export default class StaticObjectFactory {
   }
 
   release(entityId: number): void {
+    this.logger.debug(`Releasing entity ${entityId}`)
     const sprite = getSprite(entityId);
     if (!sprite) {
-      throw new Error('No sprite found for entity');
+      this.logger.error(`No sprite found for entity ${entityId}`, entityId);
     }
 
     sprite.setActive(false);

@@ -49,7 +49,7 @@ export const treeInteractions: Interaction[] = [
 
 export const itemInteractions: Interaction[] = [
   {
-    name: 'Pick Up',
+    name: 'PickUp',
     action: (data: { eid: number }) => {
       console.log('Player picks up the item.');
       EventBus.emit('itemPickedUp', { eid: data.eid });
@@ -65,4 +65,7 @@ export const interactionMapping: { [key: string]: InteractionComponentImpl } = {
   tree: new InteractionComponentImpl(treeInteractions),
   door: new InteractionComponentImpl(doorInteractions),
   item: new InteractionComponentImpl(itemInteractions),
+  board: new InteractionComponentImpl(itemInteractions),
+  pipe: new InteractionComponentImpl(itemInteractions),
 };
+
