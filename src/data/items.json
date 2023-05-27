@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "backpack",
+      "name": "Backpack",
+      "weight": 1,
+      "volume": 10,
+      "category": "container"
+    },
+    {
+      "id": "board",
+      "name": "Board",
+      "texture": "board"
+    },
+    {
+      "id": "stick",
+      "name": "Stick",
+      "texture": "stick"
+    },
+    {
+      "id": "stone",
+      "name": "Stone",
+      "texture": "stone"
+    },
+    {
+      "id": "pipe",
+      "name": "Pipe",
+      "texture": "pipe"
+    }
+  ]
+}

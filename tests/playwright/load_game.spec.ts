@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.describe('When the game loads', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://127.0.0.1:4173/postapoc/');
+    await page.goto('http://localhost:4173/postapoc/');
   });
 
   test('the canvas loads and matches the screenshot', async ({ page }) => {

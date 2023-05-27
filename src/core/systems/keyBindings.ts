@@ -3,7 +3,7 @@
 // Documentation:
 
 import { getLogger } from '@src/core/components/logger';
-import { ControlMapping } from '@src/core/systems/controlMapping';
+import { ControlMapping } from '@src/core/definitions/interfaces';
 
 export enum GameAction {
   MoveUp,
@@ -11,8 +11,10 @@ export enum GameAction {
   MoveLeft,
   MoveRight,
   Attack,
+  Interact,
   Pause,
   SlowTime,
+  DebugPanel,
 }
 
 export class KeyBindings {
@@ -68,9 +70,14 @@ export class KeyBindings {
         case 'attack':
           this.bind(GameAction.Attack, key);
           break;
+        case 'interact':
+          this.bind(GameAction.Interact, key);
+          break;
         case 'slowTime':
           this.bind(GameAction.SlowTime, key);
           break;
+        case 'debugPanel':
+          this.bind(GameAction.DebugPanel, key);
       }
     }
   }

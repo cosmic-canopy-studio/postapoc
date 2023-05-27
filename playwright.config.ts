@@ -1,7 +1,3 @@
-// Part: playwright.config.ts
-// Code Reference: https://github.com/microsoft/playwright
-// Documentation: https://playwright.dev/docs/test-configuration
-
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
@@ -19,7 +15,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4173/postapoc/',
+    baseURL: 'http://localhost:4173/postapoc/',
     trace: 'on-first-retry',
   },
   projects: [
@@ -60,7 +56,8 @@ export default defineConfig({
   ],
   webServer: {
     command: 'yarn serve',
-    url: 'http://127.0.0.1:4173/postapoc/',
+    port: 4173,
+    timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
 });

@@ -15,3 +15,18 @@ export interface ITimeSystem {
 
   getAdjustedDeltaTime(deltaTime: number): number;
 }
+
+export interface IDrop {
+  id: string;
+  weight: number;
+  count: number;
+}
+
+export interface IItemGroup {
+  [key: string]: IDrop[];
+}
+
+export interface ControlMapping {
+  move: Record<string, string>;
+  action: Record<string, string>;
+}

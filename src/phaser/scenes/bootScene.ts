@@ -6,6 +6,10 @@ import MainScene from '@src/phaser/scenes/mainScene';
 import TitleScene from '@src/phaser/scenes/titleScene';
 import { createFallbackSVG } from '@src/utils/svgUtils';
 import Phaser from 'phaser';
+import objectAssets from '@src/assets/objectAssets.json';
+import terrainAssets from '@src/assets/terrainAssets.json';
+import menuAssets from '@src/assets/menuAssets.json';
+import uiAssets from '@src/assets/uiAssets.json';
 
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -45,10 +49,10 @@ export default class BootScene extends Phaser.Scene {
       this
     );
 
-    this.loadTitleMenuAssets();
-    this.loadTerrainAssets();
-    this.loadObjectAssets();
-    this.loadUIAssets();
+    this.loadAssets(objectAssets);
+    this.loadAssets(terrainAssets);
+    this.loadAssets(menuAssets);
+    this.loadAssets(uiAssets);
   }
 
   create() {
@@ -59,43 +63,16 @@ export default class BootScene extends Phaser.Scene {
     }
   }
 
-  private loadTitleMenuAssets() {
-    // Load assets here
-    this.load.svg('starry_night', 'assets/ui/starry_night.svg', {
-      width: 800,
-      height: 600,
+  private loadAssets(assets: any[]) {
+    assets.forEach((asset) => {
+      if (asset.width && asset.height) {
+        this.load.svg(asset.key, asset.url, {
+          width: asset.width,
+          height: asset.height,
+        });
+      } else {
+        this.load.svg(asset.key, asset.url);
+      }
     });
-    this.load.svg('forest_silhouette', 'assets/ui/forest_silhouette.svg', {
-      width: 800,
-      height: 600,
-    });
-    this.load.svg('postapoc_title', 'assets/ui/postapoc_title.svg', {
-      width: 800,
-      height: 100,
-    });
-    this.load.svg('mushroom_cloud', 'assets/ui/mushroom_cloud.svg', {
-      width: 100,
-      height: 100,
-    });
-  }
-
-  private loadTerrainAssets() {
-    this.load.svg('grass', 'assets/tiles/grass.svg');
-    this.load.svg('grass2', 'assets/tiles/grass2.svg');
-    this.load.svg('white_tile', 'assets/tiles/white_tile.svg');
-    this.load.svg('concrete_wall', 'assets/tiles/concrete_wall.svg');
-  }
-
-  private loadObjectAssets() {
-    this.load.svg('player', 'assets/objects/player.svg');
-    this.load.svg('pipe', 'assets/objects/pipe.svg');
-    this.load.svg('bench', 'assets/objects/bench.svg');
-    this.load.svg('door', 'assets/objects/door.svg');
-    this.load.svg('tree', 'assets/objects/tree.svg');
-  }
-
-  private loadUIAssets() {
-    this.load.svg('grey_arrow', 'assets/ui/grey_arrow.svg');
-    this.load.svg('red_arrow', 'assets/ui/red_arrow.svg');
   }
 }

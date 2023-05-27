@@ -1,11 +1,13 @@
 // Part: src/core/systems/eventTypes.ts
-// Code Reference:
+// Code Reference: https://github.com/developit/mitt
 // Documentation:
 
-import { MoveDirections } from '@src/ecs/systems/initMovementEvents';
+import { MoveDirections } from '@src/core/events/movementEvents';
+import { Actions } from '@src/core/events/actionEvents';
 
 export interface EventPayload {
   state?: boolean;
+  eid?: number;
 }
 
 export interface DebugEventPayload extends EventPayload {
@@ -19,7 +21,8 @@ export interface MoveEventPayload extends EventPayload {
   entity: number;
 }
 
-export interface AttackEventPayload extends EventPayload {
+export interface ActionEventPayload extends EventPayload {
+  action: Actions;
   entity: number;
 }
 
@@ -32,15 +35,21 @@ export interface DestroyEntityEventPayload {
   entityId: number;
 }
 
+export interface EntityIDPayload extends EventPayload {
+  entityId: number;
+}
+
 export interface EventsMap {
   testEvent: EventPayload;
   move: MoveEventPayload;
-  attack: AttackEventPayload;
+  action: ActionEventPayload;
   damage: DamageEventPayload;
   debug: DebugEventPayload;
   destroyEntity: DestroyEntityEventPayload;
   togglePause: EventPayload;
   toggleSlowTime: EventPayload;
+  debugPanel: EventPayload;
+  itemPickedUp: EntityIDPayload;
 }
 
 export type Events = {
