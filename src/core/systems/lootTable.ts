@@ -2,9 +2,9 @@
 // Code Reference:
 // Documentation:
 
-import { IDrop, IItemGroup } from '@src/core/interfaces';
 import item_groups from '@src/config/item_groups.json';
 import { getLogger } from '@src/core/components/logger';
+import { IDrop, IItemGroup } from '@src/core/definitions/interfaces';
 
 export class LootTable {
   private itemGroups: IItemGroup;

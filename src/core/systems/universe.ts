@@ -6,13 +6,7 @@
 
 import DebugPanel from '@src/core/components/debugPanel';
 import { getLogger } from '@src/core/components/logger';
-import { TIME_CONTROLLER_FACTORY, TIME_SYSTEM } from '@src/core/constants';
-import { ITimeController, ITimeSystem } from '@src/core/interfaces';
 import EventBus from '@src/core/systems/eventBus';
-import {
-  DamageEventPayload,
-  DestroyEntityEventPayload,
-} from '@src/core/systems/eventTypes';
 import container from '@src/core/systems/inversify.config';
 import {
   getBoundingBox,
@@ -20,10 +14,8 @@ import {
   ICollider,
 } from '@src/ecs/components/collider';
 import Health from '@src/ecs/components/health';
-import ControlSystem from '@src/ecs/systems/controlSystem';
 import { focusSystem } from '@src/ecs/systems/focusSystem';
 import { healthSystem } from '@src/ecs/systems/healthSystem';
-import { initMovementEvents } from '@src/ecs/systems/initMovementEvents';
 import { movementSystem } from '@src/ecs/systems/movementSystem';
 import { TimeState } from '@src/core/systems/timeSystem';
 import PlayerFactory from '@src/phaser/factories/playerFactory';
@@ -33,6 +25,26 @@ import Phaser, { Scene } from 'phaser';
 import RBush from 'rbush';
 import { LootTable } from '@src/core/systems/lootTable';
 import { getSprite } from '@src/ecs/components/phaserSprite';
+import { movementEvents } from '@src/core/events/movementEvents';
+import {
+  ActionEventPayload,
+  DamageEventPayload,
+  DestroyEntityEventPayload, EntityIDPayload,
+} from '@src/core/definitions/eventTypes';
+import { ITimeController, ITimeSystem } from '@src/core/definitions/interfaces';
+import ControlSystem from '@src/core/systems/controlSystem';
+import {
+  TIME_CONTROLLER_FACTORY,
+  TIME_SYSTEM,
+} from '@src/core/definitions/constants';
+import { Actions } from '@src/core/events/actionEvents';
+import { ContainerFactory } from '@src/phaser/factories/containerFactory';
+import { interactionSystem } from '@src/ecs/systems/interactionSystem';
+import { getInteractionComponent } from '@src/ecs/components/interactionComponent';
+import { InventorySystem } from '@src/ecs/systems/inventorySystem';
+import { Item } from '@src/ecs/components/item';
+import {ItemFactory} from "@src/phaser/factories/itemFactory";
+import {addItemComponent} from "@src/ecs/components/itemComponent";
 
 export default class Universe {
   private scene!: Phaser.Scene;
@@ -47,17 +59,22 @@ export default class Universe {
   private focusedObject: number | null = null;
   private logger = getLogger('universe');
   private lootTable!: LootTable;
+  private containerFactory!: ContainerFactory;
+  private inventorySystem!: InventorySystem;
+  private itemFactory!: ItemFactory;
 
   initialize(scene: Phaser.Scene) {
     this.scene = scene;
     this.world = createWorld();
     this.lootTable = new LootTable();
     this.objectSpatialIndex = new RBush<ICollider>();
-
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.playerFactory = new PlayerFactory(this.scene, this.world);
+    this.inventorySystem = new InventorySystem(this.playerFactory);
+    this.containerFactory = new ContainerFactory();
+    this.itemFactory = new ItemFactory();
 
-    initMovementEvents();
+    movementEvents();
 
     this.timeSystem = container.get<ITimeSystem>(TIME_SYSTEM);
     const timeControllerFactory = container.get<
@@ -67,9 +84,29 @@ export default class Universe {
     this.arrow = this.scene.add.sprite(0, 0, 'red_arrow');
     this.arrow.setVisible(false);
 
-    EventBus.on('attack', this.attackFocusTarget.bind(this));
     EventBus.on('damage', this.onDamage.bind(this));
+    EventBus.on('action', this.onAction.bind(this));
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
+    EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
+  }
+
+  addItemToPlayerInventory(item: Item): void {
+    this.inventorySystem.addItemToPlayerInventory(item);
+  }
+
+  removeItemFromPlayerInventory(item: Item): boolean {
+    return this.inventorySystem.removeItemFromPlayerInventory(item);
+  }
+
+  onAction(payload: ActionEventPayload) {
+    switch (payload.action) {
+      case Actions.ATTACK:
+        this.onAttack(payload.entity);
+        break;
+      case Actions.INTERACT:
+        this.onInteract(payload.entity);
+        break;
+    }
   }
 
   update(time: number, deltaTime: number) {
@@ -92,7 +129,7 @@ export default class Universe {
   }
 
   spawnPlayer() {
-    this.player = this.playerFactory.createPlayer();
+    this.player = this.playerFactory.createPlayer(this.containerFactory);
     const controlSystem = new ControlSystem();
     controlSystem.initialize(this.scene, this.player);
     new DebugPanel(this.world, this.player);
@@ -146,6 +183,33 @@ export default class Universe {
     return this.timeSystem.getTimeState();
   }
 
+  private onInteract(interactingEntity: number) {
+    if (this.focusedObject) {
+      this.logger.info(`${interactingEntity} interacting with ${this.focusedObject}`);
+      const interactionComponent = getInteractionComponent(this.focusedObject);
+      if (interactionComponent) {
+        const interactionName = 'PickUp';
+        interactionSystem(this.focusedObject, interactionName);
+      } else {
+        this.logger.info(
+          `No interaction component found for ${this.focusedObject}`
+        );
+      }
+    }
+  }
+
+  private onItemPickedUp({ eid }: EntityIDPayload) {
+    this.logger.debug(`Picking item up ${eid}`);
+    console.log(`getting sprite for ${eid}`,getSprite(eid))
+    this.staticObjectFactory.release(eid);
+
+    const item = this.itemFactory.createItemFromEntity(eid);
+    if (item) {
+      addItemComponent(this.world, eid, item);
+      this.addItemToPlayerInventory(item);
+    }
+  }
+
   private onEntityDestroyed({ entityId }: DestroyEntityEventPayload) {
     if (this.focusedObject === entityId) {
       this.focusedObject = null;
@@ -187,7 +251,8 @@ export default class Universe {
     });
   }
 
-  private attackFocusTarget() {
+  private onAttack(attackingEntity: number) {
+    // TODO: Use attack component
     const damage = 25;
     if (this.focusedObject) {
       EventBus.emit('damage', { entity: this.focusedObject, damage });

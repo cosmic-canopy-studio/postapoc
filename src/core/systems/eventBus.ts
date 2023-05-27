@@ -3,8 +3,8 @@
 // Documentation:
 
 import { getLogger } from '@src/core/components/logger';
-import { Events } from '@src/core/systems/eventTypes';
 import mitt, { Emitter, WildcardHandler } from 'mitt';
+import { Events } from '@src/core/definitions/eventTypes';
 
 const EventBus: Emitter<Events> = mitt<Events>();
 

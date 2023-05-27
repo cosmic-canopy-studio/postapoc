@@ -4,11 +4,11 @@
 
 import controlMappingJson from '@src/config/controlMapping.json';
 import { getLogger } from '@src/core/components/logger';
-import { ControlMapping } from '@src/core/systems/controlMapping';
 import EventBus from '@src/core/systems/eventBus';
 import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
-import { MoveDirections } from '@src/ecs/systems/initMovementEvents';
 import Phaser from 'phaser';
+import { ControlMapping } from '@src/core/definitions/interfaces';
+import { MoveDirections } from '@src/core/events/movementEvents';
 
 export default class ControlSystem {
   private player!: number;
@@ -94,7 +94,12 @@ export default class ControlSystem {
         break;
       case GameAction.Attack:
         if (state) {
-          EventBus.emit('attack', { entity: this.player });
+          EventBus.emit('action', { action: 'attack', entity: this.player });
+        }
+        break;
+      case GameAction.Interact:
+        if (state) {
+          EventBus.emit('action', { action: 'interact', entity: this.player });
         }
         break;
       case GameAction.Pause:
