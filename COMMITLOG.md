@@ -119,6 +119,7 @@
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * break universe in to smaller managers, fix consequences ([bd52a3c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/bd52a3c0e03701e27db1f3e20e20eea919d77951))
+* cleanup comments, unused code ([e002cd5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e002cd5d361e46a960fda0af5cdf3345939a1537))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
