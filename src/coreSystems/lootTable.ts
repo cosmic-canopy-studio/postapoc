@@ -4,7 +4,7 @@
 
 import item_groups from '@src/config/item_groups.json';
 import { getLogger } from '@src/telemetry/logger';
-import { IDrop, IItemGroup } from '@src/definitions/interfaces';
+import { IDrop, IItemGroup } from '@src/config/interfaces';
 
 export class LootTable {
   private itemGroups: IItemGroup;

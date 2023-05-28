@@ -1,7 +1,3 @@
-// Part: src/utils/svgUtils.ts
-// Code Reference:
-// Documentation:
-
 import { SVG } from '@svgdotjs/svg.js';
 
 export function createFallbackSVG(

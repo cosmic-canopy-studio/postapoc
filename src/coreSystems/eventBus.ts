@@ -1,6 +1,6 @@
 import { getLogger } from '@src/telemetry/logger';
 import mitt, { Emitter, WildcardHandler } from 'mitt';
-import { Events } from '@src/definitions/eventTypes';
+import { Events } from '@src/config/eventTypes';
 
 const EventBus: Emitter<Events> = mitt<Events>();
 

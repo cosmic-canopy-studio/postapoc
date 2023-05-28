@@ -1,7 +1,3 @@
-// Part: src/core/interfaces.ts
-// Code Reference:
-// Documentation:
-
 import { TimeState } from '@src/coreSystems/timeSystem';
 
 export interface ITimeController {

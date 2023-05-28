@@ -1,7 +1,3 @@
-// Part: src/phaser/scenes/titleScene.ts
-// Code Reference:
-// Documentation:
-
 import Phaser from 'phaser';
 
 export default class TitleScene extends Phaser.Scene {
@@ -19,6 +15,9 @@ export default class TitleScene extends Phaser.Scene {
     title.setScale(2);
 
     this.input.on('pointerdown', () => this.startMainScene());
+    if (!this.input.keyboard) {
+      throw new Error('No keyboard found');
+    }
     this.input.keyboard.on('keydown', () => this.startMainScene());
   }
 
@@ -31,7 +30,7 @@ export default class TitleScene extends Phaser.Scene {
     return new Promise<void>((resolve) => {
       const mushroomCloud = this.add.image(400, 300, 'mushroom_cloud');
       mushroomCloud.setScale(0.1).setDepth(1);
-      mushroomCloud.originY = mushroomCloud.height;
+      mushroomCloud.setOrigin(mushroomCloud.originX, mushroomCloud.height);
       this.tweens.add({
         targets: mushroomCloud,
         scale: 20,

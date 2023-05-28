@@ -3,7 +3,7 @@
 // Documentation:
 
 import { getLogger } from '@src/telemetry/logger';
-import { ControlMapping } from '@src/definitions/interfaces';
+import { ControlMapping } from '@src/config/interfaces';
 
 export enum GameAction {
   MoveUp,

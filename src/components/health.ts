@@ -1,7 +1,3 @@
-// Part: src/ecs/components/health.ts
-// Code Reference:
-// Documentation:
-
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 
 export interface IHealth {

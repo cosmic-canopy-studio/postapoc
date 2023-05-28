@@ -1,7 +1,3 @@
-// Part: src/ecs/systems/healthSystem.ts
-// Code Reference:
-// Documentation:
-
 import { getLogger } from '@src/telemetry/logger';
 import EventBus from '@src/coreSystems/eventBus';
 import Health from '@src/components/health';

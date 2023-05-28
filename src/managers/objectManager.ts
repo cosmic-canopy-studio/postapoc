@@ -11,7 +11,7 @@ export default class ObjectManager {
   private staticObjectFactory!: StaticObjectFactory;
   private objectSpatialIndex!: RBush<ICollider>;
   private lootTable!: LootTable;
-  private world: IWorld;
+  private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('objectManager');

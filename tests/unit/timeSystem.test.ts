@@ -1,4 +1,3 @@
-// Start of file: timeSystem.test.ts
 import { TimeState, TimeSystem } from '@src/coreSystems/timeSystem';
 
 describe('Time System', () => {

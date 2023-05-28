@@ -1,11 +1,10 @@
-// Part: src/phaser/factories/staticObjectFactory.ts
-// Code Reference:
-// Documentation:
-
 import ObjectPool from '@src/coreSystems/objectPool';
 import { addCollider } from '@src/components/collider';
 import { addHealth } from '@src/components/health';
-import { addPhaserSprite, getSprite } from '@src/components/phaserSprite';
+import {
+  addPhaserSprite,
+  removePhaserSprite,
+} from '@src/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
 import { addInteractionComponent } from '@src/components/interactionComponent';
@@ -14,7 +13,7 @@ import { getLogger } from '@src/telemetry/logger';
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
-  private world: IWorld;
+  private readonly world: IWorld;
   private spritePool: ObjectPool<Phaser.GameObjects.Sprite>;
   private logger = getLogger('factories');
 
@@ -63,16 +62,7 @@ export default class StaticObjectFactory {
 
   release(entityId: number): void {
     this.logger.debug(`Releasing entity ${entityId}`);
-    const sprite = getSprite(entityId);
-    if (!sprite) {
-      this.logger.error(`No sprite found for entity ${entityId}`, entityId);
-      throw new Error(`No sprite found for entity ${entityId}`);
-    }
-
-    sprite.setActive(false);
-    sprite.setVisible(false);
-    sprite.setTexture('');
-
+    const sprite = removePhaserSprite(entityId);
     this.spritePool.release(sprite);
     removeEntity(this.world, entityId);
   }

@@ -1,7 +1,3 @@
-// Part: src/phaser/scenes/bootScene.ts
-// Code Reference:
-// Documentation:
-
 import { createFallbackSVG } from '@src/utils/svgUtils';
 import Phaser from 'phaser';
 import objectAssets from '@src/assets/objectAssets.json';

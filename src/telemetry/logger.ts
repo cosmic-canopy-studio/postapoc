@@ -1,7 +1,3 @@
-// Part: src/core/components/logger.ts
-// Code Reference:
-// Documentation:
-
 import chalk from 'chalk';
 import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';
 
@@ -26,10 +22,12 @@ const customMethodFactory = (
   const rawMethod = originalMethodFactory(methodName, logLevel, loggerNameStr);
   return (...args: any[]) => {
     const timestamp = new Date().toLocaleTimeString();
+    const timestampStr = chalk.gray(`[${timestamp}]`);
+    const methodNameStr = colors[methodName](methodName.toUpperCase());
+    const loggerNameStrColored = chalk.green(loggerNameStr);
+
     rawMethod(
-      `${chalk.gray(`[${timestamp}]`)} ` +
-        `${colors[methodName](methodName.toUpperCase())} ` +
-        `${chalk.green(`${loggerNameStr}`)}\n`,
+      `${timestampStr} ${methodNameStr} ${loggerNameStrColored}\n`,
       ...args
     );
   };

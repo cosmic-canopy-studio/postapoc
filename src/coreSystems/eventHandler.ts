@@ -7,7 +7,7 @@ import {
   DamageEventPayload,
   DestroyEntityEventPayload,
   MoveEventPayload,
-} from '@src/definitions/eventTypes';
+} from '@src/config/eventTypes';
 import { getSprite } from '@src/components/phaserSprite';
 import { getCollider } from '@src/components/collider';
 import { IWorld } from 'bitecs';

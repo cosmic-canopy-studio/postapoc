@@ -1,7 +1,7 @@
 import { getLogger } from '@src/telemetry/logger';
 import EventBus from '@src/coreSystems/eventBus';
 import { injectable } from 'inversify';
-import { ITimeSystem } from '@src/definitions/interfaces';
+import { ITimeSystem } from '@src/config/interfaces';
 
 export enum TimeState {
   PAUSED = 0,

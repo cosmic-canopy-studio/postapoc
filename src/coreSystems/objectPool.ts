@@ -1,13 +1,9 @@
-// Part: src/core/systems/objectPool.ts
-// Code Reference:
-// Documentation:
-
 import { getLogger } from '@src/telemetry/logger';
 
 export default class ObjectPool<T> {
   private logger = getLogger('ObjectPool');
   private pool: T[];
-  private factory: () => T;
+  private readonly factory: () => T;
 
   constructor(factory: () => T, initialSize?: number) {
     this.pool = [];

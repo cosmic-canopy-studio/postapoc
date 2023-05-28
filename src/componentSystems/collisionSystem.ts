@@ -1,7 +1,3 @@
-// Part: src/ecs/systems/collisionSystem.ts
-// Code Reference:
-// Documentation:
-
 import { getLogger } from '@src/telemetry/logger';
 import { getBoundingBox, ICollider } from '@src/components/collider';
 import { IWorld } from 'bitecs';

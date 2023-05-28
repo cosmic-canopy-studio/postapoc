@@ -1,9 +1,3 @@
-// Part: src/phaser/factories/playerFactory.ts
-// Code Reference:
-// Documentation:
-
-// src/phaser/factories/playerFactory.ts
-
 import { addCollider } from '@src/components/collider';
 import { addHealth } from '@src/components/health';
 import { addMovement } from '@src/components/movement';
@@ -11,10 +5,11 @@ import { addPhaserSprite } from '@src/components/phaserSprite';
 import { addEntity, IWorld } from 'bitecs';
 import Phaser from 'phaser';
 import { addAttack } from '@src/components/attack';
+import { PLAYER_DEFAULT_DAMAGE } from '@src/config/constants';
 
 export default class PlayerFactory {
   private scene: Phaser.Scene;
-  private world: IWorld;
+  private readonly world: IWorld;
 
   constructor(scene: Phaser.Scene, world: IWorld) {
     this.scene = scene;
@@ -31,7 +26,7 @@ export default class PlayerFactory {
     addMovement(this.world, player, centerX, centerY, 0, 0);
     addHealth(this.world, player, 100, 100);
     addCollider(this.world, player, true, 1);
-    addAttack(this.world, player, 10);
+    addAttack(this.world, player, PLAYER_DEFAULT_DAMAGE);
     return player;
   }
 }

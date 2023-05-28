@@ -12,7 +12,7 @@ export default class DebugPanel {
   private readonly modules: Record<string, boolean>;
   private readonly events: Record<string, boolean>;
   private playerFolder: any;
-  private player: number;
+  private readonly player: number;
   private playerPosition: IMovement = {
     x: 0,
     y: 0,
@@ -39,8 +39,12 @@ export default class DebugPanel {
     this.pane.hidden = true;
   }
 
-  private setLoggingDebug(logger: Logger, enableDebug: boolean) {
-    logger.info(`Setting ${logger.name} to ${enableDebug}`);
+  private setLoggingDebug(
+    logger: Logger,
+    enableDebug: boolean,
+    loggerName: string
+  ) {
+    logger.info(`Setting ${loggerName} to ${enableDebug}`);
     if (enableDebug) {
       logger.setLevel(logger.levels.DEBUG);
     } else {
@@ -53,9 +57,9 @@ export default class DebugPanel {
 
     for (const moduleName in this.modules) {
       const moduleLogger = getLogger(moduleName);
-      this.setLoggingDebug(moduleLogger, this.modules[moduleName]);
+      this.setLoggingDebug(moduleLogger, this.modules[moduleName], moduleName);
       moduleFolder.addInput(this.modules, moduleName).on('change', (value) => {
-        this.setLoggingDebug(moduleLogger, value.value);
+        this.setLoggingDebug(moduleLogger, value.value, moduleName);
       });
     }
   }

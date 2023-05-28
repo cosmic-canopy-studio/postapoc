@@ -8,7 +8,7 @@ import { healthSystem } from '@src/componentSystems/healthSystem';
 export default class PlayerManager {
   private logger;
   private playerFactory!: PlayerFactory;
-  private world: IWorld;
+  private readonly world: IWorld;
   private player!: number;
   private debugPanel!: DebugPanel;
 

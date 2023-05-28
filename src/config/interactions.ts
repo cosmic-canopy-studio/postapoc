@@ -1,6 +1,6 @@
 import { InteractionComponentImpl } from '@src/components/interactionComponent';
 import EventBus from '@src/coreSystems/eventBus';
-import { EntityIDPayload } from '@src/definitions/eventTypes';
+import { EntityIDPayload } from '@src/config/eventTypes';
 
 export type InteractionAction = (data?: any) => void;
 
@@ -10,7 +10,6 @@ export interface Interaction {
   data?: any;
 }
 
-//TODO: Refactor this to be more dynamic
 export const doorInteractions: Interaction[] = [
   {
     name: 'Open',
@@ -57,7 +56,6 @@ export const itemInteractions: Interaction[] = [
   },
 ];
 
-//TODO: Move this to config file
 export const interactionMapping: { [key: string]: InteractionComponentImpl } = {
   tree: new InteractionComponentImpl(treeInteractions),
   door: new InteractionComponentImpl(doorInteractions),
