@@ -124,6 +124,7 @@
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
+* move inversify.config ([2647e39](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2647e3921611e19183cfd60129915b7bf54f1827))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
 * move major systems from main scene to universe, reorganize files ([5790ce9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5790ce974f67e55b16ed31268702183b7897169f))
 * move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
