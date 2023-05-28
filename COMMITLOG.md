@@ -92,17 +92,6 @@
 * update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
 
 
-### Tests
-
-* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
-* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
-* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
-* update playwright screenshot name format for CI compatibility ([e2766f8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e2766f834f784a20c79314615890d26c7b22baa2))
-* update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
-* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
-* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
-
-
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -139,4 +128,16 @@
 * update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
 * update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
 * update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
+
+
+### Tests
+
+* add pixel ratio for screenshots ([42c71b3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/42c71b38ed16f198ba391238c1321081595d2d44))
+* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
+* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
+* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
+* update playwright screenshot name format for CI compatibility ([e2766f8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e2766f834f784a20c79314615890d26c7b22baa2))
+* update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
+* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
+* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
 
