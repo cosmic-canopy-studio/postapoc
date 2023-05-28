@@ -5,12 +5,12 @@
     "factories": true,
     "focus": false,
     "health": false,
-    "interaction": true,
     "keyBindings": false,
     "lootTable": false,
     "movement": false,
-    "eventBus": true    ,
+    "eventBus": true,
     "time": false,
+    "objectManager": true,
     "universe": true
   },
   "events": {

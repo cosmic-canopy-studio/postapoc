@@ -1,9 +1,6 @@
-// Part: src/config/interactions.ts
-// Code Reference:
-// Documentation:
-
-import { InteractionComponentImpl } from '@src/ecs/components/interactionComponent';
-import EventBus from '@src/core/systems/eventBus';
+import { InteractionComponentImpl } from '@src/components/interactionComponent';
+import EventBus from '@src/coreSystems/eventBus';
+import { EntityIDPayload } from '@src/definitions/eventTypes';
 
 export type InteractionAction = (data?: any) => void;
 
@@ -52,7 +49,7 @@ export const itemInteractions: Interaction[] = [
     name: 'PickUp',
     action: (data: { eid: number }) => {
       console.log('Player picks up the item.');
-      EventBus.emit('itemPickedUp', { eid: data.eid });
+      EventBus.emit('itemPickedUp', { eid: data.eid } as EntityIDPayload);
     },
     data: {
       eid: null,
@@ -68,4 +65,3 @@ export const interactionMapping: { [key: string]: InteractionComponentImpl } = {
   board: new InteractionComponentImpl(itemInteractions),
   pipe: new InteractionComponentImpl(itemInteractions),
 };
-

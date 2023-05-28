@@ -3,9 +3,9 @@
 // Documentation: https://photonstorm.github.io/phaser3-docs/
 
 import 'reflect-metadata';
-import BootScene from '@src/phaser/scenes/bootScene';
-import MainScene from '@src/phaser/scenes/mainScene';
-import TitleScene from '@src/phaser/scenes/titleScene';
+import BootScene from '@src/scenes/bootScene';
+import MainScene from '@src/scenes/mainScene';
+import TitleScene from '@src/scenes/titleScene';
 import Phaser from 'phaser';
 import LogRocket from 'logrocket';
 

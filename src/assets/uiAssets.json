@@ -6,9 +6,5 @@
   {
     "key": "red_arrow",
     "url": "assets/ui/red_arrow.svg"
-  },
-  {
-    "key": "actionIcon",
-    "url": "assets/ui/actionIcon.png"
   }
 ]
