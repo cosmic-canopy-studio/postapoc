@@ -19,7 +19,8 @@
     "update_comments": "node .husky/hooks/add_comments.js",
     "patch": "yarn version --patch",
     "minor": "yarn version --minor",
-    "major": "yarn version --major"
+    "major": "yarn version --major",
+    "tree": "sh .husky/hooks/create_filetree.sh"
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",
