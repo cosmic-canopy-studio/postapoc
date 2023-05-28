@@ -7,7 +7,12 @@ import BootScene from '@src/phaser/scenes/bootScene';
 import MainScene from '@src/phaser/scenes/mainScene';
 import TitleScene from '@src/phaser/scenes/titleScene';
 import Phaser from 'phaser';
+import LogRocket from 'logrocket';
 
+LogRocket.init('1wjjv9/postapoc');
+LogRocket.identify('user', {
+  name: 'Generic User',
+});
 const isTestEnvironment = process.env.NODE_ENV === 'test';
 
 const config = {

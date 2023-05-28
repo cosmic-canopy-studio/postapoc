@@ -4,4 +4,3 @@
 . "$(dirname "$0")/hooks/lint_and_test.sh"
 . "$(dirname "$0")/hooks/create_filetree.sh"
 . "$(dirname "$0")/hooks/update_commitlog.sh"
-node "$(dirname "$0")/hooks/add_comments.js"
