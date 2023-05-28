@@ -2,7 +2,10 @@
 .
 |-- CHANGELOG.md
 |-- COMMITLOG.md
+|-- CONTRIBUTING.md
 |-- FILETREE.md
+|-- LICENSE.md
+|-- README.md
 |-- assets
 |   |-- objects
 |   |   |-- bench.svg
