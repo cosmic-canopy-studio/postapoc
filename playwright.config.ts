@@ -9,8 +9,12 @@ export default defineConfig({
     toMatchSnapshot: {
       maxDiffPixelRatio: 0.1,
     },
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.1,
+    },
   },
   forbidOnly: !!process.env.CI,
+
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: process.env.CI ? 'github' : 'list',
