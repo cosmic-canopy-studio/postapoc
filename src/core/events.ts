@@ -5,9 +5,6 @@ export interface EventPayload {
 
 export interface CoreEventsMap {
   testEvent: EventPayload;
-  togglePause: EventPayload;
-  toggleSlowTime: EventPayload;
-  debugPanel: EventPayload;
 }
 
 export type CoreEvents = {

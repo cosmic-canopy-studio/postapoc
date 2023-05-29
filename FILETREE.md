@@ -87,6 +87,7 @@
 |   |-- entity
 |   |   |-- components
 |   |   |   |-- health.ts
+|   |   |   |-- inventory.ts
 |   |   |   `-- phaserSprite.ts
 |   |   |-- data
 |   |   |   |-- events.ts
