@@ -1,10 +1,7 @@
-import {
-  ICollider,
-  updateSpriteColliderBounds,
-} from '@src/components/collider';
-import Movement from '@src/components/movement';
+import { ICollider, updateSpriteColliderBounds } from '@src/movement/collider';
+import Movement from '@src/movement/movement';
 import { getSprite } from '@src/components/phaserSprite';
-import { handleCollision } from '@src/componentSystems/collisionSystem';
+import { handleCollision } from '@src/movement/collisionSystem';
 import { defineQuery, IWorld } from 'bitecs';
 import RBush from 'rbush';
 

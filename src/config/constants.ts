@@ -2,6 +2,7 @@
 export const PLAYER_FOCUS_DISTANCE = 100;
 export const PLAYER_DEFAULT_DAMAGE = 50;
 export const MOVEMENT_SPEED = 350;
+export const DROP_SPREAD_RADIUS = 50;
 
 // inversify.js constants
 export const TIME_CONTROLLER = Symbol('TimeController');

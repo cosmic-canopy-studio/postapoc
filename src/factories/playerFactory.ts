@@ -1,11 +1,12 @@
-import { addCollider } from '@src/components/collider';
+import { addCollider } from '@src/movement/collider';
 import { addHealth } from '@src/components/health';
-import { addMovement } from '@src/components/movement';
+import { addMovement } from '@src/movement/movement';
 import { addPhaserSprite } from '@src/components/phaserSprite';
 import { addEntity, IWorld } from 'bitecs';
 import Phaser from 'phaser';
-import { addAttack } from '@src/components/attack';
+import { addAttack } from '@src/action/attack';
 import { PLAYER_DEFAULT_DAMAGE } from '@src/config/constants';
+import { addFocus } from '@src/action/focus';
 
 export default class PlayerFactory {
   private scene: Phaser.Scene;
@@ -27,6 +28,7 @@ export default class PlayerFactory {
     addHealth(this.world, player, 100, 100);
     addCollider(this.world, player, true, 1);
     addAttack(this.world, player, PLAYER_DEFAULT_DAMAGE);
+    addFocus(this.world, player, 0);
     return player;
   }
 }

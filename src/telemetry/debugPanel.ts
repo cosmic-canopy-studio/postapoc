@@ -1,7 +1,7 @@
 import debug from '@src/config/debug.json';
 import { getLogger } from '@src/telemetry/logger';
 import EventBus from '@src/coreSystems/eventBus';
-import Movement, { IMovement } from '@src/components/movement';
+import Movement, { IMovement } from '@src/movement/movement';
 import { IWorld } from 'bitecs';
 import { Logger } from 'loglevel';
 import { Pane } from 'tweakpane';

@@ -1,4 +1,4 @@
-import { InteractionComponentImpl } from '@src/components/interactionComponent';
+import { InteractionComponentImpl } from '@src/action/interactionComponent';
 import EventBus from '@src/coreSystems/eventBus';
 import { EntityIDPayload } from '@src/config/eventTypes';
 

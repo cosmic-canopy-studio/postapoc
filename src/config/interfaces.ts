@@ -26,3 +26,11 @@ export interface ControlMapping {
   move: Record<string, string>;
   action: Record<string, string>;
 }
+
+export interface IHandler {
+  initialize(): void;
+}
+
+export interface IUpdatableHandler extends IHandler {
+  update();
+}

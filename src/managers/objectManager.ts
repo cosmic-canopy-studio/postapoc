@@ -1,10 +1,10 @@
 import { getLogger } from '@src/telemetry/logger';
 import StaticObjectFactory from '@src/factories/staticObjectFactory';
-import { getBoundingBox, ICollider } from '@src/components/collider';
+import { getBoundingBox, ICollider } from '@src/movement/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
 import { LootTable } from '@src/coreSystems/lootTable';
-import { movementSystem } from '@src/componentSystems/movementSystem';
+import { movementSystem } from '@src/movement/movementSystem';
 
 export default class ObjectManager {
   private logger;

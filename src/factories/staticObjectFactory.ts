@@ -1,5 +1,5 @@
 import ObjectPool from '@src/coreSystems/objectPool';
-import { addCollider } from '@src/components/collider';
+import { addCollider } from '@src/movement/collider';
 import { addHealth } from '@src/components/health';
 import {
   addPhaserSprite,
@@ -7,8 +7,8 @@ import {
 } from '@src/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
-import { addInteractionComponent } from '@src/components/interactionComponent';
-import { interactionMapping } from '@src/config/interactions';
+import { addInteractionComponent } from '@src/action/interactionComponent';
+import { interactionMapping } from '@src/action/interactions';
 import { getLogger } from '@src/telemetry/logger';
 
 export default class StaticObjectFactory {

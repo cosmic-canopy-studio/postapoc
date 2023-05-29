@@ -2,6 +2,7 @@
   "modules": {
     "control": false,
     "collision": false,
+    "entity": false,
     "factories": false,
     "focus": false,
     "health": false,

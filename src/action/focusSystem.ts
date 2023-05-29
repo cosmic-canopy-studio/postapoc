@@ -1,7 +1,8 @@
-import Collider, { getBoundingBox, ICollider } from '@src/components/collider';
+import Collider, { getBoundingBox, ICollider } from '@src/movement/collider';
 import { getLogger } from '@src/telemetry/logger';
 import { PLAYER_FOCUS_DISTANCE } from '@src/config/constants';
 import RBush from 'rbush';
+import * as Phaser from 'phaser';
 
 interface IFocusTarget {
   distance: number;
