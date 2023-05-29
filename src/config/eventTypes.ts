@@ -1,4 +1,5 @@
-import { Actions, MoveDirections } from '@src/config/enums';
+import { Actions } from '@src/action/enums';
+import { MoveDirections } from '@src/movement/enums';
 
 export interface EventPayload {
   state?: boolean;

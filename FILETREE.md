@@ -99,6 +99,7 @@
 |   |-- movement
 |   |   |-- collider.ts
 |   |   |-- collisionSystem.ts
+|   |   |-- enums.ts
 |   |   |-- movement.ts
 |   |   |-- movementHandler.ts
 |   |   `-- movementSystem.ts

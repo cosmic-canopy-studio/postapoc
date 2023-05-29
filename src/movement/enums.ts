@@ -4,8 +4,3 @@ export enum MoveDirections {
   LEFT = 'left',
   RIGHT = 'right',
 }
-
-export enum Actions {
-  ATTACK = 'attack',
-  INTERACT = 'interact',
-}

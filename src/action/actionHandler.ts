@@ -4,7 +4,7 @@ import { interactionSystem } from '@src/action/interactionSystem';
 import { getDamage } from '@src/action/attack';
 import EventBus from '@src/core/eventBus';
 import Health from '@src/entity/health';
-import { Actions } from '@src/config/enums';
+import { Actions } from '@src/action/enums';
 import { getFocusTarget } from '@src/action/focus';
 import { getLogger } from '@src/telemetry/logger';
 import { IHandler } from '@src/config/interfaces';

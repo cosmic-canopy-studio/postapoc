@@ -34,7 +34,7 @@ export function getInteractionComponent(
 }
 
 export class InteractionComponentImpl implements IInteractionComponent {
-  private logger = getLogger('interaction');
+  private logger = getLogger('action');
 
   constructor(public interactions: Interaction[]) {}
 

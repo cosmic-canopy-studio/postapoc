@@ -14,7 +14,7 @@ export function focusSystem(
   objectsSpatialIndex: RBush<ICollider>,
   arrow: Phaser.GameObjects.Sprite
 ): number | null {
-  const logger = getLogger('focus');
+  const logger = getLogger('action');
   const playerBounds = getBoundingBox(playerEid); // assuming getPlayer() method is in PlayerManager
   if (!playerBounds) {
     logger.warn('Player has no bounds');

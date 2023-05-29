@@ -94,12 +94,6 @@
 * update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
 
 
-### Documentation
-
-* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
-* Add script to update FILETREE.md, add other core project docs. ([#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)) ([6d2db67](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d2db67fef5c97da22a424ead39e8b2b1195839e))
-
-
 ### Build System
 
 * add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
@@ -143,4 +137,11 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+
+
+### Documentation
+
+* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
+* add PROMPT.md for use with chatGPT assisted development ([47413b4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/47413b4a842ef563971c46b2564d298a552abc1d))
+* Add script to update FILETREE.md, add other core project docs. ([#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)) ([6d2db67](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d2db67fef5c97da22a424ead39e8b2b1195839e))
 
