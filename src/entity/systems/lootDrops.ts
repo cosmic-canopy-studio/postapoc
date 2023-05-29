@@ -1,14 +1,10 @@
-// Part: src/core/systems/lootTable.ts
-// Code Reference:
-// Documentation:
-
-import item_groups from '@src/config/item_groups.json';
+import item_groups from '@src/entity/data/objects.json';
 import { getLogger } from '@src/telemetry/logger';
 import { IDrop, IItemGroup } from '@src/config/interfaces';
 
-export class LootTable {
-  private itemGroups: IItemGroup;
-  private logger = getLogger('lootTable');
+export class LootDrops {
+  private readonly itemGroups: IItemGroup;
+  private logger = getLogger('entity');
 
   constructor() {
     this.itemGroups = item_groups as IItemGroup;
@@ -25,7 +21,7 @@ export class LootTable {
     group.forEach((drop: IDrop) => {
       for (let i = 0; i < drop.count; i++) {
         const roll = Math.random() * 100;
-        if (roll <= drop.weight) {
+        if (roll <= drop.drop_chance) {
           drops.push(drop.id);
         }
       }

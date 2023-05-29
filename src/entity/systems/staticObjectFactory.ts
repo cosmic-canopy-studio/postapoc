@@ -1,18 +1,21 @@
-import ObjectPool from '@src/entity/objectPool';
-import { addCollider } from '@src/movement/collider';
-import { addHealth } from '@src/entity/health';
-import { addPhaserSprite, removePhaserSprite } from '@src/entity/phaserSprite';
+import ObjectPool from '@src/entity/systems/objectPool';
+import { addCollider } from '@src/movement/components/collider';
+import { addHealth } from '@src/entity/components/health';
+import {
+  addPhaserSprite,
+  removePhaserSprite,
+} from '@src/entity/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
-import { addInteractionComponent } from '@src/action/interactionComponent';
-import { interactionMapping } from '@src/action/interactions';
+import { addInteractionComponent } from '@src/action/components/interaction';
+import { interactionMapping } from '@src/action/data/interactions';
 import { getLogger } from '@src/telemetry/logger';
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
   private readonly world: IWorld;
   private spritePool: ObjectPool<Phaser.GameObjects.Sprite>;
-  private logger = getLogger('factories');
+  private logger = getLogger('entity');
 
   constructor(scene: Phaser.Scene, world: IWorld) {
     this.scene = scene;

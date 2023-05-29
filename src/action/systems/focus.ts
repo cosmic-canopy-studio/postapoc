@@ -1,4 +1,7 @@
-import Collider, { getBoundingBox, ICollider } from '@src/movement/collider';
+import Collider, {
+  getBoundingBox,
+  ICollider,
+} from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/logger';
 import { PLAYER_FOCUS_DISTANCE } from '@src/config/constants';
 import RBush from 'rbush';
@@ -9,7 +12,7 @@ interface IFocusTarget {
   target: ICollider;
 }
 
-export function focusSystem(
+export function focus(
   playerEid: number,
   objectsSpatialIndex: RBush<ICollider>,
   arrow: Phaser.GameObjects.Sprite
@@ -61,7 +64,7 @@ export function focusSystem(
 }
 
 export function setFocus(target: ICollider, arrow: Phaser.GameObjects.Sprite) {
-  const logger = getLogger('focusSystem');
+  const logger = getLogger('action');
   logger.debug(`Setting focus to ${target.eid}`);
   const centerX = target.minX + (target.maxX - target.minX);
 

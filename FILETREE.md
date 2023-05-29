@@ -54,14 +54,18 @@
 |   `-- site.webmanifest
 |-- src
 |   |-- action
-|   |   |-- actionHandler.ts
-|   |   |-- attack.ts
-|   |   |-- enums.ts
-|   |   |-- focus.ts
-|   |   |-- focusSystem.ts
-|   |   |-- interactionComponent.ts
-|   |   |-- interactionSystem.ts
-|   |   `-- interactions.ts
+|   |   |-- components
+|   |   |   |-- attack.ts
+|   |   |   |-- focus.ts
+|   |   |   `-- interaction.ts
+|   |   |-- data
+|   |   |   |-- enums.ts
+|   |   |   |-- events.ts
+|   |   |   `-- interactions.ts
+|   |   `-- systems
+|   |       |-- actionHandler.ts
+|   |       |-- focus.ts
+|   |       `-- interaction.ts
 |   |-- assets
 |   |   |-- menuAssets.json
 |   |   |-- objectAssets.json
@@ -71,46 +75,54 @@
 |   |   |-- constants.ts
 |   |   |-- controlMapping.json
 |   |   |-- debug.json
-|   |   |-- eventTypes.ts
-|   |   |-- interfaces.ts
-|   |   |-- item_groups.json
-|   |   `-- items.json
+|   |   `-- interfaces.ts
 |   |-- core
 |   |   |-- controlSystem.ts
 |   |   |-- eventBus.ts
 |   |   |-- eventHandler.ts
+|   |   |-- events.ts
 |   |   |-- inversify.config.ts
 |   |   |-- keyBindings.ts
 |   |   `-- universe.ts
 |   |-- entity
-|   |   |-- entityHandler.ts
-|   |   |-- health.ts
-|   |   |-- healthSystem.ts
-|   |   |-- lootTable.ts
-|   |   |-- objectPool.ts
-|   |   `-- phaserSprite.ts
-|   |-- factories
-|   |   |-- playerFactory.ts
-|   |   `-- staticObjectFactory.ts
+|   |   |-- components
+|   |   |   |-- health.ts
+|   |   |   `-- phaserSprite.ts
+|   |   |-- data
+|   |   |   |-- events.ts
+|   |   |   |-- items.json
+|   |   |   `-- objects.json
+|   |   `-- systems
+|   |       |-- entityHandler.ts
+|   |       |-- healthSystem.ts
+|   |       |-- lootDrops.ts
+|   |       |-- objectManager.ts
+|   |       |-- objectPool.ts
+|   |       |-- playerFactory.ts
+|   |       |-- playerManager.ts
+|   |       `-- staticObjectFactory.ts
 |   |-- main.ts
-|   |-- managers
-|   |   |-- objectManager.ts
-|   |   `-- playerManager.ts
 |   |-- movement
-|   |   |-- collider.ts
-|   |   |-- collisionSystem.ts
-|   |   |-- enums.ts
-|   |   |-- movement.ts
-|   |   |-- movementHandler.ts
-|   |   `-- movementSystem.ts
+|   |   |-- components
+|   |   |   |-- collider.ts
+|   |   |   `-- movement.ts
+|   |   |-- data
+|   |   |   |-- enums.ts
+|   |   |   `-- events.ts
+|   |   `-- systems
+|   |       |-- collision.ts
+|   |       |-- movement.ts
+|   |       `-- movementHandler.ts
 |   |-- scenes
 |   |   |-- bootScene.ts
 |   |   |-- mainScene.ts
 |   |   `-- titleScene.ts
 |   |-- telemetry
 |   |   |-- debugPanel.ts
+|   |   |-- events.ts
 |   |   `-- logger.ts
 |   |-- time
+|   |   |-- events.ts
 |   |   |-- phaserTimeController.ts
 |   |   `-- timeSystem.ts
 |   `-- utils

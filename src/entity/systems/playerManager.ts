@@ -1,9 +1,9 @@
-import PlayerFactory from '@src/factories/playerFactory';
+import PlayerFactory from '@src/entity/systems/playerFactory';
 import { getLogger } from '@src/telemetry/logger';
 import DebugPanel from '@src/telemetry/debugPanel';
 import ControlSystem from '@src/core/controlSystem';
 import { IWorld } from 'bitecs';
-import { healthSystem } from '@src/entity/healthSystem';
+import { healthSystem } from '@src/entity/systems/healthSystem';
 
 export default class PlayerManager {
   private logger;
@@ -13,7 +13,7 @@ export default class PlayerManager {
   private debugPanel!: DebugPanel;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
-    this.logger = getLogger('universe');
+    this.logger = getLogger('core');
     this.world = world;
   }
 

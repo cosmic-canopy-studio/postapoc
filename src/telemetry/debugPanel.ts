@@ -1,14 +1,14 @@
 import debug from '@src/config/debug.json';
 import { getLogger } from '@src/telemetry/logger';
 import EventBus from '@src/core/eventBus';
-import Movement, { IMovement } from '@src/movement/movement';
+import Movement, { IMovement } from '@src/movement/components/movement';
 import { IWorld } from 'bitecs';
 import { Logger } from 'loglevel';
 import { Pane } from 'tweakpane';
 
 export default class DebugPanel {
   private pane: Pane;
-  private logger = getLogger('DebugPanel');
+  private logger = getLogger('telemetry');
   private readonly modules: Record<string, boolean>;
   private readonly events: Record<string, boolean>;
   private playerFolder: any;

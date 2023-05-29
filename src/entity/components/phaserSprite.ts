@@ -2,7 +2,7 @@ import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import Phaser from 'phaser';
 import { getLogger } from '@src/telemetry/logger';
 
-const logger = getLogger('phaserSprite');
+const logger = getLogger('entity');
 const phaserSprites: Phaser.GameObjects.Sprite[] = [];
 
 const PhaserSprite = defineComponent({

@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/logger';
-import { getBoundingBox, ICollider } from '@src/movement/collider';
+import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
 
@@ -8,7 +8,7 @@ export function handleCollision(
   world: IWorld,
   objectsSpatialIndex: RBush<ICollider>
 ): number {
-  const logger = getLogger('collision');
+  const logger = getLogger('movement');
   const searchBounds = getBoundingBox(eid);
   if (!searchBounds) {
     logger.error(`Could not find bounding box for entity ${eid}`);

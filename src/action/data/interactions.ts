@@ -1,17 +1,16 @@
-import { InteractionComponentImpl } from '@src/action/interactionComponent';
+import { InteractionComponentImpl } from '@src/action/components/interaction';
 import EventBus from '@src/core/eventBus';
-import { EntityIDPayload } from '@src/config/eventTypes';
 import { getLogger } from '@src/telemetry/logger';
 
 export type InteractionAction = (data?: any) => void;
 
-export interface Interaction {
+export interface IInteraction {
   name: string;
   action: InteractionAction;
   data?: any;
 }
 
-export const doorInteractions: Interaction[] = [
+export const doorInteractions: IInteraction[] = [
   {
     name: 'Open',
     action: () => {
@@ -37,7 +36,7 @@ export const doorInteractions: Interaction[] = [
   },
 ];
 
-export const treeInteractions: Interaction[] = [
+export const treeInteractions: IInteraction[] = [
   {
     name: 'Chop Down',
     action: () => {
@@ -46,12 +45,12 @@ export const treeInteractions: Interaction[] = [
   },
 ];
 
-export const itemInteractions: Interaction[] = [
+export const itemInteractions: IInteraction[] = [
   {
     name: 'PickUp',
     action: (data: { eid: number }) => {
       getLogger('action').info('Player picks up the item.');
-      EventBus.emit('itemPickedUp', { eid: data.eid } as EntityIDPayload);
+      EventBus.emit('itemPickedUp', { eid: data.eid });
     },
     data: {
       eid: null,

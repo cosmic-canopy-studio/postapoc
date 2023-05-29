@@ -1,27 +1,27 @@
 import { getLogger } from '@src/telemetry/logger';
-import StaticObjectFactory from '@src/factories/staticObjectFactory';
-import { getBoundingBox, ICollider } from '@src/movement/collider';
+import StaticObjectFactory from '@src/entity/systems/staticObjectFactory';
+import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
-import { LootTable } from '@src/entity/lootTable';
-import { movementSystem } from '@src/movement/movementSystem';
+import { LootDrops } from '@src/entity/systems/lootDrops';
+import { movement } from '@src/movement/systems/movement';
 
 export default class ObjectManager {
   private logger;
   private staticObjectFactory!: StaticObjectFactory;
   private objectSpatialIndex!: RBush<ICollider>;
-  private lootTable!: LootTable;
+  private lootTable!: LootDrops;
   private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
-    this.logger = getLogger('objectManager');
+    this.logger = getLogger('entity');
     this.world = world;
   }
 
   initialize() {
     this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.objectSpatialIndex = new RBush<ICollider>();
-    this.lootTable = new LootTable();
+    this.lootTable = new LootDrops();
     this.logger.debug('ObjectManager initialized');
   }
 
@@ -70,11 +70,7 @@ export default class ObjectManager {
   }
 
   update(adjustedDeltaTime: number) {
-    movementSystem(
-      this.world,
-      adjustedDeltaTime / 1000,
-      this.objectSpatialIndex
-    );
+    movement(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
   }
 
   public getStaticObjectFactory() {

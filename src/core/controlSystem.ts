@@ -4,15 +4,15 @@ import EventBus from '@src/core/eventBus';
 import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
 import { ControlMapping } from '@src/config/interfaces';
-import { MoveDirections } from '@src/movement/enums';
-import { Actions } from '@src/action/enums';
+import { MoveDirections } from '@src/movement/data/enums';
+import { Actions } from '@src/action/data/enums';
 
 export default class ControlSystem {
   private player!: number;
   private scene!: Phaser.Scene;
   private keyBindings: KeyBindings;
   private pressedKeys: Set<string> = new Set();
-  private logger = getLogger('control');
+  private logger = getLogger('core');
 
   constructor() {
     const controlMapping: ControlMapping = controlMappingJson as ControlMapping;

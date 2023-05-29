@@ -109,6 +109,13 @@
 * update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
 
 
+### Documentation
+
+* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
+* add PROMPT.md for use with chatGPT assisted development ([47413b4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/47413b4a842ef563971c46b2564d298a552abc1d))
+* Add script to update FILETREE.md, add other core project docs. ([#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)) ([6d2db67](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d2db67fef5c97da22a424ead39e8b2b1195839e))
+
+
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -118,11 +125,14 @@
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
+* move enums to relevant feature folder ([8ae0f26](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ae0f26beb7bdb96ec32caf1ee2dd67834677e28))
+* move events to relevant feature folder ([3b4d554](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3b4d554b254458981d1debc19b04ce28215069e0))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
 * move major systems from main scene to universe, reorganize files ([5790ce9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5790ce974f67e55b16ed31268702183b7897169f))
 * move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
 * move major systems from main scene to universe, reorganize files ([4d72f95](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4d72f955747fe22e88a1a137b61869e6767a128a))
 * move speed to variable ([7a0796f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7a0796fb92ba196d48c792dcc29bb52ab2d2585b))
+* organize action feature files by type ([cdac7ab](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cdac7abb66d6a439de57b16d34ff11193d16e550))
 * project cleanup ([87ebbd1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/87ebbd186442aedecf5a751012f693e555d5754e))
 * project cleanup ([8c91038](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c910380919c2cf5b64a6ed9fb5eba3e2cb8dc13))
 * project cleanup ([54aa0bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/54aa0bda5748964d28af0bfc64f125330fc6928e))
@@ -131,17 +141,11 @@
 * remove phaser testing ([d9399d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9399d0b34527450f55dba2af798bb3592e9bb5e))
 * remove unneeded variable ([570c6a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/570c6a9814eacaac8d2b2b577e1002f2f3f4c97f))
 * removing react and other excess packages to simplify project ([9030395](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/903039591eb1faf1adfed9aa14148eae38eff852))
+* simplify debug logging with uniform feature name ([38a11de](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/38a11deb977ac60a30e9905f82772a23d01d7f66))
 * simplify move events ([8af7ac8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8af7ac80447a045a71bdef4fd7de890326fc840d))
 * simplify move events ([d9904f4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9904f4d752cd4a1ef1ec4383e66e26429343ad0))
 * staticObject, objectPool ([a065345](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a0653454f5605c367e4d7b179c98441fc2e87fe7))
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-
-
-### Documentation
-
-* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
-* add PROMPT.md for use with chatGPT assisted development ([47413b4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/47413b4a842ef563971c46b2564d298a552abc1d))
-* Add script to update FILETREE.md, add other core project docs. ([#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)) ([6d2db67](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d2db67fef5c97da22a424ead39e8b2b1195839e))
 

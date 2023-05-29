@@ -1,8 +1,8 @@
-import PlayerManager from '@src/managers/playerManager';
-import ObjectManager from '@src/managers/objectManager';
-import { MovementHandler } from '@src/movement/movementHandler';
-import { ActionHandler } from '@src/action/actionHandler';
-import { EntityHandler } from '@src/entity/entityHandler';
+import PlayerManager from '@src/entity/systems/playerManager';
+import ObjectManager from '@src/entity/systems/objectManager';
+import { MovementHandler } from '@src/movement/systems/movementHandler';
+import { ActionHandler } from '@src/action/systems/actionHandler';
+import { EntityHandler } from '@src/entity/systems/entityHandler';
 import { getLogger } from '@src/telemetry/logger';
 import { IWorld } from 'bitecs';
 import { IHandler, IUpdatableHandler } from '@src/config/interfaces';
@@ -10,8 +10,8 @@ import * as Phaser from 'phaser';
 
 export default class EventHandler {
   private logger;
-  private playerManager: PlayerManager;
-  private objectManager: ObjectManager;
+  private readonly playerManager: PlayerManager;
+  private readonly objectManager: ObjectManager;
   private world: IWorld;
   private nonUpdateHandlers: IHandler[];
   private updateHandlers: IUpdatableHandler[];
@@ -21,7 +21,7 @@ export default class EventHandler {
     objectManager: ObjectManager,
     world: IWorld
   ) {
-    this.logger = getLogger('universe');
+    this.logger = getLogger('core');
     this.playerManager = playerManager;
     this.objectManager = objectManager;
     this.world = world;
@@ -42,7 +42,7 @@ export default class EventHandler {
     this.nonUpdateHandlers.push(handler);
   }
 
-  addUpdateHandler(handler: IHandler): void {
+  addUpdateHandler(handler: IUpdatableHandler): void {
     this.updateHandlers.push(handler);
   }
 

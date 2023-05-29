@@ -1,13 +1,16 @@
-import { ActionEventPayload, DamageEventPayload } from '@src/config/eventTypes';
-import { getInteractionComponent } from '@src/action/interactionComponent';
-import { interactionSystem } from '@src/action/interactionSystem';
-import { getDamage } from '@src/action/attack';
+import { getInteractionComponent } from '@src/action/components/interaction';
+import { interaction } from '@src/action/systems/interaction';
+import { getDamage } from '@src/action/components/attack';
 import EventBus from '@src/core/eventBus';
-import Health from '@src/entity/health';
-import { Actions } from '@src/action/enums';
-import { getFocusTarget } from '@src/action/focus';
+import Health from '@src/entity/components/health';
+import { Actions } from '@src/action/data/enums';
+import { getFocusTarget } from '@src/action/components/focus';
 import { getLogger } from '@src/telemetry/logger';
 import { IHandler } from '@src/config/interfaces';
+import {
+  ActionEventPayload,
+  DamageEventPayload,
+} from '@src/action/data/events';
 
 export class ActionHandler implements IHandler {
   private logger;
@@ -56,7 +59,7 @@ export class ActionHandler implements IHandler {
       const interactionComponent = getInteractionComponent(focusedObject);
       if (interactionComponent) {
         const interactionName = 'PickUp';
-        interactionSystem(focusedObject, interactionName);
+        interaction(focusedObject, interactionName);
       } else {
         this.logger.info(`No interaction component found for ${focusedObject}`);
       }

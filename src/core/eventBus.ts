@@ -1,13 +1,21 @@
 import { getLogger } from '@src/telemetry/logger';
 import mitt, { Emitter, WildcardHandler } from 'mitt';
-import { Events } from '@src/config/eventTypes';
+import { MovementEvents } from '@src/movement/data/events';
+import { ActionEvents } from '@src/action/data/events';
+import { TelemetryEvents } from '@src/telemetry/events';
+import { EntityEvents } from '@src/entity/data/events';
+import { CoreEvents } from '@src/core/events';
+
+type Events = CoreEvents &
+  MovementEvents &
+  ActionEvents &
+  TelemetryEvents &
+  EntityEvents;
 
 const EventBus: Emitter<Events> = mitt<Events>();
 
 const wildcardHandler: WildcardHandler<Events> = (event, type) => {
-  getLogger('eventBus').debug(
-    `Event triggered: ${event} ${JSON.stringify(type)}`
-  );
+  getLogger('core').debug(`Event triggered: ${event} ${JSON.stringify(type)}`);
 };
 
 EventBus.on('*', wildcardHandler);
