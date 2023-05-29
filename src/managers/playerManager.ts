@@ -1,9 +1,9 @@
 import PlayerFactory from '@src/factories/playerFactory';
 import { getLogger } from '@src/telemetry/logger';
 import DebugPanel from '@src/telemetry/debugPanel';
-import ControlSystem from '@src/coreSystems/controlSystem';
+import ControlSystem from '@src/core/controlSystem';
 import { IWorld } from 'bitecs';
-import { healthSystem } from '@src/componentSystems/healthSystem';
+import { healthSystem } from '@src/entity/healthSystem';
 
 export default class PlayerManager {
   private logger;

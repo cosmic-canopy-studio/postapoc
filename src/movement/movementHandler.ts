@@ -3,7 +3,7 @@ import { MoveDirections } from '@src/config/enums';
 import { getLogger } from '@src/telemetry/logger';
 import { MOVEMENT_SPEED } from '@src/config/constants';
 import Movement from '@src/movement/movement';
-import EventBus from '@src/coreSystems/eventBus';
+import EventBus from '@src/core/eventBus';
 import { IHandler } from '@src/config/interfaces';
 
 export class MovementHandler implements IHandler {

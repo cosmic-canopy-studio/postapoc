@@ -1,13 +1,13 @@
 import { getLogger } from '@src/telemetry/logger';
 import { DestroyEntityEventPayload } from '@src/config/eventTypes';
-import { getSprite } from '@src/components/phaserSprite';
+import { getSprite } from '@src/entity/phaserSprite';
 import { getCollider } from '@src/movement/collider';
 import { focusSystem } from '@src/action/focusSystem';
 import { Focus, getFocusTarget, updateFocusTarget } from '@src/action/focus';
 import PlayerManager from '@src/managers/playerManager';
 import ObjectManager from '@src/managers/objectManager';
 import * as Phaser from 'phaser';
-import EventBus from '@src/coreSystems/eventBus';
+import EventBus from '@src/core/eventBus';
 import { IUpdatableHandler } from '@src/config/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/config/constants';
 

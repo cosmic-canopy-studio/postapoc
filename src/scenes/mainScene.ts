@@ -1,6 +1,6 @@
-import Universe from '@src/coreSystems/universe';
+import Universe from '@src/core/universe';
 import Phaser from 'phaser';
-import { TimeState } from '@src/coreSystems/timeSystem';
+import { TimeState } from '@src/time/timeSystem';
 
 export default class MainScene extends Phaser.Scene {
   private universe!: Universe;

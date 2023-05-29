@@ -1,9 +1,5 @@
-// Part: src/ecs/components/collider.ts
-// Code Reference:
-// Documentation:
-
 import logger from '@src/telemetry/logger';
-import { getSprite } from '@src/components/phaserSprite';
+import { getSprite } from '@src/entity/phaserSprite';
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import { BBox } from 'rbush';
 

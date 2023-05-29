@@ -1,10 +1,11 @@
 import { getLogger } from '@src/telemetry/logger';
 import PlayerManager from '@src/managers/playerManager';
 import ObjectManager from '@src/managers/objectManager';
-import EventHandler from '@src/coreSystems/eventHandler';
-import { TimeState, TimeSystem } from '@src/coreSystems/timeSystem';
-import { PhaserTimeController } from '@src/coreSystems/phaserTimeController';
+import EventHandler from '@src/core/eventHandler';
+import { TimeState, TimeSystem } from '@src/time/timeSystem';
+import { PhaserTimeController } from '@src/time/phaserTimeController';
 import { createWorld, IWorld } from 'bitecs';
+import * as Phaser from 'phaser';
 
 export default class Universe {
   private logger;

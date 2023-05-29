@@ -1,10 +1,7 @@
-import ObjectPool from '@src/coreSystems/objectPool';
+import ObjectPool from '@src/entity/objectPool';
 import { addCollider } from '@src/movement/collider';
-import { addHealth } from '@src/components/health';
-import {
-  addPhaserSprite,
-  removePhaserSprite,
-} from '@src/components/phaserSprite';
+import { addHealth } from '@src/entity/health';
+import { addPhaserSprite, removePhaserSprite } from '@src/entity/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
 import { addInteractionComponent } from '@src/action/interactionComponent';

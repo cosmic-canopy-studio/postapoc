@@ -1,7 +1,7 @@
 import { addCollider } from '@src/movement/collider';
-import { addHealth } from '@src/components/health';
+import { addHealth } from '@src/entity/health';
 import { addMovement } from '@src/movement/movement';
-import { addPhaserSprite } from '@src/components/phaserSprite';
+import { addPhaserSprite } from '@src/entity/phaserSprite';
 import { addEntity, IWorld } from 'bitecs';
 import Phaser from 'phaser';
 import { addAttack } from '@src/action/attack';

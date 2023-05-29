@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/logger';
-import EventBus from '@src/coreSystems/eventBus';
+import EventBus from '@src/core/eventBus';
 import { inject, injectable } from 'inversify';
 import { Scene } from 'phaser';
 import { ITimeController } from '@src/config/interfaces';

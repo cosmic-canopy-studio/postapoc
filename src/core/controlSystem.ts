@@ -1,7 +1,7 @@
 import controlMappingJson from '@src/config/controlMapping.json';
 import { getLogger } from '@src/telemetry/logger';
-import EventBus from '@src/coreSystems/eventBus';
-import { GameAction, KeyBindings } from '@src/coreSystems/keyBindings';
+import EventBus from '@src/core/eventBus';
+import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
 import { ControlMapping } from '@src/config/interfaces';
 import { Actions, MoveDirections } from '@src/config/enums';

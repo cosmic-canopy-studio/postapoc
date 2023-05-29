@@ -67,11 +67,6 @@
 │   │   ├── objectAssets.json
 │   │   ├── terrainAssets.json
 │   │   └── uiAssets.json
-│   ├── componentSystems
-│   │   └── healthSystem.ts
-│   ├── components
-│   │   ├── health.ts
-│   │   └── phaserSprite.ts
 │   ├── config
 │   │   ├── constants.ts
 │   │   ├── controlMapping.json
@@ -81,19 +76,20 @@
 │   │   ├── interfaces.ts
 │   │   ├── item_groups.json
 │   │   └── items.json
-│   ├── coreSystems
+│   ├── core
 │   │   ├── controlSystem.ts
 │   │   ├── eventBus.ts
 │   │   ├── eventHandler.ts
 │   │   ├── inversify.config.ts
 │   │   ├── keyBindings.ts
-│   │   ├── lootTable.ts
-│   │   ├── objectPool.ts
-│   │   ├── phaserTimeController.ts
-│   │   ├── timeSystem.ts
 │   │   └── universe.ts
 │   ├── entity
-│   │   └── entityHandler.ts
+│   │   ├── entityHandler.ts
+│   │   ├── health.ts
+│   │   ├── healthSystem.ts
+│   │   ├── lootTable.ts
+│   │   ├── objectPool.ts
+│   │   └── phaserSprite.ts
 │   ├── factories
 │   │   ├── playerFactory.ts
 │   │   └── staticObjectFactory.ts
@@ -114,6 +110,9 @@
 │   ├── telemetry
 │   │   ├── debugPanel.ts
 │   │   └── logger.ts
+│   ├── time
+│   │   ├── phaserTimeController.ts
+│   │   └── timeSystem.ts
 │   └── utils
 │       └── svgUtils.ts
 ├── temp.txt

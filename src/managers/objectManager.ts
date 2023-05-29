@@ -3,7 +3,7 @@ import StaticObjectFactory from '@src/factories/staticObjectFactory';
 import { getBoundingBox, ICollider } from '@src/movement/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
-import { LootTable } from '@src/coreSystems/lootTable';
+import { LootTable } from '@src/entity/lootTable';
 import { movementSystem } from '@src/movement/movementSystem';
 
 export default class ObjectManager {

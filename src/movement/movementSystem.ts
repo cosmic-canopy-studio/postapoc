@@ -1,6 +1,6 @@
 import { ICollider, updateSpriteColliderBounds } from '@src/movement/collider';
 import Movement from '@src/movement/movement';
-import { getSprite } from '@src/components/phaserSprite';
+import { getSprite } from '@src/entity/phaserSprite';
 import { handleCollision } from '@src/movement/collisionSystem';
 import { defineQuery, IWorld } from 'bitecs';
 import RBush from 'rbush';
