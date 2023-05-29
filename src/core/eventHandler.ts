@@ -1,8 +1,8 @@
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
-import { MovementHandler } from '@src/movement/systems/movementHandler';
-import { ActionHandler } from '@src/action/systems/actionHandler';
-import { EntityHandler } from '@src/entity/systems/entityHandler';
+import MovementHandler from '@src/movement/systems/movementHandler';
+import ActionHandler from '@src/action/systems/actionHandler';
+import EntityHandler from '@src/entity/systems/entityHandler';
 import { getLogger } from '@src/telemetry/logger';
 import { IWorld } from 'bitecs';
 import { IHandler, IUpdatableHandler } from '@src/config/interfaces';
@@ -12,7 +12,7 @@ export default class EventHandler {
   private logger;
   private readonly playerManager: PlayerManager;
   private readonly objectManager: ObjectManager;
-  private world: IWorld;
+  private readonly world: IWorld;
   private nonUpdateHandlers: IHandler[];
   private updateHandlers: IUpdatableHandler[];
 
@@ -33,7 +33,12 @@ export default class EventHandler {
     this.addNonUpdateHandler(new MovementHandler());
     this.addNonUpdateHandler(new ActionHandler());
     this.addUpdateHandler(
-      new EntityHandler(scene, this.playerManager, this.objectManager)
+      new EntityHandler(
+        scene,
+        this.playerManager,
+        this.objectManager,
+        this.world
+      )
     );
     this.initializeHandlers();
   }

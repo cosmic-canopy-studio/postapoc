@@ -7,6 +7,8 @@ export interface DebugEventPayload extends EventPayload {
 
 export interface TelemetryEventsMap {
   debug: DebugEventPayload;
+  debugPanel: EventPayload;
+  toggleDebug: EventPayload;
 }
 
 export type TelemetryEvents = {

@@ -6,6 +6,7 @@ export interface EntityIDPayload extends EventPayload {
 
 export interface EntityEventsMap {
   destroyEntity: EntityIDPayload;
+  itemPickedUp: EntityIDPayload;
 }
 
 export type EntityEvents = {

@@ -3,10 +3,10 @@ import { MOVEMENT_SPEED } from '@src/config/constants';
 import Movement from '@src/movement/components/movement';
 import EventBus from '@src/core/eventBus';
 import { IHandler } from '@src/config/interfaces';
-import { MoveDirections } from '@src/movement/data/enums';
+import { MoveActions } from '@src/movement/data/enums';
 import { MoveEventPayload } from '@src/movement/data/events';
 
-export class MovementHandler implements IHandler {
+export default class MovementHandler implements IHandler {
   private logger;
 
   constructor() {
@@ -23,33 +23,33 @@ export class MovementHandler implements IHandler {
 
   private handleMovement(
     state: boolean,
-    direction: MoveDirections,
+    direction: MoveActions,
     entityId: number
   ) {
     const speed = MOVEMENT_SPEED;
     if (state) {
       switch (direction) {
-        case MoveDirections.UP:
+        case MoveActions.UP:
           Movement.ySpeed[entityId] = -speed;
           break;
-        case MoveDirections.DOWN:
+        case MoveActions.DOWN:
           Movement.ySpeed[entityId] = speed;
           break;
-        case MoveDirections.LEFT:
+        case MoveActions.LEFT:
           Movement.xSpeed[entityId] = -speed;
           break;
-        case MoveDirections.RIGHT:
+        case MoveActions.RIGHT:
           Movement.xSpeed[entityId] = speed;
           break;
       }
     } else {
       switch (direction) {
-        case MoveDirections.UP:
-        case MoveDirections.DOWN:
+        case MoveActions.UP:
+        case MoveActions.DOWN:
           Movement.ySpeed[entityId] = 0;
           break;
-        case MoveDirections.LEFT:
-        case MoveDirections.RIGHT:
+        case MoveActions.LEFT:
+        case MoveActions.RIGHT:
           Movement.xSpeed[entityId] = 0;
           break;
       }

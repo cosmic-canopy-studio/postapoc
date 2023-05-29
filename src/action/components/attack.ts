@@ -13,7 +13,7 @@ export function addAttack(world: IWorld, entity: number, damage: number) {
   Attack.damage[entity] = damage;
 }
 
-export function getDamage(entity: number) {
+export function getAttackDamage(entity: number) {
   return Attack.damage[entity];
 }
 
