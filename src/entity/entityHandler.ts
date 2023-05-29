@@ -2,8 +2,12 @@ import { getLogger } from '@src/telemetry/logger';
 import { DestroyEntityEventPayload } from '@src/core/events';
 import { getSprite } from '@src/entity/phaserSprite';
 import { getCollider } from '@src/movement/collider';
-import { focusSystem } from '@src/action/focusSystem';
-import { Focus, getFocusTarget, updateFocusTarget } from '@src/action/focus';
+import { focus } from '@src/action/systems/focus';
+import {
+  Focus,
+  getFocusTarget,
+  updateFocusTarget,
+} from '@src/action/components/focus';
 import PlayerManager from '@src/entity/playerManager';
 import ObjectManager from '@src/entity/objectManager';
 import * as Phaser from 'phaser';
@@ -37,7 +41,7 @@ export class EntityHandler implements IUpdatableHandler {
     let focusTarget = getFocusTarget(player);
     if (focusTarget === 0) {
       this.logger.debug(`No focus target set for ${player}`);
-      focusTarget = focusSystem(
+      focusTarget = focus(
         player,
         this.objectManager.getObjectSpatialIndex(),
         this.arrow

@@ -1,7 +1,7 @@
-import { getInteractionComponent } from '@src/action/interactionComponent';
+import { getInteractionComponent } from '@src/action/components/interactionComponent';
 import { getLogger } from '@src/telemetry/logger';
 
-export function interactionSystem(eid: number, interactionName: string): void {
+export function interaction(eid: number, interactionName: string): void {
   const interactionComponent = getInteractionComponent(eid);
   const logger = getLogger('action');
   if (interactionComponent) {

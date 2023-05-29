@@ -3,8 +3,6 @@
     {
       "id": "backpack",
       "name": "Backpack",
-      "weight": 1,
-      "volume": 10,
       "category": "container"
     },
     {

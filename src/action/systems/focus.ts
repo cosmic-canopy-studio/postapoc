@@ -9,7 +9,7 @@ interface IFocusTarget {
   target: ICollider;
 }
 
-export function focusSystem(
+export function focus(
   playerEid: number,
   objectsSpatialIndex: RBush<ICollider>,
   arrow: Phaser.GameObjects.Sprite

@@ -14,7 +14,7 @@ export interface ITimeSystem {
 
 export interface IDrop {
   id: string;
-  weight: number;
+  drop_chance: number;
   count: number;
 }
 
@@ -32,5 +32,5 @@ export interface IHandler {
 }
 
 export interface IUpdatableHandler extends IHandler {
-  update();
+  update(): void;
 }

@@ -140,6 +140,7 @@
 * remove phaser testing ([d9399d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9399d0b34527450f55dba2af798bb3592e9bb5e))
 * remove unneeded variable ([570c6a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/570c6a9814eacaac8d2b2b577e1002f2f3f4c97f))
 * removing react and other excess packages to simplify project ([9030395](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/903039591eb1faf1adfed9aa14148eae38eff852))
+* simplify debug logging with uniform feature name ([38a11de](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/38a11deb977ac60a30e9905f82772a23d01d7f66))
 * simplify move events ([8af7ac8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8af7ac80447a045a71bdef4fd7de890326fc840d))
 * simplify move events ([d9904f4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9904f4d752cd4a1ef1ec4383e66e26429343ad0))
 * staticObject, objectPool ([a065345](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a0653454f5605c367e4d7b179c98441fc2e87fe7))

@@ -52,18 +52,20 @@
 |   |   |-- favicon-32x32.png
 |   |   `-- favicon.ico
 |   `-- site.webmanifest
-|-- qodana.yaml
 |-- src
 |   |-- action
-|   |   |-- actionHandler.ts
-|   |   |-- attack.ts
-|   |   |-- enums.ts
-|   |   |-- events.ts
-|   |   |-- focus.ts
-|   |   |-- focusSystem.ts
-|   |   |-- interactionComponent.ts
-|   |   |-- interactionSystem.ts
-|   |   `-- interactions.ts
+|   |   |-- components
+|   |   |   |-- attack.ts
+|   |   |   |-- focus.ts
+|   |   |   `-- interactionComponent.ts
+|   |   |-- data
+|   |   |   |-- enums.ts
+|   |   |   |-- events.ts
+|   |   |   `-- interactions.ts
+|   |   `-- systems
+|   |       |-- actionHandler.ts
+|   |       |-- focus.ts
+|   |       `-- interaction.ts
 |   |-- assets
 |   |   |-- menuAssets.json
 |   |   |-- objectAssets.json
@@ -74,8 +76,8 @@
 |   |   |-- controlMapping.json
 |   |   |-- debug.json
 |   |   |-- interfaces.ts
-|   |   |-- item_groups.json
-|   |   `-- items.json
+|   |   |-- items.json
+|   |   `-- objects.json
 |   |-- core
 |   |   |-- controlSystem.ts
 |   |   |-- eventBus.ts
@@ -85,6 +87,8 @@
 |   |   |-- keyBindings.ts
 |   |   `-- universe.ts
 |   |-- entity
+|   |   |-- components
+|   |   |-- data
 |   |   |-- entityHandler.ts
 |   |   |-- events.ts
 |   |   |-- health.ts
@@ -95,7 +99,8 @@
 |   |   |-- phaserSprite.ts
 |   |   |-- playerFactory.ts
 |   |   |-- playerManager.ts
-|   |   `-- staticObjectFactory.ts
+|   |   |-- staticObjectFactory.ts
+|   |   `-- systems
 |   |-- main.ts
 |   |-- movement
 |   |   |-- collider.ts

@@ -1,7 +1,7 @@
 import PlayerManager from '@src/entity/playerManager';
 import ObjectManager from '@src/entity/objectManager';
 import { MovementHandler } from '@src/movement/movementHandler';
-import { ActionHandler } from '@src/action/actionHandler';
+import { ActionHandler } from '@src/action/systems/actionHandler';
 import { EntityHandler } from '@src/entity/entityHandler';
 import { getLogger } from '@src/telemetry/logger';
 import { IWorld } from 'bitecs';

@@ -1,5 +1,5 @@
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
-import { Interaction } from '@src/action/interactions';
+import { Interaction } from '@src/action/data/interactions';
 import { getLogger } from '@src/telemetry/logger';
 
 export interface IInteractionComponent {

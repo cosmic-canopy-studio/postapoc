@@ -4,8 +4,8 @@ import { addHealth } from '@src/entity/health';
 import { addPhaserSprite, removePhaserSprite } from '@src/entity/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
-import { addInteractionComponent } from '@src/action/interactionComponent';
-import { interactionMapping } from '@src/action/interactions';
+import { addInteractionComponent } from '@src/action/components/interactionComponent';
+import { interactionMapping } from '@src/action/data/interactions';
 import { getLogger } from '@src/telemetry/logger';
 
 export default class StaticObjectFactory {

@@ -1,4 +1,4 @@
-import { InteractionComponentImpl } from '@src/action/interactionComponent';
+import { InteractionComponentImpl } from '@src/action/components/interactionComponent';
 import EventBus from '@src/core/eventBus';
 import { getLogger } from '@src/telemetry/logger';
 
