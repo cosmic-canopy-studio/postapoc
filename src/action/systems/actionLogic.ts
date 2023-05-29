@@ -1,10 +1,10 @@
 import { getAttackDamage } from '@src/action/components/attack';
 import EventBus from '@src/core/eventBus';
 import { getFocusTarget } from '@src/action/components/focus';
-import Action from '@src/action/systems/action';
+import Interfaces from '@src/action/data/interfaces';
 
-const Actions: Record<string, Action> = {
-  attack: new Action('attack', (entity: number) => {
+const ActionLogic: Record<string, Interfaces> = {
+  attack: new Interfaces('attack', (entity: number) => {
     const damage = getAttackDamage(entity);
     const focusedObject = getFocusTarget(entity);
     if (focusedObject) {
@@ -17,7 +17,7 @@ const Actions: Record<string, Action> = {
       message: `${entity} tried to attack, but there was no target`,
     };
   }),
-  pickUp: new Action('pickUp', (entity: number) => {
+  pickUp: new Interfaces('pickUp', (entity: number) => {
     const focusedObject = getFocusTarget(entity);
     if (focusedObject) {
       EventBus.emit('itemPickedUp', { entityId: entity });
@@ -31,4 +31,4 @@ const Actions: Record<string, Action> = {
   }),
 };
 
-export default Actions;
+export default ActionLogic;

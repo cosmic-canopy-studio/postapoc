@@ -1,8 +1,8 @@
-import { MoveDirections } from './enums';
+import { MoveActions } from './enums';
 
 export interface MoveEventPayload {
   state: boolean;
-  action: MoveDirections;
+  action: MoveActions;
   entity: number;
 }
 

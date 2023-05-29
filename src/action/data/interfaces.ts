@@ -7,7 +7,7 @@ export interface ActionComponent {
   execute(entity: number): ActionResult;
 }
 
-export default class Action implements ActionComponent {
+export default class Interfaces implements ActionComponent {
   constructor(
     public name: string,
     public execute: (entity: number) => ActionResult

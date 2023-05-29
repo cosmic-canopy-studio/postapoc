@@ -6,7 +6,7 @@ import {
   ActionEventPayload,
   DamageEventPayload,
 } from '@src/action/data/events';
-import Actions from '@src/action/data/actions';
+import ActionLogic from '@src/action/systems/actionLogic';
 
 export default class ActionHandler implements IHandler {
   private logger;
@@ -23,7 +23,7 @@ export default class ActionHandler implements IHandler {
   onAction(payload: ActionEventPayload) {
     this.logger.debug(`Action event received: ${JSON.stringify(payload)}`);
     const { action, entity } = payload;
-    const result = Actions[action].execute(entity);
+    const result = ActionLogic[action].execute(entity);
     this.logger.info(result.message);
   }
 

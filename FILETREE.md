@@ -58,12 +58,12 @@
 |   |   |   |-- attack.ts
 |   |   |   `-- focus.ts
 |   |   |-- data
-|   |   |   |-- actions.ts
 |   |   |   |-- enums.ts
-|   |   |   `-- events.ts
+|   |   |   |-- events.ts
+|   |   |   `-- interfaces.ts
 |   |   `-- systems
-|   |       |-- action.ts
 |   |       |-- actionHandler.ts
+|   |       |-- actionLogic.ts
 |   |       `-- focus.ts
 |   |-- assets
 |   |   |-- menuAssets.json
@@ -80,6 +80,7 @@
 |   |   |-- eventBus.ts
 |   |   |-- eventHandler.ts
 |   |   |-- events.ts
+|   |   |-- interfaces.ts
 |   |   |-- inversify.config.ts
 |   |   |-- keyBindings.ts
 |   |   `-- universe.ts
@@ -119,9 +120,11 @@
 |   |   `-- titleScene.ts
 |   |-- telemetry
 |   |   |-- debugPanel.ts
+|   |   |-- enums.ts
 |   |   |-- events.ts
 |   |   `-- logger.ts
 |   |-- time
+|   |   |-- enums.ts
 |   |   |-- events.ts
 |   |   |-- phaserTimeController.ts
 |   |   `-- timeSystem.ts

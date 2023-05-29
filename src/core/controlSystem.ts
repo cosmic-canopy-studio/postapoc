@@ -4,8 +4,10 @@ import EventBus from '@src/core/eventBus';
 import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
 import { ControlMapping } from '@src/config/interfaces';
-import { MoveDirections } from '@src/movement/data/enums';
+import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
+import { TelemetryActions } from '@src/telemetry/enums';
+import { TimeActions } from '@src/time/enums';
 
 export default class ControlSystem {
   private player!: number;
@@ -13,10 +15,46 @@ export default class ControlSystem {
   private keyBindings: KeyBindings;
   private pressedKeys: Set<string> = new Set();
   private logger = getLogger('core');
+  private actionHandlers: Map<GameAction, GameActionHandler>;
 
   constructor() {
     const controlMapping: ControlMapping = controlMappingJson as ControlMapping;
     this.keyBindings = new KeyBindings(controlMapping);
+    const moveDirections = Object.values(MoveActions);
+    const actions = Object.values(Actions);
+    const telemetryActions = Object.values(TelemetryActions);
+    const timeActions = Object.values(TimeActions);
+
+    this.actionHandlers = new Map<GameAction, GameActionHandler>([
+      ...moveDirections.map(
+        (direction) =>
+          [direction, (state: boolean) => this.emitMove(direction, state)] as [
+            GameAction,
+            GameActionHandler
+          ]
+      ),
+      ...actions.map(
+        (action) =>
+          [action, (state: boolean) => this.emitAction(action, state)] as [
+            GameAction,
+            GameActionHandler
+          ]
+      ),
+      ...telemetryActions.map(
+        (action) =>
+          [action, (state: boolean) => this.emitBasicAction(action, state)] as [
+            GameAction,
+            GameActionHandler
+          ]
+      ),
+      ...timeActions.map(
+        (action) =>
+          [action, (state: boolean) => this.emitBasicAction(action, state)] as [
+            GameAction,
+            GameActionHandler
+          ]
+      ),
+    ]);
   }
 
   initialize(scene: Phaser.Scene, player: number) {
@@ -61,69 +99,39 @@ export default class ControlSystem {
   }
 
   private handleAction(action: GameAction, state: boolean) {
-    this.logger.debug(
-      `Handling action ${GameAction[action]} with state ${state}`
-    );
-    switch (action) {
-      case GameAction.MoveUp:
-        EventBus.emit('move', {
-          action: MoveDirections.UP,
-          state,
-          entity: this.player,
-        });
-        break;
-      case GameAction.MoveDown:
-        EventBus.emit('move', {
-          action: MoveDirections.DOWN,
-          state,
-          entity: this.player,
-        });
-        break;
-      case GameAction.MoveLeft:
-        EventBus.emit('move', {
-          action: MoveDirections.LEFT,
-          state,
-          entity: this.player,
-        });
-        break;
-      case GameAction.MoveRight:
-        EventBus.emit('move', {
-          action: MoveDirections.RIGHT,
-          state,
-          entity: this.player,
-        });
-        break;
-      case GameAction.Attack:
-        if (state) {
-          EventBus.emit('action', {
-            action: 'attack' as Actions,
-            entity: this.player,
-          });
-        }
-        break;
-      case GameAction.PickUp:
-        if (state) {
-          EventBus.emit('action', {
-            action: 'pickUp' as Actions,
-            entity: this.player,
-          });
-        }
-        break;
-      case GameAction.Pause:
-        if (state) {
-          EventBus.emit('togglePause', {});
-        }
-        break;
-      case GameAction.SlowTime:
-        if (state) {
-          EventBus.emit('toggleSlowTime', {});
-        }
-        break;
-      case GameAction.DebugPanel:
-        if (state) {
-          EventBus.emit('debugPanel', {});
-        }
-        break;
+    this.logger.debug(`Handling action ${action} with state ${state}`);
+
+    const handler = this.actionHandlers.get(action);
+    if (handler) {
+      handler(state);
+    } else {
+      this.logger.warn(`No handler for action ${action}`);
+    }
+  }
+
+  private emitMove(direction: MoveActions, state: boolean) {
+    EventBus.emit('move', {
+      action: direction,
+      state,
+      entity: this.player,
+    });
+  }
+
+  private emitAction(action: Actions, state: boolean) {
+    if (state) {
+      EventBus.emit('action', {
+        action,
+        entity: this.player,
+      });
+    }
+  }
+
+  private emitBasicAction(
+    action: TimeActions | TelemetryActions,
+    state: boolean
+  ) {
+    if (state) {
+      EventBus.emit(action, {});
     }
   }
 }
