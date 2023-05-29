@@ -1,4 +1,3 @@
-import { ActionEventPayload, DamageEventPayload } from '@src/core/events';
 import { getInteractionComponent } from '@src/action/interactionComponent';
 import { interactionSystem } from '@src/action/interactionSystem';
 import { getDamage } from '@src/action/attack';
@@ -8,6 +7,7 @@ import { Actions } from '@src/action/enums';
 import { getFocusTarget } from '@src/action/focus';
 import { getLogger } from '@src/telemetry/logger';
 import { IHandler } from '@src/config/interfaces';
+import { ActionEventPayload, DamageEventPayload } from '@src/action/events';
 
 export class ActionHandler implements IHandler {
   private logger;

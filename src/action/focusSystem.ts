@@ -61,7 +61,7 @@ export function focusSystem(
 }
 
 export function setFocus(target: ICollider, arrow: Phaser.GameObjects.Sprite) {
-  const logger = getLogger('focusSystem');
+  const logger = getLogger('action');
   logger.debug(`Setting focus to ${target.eid}`);
   const centerX = target.minX + (target.maxX - target.minX);
 

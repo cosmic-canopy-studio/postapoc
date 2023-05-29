@@ -12,7 +12,7 @@ export default class ControlSystem {
   private scene!: Phaser.Scene;
   private keyBindings: KeyBindings;
   private pressedKeys: Set<string> = new Set();
-  private logger = getLogger('control');
+  private logger = getLogger('core');
 
   constructor() {
     const controlMapping: ControlMapping = controlMappingJson as ControlMapping;

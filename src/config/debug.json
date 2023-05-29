@@ -1,18 +1,11 @@
 {
   "modules": {
-    "control": false,
-    "collision": false,
+    "action": false,
+    "core": false,
     "entity": false,
-    "factories": false,
-    "focus": false,
-    "health": false,
-    "keyBindings": false,
-    "lootTable": false,
     "movement": false,
-    "eventBus": false,
     "time": false,
-    "objectManager": false,
-    "universe": false
+    "telemetry": false
   },
   "events": {
     "moveEvents": false

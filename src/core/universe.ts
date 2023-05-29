@@ -1,6 +1,6 @@
 import { getLogger } from '@src/telemetry/logger';
-import PlayerManager from '@src/managers/playerManager';
-import ObjectManager from '@src/managers/objectManager';
+import PlayerManager from '@src/entity/playerManager';
+import ObjectManager from '@src/entity/objectManager';
 import EventHandler from '@src/core/eventHandler';
 import { TimeState, TimeSystem } from '@src/time/timeSystem';
 import { PhaserTimeController } from '@src/time/phaserTimeController';
@@ -19,7 +19,7 @@ export default class Universe {
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.logger = getLogger('universe');
+    this.logger = getLogger('core');
     this.world = createWorld();
   }
 

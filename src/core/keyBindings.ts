@@ -19,7 +19,7 @@ export enum GameAction {
 
 export class KeyBindings {
   private bindings: Map<string, GameAction> = new Map();
-  private logger = getLogger('keyBindings');
+  private logger = getLogger('core');
 
   constructor(controlMapping: ControlMapping) {
     this.loadBindingsFromControlMapping(controlMapping);

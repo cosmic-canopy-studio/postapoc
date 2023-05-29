@@ -8,7 +8,7 @@ export function handleCollision(
   world: IWorld,
   objectsSpatialIndex: RBush<ICollider>
 ): number {
-  const logger = getLogger('collision');
+  const logger = getLogger('movement');
   const searchBounds = getBoundingBox(eid);
   if (!searchBounds) {
     logger.error(`Could not find bounding box for entity ${eid}`);

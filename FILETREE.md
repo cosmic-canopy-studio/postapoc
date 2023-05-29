@@ -90,15 +90,13 @@
 |   |   |-- health.ts
 |   |   |-- healthSystem.ts
 |   |   |-- lootTable.ts
+|   |   |-- objectManager.ts
 |   |   |-- objectPool.ts
-|   |   `-- phaserSprite.ts
-|   |-- factories
+|   |   |-- phaserSprite.ts
 |   |   |-- playerFactory.ts
+|   |   |-- playerManager.ts
 |   |   `-- staticObjectFactory.ts
 |   |-- main.ts
-|   |-- managers
-|   |   |-- objectManager.ts
-|   |   `-- playerManager.ts
 |   |-- movement
 |   |   |-- collider.ts
 |   |   |-- collisionSystem.ts
@@ -116,6 +114,7 @@
 |   |   |-- events.ts
 |   |   `-- logger.ts
 |   |-- time
+|   |   |-- events.ts
 |   |   |-- phaserTimeController.ts
 |   |   `-- timeSystem.ts
 |   `-- utils

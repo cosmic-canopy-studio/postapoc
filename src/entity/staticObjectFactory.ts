@@ -12,7 +12,7 @@ export default class StaticObjectFactory {
   private scene: Phaser.Scene;
   private readonly world: IWorld;
   private spritePool: ObjectPool<Phaser.GameObjects.Sprite>;
-  private logger = getLogger('factories');
+  private logger = getLogger('entity');
 
   constructor(scene: Phaser.Scene, world: IWorld) {
     this.scene = scene;

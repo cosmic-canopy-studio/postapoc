@@ -1,7 +1,7 @@
 import { getLogger } from '@src/telemetry/logger';
 
 export default class ObjectPool<T> {
-  private logger = getLogger('ObjectPool');
+  private logger = getLogger('entity');
   private pool: T[];
   private readonly factory: () => T;
 

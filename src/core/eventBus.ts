@@ -15,9 +15,7 @@ type Events = CoreEvents &
 const EventBus: Emitter<Events> = mitt<Events>();
 
 const wildcardHandler: WildcardHandler<Events> = (event, type) => {
-  getLogger('eventBus').debug(
-    `Event triggered: ${event} ${JSON.stringify(type)}`
-  );
+  getLogger('core').debug(`Event triggered: ${event} ${JSON.stringify(type)}`);
 };
 
 EventBus.on('*', wildcardHandler);

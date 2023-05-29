@@ -1,5 +1,5 @@
-import PlayerManager from '@src/managers/playerManager';
-import ObjectManager from '@src/managers/objectManager';
+import PlayerManager from '@src/entity/playerManager';
+import ObjectManager from '@src/entity/objectManager';
 import { MovementHandler } from '@src/movement/movementHandler';
 import { ActionHandler } from '@src/action/actionHandler';
 import { EntityHandler } from '@src/entity/entityHandler';
@@ -10,8 +10,8 @@ import * as Phaser from 'phaser';
 
 export default class EventHandler {
   private logger;
-  private playerManager: PlayerManager;
-  private objectManager: ObjectManager;
+  private readonly playerManager: PlayerManager;
+  private readonly objectManager: ObjectManager;
   private world: IWorld;
   private nonUpdateHandlers: IHandler[];
   private updateHandlers: IUpdatableHandler[];
@@ -21,7 +21,7 @@ export default class EventHandler {
     objectManager: ObjectManager,
     world: IWorld
   ) {
-    this.logger = getLogger('universe');
+    this.logger = getLogger('core');
     this.playerManager = playerManager;
     this.objectManager = objectManager;
     this.world = world;
@@ -42,7 +42,7 @@ export default class EventHandler {
     this.nonUpdateHandlers.push(handler);
   }
 
-  addUpdateHandler(handler: IHandler): void {
+  addUpdateHandler(handler: IUpdatableHandler): void {
     this.updateHandlers.push(handler);
   }
 

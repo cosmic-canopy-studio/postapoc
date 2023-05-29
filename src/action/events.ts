@@ -14,6 +14,7 @@ export interface DamageEventPayload extends EventPayload {
 export interface ActionEventsMap {
   action: ActionEventPayload;
   damage: DamageEventPayload;
+  itemPickedUp: EventPayload;
 }
 export type ActionEvents = {
   [K in keyof ActionEventsMap]: ActionEventsMap[K];

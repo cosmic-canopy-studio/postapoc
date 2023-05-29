@@ -8,7 +8,7 @@ import { IDrop, IItemGroup } from '@src/config/interfaces';
 
 export class LootTable {
   private itemGroups: IItemGroup;
-  private logger = getLogger('lootTable');
+  private logger = getLogger('entity');
 
   constructor() {
     this.itemGroups = item_groups as IItemGroup;

@@ -8,7 +8,7 @@ import { Pane } from 'tweakpane';
 
 export default class DebugPanel {
   private pane: Pane;
-  private logger = getLogger('DebugPanel');
+  private logger = getLogger('telemetry');
   private readonly modules: Record<string, boolean>;
   private readonly events: Record<string, boolean>;
   private playerFolder: any;

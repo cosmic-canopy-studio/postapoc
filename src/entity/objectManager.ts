@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/logger';
-import StaticObjectFactory from '@src/factories/staticObjectFactory';
+import StaticObjectFactory from '@src/entity/staticObjectFactory';
 import { getBoundingBox, ICollider } from '@src/movement/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
@@ -14,7 +14,7 @@ export default class ObjectManager {
   private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
-    this.logger = getLogger('objectManager');
+    this.logger = getLogger('entity');
     this.world = world;
   }
 
