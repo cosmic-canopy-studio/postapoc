@@ -1,4 +1,4 @@
-## 0.0.1 (2023-05-28)
+## 0.0.1 (2023-05-29)
 
 
 ### Features
@@ -39,6 +39,7 @@
 * fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
+* modify sed command to work with macOS ([f9fe751](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f9fe751f02b940553b956f4f12fd093538259e16))
 * object destruction ([387e2f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/387e2f0b90265c43869725704558b188a8021c42))
 * object destruction ([36f6f29](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/36f6f29212c5fe23f23f5342e3c8726e47b08212))
 * playwright screenshot ([04bbca4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04bbca49695d9eef165fd970e2a6b1bb423bf4ca))

@@ -54,23 +54,23 @@
 │   │   └── favicon.ico
 │   └── site.webmanifest
 ├── src
+│   ├── action
+│   │   ├── actionHandler.ts
+│   │   ├── attack.ts
+│   │   ├── focus.ts
+│   │   ├── focusSystem.ts
+│   │   ├── interactionComponent.ts
+│   │   ├── interactionSystem.ts
+│   │   └── interactions.ts
 │   ├── assets
 │   │   ├── menuAssets.json
 │   │   ├── objectAssets.json
 │   │   ├── terrainAssets.json
 │   │   └── uiAssets.json
 │   ├── componentSystems
-│   │   ├── collisionSystem.ts
-│   │   ├── focusSystem.ts
-│   │   ├── healthSystem.ts
-│   │   ├── interactionSystem.ts
-│   │   └── movementSystem.ts
+│   │   └── healthSystem.ts
 │   ├── components
-│   │   ├── attack.ts
-│   │   ├── collider.ts
 │   │   ├── health.ts
-│   │   ├── interactionComponent.ts
-│   │   ├── movement.ts
 │   │   └── phaserSprite.ts
 │   ├── config
 │   │   ├── constants.ts
@@ -78,7 +78,6 @@
 │   │   ├── debug.json
 │   │   ├── enums.ts
 │   │   ├── eventTypes.ts
-│   │   ├── interactions.ts
 │   │   ├── interfaces.ts
 │   │   ├── item_groups.json
 │   │   └── items.json
@@ -93,6 +92,8 @@
 │   │   ├── phaserTimeController.ts
 │   │   ├── timeSystem.ts
 │   │   └── universe.ts
+│   ├── entity
+│   │   └── entityHandler.ts
 │   ├── factories
 │   │   ├── playerFactory.ts
 │   │   └── staticObjectFactory.ts
@@ -100,6 +101,12 @@
 │   ├── managers
 │   │   ├── objectManager.ts
 │   │   └── playerManager.ts
+│   ├── movement
+│   │   ├── collider.ts
+│   │   ├── collisionSystem.ts
+│   │   ├── movement.ts
+│   │   ├── movementHandler.ts
+│   │   └── movementSystem.ts
 │   ├── scenes
 │   │   ├── bootScene.ts
 │   │   ├── mainScene.ts
