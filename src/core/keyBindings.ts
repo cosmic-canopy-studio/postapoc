@@ -1,7 +1,3 @@
-// Part: src/core/systems/keyBindings.ts
-// Code Reference:
-// Documentation:
-
 import { getLogger } from '@src/telemetry/logger';
 import { ControlMapping } from '@src/config/interfaces';
 
@@ -11,7 +7,7 @@ export enum GameAction {
   MoveLeft,
   MoveRight,
   Attack,
-  Interact,
+  PickUp,
   Pause,
   SlowTime,
   DebugPanel,
@@ -70,8 +66,8 @@ export class KeyBindings {
         case 'attack':
           this.bind(GameAction.Attack, key);
           break;
-        case 'interact':
-          this.bind(GameAction.Interact, key);
+        case 'pickUp':
+          this.bind(GameAction.PickUp, key);
           break;
         case 'slowTime':
           this.bind(GameAction.SlowTime, key);

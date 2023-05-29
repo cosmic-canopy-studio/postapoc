@@ -33,7 +33,12 @@ export default class EventHandler {
     this.addNonUpdateHandler(new MovementHandler());
     this.addNonUpdateHandler(new ActionHandler());
     this.addUpdateHandler(
-      new EntityHandler(scene, this.playerManager, this.objectManager)
+      new EntityHandler(
+        scene,
+        this.playerManager,
+        this.objectManager,
+        this.world
+      )
     );
     this.initializeHandlers();
   }

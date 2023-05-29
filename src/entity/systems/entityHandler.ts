@@ -1,5 +1,8 @@
 import { getLogger } from '@src/telemetry/logger';
-import { getSprite } from '@src/entity/components/phaserSprite';
+import {
+  getSprite,
+  removePhaserSprite,
+} from '@src/entity/components/phaserSprite';
 import { getCollider } from '@src/movement/components/collider';
 import { focus } from '@src/action/systems/focus';
 import {
@@ -14,6 +17,8 @@ import EventBus from '@src/core/eventBus';
 import { IUpdatableHandler } from '@src/config/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
+import { addToInventory } from '@src/entity/components/inventory';
+import { IWorld } from 'bitecs';
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
@@ -68,14 +73,13 @@ export default class EntityHandler implements IUpdatableHandler {
 
   onEntityDestroyed(payload: EntityIDPayload) {
     const { entityId } = payload;
+    this.handleDrops(entityId);
+    this.removeWorldEntity(entityId);
+    this.objectManager.getStaticObjectFactory().release(entityId);
+    this.logger.info(`Entity ${entityId} destroyed`);
+  }
 
-    for (let entity = 0; entity < Focus.target.length; entity++) {
-      if (getFocusTarget(entity) === entityId) {
-        this.logger.info(`Unsetting focus target for ${entity}`);
-        updateFocusTarget(entity, 0); // Unset the focus target
-      }
-    }
-
+  private handleDrops(entityId: number) {
     const objectSprite = getSprite(entityId);
     if (!objectSprite) {
       this.logger.error(`No sprite for entity ${entityId}`);
@@ -98,6 +102,27 @@ export default class EntityHandler implements IUpdatableHandler {
         item
       );
     });
+  }
+
+  private removeWorldEntity(entityId: number) {
+    // Remove sprite
+    removePhaserSprite(entityId);
+
+    // Remove from spatial index
+    const collider = getCollider(entityId);
+    this.objectManager.getObjectSpatialIndex().remove(collider, (a, b) => {
+      return a.eid === b.eid;
+    });
+
+    // Update focus
+    for (let entity = 0; entity < Focus.target.length; entity++) {
+      if (getFocusTarget(entity) === entityId) {
+        this.logger.info(`Unsetting focus target for ${entity}`);
+        updateFocusTarget(entity, 0); // Unset the focus target
+      }
+    }
+
+    this.logger.info(`Entity ${entityId} removed`);
   }
 
   private createArrow(scene: Phaser.Scene, visible = false) {

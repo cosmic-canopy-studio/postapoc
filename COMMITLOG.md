@@ -122,6 +122,7 @@
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * break up large classes by concerns ([#22](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/22)) ([e3a83a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e3a83a7f9e7e1e10fe4835e9899f2f5a54afe95f))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* export handler class as default ([e9b0411](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e9b0411f563f3e64b1738ee54700bee342067b3e))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * move appropriate events to telemetry ([ede41af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ede41af8ef1c2f168d048ebbbe6b699025f7fea2))

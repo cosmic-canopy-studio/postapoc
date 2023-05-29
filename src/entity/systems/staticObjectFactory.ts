@@ -7,8 +7,6 @@ import {
 } from '@src/entity/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
-import { addInteractionComponent } from '@src/action/components/interaction';
-import { interactionMapping } from '@src/action/data/interactions';
 import { getLogger } from '@src/telemetry/logger';
 
 export default class StaticObjectFactory {
@@ -47,16 +45,6 @@ export default class StaticObjectFactory {
     addPhaserSprite(this.world, objectID, sprite);
     addHealth(this.world, objectID, 100, 100);
     addCollider(this.world, objectID, exempt, collisionModifier);
-
-    const interactionComponent = interactionMapping[texture];
-    if (interactionComponent) {
-      this.logger.debug(
-        `id ${objectID} ${texture} adding interaction component`,
-        interactionComponent
-      );
-      addInteractionComponent(this.world, objectID, interactionComponent);
-    }
-
     return objectID;
   }
 

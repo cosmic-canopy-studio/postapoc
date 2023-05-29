@@ -101,10 +101,10 @@ export default class ControlSystem {
           });
         }
         break;
-      case GameAction.Interact:
+      case GameAction.PickUp:
         if (state) {
           EventBus.emit('action', {
-            action: 'interact' as Actions,
+            action: 'pickUp' as Actions,
             entity: this.player,
           });
         }
