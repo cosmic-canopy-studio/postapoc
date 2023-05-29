@@ -31,6 +31,7 @@
 
 ### Bug Fixes
 
+* add os based sed command usage, precommit for terminal only ([a9f42bb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a9f42bb6c35180afef61242e89d2e18cc370a9e2))
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
