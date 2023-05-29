@@ -1,6 +1,6 @@
 import { InteractionComponentImpl } from '@src/action/interactionComponent';
 import EventBus from '@src/core/eventBus';
-import { EntityIDPayload } from '@src/config/eventTypes';
+import { EntityIDPayload } from '@src/core/events';
 import { getLogger } from '@src/telemetry/logger';
 
 export type InteractionAction = (data?: any) => void;

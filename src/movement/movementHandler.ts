@@ -1,4 +1,4 @@
-import { MoveEventPayload } from '@src/config/eventTypes';
+import { MoveEventPayload } from '@src/core/events';
 import { getLogger } from '@src/telemetry/logger';
 import { MOVEMENT_SPEED } from '@src/config/constants';
 import Movement from '@src/movement/movement';

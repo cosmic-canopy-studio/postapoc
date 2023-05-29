@@ -52,11 +52,13 @@
 |   |   |-- favicon-32x32.png
 |   |   `-- favicon.ico
 |   `-- site.webmanifest
+|-- qodana.yaml
 |-- src
 |   |-- action
 |   |   |-- actionHandler.ts
 |   |   |-- attack.ts
 |   |   |-- enums.ts
+|   |   |-- events.ts
 |   |   |-- focus.ts
 |   |   |-- focusSystem.ts
 |   |   |-- interactionComponent.ts
@@ -71,7 +73,6 @@
 |   |   |-- constants.ts
 |   |   |-- controlMapping.json
 |   |   |-- debug.json
-|   |   |-- eventTypes.ts
 |   |   |-- interfaces.ts
 |   |   |-- item_groups.json
 |   |   `-- items.json
@@ -79,11 +80,13 @@
 |   |   |-- controlSystem.ts
 |   |   |-- eventBus.ts
 |   |   |-- eventHandler.ts
+|   |   |-- events.ts
 |   |   |-- inversify.config.ts
 |   |   |-- keyBindings.ts
 |   |   `-- universe.ts
 |   |-- entity
 |   |   |-- entityHandler.ts
+|   |   |-- events.ts
 |   |   |-- health.ts
 |   |   |-- healthSystem.ts
 |   |   |-- lootTable.ts
@@ -100,6 +103,7 @@
 |   |   |-- collider.ts
 |   |   |-- collisionSystem.ts
 |   |   |-- enums.ts
+|   |   |-- events.ts
 |   |   |-- movement.ts
 |   |   |-- movementHandler.ts
 |   |   `-- movementSystem.ts
@@ -109,6 +113,7 @@
 |   |   `-- titleScene.ts
 |   |-- telemetry
 |   |   |-- debugPanel.ts
+|   |   |-- events.ts
 |   |   `-- logger.ts
 |   |-- time
 |   |   |-- phaserTimeController.ts

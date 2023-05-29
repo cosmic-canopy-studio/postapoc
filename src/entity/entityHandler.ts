@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/logger';
-import { DestroyEntityEventPayload } from '@src/config/eventTypes';
+import { DestroyEntityEventPayload } from '@src/core/events';
 import { getSprite } from '@src/entity/phaserSprite';
 import { getCollider } from '@src/movement/collider';
 import { focusSystem } from '@src/action/focusSystem';

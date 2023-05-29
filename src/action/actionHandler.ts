@@ -1,4 +1,4 @@
-import { ActionEventPayload, DamageEventPayload } from '@src/config/eventTypes';
+import { ActionEventPayload, DamageEventPayload } from '@src/core/events';
 import { getInteractionComponent } from '@src/action/interactionComponent';
 import { interactionSystem } from '@src/action/interactionSystem';
 import { getDamage } from '@src/action/attack';
