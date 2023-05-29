@@ -1,8 +1,8 @@
-import item_groups from '@src/config/objects.json';
+import item_groups from '@src/entity/data/objects.json';
 import { getLogger } from '@src/telemetry/logger';
 import { IDrop, IItemGroup } from '@src/config/interfaces';
 
-export class LootTable {
+export class LootDrops {
   private readonly itemGroups: IItemGroup;
   private logger = getLogger('entity');
 

@@ -1,6 +1,6 @@
 import { getLogger } from '@src/telemetry/logger';
-import PlayerManager from '@src/entity/playerManager';
-import ObjectManager from '@src/entity/objectManager';
+import PlayerManager from '@src/entity/systems/playerManager';
+import ObjectManager from '@src/entity/systems/objectManager';
 import EventHandler from '@src/core/eventHandler';
 import { TimeState, TimeSystem } from '@src/time/timeSystem';
 import { PhaserTimeController } from '@src/time/phaserTimeController';

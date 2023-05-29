@@ -1,4 +1,4 @@
-import { getInteractionComponent } from '@src/action/components/interactionComponent';
+import { getInteractionComponent } from '@src/action/components/interaction';
 import { getLogger } from '@src/telemetry/logger';
 
 export function interaction(eid: number, interactionName: string): void {

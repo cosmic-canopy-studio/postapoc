@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/logger';
-import { getBoundingBox, ICollider } from '@src/movement/collider';
+import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
 

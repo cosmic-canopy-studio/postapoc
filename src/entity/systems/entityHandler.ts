@@ -1,23 +1,23 @@
 import { getLogger } from '@src/telemetry/logger';
-import { DestroyEntityEventPayload } from '@src/core/events';
-import { getSprite } from '@src/entity/phaserSprite';
-import { getCollider } from '@src/movement/collider';
+import { getSprite } from '@src/entity/components/phaserSprite';
+import { getCollider } from '@src/movement/components/collider';
 import { focus } from '@src/action/systems/focus';
 import {
   Focus,
   getFocusTarget,
   updateFocusTarget,
 } from '@src/action/components/focus';
-import PlayerManager from '@src/entity/playerManager';
-import ObjectManager from '@src/entity/objectManager';
+import PlayerManager from '@src/entity/systems/playerManager';
+import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
 import EventBus from '@src/core/eventBus';
 import { IUpdatableHandler } from '@src/config/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/config/constants';
+import { EntityIDPayload } from '@src/entity/data/events';
 
 export class EntityHandler implements IUpdatableHandler {
   private logger;
-  private arrow!: Phaser.GameObjects.Sprite;
+  private readonly arrow!: Phaser.GameObjects.Sprite;
   private playerManager!: PlayerManager;
   private objectManager!: ObjectManager;
 
@@ -41,19 +41,17 @@ export class EntityHandler implements IUpdatableHandler {
     let focusTarget = getFocusTarget(player);
     if (focusTarget === 0) {
       this.logger.debug(`No focus target set for ${player}`);
-      focusTarget = focus(
-        player,
-        this.objectManager.getObjectSpatialIndex(),
-        this.arrow
-      );
-      if (focusTarget) {
+      focusTarget =
+        focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ||
+        0;
+      if (focusTarget !== 0) {
         this.logger.info(`Focus target set to ${focusTarget}`);
         updateFocusTarget(player, focusTarget);
       }
     }
   }
 
-  onEntityDestroyed(payload: DestroyEntityEventPayload) {
+  onEntityDestroyed(payload: EntityIDPayload) {
     const { entityId } = payload;
 
     for (let entity = 0; entity < Focus.target.length; entity++) {

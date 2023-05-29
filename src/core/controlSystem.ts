@@ -4,7 +4,7 @@ import EventBus from '@src/core/eventBus';
 import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
 import { ControlMapping } from '@src/config/interfaces';
-import { MoveDirections } from '@src/movement/enums';
+import { MoveDirections } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 
 export default class ControlSystem {

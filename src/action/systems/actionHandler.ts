@@ -1,8 +1,8 @@
-import { getInteractionComponent } from '@src/action/components/interactionComponent';
+import { getInteractionComponent } from '@src/action/components/interaction';
 import { interaction } from '@src/action/systems/interaction';
 import { getDamage } from '@src/action/components/attack';
 import EventBus from '@src/core/eventBus';
-import Health from '@src/entity/health';
+import Health from '@src/entity/components/health';
 import { Actions } from '@src/action/data/enums';
 import { getFocusTarget } from '@src/action/components/focus';
 import { getLogger } from '@src/telemetry/logger';

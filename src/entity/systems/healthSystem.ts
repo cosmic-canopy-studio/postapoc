@@ -1,6 +1,6 @@
 import { getLogger } from '@src/telemetry/logger';
 import EventBus from '@src/core/eventBus';
-import Health from '@src/entity/health';
+import Health from '@src/entity/components/health';
 import { defineQuery, IWorld } from 'bitecs';
 
 const healthQuery = defineQuery([Health]);

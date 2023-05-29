@@ -1,10 +1,10 @@
 import { getLogger } from '@src/telemetry/logger';
 import { MOVEMENT_SPEED } from '@src/config/constants';
-import Movement from '@src/movement/movement';
+import Movement from '@src/movement/components/movement';
 import EventBus from '@src/core/eventBus';
 import { IHandler } from '@src/config/interfaces';
-import { MoveDirections } from '@src/movement/enums';
-import { MoveEventPayload } from '@src/movement/events';
+import { MoveDirections } from '@src/movement/data/enums';
+import { MoveEventPayload } from '@src/movement/data/events';
 
 export class MovementHandler implements IHandler {
   private logger;

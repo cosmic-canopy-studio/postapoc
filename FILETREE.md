@@ -57,7 +57,7 @@
 |   |   |-- components
 |   |   |   |-- attack.ts
 |   |   |   |-- focus.ts
-|   |   |   `-- interactionComponent.ts
+|   |   |   `-- interaction.ts
 |   |   |-- data
 |   |   |   |-- enums.ts
 |   |   |   |-- events.ts
@@ -75,9 +75,7 @@
 |   |   |-- constants.ts
 |   |   |-- controlMapping.json
 |   |   |-- debug.json
-|   |   |-- interfaces.ts
-|   |   |-- items.json
-|   |   `-- objects.json
+|   |   `-- interfaces.ts
 |   |-- core
 |   |   |-- controlSystem.ts
 |   |   |-- eventBus.ts
@@ -88,28 +86,33 @@
 |   |   `-- universe.ts
 |   |-- entity
 |   |   |-- components
+|   |   |   |-- health.ts
+|   |   |   `-- phaserSprite.ts
 |   |   |-- data
-|   |   |-- entityHandler.ts
-|   |   |-- events.ts
-|   |   |-- health.ts
-|   |   |-- healthSystem.ts
-|   |   |-- lootTable.ts
-|   |   |-- objectManager.ts
-|   |   |-- objectPool.ts
-|   |   |-- phaserSprite.ts
-|   |   |-- playerFactory.ts
-|   |   |-- playerManager.ts
-|   |   |-- staticObjectFactory.ts
+|   |   |   |-- events.ts
+|   |   |   |-- items.json
+|   |   |   `-- objects.json
 |   |   `-- systems
+|   |       |-- entityHandler.ts
+|   |       |-- healthSystem.ts
+|   |       |-- lootDrops.ts
+|   |       |-- objectManager.ts
+|   |       |-- objectPool.ts
+|   |       |-- playerFactory.ts
+|   |       |-- playerManager.ts
+|   |       `-- staticObjectFactory.ts
 |   |-- main.ts
 |   |-- movement
-|   |   |-- collider.ts
-|   |   |-- collisionSystem.ts
-|   |   |-- enums.ts
-|   |   |-- events.ts
-|   |   |-- movement.ts
-|   |   |-- movementHandler.ts
-|   |   `-- movementSystem.ts
+|   |   |-- components
+|   |   |   |-- collider.ts
+|   |   |   `-- movement.ts
+|   |   |-- data
+|   |   |   |-- enums.ts
+|   |   |   `-- events.ts
+|   |   `-- systems
+|   |       |-- collision.ts
+|   |       |-- movement.ts
+|   |       `-- movementHandler.ts
 |   |-- scenes
 |   |   |-- bootScene.ts
 |   |   |-- mainScene.ts

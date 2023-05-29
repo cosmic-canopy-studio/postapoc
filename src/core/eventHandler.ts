@@ -1,8 +1,8 @@
-import PlayerManager from '@src/entity/playerManager';
-import ObjectManager from '@src/entity/objectManager';
-import { MovementHandler } from '@src/movement/movementHandler';
+import PlayerManager from '@src/entity/systems/playerManager';
+import ObjectManager from '@src/entity/systems/objectManager';
+import { MovementHandler } from '@src/movement/systems/movementHandler';
 import { ActionHandler } from '@src/action/systems/actionHandler';
-import { EntityHandler } from '@src/entity/entityHandler';
+import { EntityHandler } from '@src/entity/systems/entityHandler';
 import { getLogger } from '@src/telemetry/logger';
 import { IWorld } from 'bitecs';
 import { IHandler, IUpdatableHandler } from '@src/config/interfaces';

@@ -1,9 +1,9 @@
 import { getLogger } from '@src/telemetry/logger';
 import mitt, { Emitter, WildcardHandler } from 'mitt';
-import { MovementEvents } from '@src/movement/events';
+import { MovementEvents } from '@src/movement/data/events';
 import { ActionEvents } from '@src/action/data/events';
 import { TelemetryEvents } from '@src/telemetry/events';
-import { EntityEvents } from '@src/entity/events';
+import { EntityEvents } from '@src/entity/data/events';
 import { CoreEvents } from '@src/core/events';
 
 type Events = CoreEvents &

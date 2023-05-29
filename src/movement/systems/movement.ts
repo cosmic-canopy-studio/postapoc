@@ -1,13 +1,16 @@
-import { ICollider, updateSpriteColliderBounds } from '@src/movement/collider';
-import Movement from '@src/movement/movement';
-import { getSprite } from '@src/entity/phaserSprite';
-import { handleCollision } from '@src/movement/collisionSystem';
+import {
+  ICollider,
+  updateSpriteColliderBounds,
+} from '@src/movement/components/collider';
+import Movement from '@src/movement/components/movement';
+import { getSprite } from '@src/entity/components/phaserSprite';
+import { handleCollision } from '@src/movement/systems/collision';
 import { defineQuery, IWorld } from 'bitecs';
 import RBush from 'rbush';
 
 const movementQuery = defineQuery([Movement]);
 
-export function movementSystem(
+export function movement(
   world: IWorld,
   delta: number,
   staticObjects: RBush<ICollider>
