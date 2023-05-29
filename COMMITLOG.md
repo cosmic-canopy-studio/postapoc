@@ -1,4 +1,4 @@
-## 0.0.1 (2023-05-28)
+## 0.0.1 (2023-05-29)
 
 
 ### Features
@@ -7,6 +7,7 @@
 * add collision system ([ea1294b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ea1294b51721cae8f8199d78d7bed16ccb28c2dc))
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
+* add focus component, split eventHandler by concerns ([30088be](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/30088beb826112b24ac1e72d553b6bdbc3c3a7d7))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
@@ -39,16 +40,12 @@
 * fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
+* modify sed command to work with macOS ([f9fe751](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f9fe751f02b940553b956f4f12fd093538259e16))
 * object destruction ([387e2f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/387e2f0b90265c43869725704558b188a8021c42))
 * object destruction ([36f6f29](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/36f6f29212c5fe23f23f5342e3c8726e47b08212))
 * playwright screenshot ([04bbca4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04bbca49695d9eef165fd970e2a6b1bb423bf4ca))
 * playwright screenshot ([c35466b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c35466b58f00d8869e2e7c98d99044dc5f1a3e91))
 * playwright snapshot compatibility with CI ([e18ff7f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e18ff7f28de1c8647a956d62910f773f5188c12c))
-
-
-### Documentation
-
-* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
 
 
 ### Styles
@@ -78,14 +75,43 @@
 * update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
 
 
+### Tests
+
+* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
+* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
+* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
+* update playwright screenshot name format for CI compatibility ([e2766f8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e2766f834f784a20c79314615890d26c7b22baa2))
+* update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
+* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
+* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
+
+
+### Continuous Integration
+
+* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
+* update base path to /postapoc/ to support gh-pages build ([2b66897](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2b66897787adbbc11425fd67c004c5cffa66b706))
+* update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
+* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
+* update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
+
+
+### Documentation
+
+* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
+* Add script to update FILETREE.md, add other core project docs. ([#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)) ([6d2db67](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d2db67fef5c97da22a424ead39e8b2b1195839e))
+
+
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
+* break universe in to smaller managers, fix consequences ([bd52a3c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/bd52a3c0e03701e27db1f3e20e20eea919d77951))
+* cleanup comments, unused code ([e002cd5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e002cd5d361e46a960fda0af5cdf3345939a1537))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
+* move inversify.config ([2647e39](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2647e3921611e19183cfd60129915b7bf54f1827))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
 * move major systems from main scene to universe, reorganize files ([5790ce9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5790ce974f67e55b16ed31268702183b7897169f))
 * move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
@@ -107,32 +133,11 @@
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
 
 
-### Continuous Integration
-
-* add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
-* update base path to /postapoc/ to support gh-pages build ([2b66897](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2b66897787adbbc11425fd67c004c5cffa66b706))
-* update node version ([ac23253](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ac23253c7643cfd455d5ddd6339d9a11942aefd8))
-* update workflow to use jest & playwright ([e676a7a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e676a7aac78c97e8cf9fe69203e8c68a089cce1e))
-* update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
-
-
-### Tests
-
-* add pixel ratio for screenshots ([42c71b3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/42c71b38ed16f198ba391238c1321081595d2d44))
-* add tests for current systems ([9357d02](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9357d023a88de0ecd35c48ae9ea0697126705355))
-* add tests for current systems ([09e32f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/09e32f067b5e9f0a2f709b156bb3397b5a36e229))
-* initial playwright setup ([75b5870](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/75b5870ff11275be492f586dc3e8c740b58f8695))
-* update playwright screenshot name format for CI compatibility ([e2766f8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e2766f834f784a20c79314615890d26c7b22baa2))
-* update playwright screenshot name format for CI compatibility ([9ce0e0b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9ce0e0bad2c88194a39a1874185da634c9d59fb4))
-* update playwright test ([eb64941](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/eb649410c5e365943ed0484e1ae99db259ebb1ee))
-* update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
-
-
 ### Build System
 
 * add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
 * add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
-* add logrocket config ([cb06051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cb0605185d6b05df4284065a465272ccdf6d428b))
+* add logrocket monitoring ([#21](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/21)) ([7b39c11](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7b39c11c7f896f2afb573236b9306dea73a8ddcd)), closes [#19](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/19)
 * add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
 * add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
 * refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
@@ -140,20 +145,6 @@
 * remove auto-versioning ([dff284a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dff284a4e5d53b802fa1b149fb2c6e4b7f437986))
 * remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
 * remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
-* update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
-
-
-### Build System
-
-* add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
-* add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
-* add logrocket config ([cb06051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cb0605185d6b05df4284065a465272ccdf6d428b))
-* add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
-* add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
-* refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
-* remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
-* remove auto-versioning ([dff284a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dff284a4e5d53b802fa1b149fb2c6e4b7f437986))
-* remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
-* remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
+* remove file comment inserter ([a456a24](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a456a246a2b06292d95b64c023044faadcf9f672))
 * update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
 
