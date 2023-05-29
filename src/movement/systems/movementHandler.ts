@@ -6,7 +6,7 @@ import { IHandler } from '@src/config/interfaces';
 import { MoveDirections } from '@src/movement/data/enums';
 import { MoveEventPayload } from '@src/movement/data/events';
 
-export class MovementHandler implements IHandler {
+export default class MovementHandler implements IHandler {
   private logger;
 
   constructor() {

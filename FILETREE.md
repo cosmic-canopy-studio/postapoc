@@ -56,16 +56,15 @@
 |   |-- action
 |   |   |-- components
 |   |   |   |-- attack.ts
-|   |   |   |-- focus.ts
-|   |   |   `-- interaction.ts
+|   |   |   `-- focus.ts
 |   |   |-- data
+|   |   |   |-- actions.ts
 |   |   |   |-- enums.ts
-|   |   |   |-- events.ts
-|   |   |   `-- interactions.ts
+|   |   |   `-- events.ts
 |   |   `-- systems
+|   |       |-- action.ts
 |   |       |-- actionHandler.ts
-|   |       |-- focus.ts
-|   |       `-- interaction.ts
+|   |       `-- focus.ts
 |   |-- assets
 |   |   |-- menuAssets.json
 |   |   |-- objectAssets.json

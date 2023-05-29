@@ -15,25 +15,28 @@ import { IUpdatableHandler } from '@src/config/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 
-export class EntityHandler implements IUpdatableHandler {
+export default class EntityHandler implements IUpdatableHandler {
   private logger;
   private readonly arrow!: Phaser.GameObjects.Sprite;
   private playerManager!: PlayerManager;
   private objectManager!: ObjectManager;
-
+  private readonly world: IWorld;
   constructor(
     scene: Phaser.Scene,
     playerManager: PlayerManager,
-    objectManager: ObjectManager
+    objectManager: ObjectManager,
+    world: IWorld
   ) {
     this.logger = getLogger('entity');
     this.arrow = this.createArrow(scene);
     this.playerManager = playerManager;
     this.objectManager = objectManager;
+    this.world = world;
   }
 
   initialize() {
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
+    EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
   }
 
   update() {
@@ -48,6 +51,18 @@ export class EntityHandler implements IUpdatableHandler {
         this.logger.info(`Focus target set to ${focusTarget}`);
         updateFocusTarget(player, focusTarget);
       }
+    }
+  }
+
+  private onItemPickedUp(payload: EntityIDPayload) {
+    this.logger.debug(`${payload.entityId} attempting to pick up item`);
+    const { entityId } = payload;
+    const focusedObject = getFocusTarget(entityId);
+    this.logger.debug(`${entityId} current focus for pickup: ${focusedObject}`);
+    if (focusedObject) {
+      this.removeWorldEntity(focusedObject);
+      addToInventory(this.world, entityId, focusedObject);
+      this.logger.info(`${entityId} picked up ${focusedObject}`);
     }
   }
 
@@ -73,20 +88,6 @@ export class EntityHandler implements IUpdatableHandler {
       .generateDrops(objectName);
     this.logger.info(`Dropping items ${droppedItems} from ${objectName}`);
     const objectPosition: Phaser.Math.Vector2 = objectSprite.getCenter();
-    this.handleDrops(droppedItems, objectPosition);
-
-    const collider = getCollider(entityId);
-    this.objectManager.getObjectSpatialIndex().remove(collider, (a, b) => {
-      return a.eid === b.eid;
-    });
-    this.objectManager.getStaticObjectFactory().release(entityId);
-    this.logger.info(`Entity ${entityId} destroyed`);
-  }
-
-  private handleDrops(
-    droppedItems: string[],
-    objectPosition: Phaser.Math.Vector2
-  ) {
     const spreadRadius = DROP_SPREAD_RADIUS;
     droppedItems.forEach((item) => {
       const offsetX = Math.random() * spreadRadius - spreadRadius / 2;

@@ -14,8 +14,8 @@ export default class Universe {
   private eventHandler!: EventHandler;
   private timeSystem!: TimeSystem;
   private timeController!: PhaserTimeController;
-  private world: IWorld;
-  private scene: Phaser.Scene;
+  private readonly world: IWorld;
+  private readonly scene: Phaser.Scene;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
