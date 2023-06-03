@@ -1,7 +1,7 @@
-import { getLogger } from '@src/telemetry/logger';
-import { ControlMapping } from '@src/config/interfaces';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { ControlMapping } from '@src/core/config/interfaces';
 import { TimeActions } from '@src/time/enums';
-import { TelemetryActions } from '@src/telemetry/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 

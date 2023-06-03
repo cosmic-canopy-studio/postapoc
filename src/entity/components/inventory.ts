@@ -6,7 +6,7 @@ import {
   Types,
 } from 'bitecs';
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 export const Inventory = defineComponent({
   items: [Types.ui16, 256], // Array of 256 possible items (entities)

@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import StaticObjectFactory from '@src/entity/systems/staticObjectFactory';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';

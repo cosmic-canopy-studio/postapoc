@@ -1,8 +1,8 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import mitt, { Emitter, WildcardHandler } from 'mitt';
 import { MovementEvents } from '@src/movement/data/events';
 import { ActionEvents } from '@src/action/data/events';
-import { TelemetryEvents } from '@src/telemetry/events';
+import { TelemetryEvents } from '@src/telemetry/data/events';
 import { EntityEvents } from '@src/entity/data/events';
 import { CoreEvents } from '@src/core/events';
 import { TimeEvents } from '@src/time/events';

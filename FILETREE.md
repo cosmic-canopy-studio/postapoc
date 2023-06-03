@@ -65,17 +65,16 @@
 |   |       |-- actionHandler.ts
 |   |       |-- actionLogic.ts
 |   |       `-- focus.ts
-|   |-- assets
-|   |   |-- menuAssets.json
-|   |   |-- objectAssets.json
-|   |   |-- terrainAssets.json
-|   |   `-- uiAssets.json
-|   |-- config
-|   |   |-- constants.ts
-|   |   |-- controlMapping.json
-|   |   |-- debug.json
-|   |   `-- interfaces.ts
 |   |-- core
+|   |   |-- assets
+|   |   |   |-- menuAssets.json
+|   |   |   |-- objectAssets.json
+|   |   |   |-- terrainAssets.json
+|   |   |   `-- uiAssets.json
+|   |   |-- config
+|   |   |   |-- constants.ts
+|   |   |   |-- controlMapping.json
+|   |   |   `-- interfaces.ts
 |   |   |-- controlSystem.ts
 |   |   |-- eventBus.ts
 |   |   |-- eventHandler.ts
@@ -83,11 +82,18 @@
 |   |   |-- interfaces.ts
 |   |   |-- inversify.config.ts
 |   |   |-- keyBindings.ts
-|   |   `-- universe.ts
+|   |   |-- scenes
+|   |   |   |-- bootScene.ts
+|   |   |   |-- mainScene.ts
+|   |   |   `-- titleScene.ts
+|   |   |-- universe.ts
+|   |   `-- utils
+|   |       `-- svgUtils.ts
 |   |-- entity
 |   |   |-- components
 |   |   |   |-- health.ts
 |   |   |   |-- inventory.ts
+|   |   |   |-- names.ts
 |   |   |   `-- phaserSprite.ts
 |   |   |-- data
 |   |   |   |-- events.ts
@@ -114,22 +120,20 @@
 |   |       |-- collision.ts
 |   |       |-- movement.ts
 |   |       `-- movementHandler.ts
-|   |-- scenes
-|   |   |-- bootScene.ts
-|   |   |-- mainScene.ts
-|   |   `-- titleScene.ts
 |   |-- telemetry
-|   |   |-- debugPanel.ts
-|   |   |-- enums.ts
-|   |   |-- events.ts
-|   |   `-- logger.ts
-|   |-- time
-|   |   |-- enums.ts
-|   |   |-- events.ts
-|   |   |-- phaserTimeController.ts
-|   |   `-- timeSystem.ts
-|   `-- utils
-|       `-- svgUtils.ts
+|   |   |-- config
+|   |   |   `-- debug.json
+|   |   |-- data
+|   |   |   |-- enums.ts
+|   |   |   `-- events.ts
+|   |   `-- systems
+|   |       |-- debugPanel.ts
+|   |       `-- logger.ts
+|   `-- time
+|       |-- enums.ts
+|       |-- events.ts
+|       |-- phaserTimeController.ts
+|       `-- timeSystem.ts
 |-- temp.txt
 |-- test-results
 |   `-- load_game-When-the-game-loads-the-canvas-loads-and-matches-the-screenshot-chromium

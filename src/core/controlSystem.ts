@@ -1,12 +1,12 @@
-import controlMappingJson from '@src/config/controlMapping.json';
-import { getLogger } from '@src/telemetry/logger';
+import controlMappingJson from '@src/core/config/controlMapping.json';
+import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/eventBus';
 import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
-import { ControlMapping } from '@src/config/interfaces';
+import { ControlMapping } from '@src/core/config/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
-import { TelemetryActions } from '@src/telemetry/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
 import { TimeActions } from '@src/time/enums';
 
 export default class ControlSystem {

@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import {
   getSprite,
   removePhaserSprite,
@@ -14,8 +14,8 @@ import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
 import EventBus from '@src/core/eventBus';
-import { IUpdatableHandler } from '@src/config/interfaces';
-import { DROP_SPREAD_RADIUS } from '@src/config/constants';
+import { IUpdatableHandler } from '@src/core/config/interfaces';
+import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';

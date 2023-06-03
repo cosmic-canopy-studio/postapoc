@@ -1,4 +1,4 @@
-## 0.0.1 (2023-05-29)
+## 0.0.1 (2023-06-03)
 
 
 ### Features
@@ -15,13 +15,13 @@
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
-* implement pickup action ([3999c34](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3999c348e0487a32cc04c1409a1202269a5a2aad))
 * initial focus system ([8f15821](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8f158217956c15e09bc57403ed2b28f52b01583d))
 * initial main scene implementation ([9b8d3e1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b8d3e1b21cafa942bdb3f57fb87db4193ab44f7))
 * initial player control implementation ([94178de](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/94178de432213b6cd94fa3c7a0669eb21c5a682b))
 * initial player control implementation ([91e8198](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/91e8198c8c91ad1a6e928c5e96e847ea0d94ca64))
 * initial terrain generation implementation ([1eb1bda](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1eb1bda4517a70b15295e4b71ad14312fbfab6ea))
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
+* item pickup  ([#24](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/24)) ([ae41248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ae41248bb8051cd850dedc042a849009fa80245b))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))
 * **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
@@ -123,10 +123,8 @@
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * break up large classes by concerns ([#22](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/22)) ([e3a83a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e3a83a7f9e7e1e10fe4835e9899f2f5a54afe95f))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
-* export handler class as default ([e9b0411](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e9b0411f563f3e64b1738ee54700bee342067b3e))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
-* move appropriate events to telemetry ([ede41af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ede41af8ef1c2f168d048ebbbe6b699025f7fea2))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
 * move enums to relevant feature folder ([8ae0f26](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ae0f26beb7bdb96ec32caf1ee2dd67834677e28))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))

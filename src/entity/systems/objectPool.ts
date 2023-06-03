@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 export default class ObjectPool<T> {
   private logger = getLogger('entity');

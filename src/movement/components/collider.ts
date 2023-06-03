@@ -1,4 +1,4 @@
-import logger from '@src/telemetry/logger';
+import logger from '@src/telemetry/systems/logger';
 import { getSprite } from '@src/entity/components/phaserSprite';
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import { BBox } from 'rbush';

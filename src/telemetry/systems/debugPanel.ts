@@ -1,5 +1,5 @@
-import debug from '@src/config/debug.json';
-import { getLogger } from '@src/telemetry/logger';
+import debug from '@src/telemetry/config/debug.json';
+import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/eventBus';
 import Movement, { IMovement } from '@src/movement/components/movement';
 import { IWorld } from 'bitecs';

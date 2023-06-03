@@ -2,8 +2,8 @@ import Collider, {
   getBoundingBox,
   ICollider,
 } from '@src/movement/components/collider';
-import { getLogger } from '@src/telemetry/logger';
-import { PLAYER_FOCUS_DISTANCE } from '@src/config/constants';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { PLAYER_FOCUS_DISTANCE } from '@src/core/config/constants';
 import RBush from 'rbush';
 import * as Phaser from 'phaser';
 

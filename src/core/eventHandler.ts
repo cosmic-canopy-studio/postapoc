@@ -3,9 +3,9 @@ import ObjectManager from '@src/entity/systems/objectManager';
 import MovementHandler from '@src/movement/systems/movementHandler';
 import ActionHandler from '@src/action/systems/actionHandler';
 import EntityHandler from '@src/entity/systems/entityHandler';
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
-import { IHandler, IUpdatableHandler } from '@src/config/interfaces';
+import { IHandler, IUpdatableHandler } from '@src/core/config/interfaces';
 import * as Phaser from 'phaser';
 
 export default class EventHandler {
