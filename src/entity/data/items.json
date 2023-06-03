@@ -1,0 +1,32 @@
+[
+  {
+    "id": "backpack",
+    "name": "Backpack",
+    "category": "container",
+    "canBePickedUp": true
+  },
+  {
+  "id": "board",
+  "name": "Board",
+  "texture": "board",
+  "canBePickedUp": true
+  },
+  {
+  "id": "stick",
+  "name": "Stick",
+  "texture": "stick",
+  "canBePickedUp": true
+  },
+  {
+  "id": "stone",
+  "name": "Stone",
+  "texture": "stone",
+  "canBePickedUp": true
+  },
+  {
+  "id": "pipe",
+  "name": "Pipe",
+  "texture": "pipe",
+  "canBePickedUp": true
+  }
+]

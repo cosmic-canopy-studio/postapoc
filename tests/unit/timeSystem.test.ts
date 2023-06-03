@@ -1,5 +1,4 @@
-// Start of file: timeSystem.test.ts
-import { TimeState, TimeSystem } from '@src/core/systems/timeSystem';
+import { TimeState, TimeSystem } from '@src/time/timeSystem';
 
 describe('Time System', () => {
   it('returns adjusted delta times based on the current time state', () => {

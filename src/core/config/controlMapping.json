@@ -1,0 +1,20 @@
+{
+  "move": {
+    "ArrowUp": "up",
+    "ArrowDown": "down",
+    "ArrowLeft": "left",
+    "ArrowRight": "right",
+    "KeyW": "up",
+    "KeyS": "down",
+    "KeyA": "left",
+    "KeyD": "right"
+  },
+  "action": {
+    "KeyP": "pause",
+    "Space": "attack",
+    "KeyE": "pickUp",
+    "KeyZ": "slowTime",
+    "KeyL": "debugPanel",
+    "KeyI": "toggleInventory"
+  }
+}

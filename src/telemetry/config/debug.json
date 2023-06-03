@@ -1,0 +1,13 @@
+{
+  "modules": {
+    "action": false,
+    "core": false,
+    "entity": true,
+    "movement": false,
+    "time": false,
+    "telemetry": false
+  },
+  "events": {
+    "moveEvents": false
+  }
+}
