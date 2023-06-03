@@ -1,7 +1,3 @@
-// Part: src/main.ts
-// Code Reference: https://github.com/photonstorm/phaser
-// Documentation: https://photonstorm.github.io/phaser3-docs/
-
 import 'reflect-metadata';
 import BootScene from '@src/core/scenes/bootScene';
 import MainScene from '@src/core/scenes/mainScene';
