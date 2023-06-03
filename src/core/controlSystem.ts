@@ -8,6 +8,7 @@ import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';
 import { TimeActions } from '@src/time/enums';
+import { EntityActions } from '@src/entity/data/enums';
 
 export default class ControlSystem {
   private player!: number;
@@ -22,6 +23,7 @@ export default class ControlSystem {
     this.keyBindings = new KeyBindings(controlMapping);
     const moveDirections = Object.values(MoveActions);
     const actions = Object.values(Actions);
+    const entityActions = Object.values(EntityActions);
     const telemetryActions = Object.values(TelemetryActions);
     const timeActions = Object.values(TimeActions);
 
@@ -39,6 +41,13 @@ export default class ControlSystem {
             GameAction,
             GameActionHandler
           ]
+      ),
+      ...entityActions.map(
+        (action) =>
+          [
+            action,
+            (state: boolean) => this.emitEntityAction(action, state),
+          ] as [GameAction, GameActionHandler]
       ),
       ...telemetryActions.map(
         (action) =>
@@ -123,6 +132,16 @@ export default class ControlSystem {
         action,
         entity: this.player,
       });
+    }
+  }
+
+  private emitEntityAction(action: EntityActions, state: boolean) {
+    if (state) {
+      if (action === EntityActions.TOGGLE_INVENTORY) {
+        EventBus.emit('toggleInventory', {
+          entityId: this.player,
+        });
+      }
     }
   }
 

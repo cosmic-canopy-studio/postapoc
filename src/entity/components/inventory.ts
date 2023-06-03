@@ -49,22 +49,35 @@ export function addToInventory(
     )} to entity ${getEntityNameWithID(entityId)}'s inventory`
   );
   logger.debugVerbose(
-    `Entity ${getEntityNameWithID(entityId)}'s inventory: ${
+    `Entity ${getEntityNameWithID(entityId)}'s inventory component: ${
       Inventory.items[entityId]
     }`
   );
-  logger.debug(getInventory(entityId));
+  logger.debug(listInventory(entityId));
 }
 
 export function getInventory(entityId: number) {
   const logger = getLogger('entity');
   const inventory = Inventory.items[entityId];
+  if (!inventory || inventory.length === 0) {
+    logger.warn(`Entity ${getEntityNameWithID(entityId)} has no inventory`);
+    return [];
+  }
+  return [...inventory] as number[];
+}
+
+export function listInventory(entityId: number) {
+  const logger = getLogger('entity');
+  const inventory = Inventory.items[entityId];
   let message = `${getEntityNameWithID(entityId)}'s inventory:\n`;
+  if (!inventory || inventory.length === 0) {
+    logger.warn(`Entity ${getEntityNameWithID(entityId)} has no inventory`);
+    return;
+  }
   for (const element of inventory) {
     if (element !== 0) {
       message += `  -${getEntityNameWithID(element)}\n`;
     }
   }
-  logger.debug(message);
-  return inventory;
+  return message;
 }

@@ -69,7 +69,7 @@ export default class StaticObjectFactory {
     addHealth(this.world, entityId, 100, 100);
     addCollider(this.world, entityId, exempt, collisionModifier);
     if (item?.canBePickedUp) {
-      this.logger.debug(
+      this.logger.debugVerbose(
         `Adding CanBePickedUp to ${getEntityNameWithID(entityId)}`
       );
       addCanBePickedUp(this.world, entityId);

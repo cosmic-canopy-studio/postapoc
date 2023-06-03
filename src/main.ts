@@ -6,6 +6,7 @@ import 'reflect-metadata';
 import BootScene from '@src/core/scenes/bootScene';
 import MainScene from '@src/core/scenes/mainScene';
 import TitleScene from '@src/core/scenes/titleScene';
+import InventoryScene from '@src/entity/scenes/inventoryScene';
 import Phaser from 'phaser';
 import LogRocket from 'logrocket';
 
@@ -19,8 +20,9 @@ const config = {
   type: isTestEnvironment ? Phaser.HEADLESS : Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: [BootScene, TitleScene, MainScene],
+  scene: [BootScene, TitleScene, MainScene, InventoryScene],
   parent: 'game-container',
 };
 
 const game = new Phaser.Game(config);
+console.debug('Game started: ', game.isRunning);

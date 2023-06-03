@@ -16,7 +16,7 @@ export function unsetCanBePickedUp(entityId: number) {
 
 export function entityCanBePickedUp(entityId: number) {
   const canBePickedUp = CanBePickedUp.value[entityId] === 1;
-  getLogger('entity').debug(
+  getLogger('entity').debugVerbose(
     `Checking if entity ${entityId} can be picked up: ${canBePickedUp}`
   );
   return canBePickedUp;
