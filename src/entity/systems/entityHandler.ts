@@ -126,12 +126,16 @@ export default class EntityHandler implements IUpdatableHandler {
     });
 
     // Update focus
-    for (let entityID = 0; entityID < Focus.target.length; entityID++) {
-      if (getFocusTarget(entityID) === entityId) {
+    for (
+      let focusingEntityId = 0;
+      focusingEntityId < Focus.target.length;
+      focusingEntityId++
+    ) {
+      if (getFocusTarget(focusingEntityId) === entityId) {
         this.logger.info(
-          `Unsetting focus target for ${getEntityNameWithID(entityId)})`
+          `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)})`
         );
-        updateFocusTarget(entityId, 0); // Unset the focus target
+        updateFocusTarget(focusingEntityId, 0); // Unset the focus target
       }
     }
     this.logger.info(`Entity ${entityId} removed`);

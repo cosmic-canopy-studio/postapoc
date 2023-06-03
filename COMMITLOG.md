@@ -124,6 +124,7 @@
 * break up large classes by concerns ([#22](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/22)) ([e3a83a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e3a83a7f9e7e1e10fe4835e9899f2f5a54afe95f))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
+* format entityId names consistently, add debugVerbose function, use entity name in logging ([3b7b40e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3b7b40e8f4bb7879ea96bf675ec1d05e50a75a58))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * make all top level folders in src features ([c02362b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c02362bf9cdc7b9fa1bac19c59b3491c0116f196))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))

@@ -38,9 +38,23 @@ export function addToInventory(
       itemEntityId
     )} to entity ${getEntityNameWithID(entityId)}'s inventory`
   );
-  logger.debug(
+  logger.debugVerbose(
     `Entity ${getEntityNameWithID(entityId)}'s inventory: ${
       Inventory.items[entityId]
     }`
   );
+  logger.debug(getInventory(entityId));
+}
+
+export function getInventory(entityId: number) {
+  const logger = getLogger('entity');
+  const inventory = Inventory.items[entityId];
+  let message = `${getEntityNameWithID(entityId)}'s inventory:\n`;
+  for (const element of inventory) {
+    if (element !== 0) {
+      message += `  -${getEntityNameWithID(element)}\n`;
+    }
+  }
+  logger.debug(message);
+  return inventory;
 }
