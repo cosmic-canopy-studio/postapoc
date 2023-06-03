@@ -91,14 +91,18 @@
 |   |       `-- svgUtils.ts
 |   |-- entity
 |   |   |-- components
+|   |   |   |-- canPickup.ts
 |   |   |   |-- health.ts
 |   |   |   |-- inventory.ts
 |   |   |   |-- names.ts
 |   |   |   `-- phaserSprite.ts
 |   |   |-- data
+|   |   |   |-- enums.ts
 |   |   |   |-- events.ts
 |   |   |   |-- items.json
 |   |   |   `-- objects.json
+|   |   |-- scenes
+|   |   |   `-- inventoryScene.ts
 |   |   `-- systems
 |   |       |-- entityHandler.ts
 |   |       |-- healthSystem.ts

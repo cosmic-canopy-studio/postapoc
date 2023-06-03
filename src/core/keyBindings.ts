@@ -4,8 +4,14 @@ import { TimeActions } from '@src/time/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
+import { EntityActions } from '@src/entity/data/enums';
 
-export type GameAction = MoveActions | Actions | TelemetryActions | TimeActions;
+export type GameAction =
+  | MoveActions
+  | Actions
+  | EntityActions
+  | TelemetryActions
+  | TimeActions;
 
 export class KeyBindings {
   private bindings: Map<string, GameAction> = new Map();

@@ -20,6 +20,8 @@ import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
 import { getEntityNameWithID } from '@src/entity/components/names';
+import { entityCanBePickedUp } from '@src/entity/components/canPickup';
+import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
@@ -27,6 +29,8 @@ export default class EntityHandler implements IUpdatableHandler {
   private playerManager!: PlayerManager;
   private objectManager!: ObjectManager;
   private readonly world: IWorld;
+  private scene: ScenePlugin;
+
   constructor(
     scene: Phaser.Scene,
     playerManager: PlayerManager,
@@ -38,11 +42,13 @@ export default class EntityHandler implements IUpdatableHandler {
     this.playerManager = playerManager;
     this.objectManager = objectManager;
     this.world = world;
+    this.scene = scene.scene;
   }
 
   initialize() {
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
+    EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
   }
 
   update() {
@@ -58,23 +64,47 @@ export default class EntityHandler implements IUpdatableHandler {
     }
   }
 
-  private onItemPickedUp(payload: EntityIDPayload) {
+  private onToggleInventory(payload: EntityIDPayload) {
     const { entityId } = payload;
     this.logger.debug(
+      `Toggling inventory for ${getEntityNameWithID(entityId)}`
+    );
+    if (this.scene.isActive('InventoryScene')) {
+      this.scene.stop('InventoryScene');
+    } else {
+      this.scene.launch('InventoryScene', { entityId: entityId });
+    }
+  }
+
+  private onItemPickedUp(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.logger.debugVerbose(
       `${getEntityNameWithID(entityId)} attempting to pick up item`
     );
-    const focusedObject = getFocusTarget(entityId);
+
+    const focusedObjectEntityId = getFocusTarget(entityId);
+    const canBePickedUp = entityCanBePickedUp(focusedObjectEntityId);
+    if (!canBePickedUp) {
+      this.logger.warn(
+        `Item ${getEntityNameWithID(
+          focusedObjectEntityId
+        )} cannot be picked up.`
+      );
+      return;
+    }
     this.logger.debug(
       `${getEntityNameWithID(
         entityId
-      )} current focus for pickup: ${getEntityNameWithID(focusedObject)}`
+      )} current focus for pickup: ${getEntityNameWithID(
+        focusedObjectEntityId
+      )}`
     );
-    if (focusedObject) {
-      this.removeWorldEntity(focusedObject);
-      addToInventory(this.world, entityId, focusedObject);
+    if (focusedObjectEntityId) {
+      this.removeWorldEntity(focusedObjectEntityId);
+      addToInventory(this.world, entityId, focusedObjectEntityId);
       this.logger.info(
         `${getEntityNameWithID(entityId)} picked up ${getEntityNameWithID(
-          focusedObject
+          focusedObjectEntityId
         )})`
       );
     }
@@ -82,10 +112,10 @@ export default class EntityHandler implements IUpdatableHandler {
 
   onEntityDestroyed(payload: EntityIDPayload) {
     const { entityId } = payload;
+    this.logger.info(`Destroying ${getEntityNameWithID(entityId)}`);
     this.handleDrops(entityId);
     this.removeWorldEntity(entityId);
     this.objectManager.getStaticObjectFactory().release(entityId);
-    this.logger.info(`Entity ${getEntityNameWithID(entityId)}) destroyed`);
   }
 
   private handleDrops(entityId: number) {
@@ -116,16 +146,13 @@ export default class EntityHandler implements IUpdatableHandler {
   }
 
   private removeWorldEntity(entityId: number) {
-    // Remove sprite
     removePhaserSprite(entityId);
 
-    // Remove from spatial index
     const collider = getCollider(entityId);
     this.objectManager.getObjectSpatialIndex().remove(collider, (a, b) => {
       return a.eid === b.eid;
     });
 
-    // Update focus
     for (
       let focusingEntityId = 0;
       focusingEntityId < Focus.target.length;
@@ -133,7 +160,7 @@ export default class EntityHandler implements IUpdatableHandler {
     ) {
       if (getFocusTarget(focusingEntityId) === entityId) {
         this.logger.info(
-          `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)})`
+          `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)}`
         );
         updateFocusTarget(focusingEntityId, 0); // Unset the focus target
       }
