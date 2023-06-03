@@ -29,24 +29,70 @@ export default class InventoryScene extends Phaser.Scene {
     );
     this.inventory = getInventory(this.entityId);
     this.clearInventoryDisplay();
-    let startY = 10;
+
+    const startY = 10;
+    const startX = 10;
     const marginY = 20;
-    this.add.text(
-      10,
-      startY,
+    const padding = 10;
+    const nextX = startX + padding;
+    let nextY = startY + padding;
+
+    const title = this.add.text(
+      nextX,
+      nextY,
       `${getEntityNameWithID(this.entityId)}'s inventory:`,
       { color: '#ffffff' }
     );
-    startY += marginY;
+    let longestWidth = title.width;
 
+    nextY += marginY;
+    const itemsText = [];
+    itemsText.push(title);
     for (const element of this.inventory) {
       if (element !== 0) {
-        this.add.text(10, startY, `  -${getEntityNameWithID(element)}`, {
-          color: '#ffffff',
-        });
-        startY += marginY;
+        const itemText = this.add.text(
+          nextX,
+          nextY,
+          `  -${getEntityNameWithID(element)}`,
+          {
+            color: '#ffffff',
+          }
+        );
+        itemsText.push(itemText);
+        longestWidth = Math.max(longestWidth, itemText.width);
+        nextY += marginY;
       }
     }
+
+    const height = nextY;
+    this.drawBackground(
+      startX,
+      startY,
+      longestWidth + 2 * padding,
+      height,
+      itemsText
+    );
+  }
+
+  drawBackground(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    itemsText: Phaser.GameObjects.Text[]
+  ) {
+    const graphics = this.add.graphics();
+
+    // Semi-transparent black rectangle
+    graphics.fillStyle(0x000000, 0.5);
+    graphics.fillRect(x, y, width, height);
+
+    // White border
+    graphics.lineStyle(2, 0xffffff, 1);
+    graphics.strokeRect(x, y, width, height);
+
+    // Make sure text appears above the rectangle
+    itemsText.forEach((item) => this.children.bringToTop(item));
   }
 
   clearInventoryDisplay() {

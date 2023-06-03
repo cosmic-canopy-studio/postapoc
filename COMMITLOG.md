@@ -37,6 +37,7 @@
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
+* **entity:** make player inventory refresh correctly ([0ec463b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0ec463b52cc4732d20be7e19b4bb8744416799be))
 * event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))
 * fix comment header hook ([5a108ed](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a108eddb1cc8ad1ee2cf627788b0d1e14052e64))
 * fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
