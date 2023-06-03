@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 export default class ObjectPool<T> {
   private logger = getLogger('entity');
@@ -18,20 +18,21 @@ export default class ObjectPool<T> {
     let item: T;
     if (this.pool.length === 0) {
       item = this.factory();
+      this.logger.debugVerbose('Object pool created new object');
     } else {
       item = this.pool.pop() as T;
+      this.logger.debugVerbose('Object pool reused object');
     }
-    this.logger.debug('Got object from pool');
     return item;
   }
 
   release(item: T): void {
     this.pool.push(item);
-    this.logger.debug('Released object back to pool');
+    this.logger.debugVerbose('Released object back to pool');
   }
 
   size(): number {
-    this.logger.debug(`Object pool size: ${this.pool.length}`);
+    this.logger.debugVerbose(`Object pool size: ${this.pool.length}`);
     return this.pool.length;
   }
 
@@ -44,6 +45,6 @@ export default class ObjectPool<T> {
     for (let i = 0; i < size; i++) {
       this.pool.push(this.factory());
     }
-    this.logger.debug(`Created ${size} initial objects`);
+    this.logger.debugVerbose(`Created ${size} initial objects`);
   }
 }

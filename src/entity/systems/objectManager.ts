@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import StaticObjectFactory from '@src/entity/systems/staticObjectFactory';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';
@@ -64,7 +64,7 @@ export default class ObjectManager {
       exempt: true,
       collisionModifier: collisionModifier,
     });
-    this.logger.debug(
+    this.logger.debugVerbose(
       `Added static object ${objectID} with texture ${texture} to spatial index`
     );
   }

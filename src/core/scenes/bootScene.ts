@@ -1,9 +1,9 @@
-import { createFallbackSVG } from '@src/utils/svgUtils';
+import { createFallbackSVG } from '@src/core/utils/svgUtils';
 import Phaser from 'phaser';
-import objectAssets from '@src/assets/objectAssets.json';
-import terrainAssets from '@src/assets/terrainAssets.json';
-import menuAssets from '@src/assets/menuAssets.json';
-import uiAssets from '@src/assets/uiAssets.json';
+import objectAssets from '@src/core/assets/objectAssets.json';
+import terrainAssets from '@src/core/assets/terrainAssets.json';
+import menuAssets from '@src/core/assets/menuAssets.json';
+import uiAssets from '@src/core/assets/uiAssets.json';
 
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;

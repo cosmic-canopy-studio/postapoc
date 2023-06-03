@@ -1,12 +1,12 @@
-import controlMappingJson from '@src/config/controlMapping.json';
-import { getLogger } from '@src/telemetry/logger';
+import controlMappingJson from '@src/core/config/controlMapping.json';
+import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/eventBus';
 import { GameAction, KeyBindings } from '@src/core/keyBindings';
 import Phaser from 'phaser';
-import { ControlMapping } from '@src/config/interfaces';
+import { ControlMapping } from '@src/core/config/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
-import { TelemetryActions } from '@src/telemetry/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
 import { TimeActions } from '@src/time/enums';
 
 export default class ControlSystem {
@@ -67,14 +67,14 @@ export default class ControlSystem {
 
     this.scene.input.keyboard.on('keydown', this.onKeyDown.bind(this));
     this.scene.input.keyboard.on('keyup', this.onKeyUp.bind(this));
-    this.logger.debug('Initialized');
+    this.logger.debug('Control System initialized');
   }
 
   onKeyDown(event: KeyboardEvent) {
     this.logger.debug(`Keydown event: ${event.code}`);
     const code = event.code;
     if (this.pressedKeys.has(code)) {
-      this.logger.debug('Ignoring repeated keydown event');
+      this.logger.debugVerbose('Ignoring repeated keydown event');
       return;
     }
     this.pressedKeys.add(code);

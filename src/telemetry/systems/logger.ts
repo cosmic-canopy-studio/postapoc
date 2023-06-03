@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import log, { LogLevelNames, LogLevelNumbers } from 'loglevel';
+import log, { Logger, LogLevelNames, LogLevelNumbers } from 'loglevel';
 
 const colors = {
   trace: chalk.magenta,
@@ -34,13 +34,25 @@ const customMethodFactory = (
 };
 
 log.methodFactory = customMethodFactory;
-const loggers: Record<string, log.Logger> = {};
 
-export function getLogger(moduleName: string) {
+// Add the debugVerbose method to the Logger interface
+interface VerboseLogger extends Logger {
+  debugVerbose: (message?: any, ...args: any[]) => void;
+}
+
+const loggers: Record<string, VerboseLogger> = {};
+
+export function getLogger(moduleName: string): VerboseLogger {
   if (!loggers[moduleName]) {
-    loggers[moduleName] = log.getLogger(moduleName);
+    loggers[moduleName] = log.getLogger(moduleName) as VerboseLogger;
     loggers[moduleName].setLevel(log.levels.INFO);
     loggers[moduleName].methodFactory = customMethodFactory;
+    const verbose = import.meta.env?.VITE_VERBOSE || 'false';
+    loggers[moduleName].debugVerbose = (...args) => {
+      if (verbose === 'true') {
+        loggers[moduleName].debug(...args);
+      }
+    };
   }
   return loggers[moduleName];
 }

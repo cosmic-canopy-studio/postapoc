@@ -1,7 +1,7 @@
 import EventBus from '@src/core/eventBus';
 import Health from '@src/entity/components/health';
-import { getLogger } from '@src/telemetry/logger';
-import { IHandler } from '@src/config/interfaces';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { IHandler } from '@src/core/config/interfaces';
 import {
   ActionEventPayload,
   DamageEventPayload,

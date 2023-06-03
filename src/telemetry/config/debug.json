@@ -2,7 +2,7 @@
   "modules": {
     "action": false,
     "core": false,
-    "entity": false,
+    "entity": true,
     "movement": false,
     "time": false,
     "telemetry": false

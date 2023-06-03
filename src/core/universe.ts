@@ -1,4 +1,4 @@
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import EventHandler from '@src/core/eventHandler';
