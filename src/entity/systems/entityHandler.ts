@@ -20,6 +20,7 @@ import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
 import { getEntityNameWithID } from '@src/entity/components/names';
+import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
@@ -63,18 +64,30 @@ export default class EntityHandler implements IUpdatableHandler {
     this.logger.debug(
       `${getEntityNameWithID(entityId)} attempting to pick up item`
     );
-    const focusedObject = getFocusTarget(entityId);
+
+    const focusedObjectEntityId = getFocusTarget(entityId);
+    const canBePickedUp = entityCanBePickedUp(focusedObjectEntityId);
+    if (!canBePickedUp) {
+      this.logger.warn(
+        `Item ${getEntityNameWithID(
+          focusedObjectEntityId
+        )} cannot be picked up.`
+      );
+      return;
+    }
     this.logger.debug(
       `${getEntityNameWithID(
         entityId
-      )} current focus for pickup: ${getEntityNameWithID(focusedObject)}`
+      )} current focus for pickup: ${getEntityNameWithID(
+        focusedObjectEntityId
+      )}`
     );
-    if (focusedObject) {
-      this.removeWorldEntity(focusedObject);
-      addToInventory(this.world, entityId, focusedObject);
+    if (focusedObjectEntityId) {
+      this.removeWorldEntity(focusedObjectEntityId);
+      addToInventory(this.world, entityId, focusedObjectEntityId);
       this.logger.info(
         `${getEntityNameWithID(entityId)} picked up ${getEntityNameWithID(
-          focusedObject
+          focusedObjectEntityId
         )})`
       );
     }
@@ -116,16 +129,13 @@ export default class EntityHandler implements IUpdatableHandler {
   }
 
   private removeWorldEntity(entityId: number) {
-    // Remove sprite
     removePhaserSprite(entityId);
 
-    // Remove from spatial index
     const collider = getCollider(entityId);
     this.objectManager.getObjectSpatialIndex().remove(collider, (a, b) => {
       return a.eid === b.eid;
     });
 
-    // Update focus
     for (
       let focusingEntityId = 0;
       focusingEntityId < Focus.target.length;

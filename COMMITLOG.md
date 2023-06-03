@@ -124,9 +124,7 @@
 * break up large classes by concerns ([#22](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/22)) ([e3a83a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e3a83a7f9e7e1e10fe4835e9899f2f5a54afe95f))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
-* format entityId names consistently, add debugVerbose function, use entity name in logging ([3b7b40e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3b7b40e8f4bb7879ea96bf675ec1d05e50a75a58))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
-* make all top level folders in src features ([c02362b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c02362bf9cdc7b9fa1bac19c59b3491c0116f196))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
 * move enums to relevant feature folder ([8ae0f26](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ae0f26beb7bdb96ec32caf1ee2dd67834677e28))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
@@ -149,4 +147,5 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+* top level directories are features, add entity names, add verbose logging option ([#25](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/25)) ([7b648ed](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7b648eddb4a9cfbce592f944c02288f718637292))
 

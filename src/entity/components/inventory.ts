@@ -8,6 +8,7 @@ import {
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { getEntityNameWithID } from '@src/entity/components/names';
+import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 
 export const Inventory = defineComponent({
   items: [Types.ui16, 256], // Array of 256 possible items (entities)
@@ -19,6 +20,15 @@ export function addToInventory(
   itemEntityId: number
 ) {
   const logger = getLogger('entity');
+
+  const canBePickedUp = entityCanBePickedUp(itemEntityId);
+  if (!canBePickedUp) {
+    logger.warn(
+      `Item ${getEntityNameWithID(itemEntityId)} cannot be picked up.`
+    );
+    return;
+  }
+
   if (hasComponent(world, Inventory, entityId)) {
     for (let i = 0; i < Inventory.items.length; i++) {
       if (Inventory.items[entityId][i] === 0) {
