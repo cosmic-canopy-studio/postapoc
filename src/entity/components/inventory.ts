@@ -7,6 +7,7 @@ import {
 } from 'bitecs';
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
 import { getLogger } from '@src/telemetry/systems/logger';
+import { getEntityNameWithID } from '@src/entity/components/names';
 
 export const Inventory = defineComponent({
   items: [Types.ui16, 256], // Array of 256 possible items (entities)
@@ -14,24 +15,32 @@ export const Inventory = defineComponent({
 
 export function addToInventory(
   world: IWorld,
-  entity: number,
-  itemEntity: number
+  entityId: number,
+  itemEntityId: number
 ) {
   const logger = getLogger('entity');
-  if (hasComponent(world, Inventory, entity)) {
+  if (hasComponent(world, Inventory, entityId)) {
     for (let i = 0; i < Inventory.items.length; i++) {
-      if (Inventory.items[entity][i] === 0) {
+      if (Inventory.items[entityId][i] === 0) {
         // 0 is used as a placeholder for no item
-        Inventory.items[entity][i] = itemEntity;
-        removePhaserSprite(itemEntity);
+        Inventory.items[entityId][i] = itemEntityId;
+        removePhaserSprite(itemEntityId);
         break;
       }
     }
   } else {
-    addComponent(world, Inventory, entity);
-    Inventory.items[entity][0] = itemEntity;
-    removePhaserSprite(itemEntity);
+    addComponent(world, Inventory, entityId);
+    Inventory.items[entityId][0] = itemEntityId;
+    removePhaserSprite(itemEntityId);
   }
-  logger.info(`Added item ${itemEntity} to entity ${entity}'s inventory`);
-  logger.debug(`Entity ${entity}'s inventory: ${Inventory.items[entity]}`);
+  logger.info(
+    `Added item ${getEntityNameWithID(
+      itemEntityId
+    )} to entity ${getEntityNameWithID(entityId)}'s inventory`
+  );
+  logger.debug(
+    `Entity ${getEntityNameWithID(entityId)}'s inventory: ${
+      Inventory.items[entityId]
+    }`
+  );
 }

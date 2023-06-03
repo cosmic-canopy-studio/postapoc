@@ -6,6 +6,7 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { PLAYER_FOCUS_DISTANCE } from '@src/core/config/constants';
 import RBush from 'rbush';
 import * as Phaser from 'phaser';
+import { getEntityNameWithID } from '@src/entity/components/names';
 
 interface IFocusTarget {
   distance: number;
@@ -33,7 +34,7 @@ export function focus(
 
   if (nearbyObjects === undefined || nearbyObjects.length === 0) {
     arrow.setVisible(false);
-    logger.debug('No nearby objects');
+    logger.debugVerbose('No nearby objects');
     return null;
   }
 
@@ -65,7 +66,7 @@ export function focus(
 
 export function setFocus(target: ICollider, arrow: Phaser.GameObjects.Sprite) {
   const logger = getLogger('action');
-  logger.debug(`Setting focus to ${target.eid}`);
+  logger.info(`Setting focus to ${getEntityNameWithID(target.eid)}`);
   const centerX = target.minX + (target.maxX - target.minX);
 
   const arrowX = centerX - arrow.width / 2;

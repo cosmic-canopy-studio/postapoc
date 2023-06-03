@@ -67,14 +67,14 @@ export default class ControlSystem {
 
     this.scene.input.keyboard.on('keydown', this.onKeyDown.bind(this));
     this.scene.input.keyboard.on('keyup', this.onKeyUp.bind(this));
-    this.logger.debug('Initialized');
+    this.logger.debug('Control System initialized');
   }
 
   onKeyDown(event: KeyboardEvent) {
     this.logger.debug(`Keydown event: ${event.code}`);
     const code = event.code;
     if (this.pressedKeys.has(code)) {
-      this.logger.debug('Ignoring repeated keydown event');
+      this.logger.debugVerbose('Ignoring repeated keydown event');
       return;
     }
     this.pressedKeys.add(code);

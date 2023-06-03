@@ -64,7 +64,7 @@ export default class ObjectManager {
       exempt: true,
       collisionModifier: collisionModifier,
     });
-    this.logger.debug(
+    this.logger.debugVerbose(
       `Added static object ${objectID} with texture ${texture} to spatial index`
     );
   }

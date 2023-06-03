@@ -7,7 +7,13 @@ import {
 } from '@src/entity/components/phaserSprite';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
-import { getLogger } from '@src/telemetry/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
+import {
+  getEntityName,
+  getEntityNameWithID,
+  removeEntityName,
+  setEntityName,
+} from '@src/entity/components/names';
 
 export default class StaticObjectFactory {
   private scene: Phaser.Scene;
@@ -33,25 +39,30 @@ export default class StaticObjectFactory {
     exempt = false,
     collisionModifier = 0
   ) {
-    const objectID = addEntity(this.world);
+    const entityId = addEntity(this.world);
     const sprite = this.spritePool.get();
 
     sprite.setTexture(texture);
     sprite.setPosition(x, y);
     sprite.setActive(true);
     sprite.setVisible(true);
+    setEntityName(entityId, texture);
 
     this.scene.add.existing(sprite);
-    addPhaserSprite(this.world, objectID, sprite);
-    addHealth(this.world, objectID, 100, 100);
-    addCollider(this.world, objectID, exempt, collisionModifier);
-    return objectID;
+    addPhaserSprite(this.world, entityId, sprite);
+    addHealth(this.world, entityId, 100, 100);
+    addCollider(this.world, entityId, exempt, collisionModifier);
+    this.logger.debug(`Created entity ${getEntityNameWithID(entityId)} `);
+    return entityId;
   }
 
   release(entityId: number): void {
-    this.logger.debug(`Releasing entity ${entityId}`);
+    this.logger.debug(
+      `Releasing entity: ${entityId} ${getEntityName(entityId)} `
+    );
     const sprite = removePhaserSprite(entityId);
     this.spritePool.release(sprite);
+    removeEntityName(entityId);
     removeEntity(this.world, entityId);
   }
 }

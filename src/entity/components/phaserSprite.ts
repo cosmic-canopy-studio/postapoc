@@ -17,7 +17,9 @@ export function addPhaserSprite(
   addComponent(world, PhaserSprite, eid);
   PhaserSprite.spriteIndex[eid] = phaserSprites.length;
   phaserSprites.push(sprite);
-  logger.debug(`Adding sprite ${eid}`);
+  logger.debugVerbose(
+    `Adding sprite ${eid} with texture ${sprite.texture.key}`
+  );
 }
 
 export function removePhaserSprite(eid: number) {
@@ -29,7 +31,7 @@ export function removePhaserSprite(eid: number) {
     sprite.setVisible(false);
     sprite.setTexture('');
   }
-  logger.debug(`Removing sprite ${eid}`);
+  logger.debugVerbose(`Removing sprite ${eid}`);
   return sprite;
 }
 

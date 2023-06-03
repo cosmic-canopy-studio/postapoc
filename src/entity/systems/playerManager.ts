@@ -13,7 +13,7 @@ export default class PlayerManager {
   private debugPanel!: DebugPanel;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
-    this.logger = getLogger('core');
+    this.logger = getLogger('entity');
     this.world = world;
   }
 

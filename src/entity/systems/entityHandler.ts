@@ -19,6 +19,7 @@ import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
+import { getEntityNameWithID } from '@src/entity/components/names';
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
@@ -48,26 +49,34 @@ export default class EntityHandler implements IUpdatableHandler {
     const player = this.playerManager.getPlayer();
     let focusTarget = getFocusTarget(player);
     if (focusTarget === 0) {
-      this.logger.debug(`No focus target set for ${player}`);
       focusTarget =
         focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ||
         0;
       if (focusTarget !== 0) {
-        this.logger.info(`Focus target set to ${focusTarget}`);
         updateFocusTarget(player, focusTarget);
       }
     }
   }
 
   private onItemPickedUp(payload: EntityIDPayload) {
-    this.logger.debug(`${payload.entityId} attempting to pick up item`);
     const { entityId } = payload;
+    this.logger.debug(
+      `${getEntityNameWithID(entityId)} attempting to pick up item`
+    );
     const focusedObject = getFocusTarget(entityId);
-    this.logger.debug(`${entityId} current focus for pickup: ${focusedObject}`);
+    this.logger.debug(
+      `${getEntityNameWithID(
+        entityId
+      )} current focus for pickup: ${getEntityNameWithID(focusedObject)}`
+    );
     if (focusedObject) {
       this.removeWorldEntity(focusedObject);
       addToInventory(this.world, entityId, focusedObject);
-      this.logger.info(`${entityId} picked up ${focusedObject}`);
+      this.logger.info(
+        `${getEntityNameWithID(entityId)} picked up ${getEntityNameWithID(
+          focusedObject
+        )})`
+      );
     }
   }
 
@@ -76,7 +85,7 @@ export default class EntityHandler implements IUpdatableHandler {
     this.handleDrops(entityId);
     this.removeWorldEntity(entityId);
     this.objectManager.getStaticObjectFactory().release(entityId);
-    this.logger.info(`Entity ${entityId} destroyed`);
+    this.logger.info(`Entity ${getEntityNameWithID(entityId)}) destroyed`);
   }
 
   private handleDrops(entityId: number) {
@@ -90,7 +99,9 @@ export default class EntityHandler implements IUpdatableHandler {
     const droppedItems = this.objectManager
       .getLootTable()
       .generateDrops(objectName);
-    this.logger.info(`Dropping items ${droppedItems} from ${objectName}`);
+    this.logger.info(
+      `Dropping items ${droppedItems} from ${getEntityNameWithID(entityId)})`
+    );
     const objectPosition: Phaser.Math.Vector2 = objectSprite.getCenter();
     const spreadRadius = DROP_SPREAD_RADIUS;
     droppedItems.forEach((item) => {
@@ -115,13 +126,14 @@ export default class EntityHandler implements IUpdatableHandler {
     });
 
     // Update focus
-    for (let entity = 0; entity < Focus.target.length; entity++) {
-      if (getFocusTarget(entity) === entityId) {
-        this.logger.info(`Unsetting focus target for ${entity}`);
-        updateFocusTarget(entity, 0); // Unset the focus target
+    for (let entityID = 0; entityID < Focus.target.length; entityID++) {
+      if (getFocusTarget(entityID) === entityId) {
+        this.logger.info(
+          `Unsetting focus target for ${getEntityNameWithID(entityId)})`
+        );
+        updateFocusTarget(entityId, 0); // Unset the focus target
       }
     }
-
     this.logger.info(`Entity ${entityId} removed`);
   }
 
