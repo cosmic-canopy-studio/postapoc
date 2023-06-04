@@ -7,7 +7,7 @@ import { ControlMapping } from '@src/core/config/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';
-import { TimeActions } from '@src/time/enums';
+import { TimeActions } from '@src/time/data/enums';
 import { EntityActions } from '@src/entity/data/enums';
 import { SystemActions } from '@src/core/data/enums';
 

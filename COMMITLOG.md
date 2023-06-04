@@ -8,6 +8,7 @@
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add help screen ([c94357a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c94357a887b82a025fa4f17a4d3cb1e97db9bb58))
+* add help screen tip ([5567af7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5567af763cd9b4523575e2f676699aa7e75519e2))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))

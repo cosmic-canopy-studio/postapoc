@@ -1,7 +1,7 @@
 import { Container } from 'inversify';
 import { Scene } from 'phaser';
-import { TimeSystem } from '@src/time/timeSystem';
-import { PhaserTimeController } from '@src/time/phaserTimeController';
+import { TimeSystem } from '@src/time/systems/timeSystem';
+import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
 import { ITimeController } from '@src/core/config/interfaces';
 import {
   TIME_CONTROLLER_FACTORY,

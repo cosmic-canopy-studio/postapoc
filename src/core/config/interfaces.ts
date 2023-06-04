@@ -1,4 +1,4 @@
-import { TimeState } from '@src/time/timeSystem';
+import { TimeState } from '@src/time/systems/timeSystem';
 
 export interface ITimeController {
   setTimeScale(scale: number): void;
