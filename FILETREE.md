@@ -59,16 +59,14 @@
 ├── src
 │   ├── action
 │   │   ├── components
-│   │   │   ├── attack.ts
-│   │   │   └── focus.ts
+│   │   │   └── attack.ts
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
 │   │   │   └── interfaces.ts
 │   │   └── systems
 │   │       ├── actionHandler.ts
-│   │       ├── actionLogic.ts
-│   │       └── focusManager.ts
+│   │       └── actionLogic.ts
 │   ├── core
 │   │   ├── assets
 │   │   │   ├── itemAssets.json
@@ -100,9 +98,9 @@
 │   ├── entity
 │   │   ├── components
 │   │   │   ├── canPickup.ts
+│   │   │   ├── focus.ts
 │   │   │   ├── health.ts
 │   │   │   ├── inventory.ts
-│   │   │   ├── names.ts
 │   │   │   └── phaserSprite.ts
 │   │   ├── data
 │   │   │   ├── enums.ts
@@ -114,6 +112,8 @@
 │   │   │   └── inventoryScene.ts
 │   │   └── systems
 │   │       ├── entityHandler.ts
+│   │       ├── entityNames.ts
+│   │       ├── focusManager.ts
 │   │       ├── healthSystem.ts
 │   │       ├── lootDrops.ts
 │   │       ├── objectManager.ts

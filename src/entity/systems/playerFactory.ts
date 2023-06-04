@@ -9,13 +9,13 @@ import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
 import { addAttack } from '@src/action/components/attack';
 import { PLAYER_DEFAULT_DAMAGE } from '@src/core/config/constants';
-import { addFocus } from '@src/action/components/focus';
+import { addFocus } from '@src/entity/components/focus';
 import {
   getEntityName,
   getEntityNameWithID,
   removeEntityName,
   setEntityName,
-} from '@src/entity/components/names';
+} from '@src/entity/systems/entityNames';
 import { getLogger } from '@src/telemetry/systems/logger';
 
 export default class PlayerFactory {

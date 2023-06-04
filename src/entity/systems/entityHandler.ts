@@ -4,12 +4,13 @@ import {
   removePhaserSprite,
 } from '@src/entity/components/phaserSprite';
 import { getCollider } from '@src/movement/components/collider';
-import FocusManager from '@src/action/systems/focusManager';
+import FocusManager from '@src/entity/systems/focusManager';
 import {
   clearFocusTarget,
   Focus,
   getFocusTarget,
-} from '@src/action/components/focus';
+  updateFocusTarget,
+} from '@src/entity/components/focus';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
@@ -19,7 +20,7 @@ import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
@@ -50,6 +51,7 @@ export default class EntityHandler implements IUpdatableHandler {
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
     EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
     EventBus.on('toggleHelp', this.onToggleHelp.bind(this));
+    EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
   }
 
   update() {
@@ -57,6 +59,12 @@ export default class EntityHandler implements IUpdatableHandler {
       this.playerManager.getPlayer(),
       this.objectManager.getObjectSpatialIndex()
     );
+  }
+
+  onSwitchFocus(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.logger.debug(`Switching focus for ${getEntityNameWithID(entityId)}`);
+    updateFocusTarget(this.playerManager.getPlayer(), entityId);
   }
 
   onEntityDestroyed(payload: EntityIDPayload) {

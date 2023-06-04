@@ -6,12 +6,12 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { ECS_NULL, PLAYER_FOCUS_DISTANCE } from '@src/core/config/constants';
 import RBush from 'rbush';
 import * as Phaser from 'phaser';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import {
   clearFocusTarget,
   getFocusTarget,
   updateFocusTarget,
-} from '@src/action/components/focus';
+} from '@src/entity/components/focus';
 
 interface IFocusTarget {
   distance: number;

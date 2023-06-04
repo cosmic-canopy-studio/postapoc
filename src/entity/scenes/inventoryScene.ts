@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { getInventory } from '@src/entity/components/inventory';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import EventBus from '@src/core/systems/eventBus';
 import { getLogger } from '@src/telemetry/systems/logger';
 
