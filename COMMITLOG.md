@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-03)
+## 0.0.1 (2023-06-04)
 
 
 ### Features
@@ -37,6 +37,7 @@
 * event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))
 * fix comment header hook ([5a108ed](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a108eddb1cc8ad1ee2cf627788b0d1e14052e64))
 * fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
+* fix title screen mushroom cloud ([5e5b04c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5e5b04c68c56fd1966ca31e209a89fb5b8af8b3c))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
 * object destruction ([387e2f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/387e2f0b90265c43869725704558b188a8021c42))

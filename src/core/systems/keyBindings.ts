@@ -5,11 +5,13 @@ import { TelemetryActions } from '@src/telemetry/data/enums';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 import { EntityActions } from '@src/entity/data/enums';
+import { SystemActions } from '@src/core/data/enums';
 
 export type GameAction =
   | MoveActions
   | Actions
   | EntityActions
+  | SystemActions
   | TelemetryActions
   | TimeActions;
 
@@ -31,6 +33,7 @@ export class KeyBindings {
     this.logger.debug(`Looking up action for key code ${keyCode}`);
     return this.bindings.get(keyCode);
   }
+
   private loadBindingsFromControlMapping(controlMapping: ControlMapping) {
     this.logger.debug(
       'Loading key bindings from control mapping',
