@@ -7,6 +7,7 @@
 * add collision system ([ea1294b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ea1294b51721cae8f8199d78d7bed16ccb28c2dc))
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
+* add hammer item/asset ([58e436b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/58e436b400fd5391081d14f0ecc3757b0868142a))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))

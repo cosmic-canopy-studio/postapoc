@@ -4,7 +4,7 @@ import {
   removePhaserSprite,
 } from '@src/entity/components/phaserSprite';
 import { getCollider } from '@src/movement/components/collider';
-import { focus } from '@src/action/systems/focus';
+import { focusSystem } from '@src/action/systems/focusSystem';
 import {
   Focus,
   getFocusTarget,
@@ -53,16 +53,11 @@ export default class EntityHandler implements IUpdatableHandler {
   }
 
   update() {
-    const player = this.playerManager.getPlayer();
-    let focusTarget = getFocusTarget(player);
-    if (focusTarget === 0) {
-      focusTarget =
-        focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ??
-        0;
-      if (focusTarget !== 0) {
-        updateFocusTarget(player, focusTarget);
-      }
-    }
+    focusSystem(
+      this.playerManager.getPlayer(),
+      this.objectManager.getObjectSpatialIndex(),
+      this.arrow
+    );
   }
 
   onEntityDestroyed(payload: EntityIDPayload) {
@@ -172,7 +167,7 @@ export default class EntityHandler implements IUpdatableHandler {
         this.logger.info(
           `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)}`
         );
-        updateFocusTarget(focusingEntityId, 0); // Unset the focus target
+        updateFocusTarget(focusingEntityId, 0); // Unset the focusSystem target
       }
     }
     this.logger.info(`Entity ${entityId} removed`);
