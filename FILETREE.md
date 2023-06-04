@@ -105,8 +105,10 @@
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
+│   │   │   ├── interfaces.ts
 │   │   │   ├── items.json
-│   │   │   └── objects.json
+│   │   │   ├── objects.json
+│   │   │   └── types.ts
 │   │   ├── scenes
 │   │   │   ├── helpScene.ts
 │   │   │   └── inventoryScene.ts

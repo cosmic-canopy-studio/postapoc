@@ -100,6 +100,26 @@
 * update workflow versioning, add artifact uploads ([e79d7a2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e79d7a25619c8e3f836190c51ba3b5cf980c270f))
 
 
+### Chores
+
+*  coverate ([996fbf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/996fbf254dc286705870e1cadd2a566aef925c7c))
+* add bench to scene ([c9306ad](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c9306ad5450bdb5cb16e1187ca0e35175083ea21))
+* bump minor ([27df48f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/27df48fc1b81e5b8a8607f8069b2e17456796ad8))
+* bump minor ([e1f64a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e1f64a7e32aa36a6bf0460dc1e5af4d4a9787567))
+* bump minor ([6f399df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6f399df3a7d5b348a480c5ac95382e05508eedd6))
+* correct version ([49e39a4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/49e39a491833a1e2ee4322a5eea784ad7f1bdfa2))
+* correct version ([6affe73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6affe73b4756ee45a4fe8e639aef3384d6bae5f3))
+* correct version ([2d8816b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2d8816bb43d71357eb413682cb06eef4265efb48))
+* correct version ([ff6d620](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ff6d6203ba3ad7859705bd4035c596c67fa6780f))
+* coverage ([d3f4c96](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d3f4c966e1e63b3661daa6b661d794bcc909df14))
+* fix filenames ([0390e4a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0390e4a56ae588255d077269685575c50e93cc84))
+* ignore tiled-session ([aa08be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aa08be32921b3dfd3e85b2cfb4d724f5666406ca))
+* remove extraneous logging ([8e9abba](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8e9abba0a21373c1bc852589a560a625855c4779))
+* remove header comments from main ([146a605](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/146a605270ed99c7fa258c7cf4dde5416614b3e9))
+* remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
+* update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
+
+
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
@@ -109,6 +129,7 @@
 * **focus:** refactor focusSystem to focusManager class ([fd71314](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd713140748f4f70794c69909cbdf42a18a93308))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * make hammer pickupable, modify world position ([f2d24cb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f2d24cbd336143ef1b50f3b63e415d8a406898c6))
+* move all focus functionality to entity feature ([7552bcf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7552bcfb5b36a4fd9b6e9a39ea40dd537bca3637))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
 * move files to correct subfolders ([23a3e45](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/23a3e45e615c469b278e0c6ddba502839bb1c3ff))
 * move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
@@ -130,24 +151,4 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-
-
-### Chores
-
-*  coverate ([996fbf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/996fbf254dc286705870e1cadd2a566aef925c7c))
-* add bench to scene ([c9306ad](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c9306ad5450bdb5cb16e1187ca0e35175083ea21))
-* bump minor ([27df48f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/27df48fc1b81e5b8a8607f8069b2e17456796ad8))
-* bump minor ([e1f64a7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e1f64a7e32aa36a6bf0460dc1e5af4d4a9787567))
-* bump minor ([6f399df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6f399df3a7d5b348a480c5ac95382e05508eedd6))
-* correct version ([49e39a4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/49e39a491833a1e2ee4322a5eea784ad7f1bdfa2))
-* correct version ([6affe73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6affe73b4756ee45a4fe8e639aef3384d6bae5f3))
-* correct version ([2d8816b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2d8816bb43d71357eb413682cb06eef4265efb48))
-* correct version ([ff6d620](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ff6d6203ba3ad7859705bd4035c596c67fa6780f))
-* coverage ([d3f4c96](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d3f4c966e1e63b3661daa6b661d794bcc909df14))
-* fix filenames ([0390e4a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0390e4a56ae588255d077269685575c50e93cc84))
-* ignore tiled-session ([aa08be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aa08be32921b3dfd3e85b2cfb4d724f5666406ca))
-* remove extraneous logging ([8e9abba](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8e9abba0a21373c1bc852589a560a625855c4779))
-* remove header comments from main ([146a605](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/146a605270ed99c7fa258c7cf4dde5416614b3e9))
-* remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
-* update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
 

@@ -1,5 +1,5 @@
 // game constants
-export const PLAYER_FOCUS_DISTANCE = 150;
+export const PLAYER_FOCUS_DISTANCE = 75;
 export const PLAYER_DEFAULT_DAMAGE = 50;
 export const MOVEMENT_SPEED = 350;
 export const DROP_SPREAD_RADIUS = 50;

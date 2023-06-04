@@ -12,10 +12,26 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
+import { Boundaries } from '@src/entity/data/types';
+import { IFocusTarget } from '@src/entity/data/interfaces';
 
-interface IFocusTarget {
-  distance: number;
-  target: ICollider;
+function calculateDistance(a: Boundaries, b: Boundaries): number {
+  let xDistance = 0;
+  let yDistance = 0;
+
+  if (a.maxX < b.minX) {
+    xDistance = b.minX - a.maxX;
+  } else if (b.maxX < a.minX) {
+    xDistance = a.minX - b.maxX;
+  }
+
+  if (a.maxY < b.minY) {
+    yDistance = b.minY - a.maxY;
+  } else if (b.maxY < a.minY) {
+    yDistance = a.minY - b.maxY;
+  }
+
+  return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
 }
 
 export default class FocusManager {
@@ -28,47 +44,55 @@ export default class FocusManager {
   }
 
   update(playerEid: number, objectsSpatialIndex: RBush<ICollider>) {
-    let focusTargetEid = getFocusTarget(playerEid);
+    const focusTargetEid = getFocusTarget(playerEid);
 
     if (focusTargetEid) {
-      const playerBounds = getBoundingBox(playerEid);
-      const focusTargetBounds = getBoundingBox(focusTargetEid);
-      if (focusTargetBounds) {
-        const distance = Phaser.Math.Distance.Between(
-          playerBounds.minX + playerBounds.maxX / 2,
-          playerBounds.minY + playerBounds.maxY / 2,
-          focusTargetBounds.minX + focusTargetBounds.maxX / 2,
-          focusTargetBounds.minY + focusTargetBounds.maxY / 2
-        );
-        if (distance > PLAYER_FOCUS_DISTANCE) {
-          this.logger.info(
-            `${getEntityNameWithID(
-              focusTargetEid
-            )} out of range, clearing focus.`
-          );
-          this.removeFocus(playerEid);
-          focusTargetEid = ECS_NULL;
-        }
-      } else {
-        this.logger.warn(
-          `No bounds found for focus target ${getEntityNameWithID(
-            focusTargetEid
-          )}, clearing focus.`
-        );
-        this.removeFocus(playerEid);
-        focusTargetEid = ECS_NULL;
-      }
+      this.updateFocusTarget(playerEid, focusTargetEid);
+    } else {
+      this.findAndSetNewFocusTarget(playerEid, objectsSpatialIndex);
+    }
+  }
+
+  updateFocusTarget(playerEid: number, focusTargetEid: number) {
+    const playerBounds = getBoundingBox(playerEid);
+    const focusTargetBounds = getBoundingBox(focusTargetEid);
+
+    if (!focusTargetBounds) {
+      this.logAndRemoveFocus(
+        `No bounds found for focus target ${getEntityNameWithID(
+          focusTargetEid
+        )}`,
+        playerEid
+      );
+      return;
     }
 
-    if (focusTargetEid === ECS_NULL) {
-      focusTargetEid = this.getNearestTargetInRange(
-        playerEid,
-        objectsSpatialIndex
+    const distance = calculateDistance(playerBounds, focusTargetBounds);
+    if (distance > PLAYER_FOCUS_DISTANCE) {
+      this.logAndRemoveFocus(
+        `${getEntityNameWithID(focusTargetEid)} out of range`,
+        playerEid
       );
-      if (focusTargetEid !== ECS_NULL) {
-        updateFocusTarget(playerEid, focusTargetEid);
-      }
     }
+  }
+
+  findAndSetNewFocusTarget(
+    playerEid: number,
+    objectsSpatialIndex: RBush<ICollider>
+  ) {
+    const newFocusTargetEid = this.getNearestTargetInRange(
+      playerEid,
+      objectsSpatialIndex
+    );
+
+    if (newFocusTargetEid !== ECS_NULL) {
+      updateFocusTarget(playerEid, newFocusTargetEid);
+    }
+  }
+
+  logAndRemoveFocus(message: string, focusOwnerEid: number) {
+    this.logger.info(message + ', clearing focus.');
+    this.removeFocus(focusOwnerEid);
   }
 
   removeFocus(focusOwnerEid: number) {
@@ -112,11 +136,15 @@ export default class FocusManager {
 
     for (const staticObject of nearbyObjects) {
       if (!Collider.exempt[staticObject.eid]) {
-        const distance = Phaser.Math.Distance.Between(
-          focusOwnerBounds.minX + focusOwnerBounds.maxX / 2,
-          focusOwnerBounds.minY + focusOwnerBounds.maxY / 2,
-          staticObject.minX + staticObject.maxX / 2,
-          staticObject.minY + staticObject.maxY / 2
+        const staticObjectBounds = {
+          minX: staticObject.minX,
+          minY: staticObject.minY,
+          maxX: staticObject.maxX,
+          maxY: staticObject.maxY,
+        };
+        const distance = calculateDistance(
+          focusOwnerBounds,
+          staticObjectBounds
         );
         if (distance <= PLAYER_FOCUS_DISTANCE) {
           objectsInRange.push({ distance, target: staticObject });
