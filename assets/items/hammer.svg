@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect x="14" y="14" width="4" height="14" fill="SaddleBrown"/> <!-- The handle -->
+  <rect x="9" y="8" width="14" height="6" fill="SlateGray"/> <!-- The head -->
+</svg>
