@@ -138,12 +138,7 @@ export default class FocusManager {
   private setFocusArrow(target: ICollider) {
     this.logger.info(`Setting focus to ${getEntityNameWithID(target.eid)}`);
     const lengthX = target.maxX - target.minX;
-    this.logger.info(
-      `target.minX: ${target.minX}, target.maxX: ${target.maxX}`
-    );
-    this.logger.info('lengthX', lengthX);
     const centerX = target.minX + lengthX / 2;
-    this.logger.info('centerX', centerX);
     const arrowX = centerX - this.arrow.width / 2;
     const arrowY = target.minY - this.arrow.height / 2;
     this.arrow.setPosition(arrowX, arrowY);

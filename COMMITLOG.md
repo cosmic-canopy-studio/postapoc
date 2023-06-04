@@ -12,6 +12,7 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
+* **controls:** add simple onClick function for initial mouse handling ([fe6fe44](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fe6fe44cfba28588b81678362504d268d5ffcdb8))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
