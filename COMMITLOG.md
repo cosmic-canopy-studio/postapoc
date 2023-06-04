@@ -40,6 +40,7 @@
 * fix comment header hook ([5a108ed](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a108eddb1cc8ad1ee2cf627788b0d1e14052e64))
 * fix comment header hook ([35e84db](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/35e84dbaa0181bc218959ef3b2e55d0cef73b27a))
 * fix title screen mushroom cloud ([5e5b04c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5e5b04c68c56fd1966ca31e209a89fb5b8af8b3c))
+* **focus:** correctly center focus arrow ([6172e5c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6172e5c305c21aa764adb481d78d946e760e91d8))
 * **focus:** correctly handle player moving out of range of focus objects ([d2beb2d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d2beb2df1b24e82735fd35b77903d4a4805a3417))
 * grass tile collisions ([a362051](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a362051e7f2d51924e1de35e7e2338518a7a5b54))
 * key up stops movement correctly ([a014c98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a014c9863a7db359628e7d44beaeeb692c4a4366))
