@@ -1,4 +1,4 @@
-import { TimeState, TimeSystem } from '@src/time/timeSystem';
+import { TimeState, TimeSystem } from '@src/time/systems/timeSystem';
 
 describe('Time System', () => {
   it('returns adjusted delta times based on the current time state', () => {

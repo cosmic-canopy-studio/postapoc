@@ -1,9 +1,9 @@
 import { getLogger } from '@src/telemetry/systems/logger';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import { inject, injectable } from 'inversify';
 import { Scene } from 'phaser';
-import { ITimeController } from '@src/core/config/interfaces';
 import { TIME_CONTROLLER } from '@src/core/config/constants';
+import { ITimeController } from '@src/time/data/interfaces';
 
 @injectable()
 export class PhaserTimeController implements ITimeController {

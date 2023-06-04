@@ -5,7 +5,7 @@ import ActionHandler from '@src/action/systems/actionHandler';
 import EntityHandler from '@src/entity/systems/entityHandler';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
-import { IHandler, IUpdatableHandler } from '@src/core/config/interfaces';
+import { IHandler, IUpdatableHandler } from '@src/core/data/interfaces';
 import * as Phaser from 'phaser';
 
 export default class EventHandler {

@@ -13,8 +13,8 @@ import {
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
-import EventBus from '@src/core/eventBus';
-import { IUpdatableHandler } from '@src/core/config/interfaces';
+import EventBus from '@src/core/systems/eventBus';
+import { IUpdatableHandler } from '@src/core/data/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
@@ -49,6 +49,7 @@ export default class EntityHandler implements IUpdatableHandler {
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
     EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
+    EventBus.on('toggleHelp', this.onToggleHelp.bind(this));
   }
 
   update() {
@@ -56,12 +57,20 @@ export default class EntityHandler implements IUpdatableHandler {
     let focusTarget = getFocusTarget(player);
     if (focusTarget === 0) {
       focusTarget =
-        focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ||
+        focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ??
         0;
       if (focusTarget !== 0) {
         updateFocusTarget(player, focusTarget);
       }
     }
+  }
+
+  onEntityDestroyed(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.logger.info(`Destroying ${getEntityNameWithID(entityId)}`);
+    this.handleDrops(entityId);
+    this.removeWorldEntity(entityId);
+    this.objectManager.getStaticObjectFactory().release(entityId);
   }
 
   private onToggleInventory(payload: EntityIDPayload) {
@@ -73,6 +82,15 @@ export default class EntityHandler implements IUpdatableHandler {
       this.scene.stop('InventoryScene');
     } else {
       this.scene.launch('InventoryScene', { entityId: entityId });
+    }
+  }
+
+  private onToggleHelp() {
+    this.logger.debug(`Toggling help screen.`);
+    if (this.scene.isActive('HelpScene')) {
+      this.scene.stop('HelpScene');
+    } else {
+      this.scene.launch('HelpScene');
     }
   }
 
@@ -108,14 +126,6 @@ export default class EntityHandler implements IUpdatableHandler {
         )})`
       );
     }
-  }
-
-  onEntityDestroyed(payload: EntityIDPayload) {
-    const { entityId } = payload;
-    this.logger.info(`Destroying ${getEntityNameWithID(entityId)}`);
-    this.handleDrops(entityId);
-    this.removeWorldEntity(entityId);
-    this.objectManager.getStaticObjectFactory().release(entityId);
   }
 
   private handleDrops(entityId: number) {

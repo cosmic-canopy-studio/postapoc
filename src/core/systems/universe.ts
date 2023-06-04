@@ -2,8 +2,8 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import EventHandler from '@src/core/systems/eventHandler';
-import { TimeState, TimeSystem } from '@src/time/timeSystem';
-import { PhaserTimeController } from '@src/time/phaserTimeController';
+import { TimeState, TimeSystem } from '@src/time/systems/timeSystem';
+import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
 import { createWorld, IWorld } from 'bitecs';
 import * as Phaser from 'phaser';
 

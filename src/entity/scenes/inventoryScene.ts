@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { getInventory } from '@src/entity/components/inventory';
 import { getEntityNameWithID } from '@src/entity/components/names';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import { getLogger } from '@src/telemetry/systems/logger';
 
 export default class InventoryScene extends Phaser.Scene {
@@ -9,6 +9,7 @@ export default class InventoryScene extends Phaser.Scene {
   private entityId!: number;
   private visible = true;
   private logger = getLogger('entity');
+
   constructor() {
     super({ key: 'InventoryScene' });
   }
