@@ -4,11 +4,11 @@ import {
   removePhaserSprite,
 } from '@src/entity/components/phaserSprite';
 import { getCollider } from '@src/movement/components/collider';
-import { focusSystem } from '@src/action/systems/focusSystem';
+import FocusManager from '@src/action/systems/focusManager';
 import {
+  clearFocusTarget,
   Focus,
   getFocusTarget,
-  updateFocusTarget,
 } from '@src/action/components/focus';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
@@ -25,9 +25,9 @@ import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
-  private readonly arrow!: Phaser.GameObjects.Sprite;
   private playerManager!: PlayerManager;
   private objectManager!: ObjectManager;
+  private focusManager!: FocusManager;
   private readonly world: IWorld;
   private scene: ScenePlugin;
 
@@ -38,9 +38,9 @@ export default class EntityHandler implements IUpdatableHandler {
     world: IWorld
   ) {
     this.logger = getLogger('entity');
-    this.arrow = this.createArrow(scene);
     this.playerManager = playerManager;
     this.objectManager = objectManager;
+    this.focusManager = new FocusManager(scene);
     this.world = world;
     this.scene = scene.scene;
   }
@@ -53,10 +53,9 @@ export default class EntityHandler implements IUpdatableHandler {
   }
 
   update() {
-    focusSystem(
+    this.focusManager.update(
       this.playerManager.getPlayer(),
-      this.objectManager.getObjectSpatialIndex(),
-      this.arrow
+      this.objectManager.getObjectSpatialIndex()
     );
   }
 
@@ -167,15 +166,14 @@ export default class EntityHandler implements IUpdatableHandler {
         this.logger.info(
           `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)}`
         );
-        updateFocusTarget(focusingEntityId, 0); // Unset the focusSystem target
+        const playerEntityId = this.playerManager.getPlayer();
+        if (focusingEntityId === playerEntityId) {
+          this.focusManager.removeFocus(playerEntityId);
+        } else {
+          clearFocusTarget(focusingEntityId);
+        }
       }
     }
     this.logger.info(`Entity ${entityId} removed`);
-  }
-
-  private createArrow(scene: Phaser.Scene, visible = false) {
-    const arrow = scene.add.sprite(0, 0, 'red_arrow');
-    arrow.setVisible(visible);
-    return arrow;
   }
 }

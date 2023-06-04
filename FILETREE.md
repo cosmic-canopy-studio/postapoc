@@ -68,7 +68,7 @@
 │   │   └── systems
 │   │       ├── actionHandler.ts
 │   │       ├── actionLogic.ts
-│   │       └── focusSystem.ts
+│   │       └── focusManager.ts
 │   ├── core
 │   │   ├── assets
 │   │   │   ├── itemAssets.json
