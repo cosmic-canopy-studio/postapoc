@@ -1,5 +1,5 @@
 import { getLogger } from '@src/telemetry/systems/logger';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import Health from '@src/entity/components/health';
 import { defineQuery, IWorld } from 'bitecs';
 

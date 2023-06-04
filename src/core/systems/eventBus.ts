@@ -5,7 +5,7 @@ import { ActionEvents } from '@src/action/data/events';
 import { TelemetryEvents } from '@src/telemetry/data/events';
 import { EntityEvents } from '@src/entity/data/events';
 import { CoreEvents } from '@src/core/data/events';
-import { TimeEvents } from '@src/time/events';
+import { TimeEvents } from '@src/time/data/events';
 
 type Events = CoreEvents &
   MovementEvents &

@@ -1,6 +1,6 @@
 import debug from '@src/telemetry/config/debug.json';
 import { getLogger } from '@src/telemetry/systems/logger';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import Movement, { IMovement } from '@src/movement/components/movement';
 import { IWorld } from 'bitecs';
 import { Logger } from 'loglevel';

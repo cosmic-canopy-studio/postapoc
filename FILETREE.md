@@ -75,12 +75,12 @@
 │   │   │   └── uiAssets.json
 │   │   ├── config
 │   │   │   ├── constants.ts
-│   │   │   ├── controlMapping.json
-│   │   │   └── interfaces.ts
+│   │   │   └── controlMapping.json
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
-│   │   │   └── interfaces.ts
+│   │   │   ├── interfaces.ts
+│   │   │   └── types.ts
 │   │   ├── scenes
 │   │   │   ├── bootScene.ts
 │   │   │   ├── mainScene.ts
@@ -140,10 +140,13 @@
 │   │       ├── debugPanel.ts
 │   │       └── logger.ts
 │   └── time
-│       ├── enums.ts
-│       ├── events.ts
-│       ├── phaserTimeController.ts
-│       └── timeSystem.ts
+│       ├── data
+│       │   ├── enums.ts
+│       │   ├── events.ts
+│       │   └── interfaces.ts
+│       └── systems
+│           ├── phaserTimeController.ts
+│           └── timeSystem.ts
 ├── temp.txt
 ├── test-results
 │   └── load_game-When-the-game-loads-the-canvas-loads-and-matches-the-screenshot-chromium
