@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { getLogger } from '@src/telemetry/systems/logger';
 
 import controlMappingJson from '@src/core/config/controlMapping.json';
-import { ControlMapping } from '@src/core/config/interfaces';
+import { ControlMapping } from '@src/core/data/interfaces';
 
 export default class HelpScene extends Phaser.Scene {
   private logger = getLogger('core');

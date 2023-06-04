@@ -3,7 +3,7 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
 import Phaser from 'phaser';
-import { ControlMapping } from '@src/core/config/interfaces';
+import { ControlMapping } from '@src/core/data/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';

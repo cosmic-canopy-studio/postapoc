@@ -14,14 +14,13 @@ import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
 import EventBus from '@src/core/systems/eventBus';
-import { IUpdatableHandler } from '@src/core/config/interfaces';
+import { IUpdatableHandler } from '@src/core/data/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
 import { getEntityNameWithID } from '@src/entity/components/names';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
-import { EventPayload } from '@src/core/data/events';
 import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
 export default class EntityHandler implements IUpdatableHandler {
@@ -86,7 +85,7 @@ export default class EntityHandler implements IUpdatableHandler {
     }
   }
 
-  private onToggleHelp(payload: EventPayload) {
+  private onToggleHelp() {
     this.logger.debug(`Toggling help screen.`);
     if (this.scene.isActive('HelpScene')) {
       this.scene.stop('HelpScene');

@@ -1,7 +1,8 @@
 import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import { injectable } from 'inversify';
-import { ITimeSystem } from '@src/core/config/interfaces';
+
+import { ITimeSystem } from '@src/time/data/interfaces';
 
 export enum TimeState {
   PAUSED = 0,
@@ -32,7 +33,7 @@ export class TimeSystem implements ITimeSystem {
   }
 
   getTimeState(): TimeState {
-    this.logger.debug(`Time state: ${TimeState[this.timeState]}`);
+    this.logger.debugVerbose(`Time state: ${TimeState[this.timeState]}`);
     return this.timeState;
   }
 
@@ -48,7 +49,7 @@ export class TimeSystem implements ITimeSystem {
 
   getAdjustedDeltaTime(deltaTime: number): number {
     const adjustedDeltaTime = deltaTime * this.timeFactor;
-    this.logger.debug(`Adjusted delta time: ${adjustedDeltaTime}`);
+    this.logger.debugVerbose(`Adjusted delta time: ${adjustedDeltaTime}`);
     return adjustedDeltaTime;
   }
 

@@ -75,12 +75,12 @@
 │   │   │   └── uiAssets.json
 │   │   ├── config
 │   │   │   ├── constants.ts
-│   │   │   ├── controlMapping.json
-│   │   │   └── interfaces.ts
+│   │   │   └── controlMapping.json
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
-│   │   │   └── interfaces.ts
+│   │   │   ├── interfaces.ts
+│   │   │   └── types.ts
 │   │   ├── scenes
 │   │   │   ├── bootScene.ts
 │   │   │   ├── mainScene.ts
@@ -142,7 +142,8 @@
 │   └── time
 │       ├── data
 │       │   ├── enums.ts
-│       │   └── events.ts
+│       │   ├── events.ts
+│       │   └── interfaces.ts
 │       └── systems
 │           ├── phaserTimeController.ts
 │           └── timeSystem.ts

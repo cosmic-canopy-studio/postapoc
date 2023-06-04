@@ -2,11 +2,11 @@ import { Container } from 'inversify';
 import { Scene } from 'phaser';
 import { TimeSystem } from '@src/time/systems/timeSystem';
 import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
-import { ITimeController } from '@src/core/config/interfaces';
 import {
   TIME_CONTROLLER_FACTORY,
   TIME_SYSTEM,
 } from '@src/core/config/constants';
+import { ITimeController } from '@src/time/data/interfaces';
 
 const container = new Container();
 

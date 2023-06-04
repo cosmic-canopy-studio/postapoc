@@ -15,12 +15,14 @@ export default class MainScene extends Phaser.Scene {
     this.universe = new Universe(this);
     this.universe.initialize();
 
-    this.timeStateText = this.add.text(this.cameras.main.width - 140, 10, '', {
-      fontSize: '24px',
-      color: '#ffffff',
-      backgroundColor: 'rgba(0, 0, 0, 0.6)',
-      padding: { left: 10, right: 10, top: 5, bottom: 5 },
-    });
+    this.timeStateText = this.add
+      .text(this.cameras.main.width - 20, 10, '', {
+        fontSize: '24px',
+        color: '#ffffff',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        padding: { left: 10, right: 10, top: 5, bottom: 5 },
+      })
+      .setOrigin(1, 0);
     this.timeStateText.setScrollFactor(0);
 
     this.helpText = this.add.text(
