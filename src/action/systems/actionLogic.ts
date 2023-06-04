@@ -1,5 +1,5 @@
 import { getAttackDamage } from '@src/action/components/attack';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import { getFocusTarget } from '@src/action/components/focus';
 import Interfaces from '@src/action/data/interfaces';
 

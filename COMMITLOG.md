@@ -86,35 +86,6 @@
 * update tests based on refactor ([5965494](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5965494a11e6e9810804f804c677e789baaf0f90))
 
 
-### Code Refactoring
-
-* arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
-* boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
-* deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
-* fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
-* init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
-* move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
-* move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
-* move major systems from main scene to universe, reorganize files ([5790ce9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5790ce974f67e55b16ed31268702183b7897169f))
-* move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
-* move major systems from main scene to universe, reorganize files ([4d72f95](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4d72f955747fe22e88a1a137b61869e6767a128a))
-* move speed to variable ([7a0796f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7a0796fb92ba196d48c792dcc29bb52ab2d2585b))
-* project cleanup ([87ebbd1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/87ebbd186442aedecf5a751012f693e555d5754e))
-* project cleanup ([8c91038](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c910380919c2cf5b64a6ed9fb5eba3e2cb8dc13))
-* project cleanup ([54aa0bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/54aa0bda5748964d28af0bfc64f125330fc6928e))
-* refactor main scene init ([07bb7d7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/07bb7d7fe8b0d5c8a8508c33df01a08f4c613fd4))
-* remove phaser testing ([45716f2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/45716f2957769cd5f2b8d52063646bd387cddaf5))
-* remove phaser testing ([d9399d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9399d0b34527450f55dba2af798bb3592e9bb5e))
-* remove unneeded variable ([570c6a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/570c6a9814eacaac8d2b2b577e1002f2f3f4c97f))
-* removing react and other excess packages to simplify project ([9030395](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/903039591eb1faf1adfed9aa14148eae38eff852))
-* simplify move events ([8af7ac8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8af7ac80447a045a71bdef4fd7de890326fc840d))
-* simplify move events ([d9904f4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9904f4d752cd4a1ef1ec4383e66e26429343ad0))
-* staticObject, objectPool ([a065345](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a0653454f5605c367e4d7b179c98441fc2e87fe7))
-* staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
-* time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
-* time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-
-
 ### Continuous Integration
 
 * add gh-pages deployment on push to main ([1f0a6d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1f0a6d0ab3be740652e2454a498e1d16c812eb8a))
@@ -141,4 +112,34 @@
 * remove header comments from main ([146a605](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/146a605270ed99c7fa258c7cf4dde5416614b3e9))
 * remove unneeded logging ([15295ef](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15295ef63325bc7b961286ec996953ee43f60561))
 * update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
+
+
+### Code Refactoring
+
+* arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
+* boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
+* deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
+* init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
+* move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
+* move files to correct subfolders ([23a3e45](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/23a3e45e615c469b278e0c6ddba502839bb1c3ff))
+* move major systems from main scene to universe, reorganize files ([5cc6347](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5cc63474ba5ea3d547a82952ce94a5dfefda3b34))
+* move major systems from main scene to universe, reorganize files ([5790ce9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5790ce974f67e55b16ed31268702183b7897169f))
+* move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
+* move major systems from main scene to universe, reorganize files ([4d72f95](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4d72f955747fe22e88a1a137b61869e6767a128a))
+* move speed to variable ([7a0796f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7a0796fb92ba196d48c792dcc29bb52ab2d2585b))
+* project cleanup ([87ebbd1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/87ebbd186442aedecf5a751012f693e555d5754e))
+* project cleanup ([8c91038](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c910380919c2cf5b64a6ed9fb5eba3e2cb8dc13))
+* project cleanup ([54aa0bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/54aa0bda5748964d28af0bfc64f125330fc6928e))
+* refactor main scene init ([07bb7d7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/07bb7d7fe8b0d5c8a8508c33df01a08f4c613fd4))
+* remove phaser testing ([45716f2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/45716f2957769cd5f2b8d52063646bd387cddaf5))
+* remove phaser testing ([d9399d0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9399d0b34527450f55dba2af798bb3592e9bb5e))
+* remove unneeded variable ([570c6a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/570c6a9814eacaac8d2b2b577e1002f2f3f4c97f))
+* removing react and other excess packages to simplify project ([9030395](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/903039591eb1faf1adfed9aa14148eae38eff852))
+* simplify move events ([8af7ac8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8af7ac80447a045a71bdef4fd7de890326fc840d))
+* simplify move events ([d9904f4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9904f4d752cd4a1ef1ec4383e66e26429343ad0))
+* staticObject, objectPool ([a065345](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a0653454f5605c367e4d7b179c98441fc2e87fe7))
+* staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
+* time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
+* time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
 

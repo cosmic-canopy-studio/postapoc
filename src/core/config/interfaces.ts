@@ -23,8 +23,7 @@ export interface IItemGroup {
 }
 
 export interface ControlMapping {
-  move: Record<string, string>;
-  action: Record<string, string>;
+  [type: string]: Record<string, string>;
 }
 
 export interface IHandler {

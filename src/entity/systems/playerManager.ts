@@ -1,7 +1,7 @@
 import PlayerFactory from '@src/entity/systems/playerFactory';
 import { getLogger } from '@src/telemetry/systems/logger';
 import DebugPanel from '@src/telemetry/systems/debugPanel';
-import ControlSystem from '@src/core/controlSystem';
+import ControlSystem from '@src/core/systems/controlSystem';
 import { IWorld } from 'bitecs';
 import { healthSystem } from '@src/entity/systems/healthSystem';
 

@@ -1,7 +1,7 @@
 import { getLogger } from '@src/telemetry/systems/logger';
 import { MOVEMENT_SPEED } from '@src/core/config/constants';
 import Movement from '@src/movement/components/movement';
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import { IHandler } from '@src/core/config/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { MoveEventPayload } from '@src/movement/data/events';

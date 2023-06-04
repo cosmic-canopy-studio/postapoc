@@ -1,4 +1,4 @@
-import Universe from '@src/core/universe';
+import Universe from '@src/core/systems/universe';
 import Phaser from 'phaser';
 import { TimeState } from '@src/time/timeSystem';
 

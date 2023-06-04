@@ -15,6 +15,7 @@
     "KeyE": "pickUp",
     "KeyZ": "slowTime",
     "KeyL": "debugPanel",
-    "KeyI": "toggleInventory"
+    "KeyI": "toggleInventory",
+    "Slash": "toggleHelp"
   }
 }
