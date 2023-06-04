@@ -80,6 +80,7 @@ export default class FocusManager {
 
   private createArrow(scene: Phaser.Scene, visible = false) {
     const arrow = scene.add.sprite(0, 0, 'red_arrow');
+    arrow.setOrigin(0, 0.5);
     arrow.setVisible(visible);
     return arrow;
   }
@@ -136,8 +137,13 @@ export default class FocusManager {
 
   private setFocusArrow(target: ICollider) {
     this.logger.info(`Setting focus to ${getEntityNameWithID(target.eid)}`);
-    const centerX = target.minX + (target.maxX - target.minX);
-
+    const lengthX = target.maxX - target.minX;
+    this.logger.info(
+      `target.minX: ${target.minX}, target.maxX: ${target.maxX}`
+    );
+    this.logger.info('lengthX', lengthX);
+    const centerX = target.minX + lengthX / 2;
+    this.logger.info('centerX', centerX);
     const arrowX = centerX - this.arrow.width / 2;
     const arrowY = target.minY - this.arrow.height / 2;
     this.arrow.setPosition(arrowX, arrowY);

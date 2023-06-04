@@ -123,6 +123,7 @@
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
+* **focus:** refactor focusSystem to focusManager class ([fd71314](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd713140748f4f70794c69909cbdf42a18a93308))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
 * make hammer pickupable, modify world position ([f2d24cb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f2d24cbd336143ef1b50f3b63e415d8a406898c6))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
