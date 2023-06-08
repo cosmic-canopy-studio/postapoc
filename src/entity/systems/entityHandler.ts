@@ -4,12 +4,13 @@ import {
   removePhaserSprite,
 } from '@src/entity/components/phaserSprite';
 import { getCollider } from '@src/movement/components/collider';
-import { focus } from '@src/action/systems/focus';
+import FocusManager from '@src/entity/systems/focusManager';
 import {
+  clearFocusTarget,
   Focus,
   getFocusTarget,
   updateFocusTarget,
-} from '@src/action/components/focus';
+} from '@src/entity/components/focus';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import * as Phaser from 'phaser';
@@ -19,15 +20,15 @@ import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { EntityIDPayload } from '@src/entity/data/events';
 import { addToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
-  private readonly arrow!: Phaser.GameObjects.Sprite;
   private playerManager!: PlayerManager;
   private objectManager!: ObjectManager;
+  private focusManager!: FocusManager;
   private readonly world: IWorld;
   private scene: ScenePlugin;
 
@@ -38,9 +39,9 @@ export default class EntityHandler implements IUpdatableHandler {
     world: IWorld
   ) {
     this.logger = getLogger('entity');
-    this.arrow = this.createArrow(scene);
     this.playerManager = playerManager;
     this.objectManager = objectManager;
+    this.focusManager = new FocusManager(scene);
     this.world = world;
     this.scene = scene.scene;
   }
@@ -50,19 +51,20 @@ export default class EntityHandler implements IUpdatableHandler {
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
     EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
     EventBus.on('toggleHelp', this.onToggleHelp.bind(this));
+    EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
   }
 
   update() {
-    const player = this.playerManager.getPlayer();
-    let focusTarget = getFocusTarget(player);
-    if (focusTarget === 0) {
-      focusTarget =
-        focus(player, this.objectManager.getObjectSpatialIndex(), this.arrow) ??
-        0;
-      if (focusTarget !== 0) {
-        updateFocusTarget(player, focusTarget);
-      }
-    }
+    this.focusManager.update(
+      this.playerManager.getPlayer(),
+      this.objectManager.getObjectSpatialIndex()
+    );
+  }
+
+  onSwitchFocus(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.logger.debug(`Switching focus for ${getEntityNameWithID(entityId)}`);
+    updateFocusTarget(this.playerManager.getPlayer(), entityId);
   }
 
   onEntityDestroyed(payload: EntityIDPayload) {
@@ -172,15 +174,14 @@ export default class EntityHandler implements IUpdatableHandler {
         this.logger.info(
           `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)}`
         );
-        updateFocusTarget(focusingEntityId, 0); // Unset the focus target
+        const playerEntityId = this.playerManager.getPlayer();
+        if (focusingEntityId === playerEntityId) {
+          this.focusManager.removeFocus(playerEntityId);
+        } else {
+          clearFocusTarget(focusingEntityId);
+        }
       }
     }
     this.logger.info(`Entity ${entityId} removed`);
-  }
-
-  private createArrow(scene: Phaser.Scene, visible = false) {
-    const arrow = scene.add.sprite(0, 0, 'red_arrow');
-    arrow.setVisible(visible);
-    return arrow;
   }
 }

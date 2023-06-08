@@ -8,6 +8,7 @@ export interface EntityEventsMap {
   destroyEntity: EntityIDPayload;
   itemPickedUp: EntityIDPayload;
   toggleInventory: EntityIDPayload;
+  switchFocus: EntityIDPayload;
 }
 
 export type EntityEvents = {

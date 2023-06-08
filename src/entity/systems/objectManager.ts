@@ -25,6 +25,16 @@ export default class ObjectManager {
     this.logger.debug('ObjectManager initialized');
   }
 
+  public getObjectByEid(eid: number): ICollider | null {
+    const allObjects = this.objectSpatialIndex.all();
+    for (const obj of allObjects) {
+      if (obj.eid === eid) {
+        return obj;
+      }
+    }
+    return null; // Return null if no object found with the given EID
+  }
+
   generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
     const collisionModifier = 0.9;
     const grassVariants = ['grass', 'grass2', 'grass3', 'grass4'];

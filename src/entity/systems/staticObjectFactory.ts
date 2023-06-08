@@ -13,7 +13,7 @@ import {
   getEntityNameWithID,
   removeEntityName,
   setEntityName,
-} from '@src/entity/components/names';
+} from '@src/entity/systems/entityNames';
 import items from '@src/entity/data/items.json';
 import {
   addCanBePickedUp,

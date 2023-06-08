@@ -2,7 +2,7 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 
 export function handleCollision(
   entityId: number,
