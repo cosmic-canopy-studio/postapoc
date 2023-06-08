@@ -66,7 +66,8 @@
 │   │   │   └── interfaces.ts
 │   │   └── systems
 │   │       ├── actionHandler.ts
-│   │       └── actionLogic.ts
+│   │       ├── actionLogic.ts
+│   │       └── craftSystem.ts
 │   ├── core
 │   │   ├── assets
 │   │   │   ├── itemAssets.json
