@@ -1,4 +1,5 @@
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
+import { ECS_NULL } from '@src/core/config/constants';
 
 export interface IFocus {
   target: number;
@@ -23,6 +24,10 @@ export function hasFocus(entity: number) {
 
 export function updateFocusTarget(entity: number, target: number) {
   Focus.target[entity] = target;
+}
+
+export function clearFocusTarget(entity: number) {
+  Focus.target[entity] = ECS_NULL;
 }
 
 export default Focus;

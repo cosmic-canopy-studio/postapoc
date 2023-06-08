@@ -7,7 +7,7 @@ import {
 } from 'bitecs';
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
 import { getLogger } from '@src/telemetry/systems/logger';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 
 export const Inventory = defineComponent({

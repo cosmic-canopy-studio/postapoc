@@ -85,7 +85,14 @@ export default class ControlSystem {
 
     this.scene.input.keyboard.on('keydown', this.onKeyDown.bind(this));
     this.scene.input.keyboard.on('keyup', this.onKeyUp.bind(this));
+    this.scene.input.on('pointerdown', this.onPointerDown.bind(this));
     this.logger.debug('Control System initialized');
+  }
+
+  onPointerDown(pointer: Phaser.Input.Pointer) {
+    const x = pointer.worldX;
+    const y = pointer.worldY;
+    this.logger.info(`Clicked at game coordinates: (${x}, ${y})`);
   }
 
   onKeyDown(event: KeyboardEvent) {

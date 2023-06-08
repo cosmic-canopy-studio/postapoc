@@ -1,5 +1,6 @@
 import { createFallbackSVG } from '@src/core/utils/svgUtils';
 import Phaser from 'phaser';
+import itemAssets from '@src/core/assets/itemAssets.json';
 import objectAssets from '@src/core/assets/objectAssets.json';
 import terrainAssets from '@src/core/assets/terrainAssets.json';
 import menuAssets from '@src/core/assets/menuAssets.json';
@@ -42,7 +43,7 @@ export default class BootScene extends Phaser.Scene {
       },
       this
     );
-
+    this.loadAssets(itemAssets);
     this.loadAssets(objectAssets);
     this.loadAssets(terrainAssets);
     this.loadAssets(menuAssets);

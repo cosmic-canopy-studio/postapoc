@@ -9,6 +9,8 @@
 ├── README.md
 ├── assets
 │   ├── data
+│   ├── items
+│   │   └── hammer.svg
 │   ├── objects
 │   │   ├── bench.svg
 │   │   ├── board.svg
@@ -57,18 +59,17 @@
 ├── src
 │   ├── action
 │   │   ├── components
-│   │   │   ├── attack.ts
-│   │   │   └── focus.ts
+│   │   │   └── attack.ts
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
 │   │   │   └── interfaces.ts
 │   │   └── systems
 │   │       ├── actionHandler.ts
-│   │       ├── actionLogic.ts
-│   │       └── focus.ts
+│   │       └── actionLogic.ts
 │   ├── core
 │   │   ├── assets
+│   │   │   ├── itemAssets.json
 │   │   │   ├── menuAssets.json
 │   │   │   ├── objectAssets.json
 │   │   │   ├── terrainAssets.json
@@ -97,20 +98,24 @@
 │   ├── entity
 │   │   ├── components
 │   │   │   ├── canPickup.ts
+│   │   │   ├── focus.ts
 │   │   │   ├── health.ts
 │   │   │   ├── inventory.ts
-│   │   │   ├── names.ts
 │   │   │   └── phaserSprite.ts
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
+│   │   │   ├── interfaces.ts
 │   │   │   ├── items.json
-│   │   │   └── objects.json
+│   │   │   ├── objects.json
+│   │   │   └── types.ts
 │   │   ├── scenes
 │   │   │   ├── helpScene.ts
 │   │   │   └── inventoryScene.ts
 │   │   └── systems
 │   │       ├── entityHandler.ts
+│   │       ├── entityNames.ts
+│   │       ├── focusManager.ts
 │   │       ├── healthSystem.ts
 │   │       ├── lootDrops.ts
 │   │       ├── objectManager.ts

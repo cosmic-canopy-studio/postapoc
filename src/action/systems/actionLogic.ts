@@ -1,6 +1,6 @@
 import { getAttackDamage } from '@src/action/components/attack';
 import EventBus from '@src/core/systems/eventBus';
-import { getFocusTarget } from '@src/action/components/focus';
+import { getFocusTarget } from '@src/entity/components/focus';
 import Interfaces from '@src/action/data/interfaces';
 
 const ActionLogic: Record<string, Interfaces> = {
