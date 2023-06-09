@@ -14,6 +14,8 @@ export interface EntityEventsMap {
   destroyEntity: EntityIDPayload;
   itemPickedUp: EntityIDPayload;
   toggleInventory: EntityIDPayload;
+  toggleHelp: EntityIDPayload;
+  toggleCrafting: EntityIDPayload;
   refreshInventory: EntityIDPayload;
   switchFocus: EntityIDPayload;
   itemCrafted: CraftedItemsPayload;

@@ -51,6 +51,7 @@ export default class EntityHandler implements IUpdatableHandler {
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
     EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
     EventBus.on('toggleHelp', this.onToggleHelp.bind(this));
+    EventBus.on('toggleCrafting', this.onToggleCrafting.bind(this));
     EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
     EventBus.on('itemCrafted', this.onItemCrafted.bind(this));
   }
@@ -60,6 +61,11 @@ export default class EntityHandler implements IUpdatableHandler {
       this.playerManager.getPlayer(),
       this.objectManager.getObjectSpatialIndex()
     );
+  }
+
+  onToggleCrafting(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.toggleScene('CraftScene', entityId);
   }
 
   private onItemCrafted(payload: CraftedItemsPayload) {
@@ -89,25 +95,25 @@ export default class EntityHandler implements IUpdatableHandler {
     this.objectManager.getStaticObjectFactory().release(entityId);
   }
 
-  private onToggleInventory(payload: EntityIDPayload) {
-    const { entityId } = payload;
+  private toggleScene(sceneName: string, entityId: number) {
     this.logger.debug(
-      `Toggling inventory for ${getEntityNameWithID(entityId)}`
+      `Toggling ${sceneName} for ${getEntityNameWithID(entityId)}`
     );
-    if (this.scene.isActive('InventoryScene')) {
-      this.scene.stop('InventoryScene');
+    if (this.scene.isActive(sceneName)) {
+      this.scene.stop(sceneName);
     } else {
-      this.scene.launch('InventoryScene', { entityId: entityId });
+      this.scene.launch(sceneName, { entityId: entityId });
     }
   }
 
-  private onToggleHelp() {
-    this.logger.debug(`Toggling help screen.`);
-    if (this.scene.isActive('HelpScene')) {
-      this.scene.stop('HelpScene');
-    } else {
-      this.scene.launch('HelpScene');
-    }
+  private onToggleInventory(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.toggleScene('InventoryScene', entityId);
+  }
+
+  private onToggleHelp(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    this.toggleScene('HelpScene', entityId);
   }
 
   private onItemPickedUp(payload: EntityIDPayload) {

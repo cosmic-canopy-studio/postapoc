@@ -64,7 +64,8 @@
 │   │   ├── data
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
-│   │   │   └── interfaces.ts
+│   │   │   ├── interfaces.ts
+│   │   │   └── types.ts
 │   │   └── systems
 │   │       ├── actionHandler.ts
 │   │       ├── actionLogic.ts
@@ -112,6 +113,7 @@
 │   │   │   ├── objects.json
 │   │   │   └── types.ts
 │   │   ├── scenes
+│   │   │   ├── craftScene.ts
 │   │   │   ├── helpScene.ts
 │   │   │   └── inventoryScene.ts
 │   │   └── systems
@@ -170,7 +172,6 @@
 │       └── timeSystem.test.ts
 ├── tsconfig.json
 ├── vite.config.ts
-├── yarn-error.log
 └── yarn.lock
 
 ```

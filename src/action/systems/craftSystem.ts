@@ -7,6 +7,32 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { getEntityName } from '@src/entity/systems/entityNames';
 import { Recipe, RecipeIngredient } from '@src/entity/data/types';
 
+export function craftSimpleItem(entityId: number, item: string) {
+  const logger = getLogger('action');
+  const itemData = items.find((i) => i.id === item);
+
+  if (!itemData?.recipe) {
+    logger.info(`Item ${item} does not exist or does not have a recipe.`);
+    return;
+  }
+
+  const recipe: Recipe = itemData.recipe;
+
+  const missingIngredients = checkForMissingItems(entityId, recipe);
+
+  if (missingIngredients.length > 0) {
+    logger.info(`Missing ingredients: ${JSON.stringify(missingIngredients)}`);
+    return;
+  }
+
+  removeConsumedIngredients(recipe, entityId);
+
+  return {
+    itemName: item,
+    itemQuantity: 1,
+  };
+}
+
 function checkForMissingItems(entityId: number, recipe: Recipe) {
   const logger = getLogger('action');
   const entityInventory = getInventory(entityId);
@@ -53,30 +79,4 @@ function removeConsumedIngredients(
       }
     }
   }
-}
-
-export function craftSimpleItem(entityId: number, item: string) {
-  const logger = getLogger('action');
-  const itemData = items.find((i) => i.id === item);
-
-  if (!itemData?.recipe) {
-    logger.info(`Item ${item} does not exist or does not have a recipe.`);
-    return;
-  }
-
-  const recipe: Recipe = itemData.recipe;
-
-  const missingIngredients = checkForMissingItems(entityId, recipe);
-
-  if (missingIngredients.length > 0) {
-    logger.info(`Missing ingredients: ${JSON.stringify(missingIngredients)}`);
-    return;
-  }
-
-  removeConsumedIngredients(recipe, entityId);
-
-  return {
-    itemName: item,
-    itemQuantity: 1,
-  };
 }
