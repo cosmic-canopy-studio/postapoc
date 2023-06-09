@@ -55,6 +55,7 @@
 |   |   |-- favicon-32x32.png
 |   |   `-- favicon.ico
 |   `-- site.webmanifest
+|-- sonar-project.properties
 |-- src
 |   |-- action
 |   |   |-- components
