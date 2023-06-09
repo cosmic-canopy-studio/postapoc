@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import items from '@src/entity/data/items.json';
-import { craftSimpleItem } from '@src/action/systems/craftSystem';
 import { Actions } from '@src/action/data/enums';
 
 export default class CraftScene extends Phaser.Scene {
@@ -61,10 +60,6 @@ export default class CraftScene extends Phaser.Scene {
           entity: this.entityId,
           options: { recipe: item.id },
         });
-        const result = craftSimpleItem(this.entityId, item.id);
-        if (result) {
-          this.logger.info(`${result.itemName} crafted!`);
-        }
       });
 
       itemsText.push(itemText);
