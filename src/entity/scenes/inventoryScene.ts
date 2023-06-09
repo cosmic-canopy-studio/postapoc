@@ -1,17 +1,23 @@
-import Phaser from 'phaser';
 import { getInventory } from '@src/entity/components/inventory';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import EventBus from '@src/core/systems/eventBus';
 import { getLogger } from '@src/telemetry/systems/logger';
+import { DraggableScene } from './draggableScene';
 
-export default class InventoryScene extends Phaser.Scene {
+const DRAG_START_POSITION = { x: 10, y: 10 };
+const ITEM_TEXT_CONFIG = { color: 'white' };
+const TITLE_TEXT_CONFIG = { color: 'white' };
+const PADDING = 10;
+const MARGIN_Y = 20;
+
+export default class InventoryScene extends DraggableScene {
   private inventory: number[] = [];
   private entityId!: number;
-  private visible = true;
   private logger = getLogger('entity');
 
   constructor() {
     super({ key: 'InventoryScene' });
+    this.dragPosition = { ...DRAG_START_POSITION };
   }
 
   init(data: { entityId: number }) {
@@ -19,88 +25,60 @@ export default class InventoryScene extends Phaser.Scene {
   }
 
   create() {
-    this.inventory = getInventory(this.entityId);
-    this.updateInventoryDisplay();
-    EventBus.on('refreshInventory', this.updateInventoryDisplay.bind(this));
+    this.updateDisplay();
+    EventBus.on('refreshInventory', this.updateDisplay.bind(this));
   }
 
-  updateInventoryDisplay() {
+  protected updateDisplay() {
     this.logger.debugVerbose(
       `Updating inventory display for ${getEntityNameWithID(this.entityId)}`
     );
     this.inventory = getInventory(this.entityId);
-    this.clearInventoryDisplay();
+    this.clearDisplay();
 
-    const startY = 10;
-    const startX = 10;
-    const marginY = 20;
-    const padding = 10;
-    const nextX = startX + padding;
-    let nextY = startY + padding;
-
+    const nextPosition = {
+      x: this.dragPosition.x + PADDING,
+      y: this.dragPosition.y + PADDING,
+    };
     const title = this.add.text(
-      nextX,
-      nextY,
+      nextPosition.x,
+      nextPosition.y,
       `${getEntityNameWithID(this.entityId)}'s inventory:`,
-      { color: '#ffffff' }
+      TITLE_TEXT_CONFIG
     );
     let longestWidth = title.width;
 
-    nextY += marginY;
-    const itemsText = [];
-    itemsText.push(title);
+    nextPosition.y += MARGIN_Y;
+    const itemsText = [title];
+
     for (const element of this.inventory) {
       if (element !== 0) {
         const itemText = this.add.text(
-          nextX,
-          nextY,
+          nextPosition.x,
+          nextPosition.y,
           `  -${getEntityNameWithID(element)}`,
-          {
-            color: '#ffffff',
-          }
+          ITEM_TEXT_CONFIG
         );
         itemsText.push(itemText);
         longestWidth = Math.max(longestWidth, itemText.width);
-        nextY += marginY;
+        nextPosition.y += MARGIN_Y;
       }
     }
 
-    const height = nextY;
+    const width = longestWidth + 2 * PADDING;
+    const height = nextPosition.y - this.dragPosition.y;
     this.drawBackground(
-      startX,
-      startY,
-      longestWidth + 2 * padding,
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
       height,
       itemsText
     );
-  }
-
-  drawBackground(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    itemsText: Phaser.GameObjects.Text[]
-  ) {
-    const graphics = this.add.graphics();
-
-    // Semi-transparent black rectangle
-    graphics.fillStyle(0x000000, 0.5);
-    graphics.fillRect(x, y, width, height);
-
-    // White border
-    graphics.lineStyle(2, 0xffffff, 1);
-    graphics.strokeRect(x, y, width, height);
-
-    // Make sure text appears above the rectangle
-    itemsText.forEach((item) => this.children.bringToTop(item));
-  }
-
-  clearInventoryDisplay() {
-    this.children.removeAll();
-  }
-
-  toggleVisibility() {
-    this.visible = !this.visible;
+    this.makeWindowDraggable(
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
+      height
+    );
   }
 }

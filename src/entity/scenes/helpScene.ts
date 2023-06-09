@@ -1,95 +1,77 @@
-import Phaser from 'phaser';
 import { getLogger } from '@src/telemetry/systems/logger';
-
+import { DraggableScene } from './draggableScene';
 import controlMappingJson from '@src/core/config/controlMapping.json';
 import { ControlMapping } from '@src/core/data/interfaces';
 
-export default class HelpScene extends Phaser.Scene {
+const DRAG_START_POSITION = { x: 0, y: 0 }; // You may adjust this
+const TITLE_TEXT_CONFIG = { color: 'white' };
+const ITEM_TEXT_CONFIG = { color: 'yellow' };
+const PADDING = 10;
+const MARGIN_Y = 20;
+
+export default class HelpScene extends DraggableScene {
   private logger = getLogger('core');
-  private visible = true;
+  private controlMapping: ControlMapping;
 
   constructor() {
     super({ key: 'HelpScene' });
+    this.dragPosition = { ...DRAG_START_POSITION };
+    this.controlMapping = controlMappingJson as ControlMapping;
   }
 
   create() {
-    this.updateHelpDisplay();
+    this.updateDisplay();
   }
 
-  updateHelpDisplay() {
+  protected updateDisplay() {
     this.logger.debugVerbose(`Updating help display`);
-    this.clearHelpDisplay();
-    const controlMapping: ControlMapping = controlMappingJson as ControlMapping;
-
-    const marginY = 20;
-    const padding = 10;
+    this.clearDisplay();
 
     const itemsText = [];
 
-    const title = this.add.text(0, 0, 'Key Bindings:', {
-      color: '#ffffff',
-    });
+    const nextPosition = {
+      x: this.dragPosition.x + PADDING,
+      y: this.dragPosition.y + PADDING,
+    };
+    const title = this.add.text(
+      nextPosition.x,
+      nextPosition.y,
+      'Key Bindings:',
+      TITLE_TEXT_CONFIG
+    );
     let longestWidth = title.width;
 
-    let nextY = marginY;
+    nextPosition.y += MARGIN_Y;
     itemsText.push(title);
 
-    for (const actionGroup in controlMapping) {
-      for (const key in controlMapping[actionGroup]) {
+    for (const actionGroup in this.controlMapping) {
+      for (const key in this.controlMapping[actionGroup]) {
         const itemText = this.add.text(
-          0,
-          nextY,
-          `  ${key} : ${controlMapping[actionGroup][key]}`,
-          {
-            color: '#ffffff',
-          }
+          nextPosition.x,
+          nextPosition.y,
+          `  ${key} : ${this.controlMapping[actionGroup][key]}`,
+          ITEM_TEXT_CONFIG
         );
         itemsText.push(itemText);
         longestWidth = Math.max(longestWidth, itemText.width);
-        nextY += marginY;
+        nextPosition.y += MARGIN_Y;
       }
     }
 
-    const totalWidth = longestWidth + 2 * padding;
-    const totalHeight = nextY + marginY;
-    const startX = (this.cameras.main.width - totalWidth) / 2;
-    const startY = (this.cameras.main.height - totalHeight) / 2;
-
-    // Position the itemsText
-    itemsText.forEach((item) => {
-      item.x += startX + padding;
-      item.y += startY + padding;
-    });
-
-    this.drawBackground(startX, startY, totalWidth, totalHeight, itemsText);
-  }
-
-  drawBackground(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    itemsText: Phaser.GameObjects.Text[]
-  ) {
-    const graphics = this.add.graphics();
-
-    // Semi-transparent black rectangle
-    graphics.fillStyle(0x000000, 0.5);
-    graphics.fillRect(x, y, width, height);
-
-    // White border
-    graphics.lineStyle(2, 0xffffff, 1);
-    graphics.strokeRect(x, y, width, height);
-
-    // Make sure text appears above the rectangle
-    itemsText.forEach((item) => this.children.bringToTop(item));
-  }
-
-  clearHelpDisplay() {
-    this.children.removeAll();
-  }
-
-  toggleVisibility() {
-    this.visible = !this.visible;
+    const width = longestWidth + 2 * PADDING;
+    const height = nextPosition.y - this.dragPosition.y;
+    this.drawBackground(
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
+      height,
+      itemsText
+    );
+    this.makeWindowDraggable(
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
+      height
+    );
   }
 }
