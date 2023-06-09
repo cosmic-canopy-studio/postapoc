@@ -21,7 +21,7 @@ export default class InventoryScene extends Phaser.Scene {
   create() {
     this.inventory = getInventory(this.entityId);
     this.updateInventoryDisplay();
-    EventBus.on('itemPickedUp', this.updateInventoryDisplay.bind(this));
+    EventBus.on('refreshInventory', this.updateInventoryDisplay.bind(this));
   }
 
   updateInventoryDisplay() {

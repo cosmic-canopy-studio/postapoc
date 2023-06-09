@@ -27,19 +27,27 @@ const ActionLogic: Record<string, Action> = {
       };
     }
     return {
-      message: `${entity} tried to pick up, but there was no item`,
+      message: `${entity} tried Ïto pick up, but there was no item`,
     };
   }),
   craft: new Action('craft', (entity: number) => {
-    const { itemName, itemQuantity } = craftSimpleItem();
-    EventBus.emit('itemCrafted', {
-      creatingEntityId: entity,
-      createdItemName: itemName,
-      createdItemQuantity: itemQuantity,
-    });
-    return {
-      message: `${entity} crafted ${itemQuantity} ${itemName}`,
-    };
+    const result = craftSimpleItem(entity, 'hammer');
+    if (result) {
+      const { itemName, itemQuantity } = result;
+      EventBus.emit('refreshInventory', { entityId: entity });
+      EventBus.emit('itemCrafted', {
+        creatingEntityId: entity,
+        createdItemName: itemName,
+        createdItemQuantity: itemQuantity,
+      });
+      return {
+        message: `${entity} crafted ${itemQuantity} ${itemName}`,
+      };
+    } else {
+      return {
+        message: `${entity} tried to craft, but failed`,
+      };
+    }
   }),
 };
 

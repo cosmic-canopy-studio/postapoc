@@ -16,6 +16,10 @@
     "url": "assets/objects/log.svg"
   },
   {
+    "key": "rock",
+    "url": "assets/objects/rock.svg"
+  },
+  {
     "key": "pipe",
     "url": "assets/objects/pipe.svg"
   },

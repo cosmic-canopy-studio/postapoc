@@ -18,7 +18,7 @@ import EventBus from '@src/core/systems/eventBus';
 import { IUpdatableHandler } from '@src/core/data/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
-import { addToInventory } from '@src/entity/components/inventory';
+import { addItemToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
@@ -135,12 +135,13 @@ export default class EntityHandler implements IUpdatableHandler {
     );
     if (focusedObjectEntityId) {
       this.removeWorldEntity(focusedObjectEntityId);
-      addToInventory(this.world, entityId, focusedObjectEntityId);
+      addItemToInventory(entityId, focusedObjectEntityId);
       this.logger.info(
         `${getEntityNameWithID(entityId)} picked up ${getEntityNameWithID(
           focusedObjectEntityId
         )})`
       );
+      EventBus.emit('refreshInventory', { entityId: entityId });
     }
   }
 
@@ -177,7 +178,7 @@ export default class EntityHandler implements IUpdatableHandler {
         objectPosition.x + offsetX,
         objectPosition.y + offsetY,
         item,
-        true,
+        false,
         1
       );
     });

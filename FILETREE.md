@@ -18,6 +18,7 @@
 │   │   ├── log.svg
 │   │   ├── pipe.svg
 │   │   ├── player.svg
+│   │   ├── rock.svg
 │   │   ├── stick.svg
 │   │   └── tree.svg
 │   ├── tiled
