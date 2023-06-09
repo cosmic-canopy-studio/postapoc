@@ -34,6 +34,7 @@
 ### Bug Fixes
 
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
+* **crafting:** fix duplicate call to craft function ([39717df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/39717df5469d66914b22d5c9a4010f1680757576))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
 * event movement debug ([f97c164](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f97c164345477a1b27d107655ac0a1b55f9b2981))

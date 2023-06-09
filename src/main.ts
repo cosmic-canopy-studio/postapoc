@@ -6,7 +6,7 @@ import InventoryScene from '@src/entity/scenes/inventoryScene';
 import Phaser from 'phaser';
 import LogRocket from 'logrocket';
 import HelpScene from '@src/entity/scenes/helpScene';
-import CraftScene from '@src/entity/scenes/craftScene';
+import CraftingScene from '@src/entity/scenes/craftingScene';
 
 LogRocket.init('1wjjv9/postapoc');
 LogRocket.identify('user', {
@@ -24,7 +24,7 @@ const config = {
     MainScene,
     InventoryScene,
     HelpScene,
-    CraftScene,
+    CraftingScene,
   ],
   parent: 'game-container',
 };
