@@ -1,6 +1,5 @@
-export interface ActionResult {
-  message: string;
-}
+import { ActionEventOptions } from '@src/action/data/events';
+import { ActionResult } from '@src/action/data/types';
 
 export interface IAction {
   name: string;
@@ -11,6 +10,9 @@ export interface IAction {
 export default class Action implements IAction {
   constructor(
     public name: string,
-    public execute: (entity: number) => ActionResult
+    public execute: (
+      entity: number,
+      options?: ActionEventOptions
+    ) => ActionResult
   ) {}
 }

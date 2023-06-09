@@ -22,8 +22,8 @@ export default class ActionHandler implements IHandler {
 
   onAction(payload: ActionEventPayload) {
     this.logger.debug(`Action event received: ${JSON.stringify(payload)}`);
-    const { action, entity } = payload;
-    const result = ActionLogic[action].execute(entity);
+    const { action, entity, options } = payload;
+    const result = ActionLogic[action].execute(entity, options);
     this.logger.info(result.message);
   }
 
