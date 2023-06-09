@@ -18,9 +18,9 @@
     "canBePickedUp": true
   },
   {
-    "id": "stone",
-    "name": "Stone",
-    "texture": "stone",
+    "id": "rock",
+    "name": "Rock",
+    "texture": "rock",
     "canBePickedUp": true
   },
   {
@@ -33,6 +33,16 @@
     "id": "hammer",
     "name": "Hammer",
     "texture": "hammer",
-    "canBePickedUp": true
+    "canBePickedUp": true,
+    "recipe": [
+      {
+        "id": "stick",
+        "quantity": 1
+      },
+      {
+        "id": "rock",
+        "quantity": 1
+      }
+    ]
   }
 ]

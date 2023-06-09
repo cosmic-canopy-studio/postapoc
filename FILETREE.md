@@ -18,6 +18,7 @@
 │   │   ├── log.svg
 │   │   ├── pipe.svg
 │   │   ├── player.svg
+│   │   ├── rock.svg
 │   │   ├── stick.svg
 │   │   └── tree.svg
 │   ├── tiled
@@ -66,7 +67,8 @@
 │   │   │   └── interfaces.ts
 │   │   └── systems
 │   │       ├── actionHandler.ts
-│   │       └── actionLogic.ts
+│   │       ├── actionLogic.ts
+│   │       └── craftSystem.ts
 │   ├── core
 │   │   ├── assets
 │   │   │   ├── itemAssets.json
@@ -168,6 +170,7 @@
 │       └── timeSystem.test.ts
 ├── tsconfig.json
 ├── vite.config.ts
+├── yarn-error.log
 └── yarn.lock
 
 ```

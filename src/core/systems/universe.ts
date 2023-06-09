@@ -44,6 +44,7 @@ export default class Universe {
     this.objectManager.generateStaticObject(200, 200, 'tree');
     this.objectManager.generateStaticObject(400, 400, 'bench');
     this.objectManager.generateStaticObject(600, 200, 'hammer');
+    this.objectManager.generateStaticObject(500, 300, 'rock');
     this.playerManager.spawnPlayer();
 
     this.logger.info('Universe created');

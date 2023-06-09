@@ -40,7 +40,7 @@ export default class FocusManager {
 
   constructor(scene: Phaser.Scene) {
     this.arrow = this.createArrow(scene);
-    this.logger = getLogger('action');
+    this.logger = getLogger('entity');
   }
 
   update(playerEid: number, objectsSpatialIndex: RBush<ICollider>) {
@@ -153,8 +153,8 @@ export default class FocusManager {
     }
 
     objectsInRange.sort((a, b) => a.distance - b.distance);
-    this.logger.debug('Sorted objects', objectsInRange);
-    this.logger.debug('Nearest object', objectsInRange[0]);
+    this.logger.debugVerbose('Sorted objects', objectsInRange);
+    this.logger.debugVerbose('Nearest object', objectsInRange[0]);
     const nearestObject = objectsInRange[0];
     if (nearestObject) {
       return this.setFocusArrow(nearestObject.target);
