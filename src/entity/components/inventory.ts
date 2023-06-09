@@ -77,7 +77,9 @@ export function getInventory(entityId: number) {
     logger.warn(`Entity ${getEntityNameWithID(entityId)} has no inventory`);
     return [];
   }
-  return [...inventory] as number[];
+
+  const nonZeroInventory = inventory.filter((item) => item !== ECS_NULL);
+  return [...nonZeroInventory] as number[];
 }
 
 export function listInventory(entityId: number) {

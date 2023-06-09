@@ -107,6 +107,7 @@
 │   │   │   ├── inventory.ts
 │   │   │   └── phaserSprite.ts
 │   │   ├── data
+│   │   │   ├── constants.ts
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
 │   │   │   ├── interfaces.ts

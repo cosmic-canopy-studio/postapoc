@@ -2,18 +2,16 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import items from '@src/entity/data/items.json';
 import { Actions } from '@src/action/data/enums';
-import { Item, XYCoordinates } from '@src/entity/data/types';
-import { DraggableScene } from './draggableScene';
+import { Item } from '@src/entity/data/types';
+import { EntityActions } from '@src/entity/data/enums';
+import { ITEM_TEXT_CONFIG } from '@src/entity/data/constants';
+import { DraggableScene } from '@src/entity/scenes/draggableScene';
 
-const DRAG_START_POSITION = { x: 325, y: 150 };
-const ITEM_TEXT_CONFIG = { color: 'aqua' };
-const TITLE_TEXT_CONFIG = { color: 'white' };
-const PADDING = 10;
-const MARGIN_Y = 20;
+const DRAG_START_POSITION = { x: 50, y: 250 };
 
 export default class CraftingScene extends DraggableScene {
+  protected logger = getLogger('entity');
   private entityId!: number;
-  private logger = getLogger('crafting');
 
   constructor() {
     super({ key: 'CraftScene' });
@@ -21,81 +19,81 @@ export default class CraftingScene extends DraggableScene {
   }
 
   init(data: { entityId: number }) {
-    this.entityId = data.entityId;
+    try {
+      this.entityId = data.entityId;
+    } catch (error) {
+      this.logger.error(`Error during initialization: ${error}`);
+    }
   }
 
   create() {
-    this.updateDisplay();
-    EventBus.on('refreshCrafting', this.updateDisplay.bind(this));
+    try {
+      this.updateDisplay();
+      EventBus.on(
+        EntityActions.REFRESH_INVENTORY,
+        this.updateDisplay.bind(this)
+      );
+    } catch (error) {
+      this.logger.error(`Error during creation: ${error}`);
+    }
+  }
+
+  shutdown() {
+    EventBus.off(
+      EntityActions.REFRESH_INVENTORY,
+      this.updateDisplay.bind(this)
+    );
   }
 
   protected updateDisplay() {
-    this.logger.debugVerbose(`Updating crafting display`);
-    this.clearDisplay();
+    try {
+      this.logger.debugVerbose(`Updating crafting display`);
+      this.clearDisplay();
 
-    const craftableItems = this.getCraftableItems();
-
-    const nextPosition: XYCoordinates = {
-      x: this.dragPosition.x + PADDING,
-      y: this.dragPosition.y + PADDING,
-    };
-    const title = this.add.text(
-      nextPosition.x,
-      nextPosition.y,
-      `Craftable Items:`,
-      TITLE_TEXT_CONFIG
-    );
-    let longestWidth = title.width;
-
-    nextPosition.y += MARGIN_Y;
-    const itemsText = [title];
-
-    for (const item of craftableItems) {
-      const itemText = this.drawItemText(item, nextPosition);
-      itemsText.push(itemText);
-      longestWidth = Math.max(longestWidth, itemText.width);
-      nextPosition.y += MARGIN_Y;
+      const craftableItems = this.getCraftableItems();
+      this.createDisplay(
+        craftableItems,
+        (item) => `  ${item.name}`,
+        (item) => this.drawItemText(item),
+        'Craftable Recipes:'
+      );
+    } catch (error) {
+      this.logger.error(`Error during display update: ${error}`);
     }
-
-    const width = longestWidth + 2 * PADDING;
-    const height = nextPosition.y - this.dragPosition.y;
-    this.drawBackground(
-      this.dragPosition.x,
-      this.dragPosition.y,
-      width,
-      height,
-      itemsText
-    );
-    this.makeWindowDraggable(
-      this.dragPosition.x,
-      this.dragPosition.y,
-      width,
-      height
-    );
   }
 
   private getCraftableItems() {
-    return items.filter((item) => item.recipe !== undefined) as Item[];
+    try {
+      return items.filter((item) => item.recipe !== undefined) as Item[];
+    } catch (error) {
+      this.logger.error(`Error getting craftable items: ${error}`);
+      return [];
+    }
   }
 
-  private drawItemText(item: Item, position: XYCoordinates) {
-    const itemText = this.add.text(
-      position.x,
-      position.y,
-      `  ${item.name}`,
-      ITEM_TEXT_CONFIG
-    );
-    itemText.setDepth(1);
-    itemText.setInteractive({ useHandCursor: true });
+  private drawItemText(item: Item) {
+    try {
+      const itemText = this.add.text(
+        this.nextPosition.x,
+        this.nextPosition.y,
+        `  ${item.name}`,
+        ITEM_TEXT_CONFIG
+      );
+      itemText.setDepth(1);
+      itemText.setInteractive({ useHandCursor: true });
 
-    itemText.on('pointerdown', () => {
-      EventBus.emit('action', {
-        action: 'craft' as Actions,
-        entity: this.entityId,
-        options: { recipe: item.id },
+      itemText.on('pointerdown', () => {
+        EventBus.emit('action', {
+          action: Actions.CRAFT,
+          entity: this.entityId,
+          options: { recipe: item.id },
+        });
       });
-    });
 
-    return itemText;
+      return itemText;
+    } catch (error) {
+      this.logger.error(`Error drawing item text: ${error}`);
+      return null;
+    }
   }
 }

@@ -2,15 +2,12 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { DraggableScene } from './draggableScene';
 import controlMappingJson from '@src/core/config/controlMapping.json';
 import { ControlMapping } from '@src/core/data/interfaces';
+import { ITEM_TEXT_CONFIG } from '@src/entity/data/constants';
 
-const DRAG_START_POSITION = { x: 0, y: 0 }; // You may adjust this
-const TITLE_TEXT_CONFIG = { color: 'white' };
-const ITEM_TEXT_CONFIG = { color: 'yellow' };
-const PADDING = 10;
-const MARGIN_Y = 20;
+const DRAG_START_POSITION = { x: 500, y: 50 };
 
 export default class HelpScene extends DraggableScene {
-  private logger = getLogger('core');
+  protected logger = getLogger('entity');
   private controlMapping: ControlMapping;
 
   constructor() {
@@ -20,58 +17,58 @@ export default class HelpScene extends DraggableScene {
   }
 
   create() {
-    this.updateDisplay();
+    try {
+      this.updateDisplay();
+    } catch (error) {
+      this.logger.error(`Error during creation: ${error}`);
+    }
   }
 
   protected updateDisplay() {
-    this.logger.debugVerbose(`Updating help display`);
-    this.clearDisplay();
+    try {
+      this.logger.debugVerbose(`Updating help display`);
+      this.clearDisplay();
 
-    const itemsText = [];
+      const controlEntries = this.getControlEntries();
+      this.createDisplay(
+        controlEntries,
+        (entry) => `  ${entry.key} : ${entry.value}`,
+        (entry) => this.drawControlText(entry),
+        'Key Bindings:'
+      );
+    } catch (error) {
+      this.logger.error(`Error during display update: ${error}`);
+    }
+  }
 
-    const nextPosition = {
-      x: this.dragPosition.x + PADDING,
-      y: this.dragPosition.y + PADDING,
-    };
-    const title = this.add.text(
-      nextPosition.x,
-      nextPosition.y,
-      'Key Bindings:',
-      TITLE_TEXT_CONFIG
-    );
-    let longestWidth = title.width;
-
-    nextPosition.y += MARGIN_Y;
-    itemsText.push(title);
-
+  private getControlEntries() {
+    const controlEntries = [];
     for (const actionGroup in this.controlMapping) {
       for (const key in this.controlMapping[actionGroup]) {
-        const itemText = this.add.text(
-          nextPosition.x,
-          nextPosition.y,
-          `  ${key} : ${this.controlMapping[actionGroup][key]}`,
-          ITEM_TEXT_CONFIG
-        );
-        itemsText.push(itemText);
-        longestWidth = Math.max(longestWidth, itemText.width);
-        nextPosition.y += MARGIN_Y;
+        controlEntries.push({
+          key: key,
+          value: this.controlMapping[actionGroup][key],
+        });
       }
     }
+    return controlEntries;
+  }
 
-    const width = longestWidth + 2 * PADDING;
-    const height = nextPosition.y - this.dragPosition.y;
-    this.drawBackground(
-      this.dragPosition.x,
-      this.dragPosition.y,
-      width,
-      height,
-      itemsText
-    );
-    this.makeWindowDraggable(
-      this.dragPosition.x,
-      this.dragPosition.y,
-      width,
-      height
-    );
+  private drawControlText(entry: { key: string; value: string }) {
+    try {
+      const controlText = this.add.text(
+        this.nextPosition.x,
+        this.nextPosition.y,
+        `  ${entry.key} : ${entry.value}`,
+        ITEM_TEXT_CONFIG
+      );
+
+      controlText.setDepth(1);
+
+      return controlText;
+    } catch (error) {
+      this.logger.error(`Error drawing control text: ${error}`);
+      return null;
+    }
   }
 }

@@ -4,7 +4,7 @@ import ObjectManager from '@src/entity/systems/objectManager';
 import EventHandler from '@src/core/systems/eventHandler';
 import { TimeState, TimeSystem } from '@src/time/systems/timeSystem';
 import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
-import { createWorld, IWorld } from 'bitecs';
+import { addEntity, createWorld, IWorld } from 'bitecs';
 import * as Phaser from 'phaser';
 
 export default class Universe {
@@ -21,6 +21,7 @@ export default class Universe {
     this.scene = scene;
     this.logger = getLogger('core');
     this.world = createWorld();
+    this.logger.debug(`Creating ECS_NULL ${addEntity(this.world)}`);
   }
 
   initialize() {

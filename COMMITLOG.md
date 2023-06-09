@@ -135,6 +135,7 @@
 * **crafting:** rename to craftingScene, break code in to additional methods for clarity ([15c325c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/15c325ccbd92f6322688f983bf274593c86c5319))
 * **crafting:** rename to craftingScene, break code in to additional methods for clarity ([531fa54](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/531fa54fd6f930429f29ea762be5a2aaf5c6e2fd))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* **entity:** create common draggable class, inherit subscenes from it ([1235ade](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1235ade98cba0069c5209d669417ca811a0c6518))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))

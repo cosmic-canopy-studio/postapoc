@@ -1,15 +1,22 @@
-import Phaser from 'phaser';
-
-const DRAG_START_POSITION = { x: 325, y: 150 };
-const SEMI_TRANSPARENT = 0.5;
-const OPAQUE = 1;
-const BLACK = 0x000000;
-const WHITE = 0xffffff;
-const BORDER_WIDTH = 2;
+import * as Phaser from 'phaser';
+import {
+  BLACK,
+  BORDER_WIDTH,
+  DRAG_START_POSITION,
+  MARGIN_Y,
+  OPAQUE,
+  PADDING,
+  SEMI_TRANSPARENT,
+  TITLE_TEXT_CONFIG,
+  WHITE,
+} from '@src/entity/data/constants';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 export abstract class DraggableScene extends Phaser.Scene {
   protected dragPosition = DRAG_START_POSITION;
   protected dragOffset = { x: 0, y: 0 };
+  protected nextPosition = { ...DRAG_START_POSITION };
+  protected logger = getLogger('entity');
 
   handleDrag(pointer: Phaser.Input.Pointer) {
     const newX = pointer.x - this.dragOffset.x;
@@ -66,7 +73,63 @@ export abstract class DraggableScene extends Phaser.Scene {
 
   protected abstract updateDisplay(): void;
 
+  protected createDisplay<T>(
+    items: T[],
+    displayTextFunc: (item: T) => string,
+    itemDrawFunc: (item: T) => Phaser.GameObjects.Text | null,
+    titleText: string
+  ) {
+    this.nextPosition = {
+      x: this.dragPosition.x + PADDING,
+      y: this.dragPosition.y + PADDING,
+    };
+
+    const title = this.add.text(
+      this.nextPosition.x,
+      this.nextPosition.y,
+      titleText,
+      TITLE_TEXT_CONFIG
+    );
+
+    let longestWidth = title.width;
+
+    this.nextPosition.y += MARGIN_Y;
+    const itemsText = [title];
+
+    for (const item of items) {
+      const itemText = itemDrawFunc(item);
+      if (itemText) {
+        itemsText.push(itemText);
+        longestWidth = Math.max(longestWidth, itemText.width);
+        this.nextPosition.y += MARGIN_Y;
+      }
+    }
+
+    const width = longestWidth + 2 * PADDING;
+    const height = this.nextPosition.y - this.dragPosition.y;
+
+    this.drawBackground(
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
+      height,
+      itemsText
+    );
+
+    this.makeWindowDraggable(
+      this.dragPosition.x,
+      this.dragPosition.y,
+      width,
+      height
+    );
+  }
+
   protected clearDisplay() {
-    this.children.removeAll();
+    try {
+      this.nextPosition = { ...DRAG_START_POSITION };
+      this.children.removeAll();
+    } catch (error) {
+      this.logger.error(`Error clearing display: ${error}`);
+    }
   }
 }
