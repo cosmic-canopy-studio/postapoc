@@ -33,7 +33,7 @@ export default class PlayerFactory {
     const centerX = this.scene.cameras.main.centerX;
     const centerY = this.scene.cameras.main.centerY;
     const sprite = this.scene.add.sprite(centerX, centerY, 'player');
-    sprite.setOrigin(0, 0);
+    sprite.setOrigin(0, 0).setDepth(10);
     addPhaserSprite(this.world, player, sprite);
     addMovement(this.world, player, centerX, centerY, 0, 0);
     addHealth(this.world, player, 100, 100);

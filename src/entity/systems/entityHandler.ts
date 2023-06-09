@@ -17,8 +17,8 @@ import * as Phaser from 'phaser';
 import EventBus from '@src/core/systems/eventBus';
 import { IUpdatableHandler } from '@src/core/data/interfaces';
 import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
-import { EntityIDPayload } from '@src/entity/data/events';
-import { addToInventory } from '@src/entity/components/inventory';
+import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
+import { addItemToInventory } from '@src/entity/components/inventory';
 import { IWorld } from 'bitecs';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
@@ -52,6 +52,7 @@ export default class EntityHandler implements IUpdatableHandler {
     EventBus.on('toggleInventory', this.onToggleInventory.bind(this));
     EventBus.on('toggleHelp', this.onToggleHelp.bind(this));
     EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
+    EventBus.on('itemCrafted', this.onItemCrafted.bind(this));
   }
 
   update() {
@@ -61,13 +62,26 @@ export default class EntityHandler implements IUpdatableHandler {
     );
   }
 
-  onSwitchFocus(payload: EntityIDPayload) {
+  private onItemCrafted(payload: CraftedItemsPayload) {
+    const { creatingEntityId, createdItemName, createdItemQuantity } = payload;
+    this.logger.debug(
+      `Dropping ${createdItemQuantity} ${createdItemName} near ${getEntityNameWithID(
+        creatingEntityId
+      )}`
+    );
+    // create an array with a string for each item in the quantity
+    const craftedDrop: string[] =
+      Array(createdItemQuantity).fill(createdItemName);
+    this.dropItemsNearEntity(creatingEntityId, craftedDrop);
+  }
+
+  private onSwitchFocus(payload: EntityIDPayload) {
     const { entityId } = payload;
     this.logger.debug(`Switching focus for ${getEntityNameWithID(entityId)}`);
     updateFocusTarget(this.playerManager.getPlayer(), entityId);
   }
 
-  onEntityDestroyed(payload: EntityIDPayload) {
+  private onEntityDestroyed(payload: EntityIDPayload) {
     const { entityId } = payload;
     this.logger.info(`Destroying ${getEntityNameWithID(entityId)}`);
     this.handleDrops(entityId);
@@ -121,29 +135,40 @@ export default class EntityHandler implements IUpdatableHandler {
     );
     if (focusedObjectEntityId) {
       this.removeWorldEntity(focusedObjectEntityId);
-      addToInventory(this.world, entityId, focusedObjectEntityId);
+      addItemToInventory(entityId, focusedObjectEntityId);
       this.logger.info(
         `${getEntityNameWithID(entityId)} picked up ${getEntityNameWithID(
           focusedObjectEntityId
         )})`
       );
+      EventBus.emit('refreshInventory', { entityId: entityId });
     }
   }
 
   private handleDrops(entityId: number) {
+    const droppedItems = this.getEntityLootDrops(entityId);
+    this.logger.info(
+      `Dropping items ${droppedItems} from ${getEntityNameWithID(entityId)})`
+    );
+    this.dropItemsNearEntity(entityId, droppedItems);
+  }
+
+  private getEntityLootDrops(entityId: number) {
+    const objectSprite = getSprite(entityId);
+    if (!objectSprite) {
+      this.logger.error(`No sprite for entity ${entityId}`);
+      return [];
+    }
+    const objectName = objectSprite.texture.key;
+    return this.objectManager.getLootTable().generateDrops(objectName);
+  }
+
+  private dropItemsNearEntity(entityId: number, droppedItems: string[]) {
     const objectSprite = getSprite(entityId);
     if (!objectSprite) {
       this.logger.error(`No sprite for entity ${entityId}`);
       return;
     }
-
-    const objectName = objectSprite.texture.key;
-    const droppedItems = this.objectManager
-      .getLootTable()
-      .generateDrops(objectName);
-    this.logger.info(
-      `Dropping items ${droppedItems} from ${getEntityNameWithID(entityId)})`
-    );
     const objectPosition: Phaser.Math.Vector2 = objectSprite.getCenter();
     const spreadRadius = DROP_SPREAD_RADIUS;
     droppedItems.forEach((item) => {
@@ -152,7 +177,9 @@ export default class EntityHandler implements IUpdatableHandler {
       this.objectManager.generateStaticObject(
         objectPosition.x + offsetX,
         objectPosition.y + offsetY,
-        item
+        item,
+        false,
+        1
       );
     });
   }
