@@ -11,6 +11,7 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
+* **crafting:** implement crafting ui ([cc5bd4b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cc5bd4b459b06296080f46ccf0a7e7565c65223f))
 * **crafting:** implement recipes ([#31](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/31)) ([3f42e9d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3f42e9de5e87e59aa2a9171189cb35cddfe84eef))
 * create opening screen ([dce5f3b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dce5f3bc71842d661f131a6295709a290d1d3691))
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
