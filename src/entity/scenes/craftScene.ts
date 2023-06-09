@@ -9,6 +9,9 @@ export default class CraftScene extends Phaser.Scene {
   private entityId!: number;
   private logger = getLogger('crafting');
 
+  private dragStart = { x: 325, y: 150 };
+  private dragOffset = { x: 0, y: 0 };
+
   constructor() {
     super({ key: 'CraftScene' });
   }
@@ -28,26 +31,28 @@ export default class CraftScene extends Phaser.Scene {
 
     const craftableItems = items.filter((item) => item.recipe !== undefined);
 
-    const startY = 10;
-    const startX = 10;
+    const startX = this.dragStart.x;
+    const startY = this.dragStart.y;
     const marginY = 20;
     const padding = 10;
     const nextX = startX + padding;
     let nextY = startY + padding;
 
     const title = this.add.text(nextX, nextY, `Craftable Items:`, {
-      color: '#ffffff',
+      color: 'white',
     });
     let longestWidth = title.width;
 
     nextY += marginY;
     const itemsText = [];
     itemsText.push(title);
+
     for (const item of craftableItems) {
       const itemText = this.add.text(nextX, nextY, `  ${item.name}`, {
-        color: '#ffffff',
+        color: 'aqua',
       });
 
+      itemText.setDepth(1);
       itemText.setInteractive({ useHandCursor: true });
 
       itemText.on('pointerdown', () => {
@@ -67,14 +72,35 @@ export default class CraftScene extends Phaser.Scene {
       nextY += marginY;
     }
 
-    const height = nextY;
-    this.drawBackground(
-      startX,
-      startY,
-      longestWidth + 2 * padding,
-      height,
-      itemsText
-    );
+    const width = longestWidth + 2 * padding;
+    const height = nextY - startY;
+    this.drawBackground(startX, startY, width, height, itemsText);
+
+    // Making the window draggable
+    const draggableArea = this.add
+      .zone(startX, startY, width, height)
+      .setOrigin(0);
+    draggableArea.setInteractive();
+
+    draggableArea.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      this.dragOffset.x = pointer.x - startX;
+      this.dragOffset.y = pointer.y - startY;
+      this.input.on('pointermove', this.handleDrag, this);
+    });
+
+    this.input.on('pointerup', () => {
+      this.input.off('pointermove', this.handleDrag, this);
+    });
+  }
+
+  handleDrag(pointer: Phaser.Input.Pointer) {
+    const newX = pointer.x - this.dragOffset.x;
+    const newY = pointer.y - this.dragOffset.y;
+
+    this.dragStart.x = newX;
+    this.dragStart.y = newY;
+
+    this.updateCraftableItemsDisplay();
   }
 
   drawBackground(
