@@ -153,11 +153,7 @@ export default class ControlSystem {
 
   private emitEntityAction(action: EntityActions, state: boolean) {
     if (state) {
-      if (action === EntityActions.TOGGLE_INVENTORY) {
-        EventBus.emit('toggleInventory', {
-          entityId: this.player,
-        });
-      }
+      EventBus.emit(action, { entityId: this.player });
     }
   }
 

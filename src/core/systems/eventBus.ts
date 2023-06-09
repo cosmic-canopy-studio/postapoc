@@ -7,7 +7,7 @@ import { EntityEvents } from '@src/entity/data/events';
 import { CoreEvents } from '@src/core/data/events';
 import { TimeEvents } from '@src/time/data/events';
 
-type Events = CoreEvents &
+export type Events = CoreEvents &
   MovementEvents &
   ActionEvents &
   TelemetryEvents &

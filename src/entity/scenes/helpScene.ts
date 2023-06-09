@@ -1,95 +1,75 @@
-import Phaser from 'phaser';
 import { getLogger } from '@src/telemetry/systems/logger';
-
+import { DraggableScene } from './draggableScene';
 import controlMappingJson from '@src/core/config/controlMapping.json';
 import { ControlMapping } from '@src/core/data/interfaces';
+import {
+  ITEM_TEXT_CONFIG,
+  UPPER_RIGHT_DRAG_START_POSITION,
+} from '@src/entity/data/constants';
 
-export default class HelpScene extends Phaser.Scene {
-  private logger = getLogger('core');
-  private visible = true;
+export default class HelpScene extends DraggableScene {
+  protected logger = getLogger('entity');
+  private controlMapping: ControlMapping;
 
   constructor() {
     super({ key: 'HelpScene' });
+    this.dragPosition = { ...UPPER_RIGHT_DRAG_START_POSITION };
+    this.controlMapping = controlMappingJson as ControlMapping;
   }
 
   create() {
-    this.updateHelpDisplay();
+    try {
+      this.updateDisplay();
+    } catch (error) {
+      this.logger.error(`Error during creation: ${error}`);
+    }
   }
 
-  updateHelpDisplay() {
-    this.logger.debugVerbose(`Updating help display`);
-    this.clearHelpDisplay();
-    const controlMapping: ControlMapping = controlMappingJson as ControlMapping;
+  protected updateDisplay() {
+    try {
+      this.logger.debugVerbose(`Updating help display`);
+      this.clearDisplay();
 
-    const marginY = 20;
-    const padding = 10;
+      const controlEntries = this.getControlEntries();
+      this.createDisplay(
+        controlEntries,
+        (entry) => `  ${entry.key} : ${entry.value}`,
+        (entry) => this.drawControlText(entry),
+        'Key Bindings:'
+      );
+    } catch (error) {
+      this.logger.error(`Error during display update: ${error}`);
+    }
+  }
 
-    const itemsText = [];
-
-    const title = this.add.text(0, 0, 'Key Bindings:', {
-      color: '#ffffff',
-    });
-    let longestWidth = title.width;
-
-    let nextY = marginY;
-    itemsText.push(title);
-
-    for (const actionGroup in controlMapping) {
-      for (const key in controlMapping[actionGroup]) {
-        const itemText = this.add.text(
-          0,
-          nextY,
-          `  ${key} : ${controlMapping[actionGroup][key]}`,
-          {
-            color: '#ffffff',
-          }
-        );
-        itemsText.push(itemText);
-        longestWidth = Math.max(longestWidth, itemText.width);
-        nextY += marginY;
+  private getControlEntries() {
+    const controlEntries = [];
+    for (const actionGroup in this.controlMapping) {
+      for (const key in this.controlMapping[actionGroup]) {
+        controlEntries.push({
+          key: key,
+          value: this.controlMapping[actionGroup][key],
+        });
       }
     }
-
-    const totalWidth = longestWidth + 2 * padding;
-    const totalHeight = nextY + marginY;
-    const startX = (this.cameras.main.width - totalWidth) / 2;
-    const startY = (this.cameras.main.height - totalHeight) / 2;
-
-    // Position the itemsText
-    itemsText.forEach((item) => {
-      item.x += startX + padding;
-      item.y += startY + padding;
-    });
-
-    this.drawBackground(startX, startY, totalWidth, totalHeight, itemsText);
+    return controlEntries;
   }
 
-  drawBackground(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    itemsText: Phaser.GameObjects.Text[]
-  ) {
-    const graphics = this.add.graphics();
+  private drawControlText(entry: { key: string; value: string }) {
+    try {
+      const controlText = this.add.text(
+        this.nextPosition.x,
+        this.nextPosition.y,
+        `  ${entry.key} : ${entry.value}`,
+        ITEM_TEXT_CONFIG
+      );
 
-    // Semi-transparent black rectangle
-    graphics.fillStyle(0x000000, 0.5);
-    graphics.fillRect(x, y, width, height);
+      controlText.setDepth(1);
 
-    // White border
-    graphics.lineStyle(2, 0xffffff, 1);
-    graphics.strokeRect(x, y, width, height);
-
-    // Make sure text appears above the rectangle
-    itemsText.forEach((item) => this.children.bringToTop(item));
-  }
-
-  clearHelpDisplay() {
-    this.children.removeAll();
-  }
-
-  toggleVisibility() {
-    this.visible = !this.visible;
+      return controlText;
+    } catch (error) {
+      this.logger.error(`Error drawing control text: ${error}`);
+      return null;
+    }
   }
 }

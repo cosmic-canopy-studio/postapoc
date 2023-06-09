@@ -6,6 +6,7 @@ import InventoryScene from '@src/entity/scenes/inventoryScene';
 import Phaser from 'phaser';
 import LogRocket from 'logrocket';
 import HelpScene from '@src/entity/scenes/helpScene';
+import CraftingScene from '@src/entity/scenes/craftingScene';
 
 LogRocket.init('1wjjv9/postapoc');
 LogRocket.identify('user', {
@@ -17,7 +18,14 @@ const config = {
   type: isTestEnvironment ? Phaser.HEADLESS : Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: [BootScene, TitleScene, MainScene, InventoryScene, HelpScene],
+  scene: [
+    BootScene,
+    TitleScene,
+    MainScene,
+    InventoryScene,
+    HelpScene,
+    CraftingScene,
+  ],
   parent: 'game-container',
 };
 
