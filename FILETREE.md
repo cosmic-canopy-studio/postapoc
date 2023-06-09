@@ -111,7 +111,7 @@
 |   |   |   |-- objects.json
 |   |   |   `-- types.ts
 |   |   |-- scenes
-|   |   |   |-- craftScene.ts
+|   |   |   |-- craftingScene.ts
 |   |   |   |-- helpScene.ts
 |   |   |   `-- inventoryScene.ts
 |   |   `-- systems
