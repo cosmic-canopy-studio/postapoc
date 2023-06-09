@@ -7,9 +7,10 @@ import EventBus from '@src/core/systems/eventBus';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { DraggableScene } from './draggableScene';
 import { EntityActions } from '@src/entity/data/enums';
-import { ITEM_TEXT_CONFIG } from '@src/entity/data/constants';
-
-const DRAG_START_POSITION = { x: 50, y: 50 };
+import {
+  ITEM_TEXT_CONFIG,
+  UPPER_LEFT_DRAG_START_POSITION,
+} from '@src/entity/data/constants';
 
 export default class InventoryScene extends DraggableScene {
   protected logger = getLogger('entity');
@@ -17,7 +18,7 @@ export default class InventoryScene extends DraggableScene {
 
   constructor() {
     super({ key: 'InventoryScene' });
-    this.dragPosition = { ...DRAG_START_POSITION };
+    this.dragPosition = { ...UPPER_LEFT_DRAG_START_POSITION };
   }
 
   init(data: { entityId: number }) {

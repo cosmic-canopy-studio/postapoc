@@ -2,9 +2,10 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { DraggableScene } from './draggableScene';
 import controlMappingJson from '@src/core/config/controlMapping.json';
 import { ControlMapping } from '@src/core/data/interfaces';
-import { ITEM_TEXT_CONFIG } from '@src/entity/data/constants';
-
-const DRAG_START_POSITION = { x: 500, y: 50 };
+import {
+  ITEM_TEXT_CONFIG,
+  UPPER_RIGHT_DRAG_START_POSITION,
+} from '@src/entity/data/constants';
 
 export default class HelpScene extends DraggableScene {
   protected logger = getLogger('entity');
@@ -12,7 +13,7 @@ export default class HelpScene extends DraggableScene {
 
   constructor() {
     super({ key: 'HelpScene' });
-    this.dragPosition = { ...DRAG_START_POSITION };
+    this.dragPosition = { ...UPPER_RIGHT_DRAG_START_POSITION };
     this.controlMapping = controlMappingJson as ControlMapping;
   }
 

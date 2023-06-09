@@ -33,7 +33,7 @@ export function craftSimpleItem(entityId: number, item: string) {
   };
 }
 
-function checkForMissingItems(entityId: number, recipe: Recipe) {
+export function checkForMissingItems(entityId: number, recipe: Recipe) {
   const logger = getLogger('action');
   const entityInventory = getInventory(entityId);
   const missingIngredients = [];

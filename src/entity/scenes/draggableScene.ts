@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import {
   BLACK,
   BORDER_WIDTH,
-  DRAG_START_POSITION,
+  CENTER_DRAG_START_POSITION,
   MARGIN_Y,
   OPAQUE,
   PADDING,
@@ -13,9 +13,9 @@ import {
 import { getLogger } from '@src/telemetry/systems/logger';
 
 export abstract class DraggableScene extends Phaser.Scene {
-  protected dragPosition = DRAG_START_POSITION;
+  protected dragPosition = CENTER_DRAG_START_POSITION;
   protected dragOffset = { x: 0, y: 0 };
-  protected nextPosition = { ...DRAG_START_POSITION };
+  protected nextPosition = { ...CENTER_DRAG_START_POSITION };
   protected logger = getLogger('entity');
 
   handleDrag(pointer: Phaser.Input.Pointer) {
@@ -126,7 +126,7 @@ export abstract class DraggableScene extends Phaser.Scene {
 
   protected clearDisplay() {
     try {
-      this.nextPosition = { ...DRAG_START_POSITION };
+      this.nextPosition = { ...CENTER_DRAG_START_POSITION };
       this.children.removeAll();
     } catch (error) {
       this.logger.error(`Error clearing display: ${error}`);

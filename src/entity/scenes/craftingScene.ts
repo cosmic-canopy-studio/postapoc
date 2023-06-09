@@ -2,12 +2,15 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import items from '@src/entity/data/items.json';
 import { Actions } from '@src/action/data/enums';
-import { Item } from '@src/entity/data/types';
+import { CraftableItem } from '@src/entity/data/types';
 import { EntityActions } from '@src/entity/data/enums';
-import { ITEM_TEXT_CONFIG } from '@src/entity/data/constants';
+import {
+  ITEM_TEXT_CONFIG,
+  MID_LEFT_DRAG_START_POSITION,
+  UN_CRAFTABLE_ITEM_TEXT_CONFIG,
+} from '@src/entity/data/constants';
 import { DraggableScene } from '@src/entity/scenes/draggableScene';
-
-const DRAG_START_POSITION = { x: 50, y: 250 };
+import { checkForMissingItems } from '@src/action/systems/craftSystem';
 
 export default class CraftingScene extends DraggableScene {
   protected logger = getLogger('entity');
@@ -15,7 +18,7 @@ export default class CraftingScene extends DraggableScene {
 
   constructor() {
     super({ key: 'CraftScene' });
-    this.dragPosition = { ...DRAG_START_POSITION };
+    this.dragPosition = { ...MID_LEFT_DRAG_START_POSITION };
   }
 
   init(data: { entityId: number }) {
@@ -64,30 +67,44 @@ export default class CraftingScene extends DraggableScene {
 
   private getCraftableItems() {
     try {
-      return items.filter((item) => item.recipe !== undefined) as Item[];
+      return items.filter(
+        (item) => item.recipe !== undefined
+      ) as CraftableItem[];
     } catch (error) {
       this.logger.error(`Error getting craftable items: ${error}`);
       return [];
     }
   }
 
-  private drawItemText(item: Item) {
+  private drawItemText(item: CraftableItem) {
     try {
+      const missingIngredients = checkForMissingItems(
+        this.entityId,
+        item.recipe
+      );
+      const itemTextConfig =
+        missingIngredients.length > 0
+          ? UN_CRAFTABLE_ITEM_TEXT_CONFIG
+          : ITEM_TEXT_CONFIG;
+
       const itemText = this.add.text(
         this.nextPosition.x,
         this.nextPosition.y,
         `  ${item.name}`,
-        ITEM_TEXT_CONFIG
+        itemTextConfig
       );
+
       itemText.setDepth(1);
       itemText.setInteractive({ useHandCursor: true });
 
       itemText.on('pointerdown', () => {
-        EventBus.emit('action', {
-          action: Actions.CRAFT,
-          entity: this.entityId,
-          options: { recipe: item.id },
-        });
+        if (missingIngredients.length === 0) {
+          EventBus.emit('action', {
+            action: Actions.CRAFT,
+            entity: this.entityId,
+            options: { recipe: item.id },
+          });
+        }
       });
 
       return itemText;

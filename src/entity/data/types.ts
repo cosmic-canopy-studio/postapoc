@@ -19,6 +19,15 @@ export type Item = {
   recipe?: Recipe;
 };
 
+export type CraftableItem = {
+  id: string;
+  name: string;
+  texture: string;
+  category?: string;
+  canBePickedUp?: boolean;
+  recipe: Recipe;
+};
+
 export type XYCoordinates = {
   x: number;
   y: number;
