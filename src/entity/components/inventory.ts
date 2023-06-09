@@ -39,7 +39,6 @@ export function addItemToInventory(entityId: number, itemEntityId: number) {
         entityId
       )}'s inventory because it is full`
     );
-    return;
   } else {
     logger.info(
       `Added item ${getEntityNameWithID(

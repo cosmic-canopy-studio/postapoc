@@ -5,20 +5,14 @@ import {
 import items from '@src/entity/data/items.json';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { getEntityName } from '@src/entity/systems/entityNames';
+import { Recipe, RecipeIngredient } from '@src/entity/data/types';
 
-export function craftSimpleItem(entity: number, item: string) {
+function checkForMissingItems(entityId: number, recipe: Recipe) {
   const logger = getLogger('action');
-  const entityInventory = getInventory(entity);
-  const itemData = items.find((i) => i.id === item);
-
-  if (!itemData || !itemData.recipe) {
-    logger.info(`Item ${item} does not exist or does not have a recipe.`);
-    return;
-  }
-
+  const entityInventory = getInventory(entityId);
   const missingIngredients = [];
   logger.debug(`Current inventory: ${JSON.stringify(entityInventory)}`);
-  for (const ingredient of itemData.recipe) {
+  for (const ingredient of recipe) {
     const count = entityInventory.reduce((requiredItems, requiredItem) => {
       const itemName = getEntityName(requiredItem);
       if (itemName === undefined) {
@@ -38,13 +32,15 @@ export function craftSimpleItem(entity: number, item: string) {
       });
     }
   }
+  return missingIngredients;
+}
 
-  if (missingIngredients.length > 0) {
-    logger.info(`Missing ingredients: ${JSON.stringify(missingIngredients)}`);
-    return;
-  }
-
-  for (const ingredient of itemData.recipe) {
+function removeConsumedIngredients(
+  recipe: RecipeIngredient[],
+  entityId: number
+) {
+  const entityInventory = getInventory(entityId);
+  for (const ingredient of recipe) {
     let toRemove = ingredient.quantity;
     for (let i = 0; i < entityInventory.length && toRemove > 0; i++) {
       const itemName = getEntityName(entityInventory[i]);
@@ -52,11 +48,32 @@ export function craftSimpleItem(entity: number, item: string) {
         continue;
       }
       if (itemName.toLowerCase() === ingredient.id.toLowerCase()) {
-        removeItemFromInventory(entity, i);
+        removeItemFromInventory(entityId, i);
         toRemove--;
       }
     }
   }
+}
+
+export function craftSimpleItem(entityId: number, item: string) {
+  const logger = getLogger('action');
+  const itemData = items.find((i) => i.id === item);
+
+  if (!itemData?.recipe) {
+    logger.info(`Item ${item} does not exist or does not have a recipe.`);
+    return;
+  }
+
+  const recipe: Recipe = itemData.recipe;
+
+  const missingIngredients = checkForMissingItems(entityId, recipe);
+
+  if (missingIngredients.length > 0) {
+    logger.info(`Missing ingredients: ${JSON.stringify(missingIngredients)}`);
+    return;
+  }
+
+  removeConsumedIngredients(recipe, entityId);
 
   return {
     itemName: item,

@@ -34,6 +34,7 @@
 
 ### Bug Fixes
 
+* add missing eslint plugin ([0c6798f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0c6798f44c5b774242058191385240b0b7230974))
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
