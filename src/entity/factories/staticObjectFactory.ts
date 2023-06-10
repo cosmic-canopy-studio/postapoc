@@ -79,8 +79,4 @@ export default class StaticObjectFactory implements IEntityFactory {
     removeEntity(this.world, entityId);
     removeEntityName(entityId);
   }
-
-  getObjectDetails(id: string): StaticObject | null {
-    return this.staticObjectsMap.get(id) || null;
-  }
 }

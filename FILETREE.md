@@ -124,7 +124,6 @@
 |   |       |-- entityNames.ts
 |   |       |-- focusManager.ts
 |   |       |-- healthSystem.ts
-|   |       |-- lootDrops.ts
 |   |       |-- objectManager.ts
 |   |       `-- objectPool.ts
 |   |-- main.ts

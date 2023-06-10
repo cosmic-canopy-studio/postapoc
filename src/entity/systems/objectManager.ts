@@ -3,10 +3,9 @@ import {
   DEFAULT_OBJECT_COLLISION_MODIFIER,
 } from '@src/entity/data/constants';
 import itemsData from '@src/entity/data/items.json';
-import { Item } from '@src/entity/data/types';
+import staticObjectsData from '@src/entity/data/staticObjects.json';
+import { Item, StaticObject } from '@src/entity/data/types';
 import EntityCreator from '@src/entity/factories/entityFactory';
-import StaticObjectFactory from '@src/entity/factories/staticObjectFactory';
-import { LootDrops } from '@src/entity/systems/lootDrops';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { movement } from '@src/movement/systems/movement';
 import { getLogger } from '@src/telemetry/systems/logger';
@@ -17,8 +16,8 @@ export default class ObjectManager {
   private logger;
   private entityCreator: EntityCreator;
   private objectSpatialIndex!: RBush<ICollider>;
-  private lootTable!: LootDrops;
   private itemsMap: Map<string, Item>;
+  private staticObjectsMap: Map<string, StaticObject>;
   private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
@@ -28,11 +27,14 @@ export default class ObjectManager {
     this.itemsMap = new Map<string, Item>(
       itemsData.map((item) => [item.id, item])
     );
+
+    this.staticObjectsMap = new Map<string, StaticObject>(
+      staticObjectsData.map((staticObject) => [staticObject.id, staticObject])
+    );
   }
 
   initialize() {
     this.objectSpatialIndex = new RBush<ICollider>();
-    this.lootTable = new LootDrops();
     this.logger.debug('ObjectManager initialized');
   }
 
@@ -58,11 +60,14 @@ export default class ObjectManager {
     }
   }
 
-  generateStaticObject(x: number, y: number, id: string) {
-    const objectID = this.entityCreator.createEntity('staticObject', x, y, id);
-    const objectDetails = (
-      this.entityCreator.factories['staticObject'] as StaticObjectFactory
-    ).getObjectDetails(id);
+  generateStaticObject(x: number, y: number, staticObjectId: string) {
+    const objectID = this.entityCreator.createEntity(
+      'staticObject',
+      x,
+      y,
+      staticObjectId
+    );
+    const objectDetails = this.getObjectDetails(staticObjectId);
 
     if (!objectDetails) {
       this.logger.info(`No object details for ${objectID}`);
@@ -88,13 +93,13 @@ export default class ObjectManager {
     });
 
     this.logger.debugVerbose(
-      `Added static object ${objectID} with texture ${id} to spatial index`
+      `Added static object ${objectID} with texture ${staticObjectId} to spatial index`
     );
   }
 
-  generateItem(x: number, y: number, id: string) {
-    const objectID = this.entityCreator.createEntity('item', x, y, id);
-    const itemDetails = this.getItemDetails(id);
+  generateItem(x: number, y: number, itemId: string) {
+    const objectID = this.entityCreator.createEntity('item', x, y, itemId);
+    const itemDetails = this.getItemDetails(itemId);
 
     if (!itemDetails) {
       this.logger.info(`No item details for ${objectID}`);
@@ -117,16 +122,12 @@ export default class ObjectManager {
     });
 
     this.logger.debugVerbose(
-      `Added item ${objectID} with texture ${id} to spatial index`
+      `Added item ${objectID} with texture ${itemId} to spatial index`
     );
   }
 
   getObjectSpatialIndex() {
     return this.objectSpatialIndex;
-  }
-
-  getLootTable() {
-    return this.lootTable;
   }
 
   releaseEntity(entityType: string, id: number): void {
@@ -140,5 +141,9 @@ export default class ObjectManager {
 
   getItemDetails(itemId: string): Item | null {
     return this.itemsMap.get(itemId) || null;
+  }
+
+  getObjectDetails(objectId: string): StaticObject | null {
+    return this.staticObjectsMap.get(objectId) || null;
   }
 }

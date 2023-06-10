@@ -13,6 +13,7 @@ import {
   removePhaserSprite,
 } from '@src/entity/components/phaserSprite';
 import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
+import { LootDrop } from '@src/entity/data/types';
 import CreatureManager from '@src/entity/systems/creatureManager';
 import {
   getEntityName,
@@ -68,6 +69,27 @@ export default class EntityHandler implements IUpdatableHandler {
   onToggleCrafting(payload: EntityIDPayload) {
     const { entityId } = payload;
     this.toggleScene('CraftScene', entityId);
+  }
+
+  generateDrops(objectName: string): string[] {
+    const lootTable =
+      this.objectManager.getObjectDetails(objectName)?.lootTable;
+    if (!lootTable) {
+      this.logger.warn(`No item group found for ${objectName}`);
+      return [];
+    }
+
+    const drops: string[] = [];
+    lootTable.forEach((drop: LootDrop) => {
+      for (let i = 0; i < drop.count; i++) {
+        const roll = Math.random() * 100;
+        if (roll <= drop.drop_chance) {
+          drops.push(drop.id);
+        }
+      }
+    });
+
+    return drops;
   }
 
   private onItemCrafted(payload: CraftedItemsPayload) {
@@ -164,7 +186,7 @@ export default class EntityHandler implements IUpdatableHandler {
       return [];
     }
     const objectName = objectSprite.texture.key;
-    return this.objectManager.getLootTable().generateDrops(objectName);
+    return this.generateDrops(objectName);
   }
 
   private dropItemsNearEntity(entityId: number, droppedItems: string[]) {
