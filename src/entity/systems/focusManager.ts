@@ -3,7 +3,7 @@ import Collider, {
   ICollider,
 } from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/systems/logger';
-import { ECS_NULL, PLAYER_FOCUS_DISTANCE } from '@src/core/config/constants';
+import { ECS_NULL, CREATURE_FOCUS_DISTANCE } from '@src/core/config/constants';
 import RBush from 'rbush';
 import * as Phaser from 'phaser';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
@@ -68,7 +68,7 @@ export default class FocusManager {
     }
 
     const distance = calculateDistance(playerBounds, focusTargetBounds);
-    if (distance > PLAYER_FOCUS_DISTANCE) {
+    if (distance > CREATURE_FOCUS_DISTANCE) {
       this.logAndRemoveFocus(
         `${getEntityNameWithID(focusTargetEid)} out of range`,
         playerEid
@@ -120,10 +120,10 @@ export default class FocusManager {
     }
 
     const nearbyObjects = objectsSpatialIndex.search({
-      minX: focusOwnerBounds.minX - PLAYER_FOCUS_DISTANCE,
-      minY: focusOwnerBounds.minY - PLAYER_FOCUS_DISTANCE,
-      maxX: focusOwnerBounds.maxX + PLAYER_FOCUS_DISTANCE,
-      maxY: focusOwnerBounds.maxY + PLAYER_FOCUS_DISTANCE,
+      minX: focusOwnerBounds.minX - CREATURE_FOCUS_DISTANCE,
+      minY: focusOwnerBounds.minY - CREATURE_FOCUS_DISTANCE,
+      maxX: focusOwnerBounds.maxX + CREATURE_FOCUS_DISTANCE,
+      maxY: focusOwnerBounds.maxY + CREATURE_FOCUS_DISTANCE,
     });
 
     if (nearbyObjects === undefined || nearbyObjects.length === 0) {
@@ -146,7 +146,7 @@ export default class FocusManager {
           focusOwnerBounds,
           staticObjectBounds
         );
-        if (distance <= PLAYER_FOCUS_DISTANCE) {
+        if (distance <= CREATURE_FOCUS_DISTANCE) {
           objectsInRange.push({ distance, target: staticObject });
         }
       }

@@ -107,25 +107,27 @@
 |   |   |   |-- interfaces.ts
 |   |   |   |-- items.json
 |   |   |   |-- objects.json
+|   |   |   |-- staticObjects.json
 |   |   |   `-- types.ts
 |   |   |-- factories
-|   |   |   `-- entityFactory.ts
+|   |   |   |-- creatureFactory.ts
+|   |   |   |-- entityFactory.ts
+|   |   |   |-- itemFactory.ts
+|   |   |   `-- staticObjectFactory.ts
 |   |   |-- scenes
 |   |   |   |-- craftingScene.ts
 |   |   |   |-- draggableScene.ts
 |   |   |   |-- helpScene.ts
 |   |   |   `-- inventoryScene.ts
 |   |   `-- systems
+|   |       |-- creatureManager.ts
 |   |       |-- entityHandler.ts
 |   |       |-- entityNames.ts
 |   |       |-- focusManager.ts
 |   |       |-- healthSystem.ts
 |   |       |-- lootDrops.ts
 |   |       |-- objectManager.ts
-|   |       |-- objectPool.ts
-|   |       |-- playerFactory.ts
-|   |       |-- playerManager.ts
-|   |       `-- staticObjectFactory.ts
+|   |       `-- objectPool.ts
 |   |-- main.ts
 |   |-- movement
 |   |   |-- components

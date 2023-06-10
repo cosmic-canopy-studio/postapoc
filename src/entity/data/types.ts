@@ -10,25 +10,39 @@ export type RecipeIngredient = {
 
 export type Recipe = RecipeIngredient[];
 
+export type LootDrop = {
+  id: string;
+  drop_chance: number;
+  count: number;
+};
+
+export type StaticObject = {
+  id: string;
+  name: string;
+  textures: string[];
+  category: string;
+  health?: number;
+  lootTable: LootDrop[];
+  focusExempt: boolean;
+  collisionModifier?: number;
+};
+
 export type Item = {
   id: string;
   name: string;
-  texture: string;
-  category?: string;
-  canBePickedUp?: boolean;
+  textures: string[];
+  category: string;
+  health?: number;
+  canBePickedUp: boolean;
   recipe?: Recipe;
 };
 
 export type CraftableItem = {
   id: string;
   name: string;
-  texture: string;
-  category?: string;
-  canBePickedUp?: boolean;
+  textures: string[];
+  category: string;
+  health?: number;
+  canBePickedUp: boolean;
   recipe: Recipe;
-};
-
-export type XYCoordinates = {
-  x: number;
-  y: number;
 };

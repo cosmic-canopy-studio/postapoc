@@ -1,32 +1,32 @@
-import { getLogger } from '@src/telemetry/systems/logger';
-import {
-  getSprite,
-  removePhaserSprite,
-} from '@src/entity/components/phaserSprite';
-import { getCollider } from '@src/movement/components/collider';
-import FocusManager from '@src/entity/systems/focusManager';
+import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
+import { IUpdatableHandler } from '@src/core/data/interfaces';
+import EventBus from '@src/core/systems/eventBus';
+import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 import {
   clearFocusTarget,
   Focus,
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
-import PlayerManager from '@src/entity/systems/playerManager';
-import ObjectManager from '@src/entity/systems/objectManager';
-import * as Phaser from 'phaser';
-import EventBus from '@src/core/systems/eventBus';
-import { IUpdatableHandler } from '@src/core/data/interfaces';
-import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
-import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
 import { addItemToInventory } from '@src/entity/components/inventory';
-import { IWorld } from 'bitecs';
+import {
+  getSprite,
+  removePhaserSprite,
+} from '@src/entity/components/phaserSprite';
+import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
+import CreatureManager from '@src/entity/systems/creatureManager';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
-import { entityCanBePickedUp } from '@src/entity/components/canPickup';
+import FocusManager from '@src/entity/systems/focusManager';
+import ObjectManager from '@src/entity/systems/objectManager';
+import { getCollider } from '@src/movement/components/collider';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { IWorld } from 'bitecs';
+import * as Phaser from 'phaser';
 import ScenePlugin = Phaser.Scenes.ScenePlugin;
 
 export default class EntityHandler implements IUpdatableHandler {
   private logger;
-  private playerManager!: PlayerManager;
+  private creatureManager!: CreatureManager;
   private objectManager!: ObjectManager;
   private focusManager!: FocusManager;
   private readonly world: IWorld;
@@ -34,12 +34,12 @@ export default class EntityHandler implements IUpdatableHandler {
 
   constructor(
     scene: Phaser.Scene,
-    playerManager: PlayerManager,
+    playerManager: CreatureManager,
     objectManager: ObjectManager,
     world: IWorld
   ) {
     this.logger = getLogger('entity');
-    this.playerManager = playerManager;
+    this.creatureManager = playerManager;
     this.objectManager = objectManager;
     this.focusManager = new FocusManager(scene);
     this.world = world;
@@ -58,7 +58,7 @@ export default class EntityHandler implements IUpdatableHandler {
 
   update() {
     this.focusManager.update(
-      this.playerManager.getPlayer(),
+      this.creatureManager.getPlayer(),
       this.objectManager.getObjectSpatialIndex()
     );
   }
@@ -84,7 +84,7 @@ export default class EntityHandler implements IUpdatableHandler {
   private onSwitchFocus(payload: EntityIDPayload) {
     const { entityId } = payload;
     this.logger.debug(`Switching focus for ${getEntityNameWithID(entityId)}`);
-    updateFocusTarget(this.playerManager.getPlayer(), entityId);
+    updateFocusTarget(this.creatureManager.getPlayer(), entityId);
   }
 
   private onEntityDestroyed(payload: EntityIDPayload) {
@@ -92,7 +92,7 @@ export default class EntityHandler implements IUpdatableHandler {
     this.logger.info(`Destroying ${getEntityNameWithID(entityId)}`);
     this.handleDrops(entityId);
     this.removeWorldEntity(entityId);
-    this.objectManager.getStaticObjectFactory().release(entityId);
+    this.objectManager.releaseEntity('staticObject', entityId);
   }
 
   private toggleScene(sceneName: string, entityId: number) {
@@ -180,12 +180,10 @@ export default class EntityHandler implements IUpdatableHandler {
     droppedItems.forEach((item) => {
       const offsetX = Math.random() * spreadRadius - spreadRadius / 2;
       const offsetY = Math.random() * spreadRadius - spreadRadius / 2;
-      this.objectManager.generateStaticObject(
+      this.objectManager.generateItem(
         objectPosition.x + offsetX,
         objectPosition.y + offsetY,
-        item,
-        false,
-        1
+        item
       );
     });
   }
@@ -207,7 +205,7 @@ export default class EntityHandler implements IUpdatableHandler {
         this.logger.info(
           `Unsetting focus target for ${getEntityNameWithID(focusingEntityId)}`
         );
-        const playerEntityId = this.playerManager.getPlayer();
+        const playerEntityId = this.creatureManager.getPlayer();
         if (focusingEntityId === playerEntityId) {
           this.focusManager.removeFocus(playerEntityId);
         } else {

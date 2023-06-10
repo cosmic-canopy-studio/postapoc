@@ -1,3 +1,4 @@
+import { LootDrop } from '@src/entity/data/types';
 import { ICollider } from '@src/movement/components/collider';
 
 export interface IFocusTarget {
@@ -5,12 +6,12 @@ export interface IFocusTarget {
   target: ICollider;
 }
 
-export interface IDrop {
-  id: string;
-  drop_chance: number;
-  count: number;
+export interface IItemGroup {
+  [key: string]: LootDrop[];
 }
 
-export interface IItemGroup {
-  [key: string]: IDrop[];
+export interface IEntityFactory {
+  createEntity(x: number, y: number, id: string): number;
+
+  releaseEntity(entityId: number): void;
 }

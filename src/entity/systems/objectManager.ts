@@ -1,14 +1,20 @@
-import { getLogger } from '@src/telemetry/systems/logger';
-import StaticObjectFactory from '@src/entity/systems/staticObjectFactory';
+import {
+  DEFAULT_ITEM_COLLISION_MODIFIER,
+  DEFAULT_OBJECT_COLLISION_MODIFIER,
+} from '@src/entity/data/constants';
+import EntityCreator from '@src/entity/factories/entityFactory';
+import ItemFactory from '@src/entity/factories/itemFactory';
+import StaticObjectFactory from '@src/entity/factories/staticObjectFactory';
+import { LootDrops } from '@src/entity/systems/lootDrops';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
+import { movement } from '@src/movement/systems/movement';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
-import { LootDrops } from '@src/entity/systems/lootDrops';
-import { movement } from '@src/movement/systems/movement';
 
 export default class ObjectManager {
   private logger;
-  private staticObjectFactory!: StaticObjectFactory;
+  private entityCreator: EntityCreator;
   private objectSpatialIndex!: RBush<ICollider>;
   private lootTable!: LootDrops;
   private readonly world: IWorld;
@@ -16,13 +22,17 @@ export default class ObjectManager {
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
     this.world = world;
+    this.entityCreator = new EntityCreator(scene, world);
   }
 
   initialize() {
-    this.staticObjectFactory = new StaticObjectFactory(this.scene, this.world);
     this.objectSpatialIndex = new RBush<ICollider>();
     this.lootTable = new LootDrops();
     this.logger.debug('ObjectManager initialized');
+  }
+
+  update(adjustedDeltaTime: number) {
+    movement(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
   }
 
   public getObjectByEid(eid: number): ICollider | null {
@@ -32,66 +42,91 @@ export default class ObjectManager {
         return obj;
       }
     }
-    return null; // Return null if no object found with the given EID
+    return null;
   }
 
   generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
-    const collisionModifier = 0.9;
-    const grassVariants = ['grass', 'grass2', 'grass3', 'grass4'];
     for (let x = 0; x < mapWidth; x++) {
       for (let y = 0; y < mapHeight; y++) {
-        const randomIndex = Math.floor(Math.random() * grassVariants.length);
-        const tileType = grassVariants[randomIndex];
-        this.generateStaticObject(
-          x * tileSize,
-          y * tileSize,
-          tileType,
-          true,
-          collisionModifier
-        );
+        this.generateStaticObject(x * tileSize, y * tileSize, 'grass');
       }
     }
   }
 
-  generateStaticObject(
-    x: number,
-    y: number,
-    texture: string,
-    exempt = false,
-    collisionModifier = 0
-  ) {
-    const objectID = this.staticObjectFactory.create(x, y, texture, exempt);
+  generateStaticObject(x: number, y: number, id: string) {
+    const objectID = this.entityCreator.createEntity('staticObject', x, y, id);
+    const objectDetails = (
+      this.entityCreator.factories['staticObject'] as StaticObjectFactory
+    ).getObjectDetails(id);
+
+    if (!objectDetails) {
+      this.logger.info(`No object details for ${objectID}`);
+      return;
+    }
+
     const bounds = getBoundingBox(objectID);
     if (!bounds) {
       this.logger.info(`No bounds for ${objectID}`);
     }
+
+    const collisionModifier =
+      objectDetails.collisionModifier || DEFAULT_OBJECT_COLLISION_MODIFIER;
+
     this.objectSpatialIndex.insert({
       eid: objectID,
       minX: bounds.minX,
       minY: bounds.minY,
       maxX: bounds.maxX,
       maxY: bounds.maxY,
-      exempt: true,
+      exempt: objectDetails.focusExempt,
       collisionModifier: collisionModifier,
     });
+
     this.logger.debugVerbose(
-      `Added static object ${objectID} with texture ${texture} to spatial index`
+      `Added static object ${objectID} with texture ${id} to spatial index`
     );
   }
 
-  update(adjustedDeltaTime: number) {
-    movement(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
+  generateItem(x: number, y: number, id: string) {
+    const objectID = this.entityCreator.createEntity('item', x, y, id);
+    const itemDetails = (
+      this.entityCreator.factories['item'] as ItemFactory
+    ).getItemDetails(id);
+
+    if (!itemDetails) {
+      this.logger.info(`No item details for ${objectID}`);
+      return;
+    }
+
+    const bounds = getBoundingBox(objectID);
+    if (!bounds) {
+      this.logger.info(`No bounds for ${objectID}`);
+    }
+
+    this.objectSpatialIndex.insert({
+      eid: objectID,
+      minX: bounds.minX,
+      minY: bounds.minY,
+      maxX: bounds.maxX,
+      maxY: bounds.maxY,
+      exempt: false,
+      collisionModifier: DEFAULT_ITEM_COLLISION_MODIFIER,
+    });
+
+    this.logger.debugVerbose(
+      `Added item ${objectID} with texture ${id} to spatial index`
+    );
   }
 
-  public getStaticObjectFactory() {
-    return this.staticObjectFactory;
-  }
-
-  public getObjectSpatialIndex() {
+  getObjectSpatialIndex() {
     return this.objectSpatialIndex;
   }
 
-  public getLootTable() {
+  getLootTable() {
     return this.lootTable;
+  }
+
+  releaseEntity(entityType: string, id: number): void {
+    this.entityCreator.releaseEntity(entityType, id);
   }
 }

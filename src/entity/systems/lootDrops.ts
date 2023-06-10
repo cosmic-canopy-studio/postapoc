@@ -1,9 +1,10 @@
+import { IItemGroup } from '@src/entity/data/interfaces';
 import item_groups from '@src/entity/data/objects.json';
+import { LootDrop } from '@src/entity/data/types';
 import { getLogger } from '@src/telemetry/systems/logger';
-import { IDrop, IItemGroup } from '@src/entity/data/interfaces';
 
 export class LootDrops {
-  private readonly itemGroups: IItemGroup;
+  private readonly itemGroups: IItemGroup; // TODO: Switch to staticObject type
   private logger = getLogger('entity');
 
   constructor() {
@@ -18,7 +19,7 @@ export class LootDrops {
     }
 
     const drops: string[] = [];
-    group.forEach((drop: IDrop) => {
+    group.forEach((drop: LootDrop) => {
       for (let i = 0; i < drop.count; i++) {
         const roll = Math.random() * 100;
         if (roll <= drop.drop_chance) {

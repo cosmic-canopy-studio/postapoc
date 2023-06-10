@@ -1,0 +1,71 @@
+[
+  {
+    "id": "tree",
+    "name": "Tree",
+    "textures": [
+      "tree"
+    ],
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "stick",
+        "drop_chance": 80,
+        "count": 5
+      },
+      {
+        "id": "log",
+        "drop_chance": 50,
+        "count": 2
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0
+  },
+  {
+    "id": "bench",
+    "name": "Bench",
+    "textures": [
+      "bench"
+    ],
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "pipe",
+        "drop_chance": 70,
+        "count": 2
+      },
+      {
+        "id": "board",
+        "drop_chance": 90,
+        "count": 4
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.2
+  },
+  {
+    "id": "grass",
+    "name": "Grass",
+    "textures": [
+      "grass",
+      "grass2",
+      "grass3",
+      "grass4"
+    ],
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "dirt",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "grassSeed",
+        "drop_chance": 5,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.9
+  }
+]

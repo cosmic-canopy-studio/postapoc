@@ -1,4 +1,4 @@
-import PlayerManager from '@src/entity/systems/playerManager';
+import PlayerManager from '@src/entity/systems/creatureManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import MovementHandler from '@src/movement/systems/movementHandler';
 import ActionHandler from '@src/action/systems/actionHandler';
