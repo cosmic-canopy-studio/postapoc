@@ -2,8 +2,9 @@ import {
   DEFAULT_ITEM_COLLISION_MODIFIER,
   DEFAULT_OBJECT_COLLISION_MODIFIER,
 } from '@src/entity/data/constants';
+import itemsData from '@src/entity/data/items.json';
+import { Item } from '@src/entity/data/types';
 import EntityCreator from '@src/entity/factories/entityFactory';
-import ItemFactory from '@src/entity/factories/itemFactory';
 import StaticObjectFactory from '@src/entity/factories/staticObjectFactory';
 import { LootDrops } from '@src/entity/systems/lootDrops';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
@@ -17,12 +18,16 @@ export default class ObjectManager {
   private entityCreator: EntityCreator;
   private objectSpatialIndex!: RBush<ICollider>;
   private lootTable!: LootDrops;
+  private itemsMap: Map<string, Item>;
   private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
     this.world = world;
     this.entityCreator = new EntityCreator(scene, world);
+    this.itemsMap = new Map<string, Item>(
+      itemsData.map((item) => [item.id, item])
+    );
   }
 
   initialize() {
@@ -89,9 +94,7 @@ export default class ObjectManager {
 
   generateItem(x: number, y: number, id: string) {
     const objectID = this.entityCreator.createEntity('item', x, y, id);
-    const itemDetails = (
-      this.entityCreator.factories['item'] as ItemFactory
-    ).getItemDetails(id);
+    const itemDetails = this.getItemDetails(id);
 
     if (!itemDetails) {
       this.logger.info(`No item details for ${objectID}`);
@@ -128,5 +131,14 @@ export default class ObjectManager {
 
   releaseEntity(entityType: string, id: number): void {
     this.entityCreator.releaseEntity(entityType, id);
+  }
+
+  canItemBePickedUp(itemId: string): boolean {
+    const item = this.getItemDetails(itemId);
+    return item ? item.canBePickedUp : false;
+  }
+
+  getItemDetails(itemId: string): Item | null {
+    return this.itemsMap.get(itemId) || null;
   }
 }

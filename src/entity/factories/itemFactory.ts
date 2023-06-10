@@ -1,5 +1,4 @@
 import { ECS_NULL } from '@src/core/config/constants';
-import { addCanBePickedUp } from '@src/entity/components/canPickup';
 import {
   addPhaserSprite,
   getSprite,
@@ -50,9 +49,6 @@ export default class ItemFactory implements IEntityFactory {
     sprite.setVisible(true);
 
     addPhaserSprite(this.world, itemEntityId, sprite);
-    if (itemDetails.canBePickedUp) {
-      addCanBePickedUp(this.world, itemEntityId); // TODO: Refactor this component to be a flyweight lookup
-    }
     addCollider(
       this.world,
       itemEntityId,
@@ -73,9 +69,5 @@ export default class ItemFactory implements IEntityFactory {
     }
     removeEntity(this.world, entityId);
     removeEntityName(entityId);
-  }
-
-  getItemDetails(id: string): Item | null {
-    return this.itemsMap.get(id) || null;
   }
 }

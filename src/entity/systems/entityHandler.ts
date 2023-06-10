@@ -1,7 +1,6 @@
 import { DROP_SPREAD_RADIUS } from '@src/core/config/constants';
 import { IUpdatableHandler } from '@src/core/data/interfaces';
 import EventBus from '@src/core/systems/eventBus';
-import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 import {
   clearFocusTarget,
   Focus,
@@ -15,7 +14,10 @@ import {
 } from '@src/entity/components/phaserSprite';
 import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
 import CreatureManager from '@src/entity/systems/creatureManager';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import {
+  getEntityName,
+  getEntityNameWithID,
+} from '@src/entity/systems/entityNames';
 import FocusManager from '@src/entity/systems/focusManager';
 import ObjectManager from '@src/entity/systems/objectManager';
 import { getCollider } from '@src/movement/components/collider';
@@ -75,7 +77,6 @@ export default class EntityHandler implements IUpdatableHandler {
         creatingEntityId
       )}`
     );
-    // create an array with a string for each item in the quantity
     const craftedDrop: string[] =
       Array(createdItemQuantity).fill(createdItemName);
     this.dropItemsNearEntity(creatingEntityId, craftedDrop);
@@ -123,16 +124,13 @@ export default class EntityHandler implements IUpdatableHandler {
     );
 
     const focusedObjectEntityId = getFocusTarget(entityId);
-    const canBePickedUp = entityCanBePickedUp(focusedObjectEntityId);
+    const entityName = getEntityName(focusedObjectEntityId);
+    const canBePickedUp = this.objectManager.canItemBePickedUp(entityName);
     if (!canBePickedUp) {
-      this.logger.warn(
-        `Item ${getEntityNameWithID(
-          focusedObjectEntityId
-        )} cannot be picked up.`
-      );
+      this.logger.warn(`Item ${entityName} cannot be picked up.`);
       return;
     }
-    this.logger.debug(
+    this.logger.debugVerbose(
       `${getEntityNameWithID(
         entityId
       )} current focus for pickup: ${getEntityNameWithID(

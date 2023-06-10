@@ -95,7 +95,6 @@
 |   |       `-- svgUtils.ts
 |   |-- entity
 |   |   |-- components
-|   |   |   |-- canPickup.ts
 |   |   |   |-- focus.ts
 |   |   |   |-- health.ts
 |   |   |   |-- inventory.ts
