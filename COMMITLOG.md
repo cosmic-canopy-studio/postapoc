@@ -130,6 +130,7 @@
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* **entity:** create dataHandler for item and object config lookups to use flyweight pattern ([7da9489](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7da9489941781c5c5de7e8f65f18b5c078da0df7))
 * **entity:** create unified entity manager, break-out UI handler ([436a1bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/436a1bd1d8b33c496e087cf0c8e4cc298ec2c455))
 * **entity:** migrate canPickUp functionality to config lookup ([c227eea](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c227eea50e1d0b13893d467d676d2fe5502158cc))
 * **entity:** migrate lootDrop functionality to entityHandler ([a9501b3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a9501b30f55f9977724806be1627076f410a5050))

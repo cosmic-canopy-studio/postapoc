@@ -40,7 +40,7 @@ export default class CreatureFactory implements IEntityFactory {
     addPhaserSprite(this.world, creature, sprite);
     addMovement(this.world, creature, x, y, 0, 0);
     addHealth(this.world, creature, 100, 100);
-    addCollider(this.world, creature, true, 1);
+    addCollider(this.world, creature);
     addAttack(this.world, creature, CREATURE_DEFAULT_DAMAGE);
     setEntityName(creature, name);
     this.logger.debug(`Created entity ${getEntityNameWithID(creature)} `);

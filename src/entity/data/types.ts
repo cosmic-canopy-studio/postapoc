@@ -33,9 +33,13 @@ export type Item = {
   textures: string[];
   category: string;
   health?: number;
+  focusExempt?: boolean;
+  collisionModifier?: number;
   canBePickedUp: boolean;
   recipe?: Recipe;
 };
+
+export type GenericObject = StaticObject | Item;
 
 export type CraftableItem = {
   id: string;

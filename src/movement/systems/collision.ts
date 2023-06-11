@@ -1,8 +1,13 @@
-import { getLogger } from '@src/telemetry/systems/logger';
+import { getEntityCollisionModifier } from '@src/entity/systems/dataManager';
+import {
+  getEntityName,
+  getEntityNameWithID,
+} from '@src/entity/systems/entityNames';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
+import { FULL_MOVEMENT } from '@src/movement/data/constants';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 
 export function handleCollision(
   entityId: number,
@@ -22,15 +27,25 @@ export function handleCollision(
     `Found ${nearbyObjects.length} nearby objects for entity ${entityId}`
   );
 
-  let collisionModifier = 1;
+  let collisionModifier = FULL_MOVEMENT;
   for (const staticObject of nearbyObjects) {
-    collisionModifier *= staticObject.collisionModifier;
-    logger.debug(
-      `Collision detected between ${getEntityNameWithID(
-        entityId
-      )} and ${getEntityNameWithID(staticObject.eid)}`
-    );
+    collisionModifier *= getEntityCollisionModifier(staticObject.entityId);
+    if (getEntityName(staticObject.entityId) !== 'Grass') {
+      logger.debug(
+        `Collision: ${getEntityNameWithID(entityId)} with ${getEntityNameWithID(
+          staticObject.entityId
+        )}`
+      );
+    } else {
+      logger.debugVerbose(
+        `Collision: ${getEntityNameWithID(entityId)} with ${getEntityNameWithID(
+          staticObject.entityId
+        )}`
+      );
+    }
   }
+
+  logger.debug(`Collision modifier: ${collisionModifier}`);
 
   return collisionModifier;
 }

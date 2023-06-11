@@ -1,16 +1,16 @@
-import { getInventory } from '@src/entity/components/inventory';
-import {
-  getEntityName,
-  getEntityNameWithID,
-} from '@src/entity/systems/entityNames';
 import EventBus from '@src/core/systems/eventBus';
-import { getLogger } from '@src/telemetry/systems/logger';
-import { DraggableScene } from './draggableScene';
-import { EntityActions } from '@src/entity/data/enums';
+import { getInventory } from '@src/entity/components/inventory';
 import {
   ITEM_TEXT_CONFIG,
   UPPER_LEFT_DRAG_START_POSITION,
 } from '@src/entity/data/constants';
+import { EntityActions } from '@src/entity/data/enums';
+import {
+  getEntityName,
+  getEntityNameWithID,
+} from '@src/entity/systems/entityNames';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { DraggableScene } from './draggableScene';
 
 export default class InventoryScene extends DraggableScene {
   protected logger = getLogger('entity');

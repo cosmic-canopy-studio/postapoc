@@ -3,7 +3,6 @@ import {
   addPhaserSprite,
   getSprite,
 } from '@src/entity/components/phaserSprite';
-import { DEFAULT_ITEM_COLLISION_MODIFIER } from '@src/entity/data/constants';
 import { IEntityFactory } from '@src/entity/data/interfaces';
 import itemsData from '@src/entity/data/items.json';
 import { Item } from '@src/entity/data/types';
@@ -49,12 +48,7 @@ export default class ItemFactory implements IEntityFactory {
     sprite.setVisible(true);
 
     addPhaserSprite(this.world, itemEntityId, sprite);
-    addCollider(
-      this.world,
-      itemEntityId,
-      false,
-      DEFAULT_ITEM_COLLISION_MODIFIER
-    );
+    addCollider(this.world, itemEntityId);
     setEntityName(itemEntityId, itemDetails.name);
 
     this.logger.debug(`Created entity ${getEntityNameWithID(itemEntityId)}`);

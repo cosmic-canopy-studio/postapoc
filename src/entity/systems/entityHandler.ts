@@ -13,14 +13,13 @@ import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
 import { LootDrop } from '@src/entity/data/types';
 import {
   canItemBePickedUp,
-  getObjectDetails,
+  getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
 import EntityManager from '@src/entity/systems/entityManager';
 import {
   getEntityName,
   getEntityNameWithID,
 } from '@src/entity/systems/entityNames';
-import { getCollider } from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import * as Phaser from 'phaser';
@@ -57,7 +56,7 @@ export default class EntityHandler {
   }
 
   generateDrops(objectName: string): string[] {
-    const lootTable = getObjectDetails(objectName)?.lootTable;
+    const lootTable = getStaticObjectDetails(objectName)?.lootTable;
     if (!lootTable) {
       this.logger.warn(`No item group found for ${objectName}`);
       return [];
@@ -121,11 +120,7 @@ export default class EntityHandler {
 
   private removeWorldEntity(entityId: number) {
     removePhaserSprite(entityId);
-    this.entityManager
-      .getObjectSpatialIndex()
-      .remove(getCollider(entityId), (a, b) => {
-        return a.eid === b.eid;
-      });
+    this.entityManager.removeSpatialIndexEntry(entityId);
     this.logger.info(`Entity ${entityId} removed`);
   }
 

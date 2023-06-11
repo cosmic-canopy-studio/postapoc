@@ -6,11 +6,9 @@ import {
 } from '@src/entity/components/focus';
 import { IFocusTarget } from '@src/entity/data/interfaces';
 import { Boundaries } from '@src/entity/data/types';
+import { isEntityFocusExempt } from '@src/entity/systems/dataManager';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
-import Collider, {
-  getBoundingBox,
-  ICollider,
-} from '@src/movement/components/collider';
+import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/systems/logger';
 import * as Phaser from 'phaser';
 import RBush from 'rbush';
@@ -45,8 +43,6 @@ export default class FocusManager {
 
   update(playerEid: number, objectsSpatialIndex: RBush<ICollider>) {
     const focusTargetEid = getFocusTarget(playerEid);
-
-    //check that focustarget is not null
 
     if (focusTargetEid) {
       this.updateFocusTarget(playerEid, focusTargetEid);
@@ -137,7 +133,7 @@ export default class FocusManager {
     const objectsInRange: IFocusTarget[] = [];
 
     for (const staticObject of nearbyObjects) {
-      if (!Collider.exempt[staticObject.eid]) {
+      if (!isEntityFocusExempt(staticObject.entityId)) {
         const staticObjectBounds = {
           minX: staticObject.minX,
           minY: staticObject.minY,
@@ -166,7 +162,9 @@ export default class FocusManager {
   }
 
   private setFocusArrow(target: ICollider) {
-    this.logger.info(`Setting focus to ${getEntityNameWithID(target.eid)}`);
+    this.logger.info(
+      `Setting focus to ${getEntityNameWithID(target.entityId)}`
+    );
     const lengthX = target.maxX - target.minX;
     const centerX = target.minX + lengthX / 2;
     const arrowX = centerX - this.arrow.width / 2;
@@ -174,7 +172,7 @@ export default class FocusManager {
     this.arrow.setPosition(arrowX, arrowY);
     this.arrow.setVisible(true);
     this.arrow.setDepth(10);
-    if (!target.eid) throw new Error('No eid for target');
-    return target.eid;
+    if (!target.entityId) throw new Error('No eid for target');
+    return target.entityId;
   }
 }

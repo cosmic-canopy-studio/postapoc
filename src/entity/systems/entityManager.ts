@@ -4,18 +4,18 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
-import {
-  DEFAULT_ITEM_COLLISION_MODIFIER,
-  DEFAULT_OBJECT_COLLISION_MODIFIER,
-} from '@src/entity/data/constants';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
   getItemDetails,
-  getObjectDetails,
+  getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
 import FocusManager from '@src/entity/systems/focusManager';
 import { healthSystem } from '@src/entity/systems/healthSystem';
-import { getBoundingBox, ICollider } from '@src/movement/components/collider';
+import {
+  getBoundingBox,
+  getCollider,
+  ICollider,
+} from '@src/movement/components/collider';
 import { movement } from '@src/movement/systems/movement';
 import DebugPanel from '@src/telemetry/systems/debugPanel';
 import { getLogger } from '@src/telemetry/systems/logger';
@@ -56,7 +56,7 @@ export default class EntityManager {
   public getObjectByEid(eid: number): ICollider | null {
     const allObjects = this.objectSpatialIndex.all();
     for (const obj of allObjects) {
-      if (obj.eid === eid) {
+      if (obj.entityId === eid) {
         return obj;
       }
     }
@@ -78,7 +78,7 @@ export default class EntityManager {
       y,
       staticObjectId
     );
-    const objectDetails = getObjectDetails(staticObjectId);
+    const objectDetails = getStaticObjectDetails(staticObjectId);
 
     if (!objectDetails) {
       this.logger.info(`No object details for ${objectID}`);
@@ -90,17 +90,12 @@ export default class EntityManager {
       this.logger.info(`No bounds for ${objectID}`);
     }
 
-    const collisionModifier =
-      objectDetails.collisionModifier || DEFAULT_OBJECT_COLLISION_MODIFIER;
-
     this.objectSpatialIndex.insert({
-      eid: objectID,
+      entityId: objectID,
       minX: bounds.minX,
       minY: bounds.minY,
       maxX: bounds.maxX,
       maxY: bounds.maxY,
-      exempt: objectDetails.focusExempt,
-      collisionModifier: collisionModifier,
     });
 
     this.logger.debugVerbose(
@@ -125,13 +120,11 @@ export default class EntityManager {
     }
 
     this.objectSpatialIndex.insert({
-      eid: objectID,
+      entityId: objectID,
       minX: bounds.minX,
       minY: bounds.minY,
       maxX: bounds.maxX,
       maxY: bounds.maxY,
-      exempt: false,
-      collisionModifier: DEFAULT_ITEM_COLLISION_MODIFIER,
     });
 
     this.logger.debugVerbose(
@@ -143,13 +136,14 @@ export default class EntityManager {
     return this.objectSpatialIndex;
   }
 
-  releaseEntity(entityType: string, id: number) {
+  releaseEntity(entityType: string, entityId: number) {
+    this.removeSpatialIndexEntry(entityId);
+    this.entityFactory.releaseEntity(entityType, entityId);
     const playerId = this.getPlayerId();
     const playerFocusId = getFocusTarget(playerId);
-    if (playerFocusId === id) {
+    if (playerFocusId === entityId) {
       updateFocusTarget(playerId, ECS_NULL);
     }
-    this.entityFactory.releaseEntity(entityType, id);
   }
 
   spawnPlayer(x: number, y: number, playerId: string) {
@@ -160,5 +154,12 @@ export default class EntityManager {
 
   getPlayerId() {
     return this.playerId;
+  }
+
+  removeSpatialIndexEntry(entityId: number) {
+    const collider = getCollider(entityId);
+    this.objectSpatialIndex.remove(collider, (a, b) => {
+      return a.entityId === b.entityId;
+    });
   }
 }

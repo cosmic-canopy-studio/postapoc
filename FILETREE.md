@@ -131,6 +131,7 @@
 |   |   |   |-- collider.ts
 |   |   |   `-- movement.ts
 |   |   |-- data
+|   |   |   |-- constants.ts
 |   |   |   |-- enums.ts
 |   |   |   `-- events.ts
 |   |   `-- systems
