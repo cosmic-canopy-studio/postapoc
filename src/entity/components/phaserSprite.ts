@@ -57,7 +57,7 @@ export function updateSpriteColliderBounds(entityId: number) {
   Collider.minY[entityId] = bounds.y;
   Collider.maxX[entityId] = bounds.right; // x + width
   Collider.maxY[entityId] = bounds.bottom; // y + height
-  logger.debug(`Updated collider bounds for entity ${entityId}`);
+  logger.debugVerbose(`Updated collider bounds for entity ${entityId}`);
 }
 
 export default PhaserSprite;
