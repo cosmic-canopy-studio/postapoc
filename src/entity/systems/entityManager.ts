@@ -8,10 +8,11 @@ import {
   DEFAULT_ITEM_COLLISION_MODIFIER,
   DEFAULT_OBJECT_COLLISION_MODIFIER,
 } from '@src/entity/data/constants';
-import itemsData from '@src/entity/data/items.json';
-import staticObjectsData from '@src/entity/data/staticObjects.json';
-import { Item, StaticObject } from '@src/entity/data/types';
 import EntityFactory from '@src/entity/factories/entityFactory';
+import {
+  getItemDetails,
+  getObjectDetails,
+} from '@src/entity/systems/dataManager';
 import FocusManager from '@src/entity/systems/focusManager';
 import { healthSystem } from '@src/entity/systems/healthSystem';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
@@ -30,21 +31,12 @@ export default class EntityManager {
   private debugPanel: DebugPanel;
   private controlSystem: ControlSystem;
   private objectSpatialIndex!: RBush<ICollider>;
-  private itemsMap: Map<string, Item>;
-  private staticObjectsMap: Map<string, StaticObject>;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
     this.world = world;
     this.controlSystem = new ControlSystem();
     this.debugPanel = new DebugPanel();
-    this.itemsMap = new Map<string, Item>(
-      itemsData.map((item) => [item.id, item])
-    );
-
-    this.staticObjectsMap = new Map<string, StaticObject>(
-      staticObjectsData.map((staticObject) => [staticObject.id, staticObject])
-    );
   }
 
   initialize() {
@@ -86,7 +78,7 @@ export default class EntityManager {
       y,
       staticObjectId
     );
-    const objectDetails = this.getObjectDetails(staticObjectId);
+    const objectDetails = getObjectDetails(staticObjectId);
 
     if (!objectDetails) {
       this.logger.info(`No object details for ${objectID}`);
@@ -120,7 +112,7 @@ export default class EntityManager {
     this.logger.info(`Generating item ${itemId} at ${x}, ${y}`);
     this.logger.info(`Entity factory: ${this.entityFactory}`);
     const objectID = this.entityFactory.createEntity('item', x, y, itemId);
-    const itemDetails = this.getItemDetails(itemId);
+    const itemDetails = getItemDetails(itemId);
 
     if (!itemDetails) {
       this.logger.info(`No item details for ${objectID}`);
@@ -158,24 +150,6 @@ export default class EntityManager {
       updateFocusTarget(playerId, ECS_NULL);
     }
     this.entityFactory.releaseEntity(entityType, id);
-  }
-
-  canItemBePickedUp(itemId: string) {
-    const item = this.getItemDetails(itemId);
-    this.logger.debug('Item can be picked up:', item?.canBePickedUp);
-    return item ? item.canBePickedUp : false;
-  }
-
-  getItemDetails(itemId: string) {
-    const item = this.itemsMap.get(itemId.toLowerCase());
-    this.logger.debug('Item details:', item);
-    return item || null;
-  }
-
-  getObjectDetails(objectId: string) {
-    const object = this.staticObjectsMap.get(objectId.toLowerCase());
-    this.logger.debug('Object details:', object);
-    return object || null;
   }
 
   spawnPlayer(x: number, y: number, playerId: string) {

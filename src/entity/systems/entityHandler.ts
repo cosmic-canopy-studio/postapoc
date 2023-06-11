@@ -11,6 +11,10 @@ import {
 } from '@src/entity/components/phaserSprite';
 import { CraftedItemsPayload, EntityIDPayload } from '@src/entity/data/events';
 import { LootDrop } from '@src/entity/data/types';
+import {
+  canItemBePickedUp,
+  getObjectDetails,
+} from '@src/entity/systems/dataManager';
 import EntityManager from '@src/entity/systems/entityManager';
 import {
   getEntityName,
@@ -53,8 +57,7 @@ export default class EntityHandler {
   }
 
   generateDrops(objectName: string): string[] {
-    const lootTable =
-      this.entityManager.getObjectDetails(objectName)?.lootTable;
+    const lootTable = getObjectDetails(objectName)?.lootTable;
     if (!lootTable) {
       this.logger.warn(`No item group found for ${objectName}`);
       return [];
@@ -134,7 +137,7 @@ export default class EntityHandler {
 
     const focusedObjectEntityId = getFocusTarget(entityId);
     const entityName = getEntityName(focusedObjectEntityId);
-    const canBePickedUp = this.entityManager.canItemBePickedUp(entityName);
+    const canBePickedUp = canItemBePickedUp(entityName);
     if (!canBePickedUp) {
       this.logger.warn(`Item ${entityName} cannot be picked up.`);
       return;

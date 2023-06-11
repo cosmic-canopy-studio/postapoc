@@ -104,7 +104,6 @@
 |   |   |   |-- events.ts
 |   |   |   |-- interfaces.ts
 |   |   |   |-- items.json
-|   |   |   |-- objects.json
 |   |   |   |-- staticObjects.json
 |   |   |   `-- types.ts
 |   |   |-- factories
@@ -118,6 +117,7 @@
 |   |   |   |-- helpScene.ts
 |   |   |   `-- inventoryScene.ts
 |   |   `-- systems
+|   |       |-- dataManager.ts
 |   |       |-- entityHandler.ts
 |   |       |-- entityManager.ts
 |   |       |-- entityNames.ts
