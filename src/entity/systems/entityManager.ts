@@ -1,3 +1,9 @@
+import { ECS_NULL } from '@src/core/config/constants';
+import ControlSystem from '@src/core/systems/controlSystem';
+import {
+  getFocusTarget,
+  updateFocusTarget,
+} from '@src/entity/components/focus';
 import {
   DEFAULT_ITEM_COLLISION_MODIFIER,
   DEFAULT_OBJECT_COLLISION_MODIFIER,
@@ -5,25 +11,33 @@ import {
 import itemsData from '@src/entity/data/items.json';
 import staticObjectsData from '@src/entity/data/staticObjects.json';
 import { Item, StaticObject } from '@src/entity/data/types';
-import EntityCreator from '@src/entity/factories/entityFactory';
+import EntityFactory from '@src/entity/factories/entityFactory';
+import FocusManager from '@src/entity/systems/focusManager';
+import { healthSystem } from '@src/entity/systems/healthSystem';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';
 import { movement } from '@src/movement/systems/movement';
+import DebugPanel from '@src/telemetry/systems/debugPanel';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
 
-export default class ObjectManager {
+export default class EntityManager {
   private logger;
-  private entityCreator: EntityCreator;
+  private entityFactory!: EntityFactory;
+  private focusManager!: FocusManager;
+  private readonly world: IWorld;
+  private playerId!: number;
+  private debugPanel: DebugPanel;
+  private controlSystem: ControlSystem;
   private objectSpatialIndex!: RBush<ICollider>;
   private itemsMap: Map<string, Item>;
   private staticObjectsMap: Map<string, StaticObject>;
-  private readonly world: IWorld;
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
     this.world = world;
-    this.entityCreator = new EntityCreator(scene, world);
+    this.controlSystem = new ControlSystem();
+    this.debugPanel = new DebugPanel();
     this.itemsMap = new Map<string, Item>(
       itemsData.map((item) => [item.id, item])
     );
@@ -34,12 +48,17 @@ export default class ObjectManager {
   }
 
   initialize() {
+    this.entityFactory = new EntityFactory(this.scene, this.world);
     this.objectSpatialIndex = new RBush<ICollider>();
-    this.logger.debug('ObjectManager initialized');
+    this.logger.debug('EntityManager initialized');
+    this.controlSystem.initialize(this.scene);
+    this.focusManager = new FocusManager(this.scene);
   }
 
   update(adjustedDeltaTime: number) {
+    healthSystem(this.world);
     movement(this.world, adjustedDeltaTime / 1000, this.objectSpatialIndex);
+    this.focusManager.update(this.playerId, this.objectSpatialIndex);
   }
 
   public getObjectByEid(eid: number): ICollider | null {
@@ -61,7 +80,7 @@ export default class ObjectManager {
   }
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
-    const objectID = this.entityCreator.createEntity(
+    const objectID = this.entityFactory.createEntity(
       'staticObject',
       x,
       y,
@@ -98,7 +117,9 @@ export default class ObjectManager {
   }
 
   generateItem(x: number, y: number, itemId: string) {
-    const objectID = this.entityCreator.createEntity('item', x, y, itemId);
+    this.logger.info(`Generating item ${itemId} at ${x}, ${y}`);
+    this.logger.info(`Entity factory: ${this.entityFactory}`);
+    const objectID = this.entityFactory.createEntity('item', x, y, itemId);
     const itemDetails = this.getItemDetails(itemId);
 
     if (!itemDetails) {
@@ -130,20 +151,40 @@ export default class ObjectManager {
     return this.objectSpatialIndex;
   }
 
-  releaseEntity(entityType: string, id: number): void {
-    this.entityCreator.releaseEntity(entityType, id);
+  releaseEntity(entityType: string, id: number) {
+    const playerId = this.getPlayerId();
+    const playerFocusId = getFocusTarget(playerId);
+    if (playerFocusId === id) {
+      updateFocusTarget(playerId, ECS_NULL);
+    }
+    this.entityFactory.releaseEntity(entityType, id);
   }
 
-  canItemBePickedUp(itemId: string): boolean {
+  canItemBePickedUp(itemId: string) {
     const item = this.getItemDetails(itemId);
+    this.logger.debug('Item can be picked up:', item?.canBePickedUp);
     return item ? item.canBePickedUp : false;
   }
 
-  getItemDetails(itemId: string): Item | null {
-    return this.itemsMap.get(itemId) || null;
+  getItemDetails(itemId: string) {
+    const item = this.itemsMap.get(itemId.toLowerCase());
+    this.logger.debug('Item details:', item);
+    return item || null;
   }
 
-  getObjectDetails(objectId: string): StaticObject | null {
-    return this.staticObjectsMap.get(objectId) || null;
+  getObjectDetails(objectId: string) {
+    const object = this.staticObjectsMap.get(objectId.toLowerCase());
+    this.logger.debug('Object details:', object);
+    return object || null;
+  }
+
+  spawnPlayer(x: number, y: number, playerId: string) {
+    this.playerId = this.entityFactory.createEntity('creature', x, y, playerId);
+    this.controlSystem.setPlayer(this.playerId);
+    this.debugPanel.setPlayer(this.playerId);
+  }
+
+  getPlayerId() {
+    return this.playerId;
   }
 }

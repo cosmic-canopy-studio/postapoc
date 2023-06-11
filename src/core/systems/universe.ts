@@ -1,6 +1,5 @@
 import EventHandler from '@src/core/systems/eventHandler';
-import PlayerManager from '@src/entity/systems/creatureManager';
-import ObjectManager from '@src/entity/systems/objectManager';
+import EntityManager from '@src/entity/systems/entityManager';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
 import { TimeState, TimeSystem } from '@src/time/systems/timeSystem';
@@ -9,8 +8,7 @@ import * as Phaser from 'phaser';
 
 export default class Universe {
   private logger;
-  private creatureManager!: PlayerManager;
-  private objectManager!: ObjectManager;
+  private entityManager!: EntityManager;
   private eventHandler!: EventHandler;
   private timeSystem!: TimeSystem;
   private timeController!: PhaserTimeController;
@@ -25,28 +23,21 @@ export default class Universe {
   }
 
   initialize() {
-    this.creatureManager = new PlayerManager(this.scene, this.world);
-    this.creatureManager.initialize();
+    this.entityManager = new EntityManager(this.scene, this.world);
+    this.entityManager.initialize();
 
-    this.objectManager = new ObjectManager(this.scene, this.world);
-    this.objectManager.initialize();
-
-    this.eventHandler = new EventHandler(
-      this.creatureManager,
-      this.objectManager,
-      this.world
-    );
-    this.eventHandler.initialize(this.scene);
+    this.eventHandler = new EventHandler(this.world);
+    this.eventHandler.initialize(this.scene, this.entityManager);
 
     this.timeSystem = new TimeSystem();
     this.timeController = new PhaserTimeController(this.scene);
 
-    this.objectManager.generateTileset();
-    this.objectManager.generateStaticObject(200, 200, 'tree');
-    this.objectManager.generateStaticObject(400, 400, 'bench');
-    this.objectManager.generateItem(600, 200, 'hammer');
-    this.objectManager.generateItem(500, 300, 'rock');
-    this.creatureManager.spawnPlayer(400, 300, 'player');
+    this.entityManager.generateTileset();
+    this.entityManager.generateStaticObject(200, 200, 'tree');
+    this.entityManager.generateStaticObject(400, 400, 'bench');
+    this.entityManager.generateItem(600, 200, 'hammer');
+    this.entityManager.generateItem(500, 300, 'rock');
+    this.entityManager.spawnPlayer(400, 300, 'player');
 
     this.logger.info('Universe created');
   }
@@ -55,9 +46,7 @@ export default class Universe {
     const adjustedDeltaTime = this.timeSystem.getAdjustedDeltaTime(deltaTime);
     const timeState = this.timeSystem.getTimeState();
     if (timeState !== TimeState.PAUSED) {
-      this.eventHandler.update();
-      this.creatureManager.update();
-      this.objectManager.update(adjustedDeltaTime);
+      this.entityManager.update(adjustedDeltaTime);
     }
   }
 

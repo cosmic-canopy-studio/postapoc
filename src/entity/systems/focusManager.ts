@@ -1,19 +1,19 @@
-import Collider, {
-  getBoundingBox,
-  ICollider,
-} from '@src/movement/components/collider';
-import { getLogger } from '@src/telemetry/systems/logger';
-import { ECS_NULL, CREATURE_FOCUS_DISTANCE } from '@src/core/config/constants';
-import RBush from 'rbush';
-import * as Phaser from 'phaser';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import { CREATURE_FOCUS_DISTANCE, ECS_NULL } from '@src/core/config/constants';
 import {
   clearFocusTarget,
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
-import { Boundaries } from '@src/entity/data/types';
 import { IFocusTarget } from '@src/entity/data/interfaces';
+import { Boundaries } from '@src/entity/data/types';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import Collider, {
+  getBoundingBox,
+  ICollider,
+} from '@src/movement/components/collider';
+import { getLogger } from '@src/telemetry/systems/logger';
+import * as Phaser from 'phaser';
+import RBush from 'rbush';
 
 function calculateDistance(a: Boundaries, b: Boundaries): number {
   let xDistance = 0;
@@ -45,6 +45,8 @@ export default class FocusManager {
 
   update(playerEid: number, objectsSpatialIndex: RBush<ICollider>) {
     const focusTargetEid = getFocusTarget(playerEid);
+
+    //check that focustarget is not null
 
     if (focusTargetEid) {
       this.updateFocusTarget(playerEid, focusTargetEid);

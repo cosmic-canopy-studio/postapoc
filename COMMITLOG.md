@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-10)
+## 0.0.1 (2023-06-11)
 
 
 ### Features
@@ -131,6 +131,7 @@
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * **entity:** migrate canPickUp functionality to config lookup ([c227eea](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c227eea50e1d0b13893d467d676d2fe5502158cc))
+* **entity:** migrate lootDrop functionality to entityHandler ([a9501b3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a9501b30f55f9977724806be1627076f410a5050))
 * **entity:** refactor factories to be more homogenous for scalability ([7b85d77](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7b85d778b037796ea3d9cfdcfcc9352d16ead0cb))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))

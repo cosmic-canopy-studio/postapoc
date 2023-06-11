@@ -1,8 +1,7 @@
-import debug from '@src/telemetry/config/debug.json';
-import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
 import Movement, { IMovement } from '@src/movement/components/movement';
-import { IWorld } from 'bitecs';
+import debug from '@src/telemetry/config/debug.json';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { Logger } from 'loglevel';
 import { Pane } from 'tweakpane';
 
@@ -12,7 +11,7 @@ export default class DebugPanel {
   private readonly modules: Record<string, boolean>;
   private readonly events: Record<string, boolean>;
   private playerFolder: any;
-  private readonly player: number;
+  private player!: number;
   private playerPosition: IMovement = {
     x: 0,
     y: 0,
@@ -20,10 +19,9 @@ export default class DebugPanel {
     ySpeed: 0,
   };
 
-  constructor(world: IWorld, player: number) {
+  constructor() {
     this.modules = debug.modules;
     this.events = debug.events;
-    this.player = player;
 
     this.pane = new Pane({ title: 'Debug Panel' });
     this.setupModuleDebug();
@@ -37,6 +35,11 @@ export default class DebugPanel {
 
     this.listenToDebugPanelToggleEvent();
     this.pane.hidden = true;
+  }
+
+  setPlayer(player: number) {
+    this.player = player;
+    this.setupPlayerDebug();
   }
 
   private setLoggingDebug(
@@ -82,11 +85,15 @@ export default class DebugPanel {
   }
 
   private setupPlayerDebug() {
-    this.playerFolder = this.pane.addFolder({ title: 'Player' });
-    this.playerFolder.addMonitor(this.playerPosition, 'x');
-    this.playerFolder.addMonitor(this.playerPosition, 'y');
-    this.playerFolder.addMonitor(this.playerPosition, 'xSpeed');
-    this.playerFolder.addMonitor(this.playerPosition, 'ySpeed');
+    if (this.playerFolder) {
+      this.updatePlayerPosition();
+    } else {
+      this.playerFolder = this.pane.addFolder({ title: 'Player' });
+      this.playerFolder.addMonitor(this.playerPosition, 'x');
+      this.playerFolder.addMonitor(this.playerPosition, 'y');
+      this.playerFolder.addMonitor(this.playerPosition, 'xSpeed');
+      this.playerFolder.addMonitor(this.playerPosition, 'ySpeed');
+    }
   }
 
   private listenToDebugChanges() {

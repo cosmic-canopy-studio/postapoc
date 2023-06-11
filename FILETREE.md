@@ -76,7 +76,6 @@
 |   |   |   |-- constants.ts
 |   |   |   `-- controlMapping.json
 |   |   |-- data
-|   |   |   |-- enums.ts
 |   |   |   |-- events.ts
 |   |   |   |-- interfaces.ts
 |   |   |   `-- types.ts
@@ -119,13 +118,13 @@
 |   |   |   |-- helpScene.ts
 |   |   |   `-- inventoryScene.ts
 |   |   `-- systems
-|   |       |-- creatureManager.ts
 |   |       |-- entityHandler.ts
+|   |       |-- entityManager.ts
 |   |       |-- entityNames.ts
 |   |       |-- focusManager.ts
 |   |       |-- healthSystem.ts
-|   |       |-- objectManager.ts
-|   |       `-- objectPool.ts
+|   |       |-- objectPool.ts
+|   |       `-- uiHandler.ts
 |   |-- main.ts
 |   |-- movement
 |   |   |-- components

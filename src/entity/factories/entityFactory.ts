@@ -9,7 +9,7 @@ interface IEntityType {
   [index: string]: IEntityFactory;
 }
 
-export default class EntityCreator {
+export default class EntityFactory {
   factories: IEntityType = {};
   private scene: Phaser.Scene;
   private world: IWorld;
