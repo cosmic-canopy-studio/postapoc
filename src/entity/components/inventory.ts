@@ -1,9 +1,8 @@
-import { defineComponent, Types } from 'bitecs';
-import { removePhaserSprite } from '@src/entity/components/phaserSprite';
-import { getLogger } from '@src/telemetry/systems/logger';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
-import { entityCanBePickedUp } from '@src/entity/components/canPickup';
 import { ECS_NULL } from '@src/core/config/constants';
+import { removePhaserSprite } from '@src/entity/components/phaserSprite';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { defineComponent, Types } from 'bitecs';
 
 export const Inventory = defineComponent({
   items: [Types.ui16, 256], // Array of 256 possible items (entities)
@@ -11,15 +10,6 @@ export const Inventory = defineComponent({
 
 export function addItemToInventory(entityId: number, itemEntityId: number) {
   const logger = getLogger('entity');
-
-  const canBePickedUp = entityCanBePickedUp(itemEntityId);
-  if (!canBePickedUp) {
-    logger.warn(
-      `Item ${getEntityNameWithID(itemEntityId)} cannot be picked up.`
-    );
-    return;
-  }
-
   let itemAddedToInventory = false;
   for (let i = 0; i < Inventory.items[entityId].length; i++) {
     if (Inventory.items[entityId][i] === ECS_NULL) {

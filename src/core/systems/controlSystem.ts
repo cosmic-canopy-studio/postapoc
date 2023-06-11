@@ -1,15 +1,14 @@
+import { Actions } from '@src/action/data/enums';
 import controlMappingJson from '@src/core/config/controlMapping.json';
-import { getLogger } from '@src/telemetry/systems/logger';
+import { ControlMapping } from '@src/core/data/interfaces';
 import EventBus from '@src/core/systems/eventBus';
 import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
-import Phaser from 'phaser';
-import { ControlMapping } from '@src/core/data/interfaces';
-import { MoveActions } from '@src/movement/data/enums';
-import { Actions } from '@src/action/data/enums';
-import { TelemetryActions } from '@src/telemetry/data/enums';
-import { TimeActions } from '@src/time/data/enums';
 import { EntityActions } from '@src/entity/data/enums';
-import { SystemActions } from '@src/core/data/enums';
+import { MoveActions } from '@src/movement/data/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { TimeActions } from '@src/time/data/enums';
+import Phaser from 'phaser';
 
 export default class ControlSystem {
   private player!: number;
@@ -22,7 +21,6 @@ export default class ControlSystem {
   constructor() {
     const controlMapping: ControlMapping = controlMappingJson as ControlMapping;
     this.keyBindings = new KeyBindings(controlMapping);
-    const systemActions = Object.values(SystemActions);
     const moveDirections = Object.values(MoveActions);
     const actions = Object.values(Actions);
     const entityActions = Object.values(EntityActions);
@@ -51,13 +49,6 @@ export default class ControlSystem {
             (state: boolean) => this.emitEntityAction(action, state),
           ] as [GameAction, GameActionHandler]
       ),
-      ...systemActions.map(
-        (action) =>
-          [action, (state: boolean) => this.emitBasicAction(action, state)] as [
-            GameAction,
-            GameActionHandler
-          ]
-      ),
       ...telemetryActions.map(
         (action) =>
           [action, (state: boolean) => this.emitBasicAction(action, state)] as [
@@ -75,9 +66,8 @@ export default class ControlSystem {
     ]);
   }
 
-  initialize(scene: Phaser.Scene, player: number) {
+  initialize(scene: Phaser.Scene) {
     this.scene = scene;
-    this.player = player;
 
     if (!this.scene.input.keyboard) {
       throw new Error('Keyboard not available');
@@ -87,6 +77,10 @@ export default class ControlSystem {
     this.scene.input.keyboard.on('keyup', this.onKeyUp.bind(this));
     this.scene.input.on('pointerdown', this.onPointerDown.bind(this));
     this.logger.debug('Control System initialized');
+  }
+
+  setPlayer(player: number) {
+    this.player = player;
   }
 
   onPointerDown(pointer: Phaser.Input.Pointer) {
@@ -158,7 +152,7 @@ export default class ControlSystem {
   }
 
   private emitBasicAction(
-    action: SystemActions | TimeActions | TelemetryActions,
+    action: TimeActions | TelemetryActions,
     state: boolean
   ) {
     if (state) {

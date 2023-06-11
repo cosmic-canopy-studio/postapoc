@@ -3,9 +3,9 @@ import {
   removeItemFromInventory,
 } from '@src/entity/components/inventory';
 import items from '@src/entity/data/items.json';
-import { getLogger } from '@src/telemetry/systems/logger';
-import { getEntityName } from '@src/entity/systems/entityNames';
 import { Recipe, RecipeIngredient } from '@src/entity/data/types';
+import { getEntityName } from '@src/entity/systems/entityNames';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 export function craftSimpleItem(entityId: number, item: string) {
   const logger = getLogger('action');

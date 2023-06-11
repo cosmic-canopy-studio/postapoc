@@ -1,3 +1,9 @@
+// Component Constant
+export const DEFAULT_HEALTH = 100;
+export const DEFAULT_OBJECT_COLLISION_MODIFIER = 0;
+export const DEFAULT_ITEM_COLLISION_MODIFIER = 1;
+
+// UI Constants
 export const CENTER_DRAG_START_POSITION = { x: 325, y: 150 };
 export const UPPER_LEFT_DRAG_START_POSITION = { x: 50, y: 50 };
 export const MID_LEFT_DRAG_START_POSITION = { x: 50, y: 250 };

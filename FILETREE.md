@@ -76,7 +76,6 @@
 |   |   |   |-- constants.ts
 |   |   |   `-- controlMapping.json
 |   |   |-- data
-|   |   |   |-- enums.ts
 |   |   |   |-- events.ts
 |   |   |   |-- interfaces.ts
 |   |   |   `-- types.ts
@@ -95,7 +94,6 @@
 |   |       `-- svgUtils.ts
 |   |-- entity
 |   |   |-- components
-|   |   |   |-- canPickup.ts
 |   |   |   |-- focus.ts
 |   |   |   |-- health.ts
 |   |   |   |-- inventory.ts
@@ -106,32 +104,34 @@
 |   |   |   |-- events.ts
 |   |   |   |-- interfaces.ts
 |   |   |   |-- items.json
-|   |   |   |-- objects.json
+|   |   |   |-- staticObjects.json
 |   |   |   `-- types.ts
 |   |   |-- factories
-|   |   |   `-- entityFactory.ts
+|   |   |   |-- creatureFactory.ts
+|   |   |   |-- entityFactory.ts
+|   |   |   |-- itemFactory.ts
+|   |   |   `-- staticObjectFactory.ts
 |   |   |-- scenes
 |   |   |   |-- craftingScene.ts
 |   |   |   |-- draggableScene.ts
 |   |   |   |-- helpScene.ts
 |   |   |   `-- inventoryScene.ts
 |   |   `-- systems
+|   |       |-- dataManager.ts
 |   |       |-- entityHandler.ts
+|   |       |-- entityManager.ts
 |   |       |-- entityNames.ts
 |   |       |-- focusManager.ts
 |   |       |-- healthSystem.ts
-|   |       |-- lootDrops.ts
-|   |       |-- objectManager.ts
 |   |       |-- objectPool.ts
-|   |       |-- playerFactory.ts
-|   |       |-- playerManager.ts
-|   |       `-- staticObjectFactory.ts
+|   |       `-- uiHandler.ts
 |   |-- main.ts
 |   |-- movement
 |   |   |-- components
 |   |   |   |-- collider.ts
 |   |   |   `-- movement.ts
 |   |   |-- data
+|   |   |   |-- constants.ts
 |   |   |   |-- enums.ts
 |   |   |   `-- events.ts
 |   |   `-- systems

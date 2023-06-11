@@ -1,17 +1,15 @@
-import { getLogger } from '@src/telemetry/systems/logger';
-import { ControlMapping } from '@src/core/data/interfaces';
-import { TimeActions } from '@src/time/data/enums';
-import { TelemetryActions } from '@src/telemetry/data/enums';
-import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
+import { ControlMapping } from '@src/core/data/interfaces';
 import { EntityActions } from '@src/entity/data/enums';
-import { SystemActions } from '@src/core/data/enums';
+import { MoveActions } from '@src/movement/data/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { TimeActions } from '@src/time/data/enums';
 
 export type GameAction =
   | MoveActions
   | Actions
   | EntityActions
-  | SystemActions
   | TelemetryActions
   | TimeActions;
 

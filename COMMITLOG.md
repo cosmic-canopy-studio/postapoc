@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-10)
+## 0.0.1 (2023-06-11)
 
 
 ### Features
@@ -107,11 +107,34 @@
 * update coverage ([4b0b058](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4b0b0588c95116e9c98b8ba54cda8db734b58e13))
 
 
+### Build System
+
+* add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
+* add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
+* add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
+* add sonarqube config ([18b81d2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/18b81d29bfacd63dadb9f9bf1df0b13cdd36f19a))
+* add sonarqube to code-quality.yaml workflow ([7497a2a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7497a2a75f9c093df357490fbb722bd1ec4b3290))
+* add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
+* fix qodana action version ([4e8a812](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4e8a81284c2528d01e9bb9dc4d80f8d141324af7))
+* refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
+* remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
+* remove auto-versioning ([dff284a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dff284a4e5d53b802fa1b149fb2c6e4b7f437986))
+* remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
+* remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
+* update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
+
+
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
+* **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* **entity:** create dataHandler for item and object config lookups to use flyweight pattern ([7da9489](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7da9489941781c5c5de7e8f65f18b5c078da0df7))
+* **entity:** create unified entity manager, break-out UI handler ([436a1bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/436a1bd1d8b33c496e087cf0c8e4cc298ec2c455))
+* **entity:** migrate canPickUp functionality to config lookup ([c227eea](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c227eea50e1d0b13893d467d676d2fe5502158cc))
+* **entity:** migrate lootDrop functionality to entityHandler ([a9501b3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a9501b30f55f9977724806be1627076f410a5050))
+* **entity:** refactor factories to be more homogenous for scalability ([7b85d77](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7b85d778b037796ea3d9cfdcfcc9352d16ead0cb))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))
@@ -138,21 +161,4 @@
 * staticObject, objectPool ([2af5c82](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2af5c82aa59a4f813b46ddbc076f52c3e52ecc56))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-
-
-### Build System
-
-* add file path comment to js,ts files ([83229af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/83229afd388fd0f15b1348178767f87050204649))
-* add file path comment to js,ts files ([707843a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/707843a43c1285640460c1cce713bb3b37382c47))
-* add pre-commit hooks, versioning ([04451a8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04451a8cbf0ceed14dd6d9172a0160b850636e8f))
-* add sonarqube config ([18b81d2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/18b81d29bfacd63dadb9f9bf1df0b13cdd36f19a))
-* add sonarqube to code-quality.yaml workflow ([7497a2a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7497a2a75f9c093df357490fbb722bd1ec4b3290))
-* add versioning, changelog ([978ec60](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/978ec606ef8727931d4037201cba61a1eea18c25))
-* fix qodana action version ([4e8a812](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4e8a81284c2528d01e9bb9dc4d80f8d141324af7))
-* refactor pre-commit hooks ([89e9b8e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/89e9b8e544df8995eb131ef1b64850dc6157ee3b))
-* remove auto-tagging of commits ([7189eb5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7189eb59e57ea22ae3afe03520b44b81b9bb895a))
-* remove auto-versioning ([dff284a](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dff284a4e5d53b802fa1b149fb2c6e4b7f437986))
-* remove auto-versioning ([dc52fa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/dc52fa23cc281fbdf0de4fe3d9a56a23ad51b971))
-* remove comment based minor and major version bumps ([f93cf4f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f93cf4fb41048fb5ad8816f30f48484840870bf3))
-* update .gitignore to remove locally generated reports ([8ffc41e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8ffc41eb30d1088771e1b7d555216eec8c2a91ca))
 

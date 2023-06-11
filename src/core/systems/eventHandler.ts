@@ -1,62 +1,37 @@
-import PlayerManager from '@src/entity/systems/playerManager';
-import ObjectManager from '@src/entity/systems/objectManager';
-import MovementHandler from '@src/movement/systems/movementHandler';
 import ActionHandler from '@src/action/systems/actionHandler';
+import { IHandler } from '@src/core/data/interfaces';
 import EntityHandler from '@src/entity/systems/entityHandler';
+import EntityManager from '@src/entity/systems/entityManager';
+import UIHandler from '@src/entity/systems/uiHandler';
+import MovementHandler from '@src/movement/systems/movementHandler';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
-import { IHandler, IUpdatableHandler } from '@src/core/data/interfaces';
 import * as Phaser from 'phaser';
 
 export default class EventHandler {
   private logger;
-  private readonly playerManager: PlayerManager;
-  private readonly objectManager: ObjectManager;
   private readonly world: IWorld;
-  private nonUpdateHandlers: IHandler[];
-  private updateHandlers: IUpdatableHandler[];
+  private handlers: IHandler[];
 
-  constructor(
-    playerManager: PlayerManager,
-    objectManager: ObjectManager,
-    world: IWorld
-  ) {
+  constructor(world: IWorld) {
     this.logger = getLogger('core');
-    this.playerManager = playerManager;
-    this.objectManager = objectManager;
     this.world = world;
-    this.nonUpdateHandlers = [];
-    this.updateHandlers = [];
+    this.handlers = [];
   }
 
-  initialize(scene: Phaser.Scene) {
-    this.addNonUpdateHandler(new MovementHandler());
-    this.addNonUpdateHandler(new ActionHandler());
-    this.addUpdateHandler(
-      new EntityHandler(
-        scene,
-        this.playerManager,
-        this.objectManager,
-        this.world
-      )
-    );
+  initialize(scene: Phaser.Scene, entityManager: EntityManager) {
+    this.addHandler(new MovementHandler());
+    this.addHandler(new ActionHandler());
+    this.addHandler(new EntityHandler(scene, this.world, entityManager));
+    this.addHandler(new UIHandler(scene));
     this.initializeHandlers();
   }
 
-  addNonUpdateHandler(handler: IHandler): void {
-    this.nonUpdateHandlers.push(handler);
-  }
-
-  addUpdateHandler(handler: IUpdatableHandler): void {
-    this.updateHandlers.push(handler);
+  addHandler(handler: IHandler): void {
+    this.handlers.push(handler);
   }
 
   initializeHandlers(): void {
-    this.nonUpdateHandlers.forEach((handler) => handler.initialize());
-    this.updateHandlers.forEach((handler) => handler.initialize());
-  }
-
-  update() {
-    this.updateHandlers.forEach((handler) => handler.update());
+    this.handlers.forEach((handler) => handler.initialize());
   }
 }
