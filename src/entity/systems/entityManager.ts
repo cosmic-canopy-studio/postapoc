@@ -53,6 +53,13 @@ export default class EntityManager {
     this.focusManager.update(this.playerId, this.objectSpatialIndex);
   }
 
+  switchFocus(entityId: number) {
+    this.focusManager.findAndSetNewFocusTarget(
+      entityId,
+      this.objectSpatialIndex
+    );
+  }
+
   public getObjectByEid(eid: number): ICollider | null {
     const allObjects = this.objectSpatialIndex.all();
     for (const obj of allObjects) {

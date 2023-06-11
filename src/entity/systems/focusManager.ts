@@ -45,13 +45,15 @@ export default class FocusManager {
     const focusTargetEid = getFocusTarget(playerEid);
 
     if (focusTargetEid) {
-      this.updateFocusTarget(playerEid, focusTargetEid);
+      this.updateFocusTarget(playerEid);
     } else {
       this.findAndSetNewFocusTarget(playerEid, objectsSpatialIndex);
     }
   }
 
-  updateFocusTarget(playerEid: number, focusTargetEid: number) {
+  updateFocusTarget(playerEid: number) {
+    const focusTargetEid = getFocusTarget(playerEid);
+
     const playerBounds = getBoundingBox(playerEid);
     const focusTargetBounds = getBoundingBox(focusTargetEid);
 
@@ -111,7 +113,7 @@ export default class FocusManager {
     focusOwnerEntityId: number,
     objectsSpatialIndex: RBush<ICollider>
   ) {
-    const focusOwnerBounds = getBoundingBox(focusOwnerEntityId); // assuming getPlayer() method is in PlayerManager
+    const focusOwnerBounds = getBoundingBox(focusOwnerEntityId);
     if (!focusOwnerBounds) {
       this.logger.warn('Player has no bounds');
       return ECS_NULL;
@@ -151,11 +153,20 @@ export default class FocusManager {
     }
 
     objectsInRange.sort((a, b) => a.distance - b.distance);
-    this.logger.debugVerbose('Sorted objects', objectsInRange);
-    this.logger.debugVerbose('Nearest object', objectsInRange[0]);
-    const nearestObject = objectsInRange[0];
-    if (nearestObject) {
-      return this.setFocusArrow(nearestObject.target);
+
+    const previousFocusId = getFocusTarget(focusOwnerEntityId);
+
+    // Check the position of the last focused entity in the sorted entities array
+    const indexOfLastFocus = objectsInRange.findIndex(
+      ({ target }) => target.entityId === previousFocusId
+    );
+
+    // If the last focused entity was found and is not the last one, focus the next one
+    if (indexOfLastFocus >= 0 && indexOfLastFocus < objectsInRange.length - 1) {
+      return this.setFocusArrow(objectsInRange[indexOfLastFocus + 1].target);
+    } else if (objectsInRange.length > 0) {
+      // If the last focused entity was not found or was the last one, focus the first one
+      return this.setFocusArrow(objectsInRange[0].target);
     } else {
       return this.removeFocus(focusOwnerEntityId);
     }

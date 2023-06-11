@@ -65,7 +65,10 @@ function getObjectIDCollisionModifier(objectId: string) {
     staticObject.collisionModifier !== undefined
       ? staticObject.collisionModifier
       : 1;
-  getLogger('entity').debug('Object collision modifier:', collisionModifier);
+  getLogger('entity').debugVerbose(
+    'Object collision modifier:',
+    collisionModifier
+  );
   return collisionModifier;
 }
 

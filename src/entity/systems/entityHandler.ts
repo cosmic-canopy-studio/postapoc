@@ -41,6 +41,13 @@ export default class EntityHandler {
     EventBus.on('itemPickedUp', this.onItemPickedUp.bind(this));
     EventBus.on('itemCrafted', this.onItemCrafted.bind(this));
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
+    EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
+  }
+
+  onSwitchFocus(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    console.log('switching focus for entity:', entityId);
+    this.entityManager.switchFocus(entityId);
   }
 
   onItemCrafted(payload: CraftedItemsPayload) {
