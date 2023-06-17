@@ -16,6 +16,18 @@
     "url": "assets/tiles/grass4.svg"
   },
   {
+    "key": "dirt",
+    "url": "assets/tiles/dirt.svg"
+  },
+  {
+    "key": "dirt2",
+    "url": "assets/tiles/dirt2.svg"
+  },
+  {
+    "key": "dirt3",
+    "url": "assets/tiles/dirt3.svg"
+  },
+  {
     "key": "white_tile",
     "url": "assets/tiles/white_tile.svg"
   },

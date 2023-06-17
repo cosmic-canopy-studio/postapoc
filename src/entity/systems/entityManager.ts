@@ -1,3 +1,8 @@
+import biomes from '@src/biome/data/biomes';
+import {
+  generateBiomeTileset,
+  populateBiome,
+} from '@src/biome/systems/biomeManager';
 import { ECS_NULL } from '@src/core/config/constants';
 import ControlSystem from '@src/core/systems/controlSystem';
 import {
@@ -68,6 +73,34 @@ export default class EntityManager {
       }
     }
     return null;
+  }
+
+  generateBiome(
+    biomeName: string,
+    mapWidth = 50,
+    mapHeight = 50,
+    tileSize = 32
+  ) {
+    const biome = biomes[biomeName];
+    const tiles = generateBiomeTileset(biome, mapWidth, mapHeight, tileSize);
+    const { objects, items } = populateBiome(
+      biome,
+      mapWidth,
+      mapHeight,
+      tileSize
+    );
+
+    for (const tile of tiles) {
+      this.generateStaticObject(tile.x, tile.y, tile.id);
+    }
+
+    for (const object of objects) {
+      this.generateStaticObject(object.x, object.y, object.id);
+    }
+
+    for (const item of items) {
+      this.generateItem(item.x, item.y, item.id);
+    }
   }
 
   generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {

@@ -55,13 +55,32 @@
     "category": "nature",
     "lootTable": [
       {
-        "id": "dirt",
+        "id": "grassSeed",
+        "drop_chance": 5,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.8
+  },
+  {
+    "id": "dirt",
+    "name": "Dirt",
+    "textures": [
+      "dirt",
+      "dirt2",
+      "dirt3"
+    ],
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "dirtMount",
         "drop_chance": 80,
         "count": 2
       },
       {
-        "id": "grassSeed",
-        "drop_chance": 5,
+        "id": "stone",
+        "drop_chance": 20,
         "count": 1
       }
     ],

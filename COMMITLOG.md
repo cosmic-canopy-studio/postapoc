@@ -54,11 +54,6 @@
 * playwright snapshot compatibility with CI ([e18ff7f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e18ff7f28de1c8647a956d62910f773f5188c12c))
 
 
-### Documentation
-
-* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
-
-
 ### Styles
 
 * add assets ([8814c65](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8814c65832eb24e7a0b564b96dc6f75b431b01fa))
@@ -158,4 +153,10 @@
 * streamline handler, manager, and factory behavior ([#34](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/34)) ([37c3144](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/37c31442e98f4a1db445a3d3cc09d5855c71ab43))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+
+
+### Documentation
+
+* add additional project inspirations to prompt file ([030ed98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/030ed981feb01afda29bf77fbbcc3e64a7f01834))
+* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
 

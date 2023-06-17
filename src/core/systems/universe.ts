@@ -32,7 +32,7 @@ export default class Universe {
     this.timeSystem = new TimeSystem();
     this.timeController = new PhaserTimeController(this.scene);
 
-    this.entityManager.generateTileset();
+    this.entityManager.generateBiome('grassland');
     this.entityManager.generateStaticObject(200, 200, 'tree');
     this.entityManager.generateStaticObject(400, 400, 'bench');
     this.entityManager.generateItem(600, 200, 'hammer');
