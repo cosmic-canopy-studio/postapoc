@@ -20,6 +20,7 @@ export type StaticObject = {
   id: string;
   name: string;
   textures: string[];
+  type: string;
   category: string;
   health?: number;
   lootTable: LootDrop[];
@@ -31,6 +32,7 @@ export type Item = {
   id: string;
   name: string;
   textures: string[];
+  type: string;
   category: string;
   health?: number;
   focusExempt?: boolean;

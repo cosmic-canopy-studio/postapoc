@@ -11,6 +11,7 @@ import {
 } from '@src/entity/components/focus';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
+  getEntityType,
   getItemDetails,
   getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
@@ -112,12 +113,15 @@ export default class EntityManager {
   }
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
+    const safeCoordinates = this.getSafeCoordinates(x, y);
+
     const objectID = this.entityFactory.createEntity(
       'staticObject',
-      x,
-      y,
+      safeCoordinates.x,
+      safeCoordinates.y,
       staticObjectId
     );
+
     const objectDetails = getStaticObjectDetails(staticObjectId);
 
     if (!objectDetails) {
@@ -201,5 +205,63 @@ export default class EntityManager {
     this.objectSpatialIndex.remove(collider, (a, b) => {
       return a.entityId === b.entityId;
     });
+  }
+
+  private getSafeCoordinates(
+    initialX: number,
+    initialY: number,
+    mapWidth = 50,
+    mapHeight = 50,
+    tileSize = 32,
+    maxAttempts = 1000,
+    maxDistance = 10 // Maximum distance in tiles to look for a safe spot
+  ): { x: number; y: number } {
+    let safeX = initialX;
+    let safeY = initialY;
+
+    const tempBounds = {
+      entityId: -1,
+      minX: safeX,
+      minY: safeY,
+      maxX: safeX + tileSize,
+      maxY: safeY + tileSize,
+    };
+
+    let attempts = 0;
+
+    while (attempts < maxAttempts) {
+      const collidingObjects = this.objectSpatialIndex.search(tempBounds);
+      if (
+        !collidingObjects.some((collider) => {
+          const objectType = getEntityType(collider.entityId);
+          return objectType !== 'tile' && objectType !== 'item';
+        })
+      ) {
+        break;
+      }
+
+      const offsetX =
+        Math.floor((Math.random() - 0.5) * 2 * maxDistance) * tileSize;
+      const offsetY =
+        Math.floor((Math.random() - 0.5) * 2 * maxDistance) * tileSize;
+
+      safeX = Math.max(0, Math.min(mapWidth * tileSize, initialX + offsetX));
+      safeY = Math.max(0, Math.min(mapHeight * tileSize, initialY + offsetY));
+
+      tempBounds.minX = safeX;
+      tempBounds.minY = safeY;
+      tempBounds.maxX = safeX + tileSize;
+      tempBounds.maxY = safeY + tileSize;
+
+      attempts++;
+    }
+
+    if (attempts === maxAttempts) {
+      this.logger.error(
+        "Could not find a safe position after multiple attempts. Check the map's object density or increase the max attempts."
+      );
+    }
+
+    return { x: safeX, y: safeY };
   }
 }

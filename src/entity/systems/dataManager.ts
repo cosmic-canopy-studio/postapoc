@@ -23,6 +23,12 @@ export function getGenericObjectDetails(objectId: string) {
   return baseObject;
 }
 
+export function getEntityType(entityId: number) {
+  const objectId = getEntityName(entityId);
+  const baseObject = getGenericObjectDetails(objectId);
+  return baseObject.type;
+}
+
 export function canItemBePickedUp(itemId: string) {
   const item = getItemDetails(itemId);
   getLogger('entity').debug('Item can be picked up:', item?.canBePickedUp);

@@ -5,6 +5,7 @@
     "textures": [
       "tree"
     ],
+    "type": "object",
     "category": "nature",
     "lootTable": [
       {
@@ -27,6 +28,7 @@
     "textures": [
       "bench"
     ],
+    "type": "object",
     "category": "construction",
     "lootTable": [
       {
@@ -52,6 +54,7 @@
       "grass3",
       "grass4"
     ],
+    "type": "tile",
     "category": "nature",
     "lootTable": [
       {
@@ -71,6 +74,7 @@
       "dirt2",
       "dirt3"
     ],
+    "type": "tile",
     "category": "nature",
     "lootTable": [
       {
