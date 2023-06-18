@@ -4,6 +4,7 @@ import {
   generateBiomeSubmap,
   populateBiomeSubmap,
 } from '@src/biome/systems/biomeManager';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { createNoise2D } from 'simplex-noise';
 
 const noise2D = createNoise2D();
@@ -17,14 +18,15 @@ export function generateOvermap(
   submapHeight = 50, // height of a submap in tiles
   tileSize = 32
 ) {
+  const logger = getLogger('biome');
   const overmap: SubmapTile[] = [];
   for (let overmapX = 0; overmapX < overmapWidth; overmapX++) {
-    console.log(`Generating overmap ${overmapX + 1}/${overmapWidth}`);
     for (let overmapY = 0; overmapY < overmapHeight; overmapY++) {
-      console.log(`Generating submap ${overmapY + 1}/${overmapHeight}`);
       const height = (noise2D(overmapX / 5, overmapY / 5) + 1) / 2; // normalize to [0,1]
-
       const submapBiome = getBiomeBasedOnHeight(biomes, height);
+      logger.debug(
+        `Generating submap ${submapBiome.name} for overmap coordinate ${overmapX},${overmapY}`
+      );
       const originX = overmapX * submapWidth * tileSize;
       const originY = overmapY * submapHeight * tileSize;
 

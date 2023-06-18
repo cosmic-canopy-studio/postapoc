@@ -22,6 +22,7 @@
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * **entity:** implement crafting ui, make windows draggable ([#32](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/32)) ([63644a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63644a91f37b935d9c31e148cfeeea94e648347c))
 * **entity:** implement switch focus functionality ([#35](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/35)) ([ba32400](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ba32400fc5198a945c61de1825028baa69652f37))
+* **entity:** set scene camera to follow player, migrate console logging to logger ([8cb7490](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8cb7490c4539758fa3f1432eeb9b0e5aa6b65fb4))
 * health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([1035d98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1035d987085ff1355a2f09e3c306b377af7abe92))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([57aafc1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57aafc19cd0a110dbfb7acfe668244ea5981798d))

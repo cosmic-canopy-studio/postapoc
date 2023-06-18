@@ -1,6 +1,7 @@
 {
   "modules": {
     "action": false,
+    "biome": false,
     "core": false,
     "entity": false,
     "movement": false,
