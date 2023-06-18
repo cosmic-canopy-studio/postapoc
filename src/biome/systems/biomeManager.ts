@@ -1,4 +1,23 @@
-import { Biome } from '@src/biome/data/interfaces';
+import { Biome, BiomeEntry } from '@src/biome/data/interfaces';
+import { createNoise2D } from 'simplex-noise';
+
+const noise2D = createNoise2D();
+
+function calculateCutoffs(entry: BiomeEntry[]) {
+  let totalWeight = 0;
+  for (const item of entry) {
+    totalWeight += item.weight;
+  }
+
+  const cutoffs = [];
+  let cumulativeWeight = 0;
+  for (const item of entry) {
+    cumulativeWeight += item.weight;
+    cutoffs.push(cumulativeWeight / totalWeight);
+  }
+
+  return cutoffs;
+}
 
 export function generateBiomeTileset(
   biome: Biome,
@@ -6,15 +25,26 @@ export function generateBiomeTileset(
   mapHeight = 50,
   tileSize = 32
 ) {
+  const terrainCutoffs = calculateCutoffs(biome.terrains);
+
   const objects = [];
   for (let x = 0; x < mapWidth; x++) {
     for (let y = 0; y < mapHeight; y++) {
-      // Select a random terrain from the biome's terrain list
-      const terrain =
-        biome.terrains[Math.floor(Math.random() * biome.terrains.length)];
+      const noiseValue = (noise2D(x / 5, y / 5) + 1) / 2;
+
+      let terrain = biome.terrains[biome.terrains.length - 1].name;
+
+      for (let i = 0; i < terrainCutoffs.length - 1; i++) {
+        if (noiseValue < terrainCutoffs[i]) {
+          terrain = biome.terrains[i].name;
+          break;
+        }
+      }
+
       objects.push({ x: x * tileSize, y: y * tileSize, id: terrain });
     }
   }
+
   return objects;
 }
 
@@ -24,23 +54,28 @@ export function populateBiome(
   mapHeight = 50,
   tileSize = 32
 ) {
+  const totalArea = mapWidth * mapHeight;
   const objects = [];
-  const objectCount = Math.floor(mapWidth * mapHeight * 0.05); // 5% of the area populated by objects
-  for (let i = 0; i < objectCount; i++) {
-    const x = Math.floor(Math.random() * mapWidth) * tileSize;
-    const y = Math.floor(Math.random() * mapHeight) * tileSize;
-    const objectId =
-      biome.objects[Math.floor(Math.random() * biome.objects.length)];
-    objects.push({ x, y, id: objectId });
+
+  for (const object of biome.objects) {
+    const objectCount = Math.floor(totalArea * (object.weight / 100)); // weight is considered as percentage
+
+    for (let i = 0; i < objectCount; i++) {
+      const x = Math.floor(Math.random() * mapWidth) * tileSize;
+      const y = Math.floor(Math.random() * mapHeight) * tileSize;
+      objects.push({ x, y, id: object.name });
+    }
   }
 
   const items = [];
-  const itemCount = Math.floor(mapWidth * mapHeight * 0.01); // 1% of the area populated by items
-  for (let i = 0; i < itemCount; i++) {
-    const x = Math.floor(Math.random() * mapWidth) * tileSize;
-    const y = Math.floor(Math.random() * mapHeight) * tileSize;
-    const itemId = biome.items[Math.floor(Math.random() * biome.items.length)];
-    items.push({ x, y, id: itemId });
+  for (const item of biome.items) {
+    const itemCount = Math.floor(totalArea * (item.weight / 100)); // weight is considered as percentage
+
+    for (let i = 0; i < itemCount; i++) {
+      const x = Math.floor(Math.random() * mapWidth) * tileSize;
+      const y = Math.floor(Math.random() * mapHeight) * tileSize;
+      items.push({ x, y, id: item.name });
+    }
   }
 
   return { objects, items };

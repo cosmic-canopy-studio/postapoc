@@ -1,22 +1,36 @@
 import { Biome } from '@src/biome/data/interfaces';
 
-export const parkBiome: Biome = {
-  name: 'park',
-  terrains: ['grass'],
-  objects: ['tree', 'bench'],
-  items: ['rock', 'hammer'],
-};
+// NOTE: Objects must be sorted by descending weight
 
 export const grasslandBiome: Biome = {
-  name: 'grassland',
-  terrains: ['grass', 'dirt'],
-  objects: ['tree'],
-  items: ['rock'],
+  name: 'park',
+  terrains: [
+    { name: 'grass', weight: 10 },
+    { name: 'dirt', weight: 1 },
+  ],
+  objects: [
+    { name: 'tree', weight: 1 },
+    { name: 'bench', weight: 0.4 },
+  ],
+  items: [
+    { name: 'rock', weight: 0.5 },
+    { name: 'hammer', weight: 0.1 },
+  ],
+};
+
+export const forestBiome: Biome = {
+  name: 'forest',
+  terrains: [
+    { name: 'grass', weight: 10 },
+    { name: 'dirt', weight: 3 },
+  ],
+  objects: [{ name: 'tree', weight: 5 }],
+  items: [{ name: 'rock', weight: 1 }],
 };
 
 const biomes: Record<string, Biome> = {
-  park: parkBiome,
   grassland: grasslandBiome,
+  forest: forestBiome,
 };
 
 export default biomes;
