@@ -50,7 +50,7 @@ export default class StaticObjectFactory implements IEntityFactory {
     addCollider(this.world, staticObject);
     setEntityName(staticObject, objectDetails.name);
 
-    this.logger.debug(`Created entity ${objectDetails.name}`);
+    this.logger.debug(`Created entity ${objectDetails.name} at ${x},${y}`);
     return staticObject;
   }
 

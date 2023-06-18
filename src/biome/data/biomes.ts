@@ -3,7 +3,7 @@ import { Biome } from '@src/biome/data/interfaces';
 // NOTE: Objects must be sorted by descending weight
 
 export const grasslandBiome: Biome = {
-  name: 'park',
+  name: 'grassland',
   terrains: [
     { name: 'grass', weight: 10 },
     { name: 'dirt', weight: 1 },

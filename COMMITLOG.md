@@ -11,6 +11,7 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **biome:** implement collision detection to avoid object overlap ([6d68a86](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d68a8688844d61f77980a07358ef21b94a086a7))
 * **biome:** initial biome implementation ([4f44578](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4f445785b7a56a05656519f0cc392edad70958af))
+* **biome:** use weights for generating items and objects ([0453bb8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0453bb8bc9f08f0d3f67cf9b8295f033ea14d69d))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * **crafting:** implement recipes ([#31](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/31)) ([324d07b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/324d07ba94ae02ff77633452ee112a8b0e165bf8))

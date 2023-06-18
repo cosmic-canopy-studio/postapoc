@@ -32,7 +32,7 @@ export default class Universe {
     this.timeSystem = new TimeSystem();
     this.timeController = new PhaserTimeController(this.scene);
 
-    this.entityManager.generateBiome('forest');
+    this.entityManager.spawnOvermap();
     this.entityManager.spawnPlayer(400, 300, 'player');
 
     this.logger.info('Universe created');

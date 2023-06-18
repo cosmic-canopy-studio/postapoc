@@ -1,4 +1,10 @@
-import { Biome, BiomeEntry } from '@src/biome/data/interfaces';
+import {
+  Biome,
+  BiomeEntry,
+  SubmapItem,
+  SubmapObject,
+  SubmapTerrain,
+} from '@src/biome/data/interfaces';
 import { createNoise2D } from 'simplex-noise';
 
 const noise2D = createNoise2D();
@@ -19,15 +25,17 @@ function calculateCutoffs(entry: BiomeEntry[]) {
   return cutoffs;
 }
 
-export function generateBiomeTileset(
+export function generateBiomeSubmap(
   biome: Biome,
-  mapWidth = 50,
-  mapHeight = 50,
-  tileSize = 32
+  originX: number,
+  originY: number,
+  mapWidth: number,
+  mapHeight: number,
+  tileSize: number
 ) {
   const terrainCutoffs = calculateCutoffs(biome.terrains);
 
-  const objects = [];
+  const terrains: SubmapTerrain[] = [];
   for (let x = 0; x < mapWidth; x++) {
     for (let y = 0; y < mapHeight; y++) {
       const noiseValue = (noise2D(x / 5, y / 5) + 1) / 2;
@@ -41,42 +49,48 @@ export function generateBiomeTileset(
         }
       }
 
-      objects.push({ x: x * tileSize, y: y * tileSize, id: terrain });
+      terrains.push({
+        x: x * tileSize + originX,
+        y: y * tileSize + originY,
+        id: terrain,
+      });
     }
   }
 
-  return objects;
+  return terrains;
 }
 
-export function populateBiome(
+export function populateBiomeSubmap(
   biome: Biome,
-  mapWidth = 50,
-  mapHeight = 50,
-  tileSize = 32
+  originX: number,
+  originY: number,
+  mapWidth: number,
+  mapHeight: number,
+  tileSize: number
 ) {
   const totalArea = mapWidth * mapHeight;
-  const objects = [];
+  const submapObjects: SubmapObject[] = [];
 
   for (const object of biome.objects) {
     const objectCount = Math.floor(totalArea * (object.weight / 100)); // weight is considered as percentage
 
     for (let i = 0; i < objectCount; i++) {
-      const x = Math.floor(Math.random() * mapWidth) * tileSize;
-      const y = Math.floor(Math.random() * mapHeight) * tileSize;
-      objects.push({ x, y, id: object.name });
+      const x = Math.floor(Math.random() * mapWidth) * tileSize + originX;
+      const y = Math.floor(Math.random() * mapHeight) * tileSize + originY;
+      submapObjects.push({ x, y, id: object.name });
     }
   }
 
-  const items = [];
+  const submapItems: SubmapItem[] = [];
   for (const item of biome.items) {
     const itemCount = Math.floor(totalArea * (item.weight / 100)); // weight is considered as percentage
 
     for (let i = 0; i < itemCount; i++) {
-      const x = Math.floor(Math.random() * mapWidth) * tileSize;
-      const y = Math.floor(Math.random() * mapHeight) * tileSize;
-      items.push({ x, y, id: item.name });
+      const x = Math.floor(Math.random() * mapWidth) * tileSize + originX;
+      const y = Math.floor(Math.random() * mapHeight) * tileSize + originY;
+      submapItems.push({ x, y, id: item.name });
     }
   }
 
-  return { objects, items };
+  return { submapObjects, submapItems };
 }

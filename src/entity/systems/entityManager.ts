@@ -1,8 +1,11 @@
 import biomes from '@src/biome/data/biomes';
 import {
-  generateBiomeTileset,
-  populateBiome,
-} from '@src/biome/systems/biomeManager';
+  SubmapItem,
+  SubmapObject,
+  SubmapTerrain,
+  SubmapTile,
+} from '@src/biome/data/interfaces';
+import { generateOvermap } from '@src/biome/systems/overworldManager';
 import { ECS_NULL } from '@src/core/config/constants';
 import ControlSystem from '@src/core/systems/controlSystem';
 import {
@@ -37,6 +40,7 @@ export default class EntityManager {
   private debugPanel: DebugPanel;
   private controlSystem: ControlSystem;
   private objectSpatialIndex!: RBush<ICollider>;
+  private overmap: SubmapTile[] = [];
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
@@ -51,6 +55,7 @@ export default class EntityManager {
     this.logger.debug('EntityManager initialized');
     this.controlSystem.initialize(this.scene);
     this.focusManager = new FocusManager(this.scene);
+    this.overmap = generateOvermap(biomes);
   }
 
   update(adjustedDeltaTime: number) {
@@ -66,7 +71,7 @@ export default class EntityManager {
     );
   }
 
-  public getObjectByEid(eid: number): ICollider | null {
+  getObjectByEid(eid: number): ICollider | null {
     const allObjects = this.objectSpatialIndex.all();
     for (const obj of allObjects) {
       if (obj.entityId === eid) {
@@ -76,39 +81,16 @@ export default class EntityManager {
     return null;
   }
 
-  generateBiome(
-    biomeName: string,
-    mapWidth = 50,
-    mapHeight = 50,
-    tileSize = 32
-  ) {
-    const biome = biomes[biomeName];
-    const tiles = generateBiomeTileset(biome, mapWidth, mapHeight, tileSize);
-    const { objects, items } = populateBiome(
-      biome,
-      mapWidth,
-      mapHeight,
-      tileSize
-    );
-
-    for (const tile of tiles) {
-      this.generateStaticObject(tile.x, tile.y, tile.id);
-    }
-
-    for (const object of objects) {
-      this.generateStaticObject(object.x, object.y, object.id);
-    }
-
-    for (const item of items) {
-      this.generateItem(item.x, item.y, item.id);
-    }
-  }
-
-  generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
-    for (let x = 0; x < mapWidth; x++) {
-      for (let y = 0; y < mapHeight; y++) {
-        this.generateStaticObject(x * tileSize, y * tileSize, 'grass');
-      }
+  spawnOvermap() {
+    for (const overmapTile of this.overmap) {
+      console.log(
+        `Spawning overmap tile ${overmapTile.originX}, ${overmapTile.originY} of biome ${overmapTile.submapBiomeName}`
+      );
+      this.spawnSubmap(
+        overmapTile.submapTerrain,
+        overmapTile.submapObjects,
+        overmapTile.submapItems
+      );
     }
   }
 
@@ -263,5 +245,23 @@ export default class EntityManager {
     }
 
     return { x: safeX, y: safeY };
+  }
+
+  private spawnSubmap(
+    submapTerrain: SubmapTerrain[],
+    submapObjects: SubmapObject[],
+    submapItems: SubmapItem[]
+  ) {
+    for (const tile of submapTerrain) {
+      this.generateStaticObject(tile.x, tile.y, tile.id);
+    }
+
+    for (const object of submapObjects) {
+      this.generateStaticObject(object.x, object.y, object.id);
+    }
+
+    for (const item of submapItems) {
+      this.generateItem(item.x, item.y, item.id);
+    }
   }
 }

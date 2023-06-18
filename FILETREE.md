@@ -74,7 +74,8 @@
 |   |   |   |-- enums.ts
 |   |   |   `-- interfaces.ts
 |   |   `-- systems
-|   |       `-- biomeManager.ts
+|   |       |-- biomeManager.ts
+|   |       `-- overworldManager.ts
 |   |-- core
 |   |   |-- assets
 |   |   |   |-- itemAssets.json
