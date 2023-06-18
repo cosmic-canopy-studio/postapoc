@@ -10,6 +10,7 @@
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **biome:** implement collision detection to avoid object overlap ([6d68a86](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d68a8688844d61f77980a07358ef21b94a086a7))
+* **biome:** implement overmap generation ([68b7fb1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/68b7fb1c4e3d2177dbdba133de0b79e74c8048b1))
 * **biome:** initial biome implementation ([4f44578](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4f445785b7a56a05656519f0cc392edad70958af))
 * **biome:** use weights for generating items and objects ([0453bb8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0453bb8bc9f08f0d3f67cf9b8295f033ea14d69d))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))

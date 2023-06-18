@@ -12,6 +12,7 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
+import { getSprite } from '@src/entity/components/phaserSprite';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
   getEntityType,
@@ -83,7 +84,7 @@ export default class EntityManager {
 
   spawnOvermap() {
     for (const overmapTile of this.overmap) {
-      console.log(
+      this.logger.debug(
         `Spawning overmap tile ${overmapTile.originX}, ${overmapTile.originY} of biome ${overmapTile.submapBiomeName}`
       );
       this.spawnSubmap(
@@ -95,12 +96,15 @@ export default class EntityManager {
   }
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
-    const safeCoordinates = this.getSafeCoordinates(x, y);
+    let coordinates = { x, y };
+    if (getStaticObjectDetails(staticObjectId).type === 'object') {
+      coordinates = this.getSafeCoordinates(x, y);
+    }
 
     const objectID = this.entityFactory.createEntity(
       'staticObject',
-      safeCoordinates.x,
-      safeCoordinates.y,
+      coordinates.x,
+      coordinates.y,
       staticObjectId
     );
 
@@ -130,8 +134,7 @@ export default class EntityManager {
   }
 
   generateItem(x: number, y: number, itemId: string) {
-    this.logger.info(`Generating item ${itemId} at ${x}, ${y}`);
-    this.logger.info(`Entity factory: ${this.entityFactory}`);
+    this.logger.debug(`Generating item ${itemId} at ${x}, ${y}`);
     const objectID = this.entityFactory.createEntity('item', x, y, itemId);
     const itemDetails = getItemDetails(itemId);
 
@@ -176,6 +179,8 @@ export default class EntityManager {
     this.playerId = this.entityFactory.createEntity('creature', x, y, playerId);
     this.controlSystem.setPlayer(this.playerId);
     this.debugPanel.setPlayer(this.playerId);
+    const playerSprite = getSprite(this.playerId);
+    this.scene.cameras.main.startFollow(playerSprite);
   }
 
   getPlayerId() {
@@ -195,56 +200,60 @@ export default class EntityManager {
     mapWidth = 50,
     mapHeight = 50,
     tileSize = 32,
-    maxAttempts = 1000,
-    maxDistance = 10 // Maximum distance in tiles to look for a safe spot
+    maxAttempts = 10
   ): { x: number; y: number } {
     let safeX = initialX;
     let safeY = initialY;
-
-    const tempBounds = {
-      entityId: -1,
-      minX: safeX,
-      minY: safeY,
-      maxX: safeX + tileSize,
-      maxY: safeY + tileSize,
-    };
-
     let attempts = 0;
 
+    let dx = 0;
+    let dy = -1;
+    let maxSteps = 1;
+    let stepCount = 0;
+    let directionChanges = 0;
+
     while (attempts < maxAttempts) {
-      const collidingObjects = this.objectSpatialIndex.search(tempBounds);
-      if (
-        !collidingObjects.some((collider) => {
-          const objectType = getEntityType(collider.entityId);
-          return objectType !== 'tile' && objectType !== 'item';
-        })
-      ) {
-        break;
+      if (this.isLocationSafe(safeX, safeY, tileSize)) {
+        return { x: safeX, y: safeY };
       }
 
-      const offsetX =
-        Math.floor((Math.random() - 0.5) * 2 * maxDistance) * tileSize;
-      const offsetY =
-        Math.floor((Math.random() - 0.5) * 2 * maxDistance) * tileSize;
+      if (--maxSteps == 0) {
+        if (directionChanges % 2 == 0) stepCount++;
+        maxSteps = stepCount;
+        directionChanges++;
+        const temp = dx;
+        dx = -dy;
+        dy = temp;
+      }
 
-      safeX = Math.max(0, Math.min(mapWidth * tileSize, initialX + offsetX));
-      safeY = Math.max(0, Math.min(mapHeight * tileSize, initialY + offsetY));
+      safeX = initialX + dx * tileSize;
+      safeY = initialY + dy * tileSize;
 
-      tempBounds.minX = safeX;
-      tempBounds.minY = safeY;
-      tempBounds.maxX = safeX + tileSize;
-      tempBounds.maxY = safeY + tileSize;
+      // Ensure safeX and safeY are within the map boundaries
+      safeX = Math.max(0, Math.min(mapWidth * tileSize - tileSize, safeX));
+      safeY = Math.max(0, Math.min(mapHeight * tileSize - tileSize, safeY));
 
       attempts++;
     }
 
-    if (attempts === maxAttempts) {
-      this.logger.error(
-        "Could not find a safe position after multiple attempts. Check the map's object density or increase the max attempts."
-      );
-    }
+    this.logger.error(
+      "Could not find a safe position after multiple attempts. Check the map's object density or increase the max attempts."
+    );
 
-    return { x: safeX, y: safeY };
+    return { x: initialX, y: initialY }; // If we can't find a good spot, return the initial spot
+  }
+
+  private isLocationSafe(x: number, y: number, tileSize: number): boolean {
+    const collidingObjects = this.objectSpatialIndex.search({
+      minX: x,
+      minY: y,
+      maxX: x + tileSize,
+      maxY: y + tileSize,
+    });
+    return !collidingObjects.some((collider) => {
+      const objectType = getEntityType(collider.entityId);
+      return objectType !== 'tile' && objectType !== 'item';
+    });
   }
 
   private spawnSubmap(
