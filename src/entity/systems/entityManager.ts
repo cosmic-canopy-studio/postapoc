@@ -1,11 +1,21 @@
+import biomes from '@src/biome/data/biomes';
+import {
+  SubmapItem,
+  SubmapObject,
+  SubmapTerrain,
+  SubmapTile,
+} from '@src/biome/data/interfaces';
+import { generateOvermap } from '@src/biome/systems/overworldManager';
 import { ECS_NULL } from '@src/core/config/constants';
 import ControlSystem from '@src/core/systems/controlSystem';
 import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
+import { getSprite } from '@src/entity/components/phaserSprite';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
+  getEntityType,
   getItemDetails,
   getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
@@ -31,6 +41,7 @@ export default class EntityManager {
   private debugPanel: DebugPanel;
   private controlSystem: ControlSystem;
   private objectSpatialIndex!: RBush<ICollider>;
+  private overmap: SubmapTile[] = [];
 
   constructor(private scene: Phaser.Scene, world: IWorld) {
     this.logger = getLogger('entity');
@@ -45,6 +56,7 @@ export default class EntityManager {
     this.logger.debug('EntityManager initialized');
     this.controlSystem.initialize(this.scene);
     this.focusManager = new FocusManager(this.scene);
+    this.overmap = generateOvermap(biomes);
   }
 
   update(adjustedDeltaTime: number) {
@@ -60,7 +72,7 @@ export default class EntityManager {
     );
   }
 
-  public getObjectByEid(eid: number): ICollider | null {
+  getObjectByEid(eid: number): ICollider | null {
     const allObjects = this.objectSpatialIndex.all();
     for (const obj of allObjects) {
       if (obj.entityId === eid) {
@@ -70,21 +82,32 @@ export default class EntityManager {
     return null;
   }
 
-  generateTileset(tileSize = 32, mapWidth = 50, mapHeight = 50) {
-    for (let x = 0; x < mapWidth; x++) {
-      for (let y = 0; y < mapHeight; y++) {
-        this.generateStaticObject(x * tileSize, y * tileSize, 'grass');
-      }
+  spawnOvermap() {
+    for (const overmapTile of this.overmap) {
+      this.logger.debug(
+        `Spawning overmap tile ${overmapTile.originX}, ${overmapTile.originY} of biome ${overmapTile.submapBiomeName}`
+      );
+      this.spawnSubmap(
+        overmapTile.submapTerrain,
+        overmapTile.submapObjects,
+        overmapTile.submapItems
+      );
     }
   }
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
+    let coordinates = { x, y };
+    if (getStaticObjectDetails(staticObjectId).type === 'object') {
+      coordinates = this.getSafeCoordinates(x, y);
+    }
+
     const objectID = this.entityFactory.createEntity(
       'staticObject',
-      x,
-      y,
+      coordinates.x,
+      coordinates.y,
       staticObjectId
     );
+
     const objectDetails = getStaticObjectDetails(staticObjectId);
 
     if (!objectDetails) {
@@ -111,8 +134,7 @@ export default class EntityManager {
   }
 
   generateItem(x: number, y: number, itemId: string) {
-    this.logger.info(`Generating item ${itemId} at ${x}, ${y}`);
-    this.logger.info(`Entity factory: ${this.entityFactory}`);
+    this.logger.debug(`Generating item ${itemId} at ${x}, ${y}`);
     const objectID = this.entityFactory.createEntity('item', x, y, itemId);
     const itemDetails = getItemDetails(itemId);
 
@@ -154,9 +176,17 @@ export default class EntityManager {
   }
 
   spawnPlayer(x: number, y: number, playerId: string) {
-    this.playerId = this.entityFactory.createEntity('creature', x, y, playerId);
+    const coordinates = this.getSafeCoordinates(x, y);
+    this.playerId = this.entityFactory.createEntity(
+      'creature',
+      coordinates.x,
+      coordinates.y,
+      playerId
+    );
     this.controlSystem.setPlayer(this.playerId);
     this.debugPanel.setPlayer(this.playerId);
+    const playerSprite = getSprite(this.playerId);
+    this.scene.cameras.main.startFollow(playerSprite);
   }
 
   getPlayerId() {
@@ -168,5 +198,85 @@ export default class EntityManager {
     this.objectSpatialIndex.remove(collider, (a, b) => {
       return a.entityId === b.entityId;
     });
+  }
+
+  private getSafeCoordinates(
+    initialX: number,
+    initialY: number,
+    mapWidth = 50,
+    mapHeight = 50,
+    tileSize = 32,
+    maxAttempts = 10
+  ): { x: number; y: number } {
+    let safeX = initialX;
+    let safeY = initialY;
+    let attempts = 0;
+
+    let dx = 0;
+    let dy = -1;
+    let maxSteps = 1;
+    let stepCount = 0;
+    let directionChanges = 0;
+
+    while (attempts < maxAttempts) {
+      if (this.isLocationSafe(safeX, safeY, tileSize)) {
+        return { x: safeX, y: safeY };
+      }
+
+      if (--maxSteps == 0) {
+        if (directionChanges % 2 == 0) stepCount++;
+        maxSteps = stepCount;
+        directionChanges++;
+        const temp = dx;
+        dx = -dy;
+        dy = temp;
+      }
+
+      safeX = initialX + dx * tileSize;
+      safeY = initialY + dy * tileSize;
+
+      // Ensure safeX and safeY are within the map boundaries
+      safeX = Math.max(0, Math.min(mapWidth * tileSize - tileSize, safeX));
+      safeY = Math.max(0, Math.min(mapHeight * tileSize - tileSize, safeY));
+
+      attempts++;
+    }
+
+    this.logger.error(
+      "Could not find a safe position after multiple attempts. Check the map's object density or increase the max attempts."
+    );
+
+    return { x: initialX, y: initialY }; // If we can't find a good spot, return the initial spot
+  }
+
+  private isLocationSafe(x: number, y: number, tileSize: number): boolean {
+    const collidingObjects = this.objectSpatialIndex.search({
+      minX: x,
+      minY: y,
+      maxX: x + tileSize,
+      maxY: y + tileSize,
+    });
+    return !collidingObjects.some((collider) => {
+      const objectType = getEntityType(collider.entityId);
+      return objectType !== 'tile' && objectType !== 'item';
+    });
+  }
+
+  private spawnSubmap(
+    submapTerrain: SubmapTerrain[],
+    submapObjects: SubmapObject[],
+    submapItems: SubmapItem[]
+  ) {
+    for (const tile of submapTerrain) {
+      this.generateStaticObject(tile.x, tile.y, tile.id);
+    }
+
+    for (const object of submapObjects) {
+      this.generateStaticObject(object.x, object.y, object.id);
+    }
+
+    for (const item of submapItems) {
+      this.generateItem(item.x, item.y, item.id);
+    }
   }
 }

@@ -36,10 +36,11 @@ export function removePhaserSprite(entityId: number) {
   return sprite;
 }
 
-export function getSprite(
-  entityId: number
-): Phaser.GameObjects.Sprite | undefined {
+export function getSprite(entityId: number) {
   const index = PhaserSprite.spriteIndex[entityId];
+  if (index === undefined) {
+    throw new Error(`No sprite found for entity ${entityId}`);
+  }
   return phaserSprites[index];
 }
 
