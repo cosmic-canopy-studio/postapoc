@@ -9,6 +9,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
+* **biome:** add logging ([fa0c3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fa0c3e6fa6dcc4e0b60df8ee88f32969dd2ed3bd))
 * **biome:** implement collision detection to avoid object overlap ([6d68a86](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d68a8688844d61f77980a07358ef21b94a086a7))
 * **biome:** implement overmap generation ([68b7fb1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/68b7fb1c4e3d2177dbdba133de0b79e74c8048b1))
 * **biome:** initial biome implementation ([4f44578](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4f445785b7a56a05656519f0cc392edad70958af))

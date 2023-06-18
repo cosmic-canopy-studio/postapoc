@@ -176,7 +176,13 @@ export default class EntityManager {
   }
 
   spawnPlayer(x: number, y: number, playerId: string) {
-    this.playerId = this.entityFactory.createEntity('creature', x, y, playerId);
+    const coordinates = this.getSafeCoordinates(x, y);
+    this.playerId = this.entityFactory.createEntity(
+      'creature',
+      coordinates.x,
+      coordinates.y,
+      playerId
+    );
     this.controlSystem.setPlayer(this.playerId);
     this.debugPanel.setPlayer(this.playerId);
     const playerSprite = getSprite(this.playerId);
