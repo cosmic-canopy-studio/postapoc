@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-18)
+## 0.0.1 (2023-06-25)
 
 
 ### Features
@@ -9,11 +9,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
-* **biome:** add logging ([fa0c3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fa0c3e6fa6dcc4e0b60df8ee88f32969dd2ed3bd))
-* **biome:** implement collision detection to avoid object overlap ([6d68a86](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6d68a8688844d61f77980a07358ef21b94a086a7))
-* **biome:** implement overmap generation ([68b7fb1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/68b7fb1c4e3d2177dbdba133de0b79e74c8048b1))
-* **biome:** initial biome implementation ([4f44578](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4f445785b7a56a05656519f0cc392edad70958af))
-* **biome:** use weights for generating items and objects ([0453bb8](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0453bb8bc9f08f0d3f67cf9b8295f033ea14d69d))
+* **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * **crafting:** implement recipes ([#31](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/31)) ([324d07b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/324d07ba94ae02ff77633452ee112a8b0e165bf8))
@@ -23,7 +19,6 @@
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * **entity:** implement crafting ui, make windows draggable ([#32](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/32)) ([63644a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63644a91f37b935d9c31e148cfeeea94e648347c))
 * **entity:** implement switch focus functionality ([#35](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/35)) ([ba32400](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ba32400fc5198a945c61de1825028baa69652f37))
-* **entity:** set scene camera to follow player, migrate console logging to logger ([8cb7490](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8cb7490c4539758fa3f1432eeb9b0e5aa6b65fb4))
 * health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([1035d98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1035d987085ff1355a2f09e3c306b377af7abe92))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([57aafc1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57aafc19cd0a110dbfb7acfe668244ea5981798d))
@@ -58,6 +53,11 @@
 * playwright screenshot ([04bbca4](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/04bbca49695d9eef165fd970e2a6b1bb423bf4ca))
 * playwright screenshot ([c35466b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c35466b58f00d8869e2e7c98d99044dc5f1a3e91))
 * playwright snapshot compatibility with CI ([e18ff7f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e18ff7f28de1c8647a956d62910f773f5188c12c))
+
+
+### Documentation
+
+* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
 
 
 ### Styles
@@ -159,10 +159,4 @@
 * streamline handler, manager, and factory behavior ([#34](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/34)) ([37c3144](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/37c31442e98f4a1db445a3d3cc09d5855c71ab43))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-
-
-### Documentation
-
-* add additional project inspirations to prompt file ([030ed98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/030ed981feb01afda29bf77fbbcc3e64a7f01834))
-* add comments to file headers ([c471206](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c471206fe504c68bfa89f8f5fd62b35afc4e2593))
 

@@ -1,10 +1,10 @@
-import { createFallbackSVG } from '@src/core/utils/svgUtils';
-import Phaser from 'phaser';
 import itemAssets from '@src/core/assets/itemAssets.json';
+import menuAssets from '@src/core/assets/menuAssets.json';
 import objectAssets from '@src/core/assets/objectAssets.json';
 import terrainAssets from '@src/core/assets/terrainAssets.json';
-import menuAssets from '@src/core/assets/menuAssets.json';
 import uiAssets from '@src/core/assets/uiAssets.json';
+import { createFallbackSVG } from '@src/core/utils/svgUtils';
+import Phaser from 'phaser';
 
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -60,13 +60,24 @@ export default class BootScene extends Phaser.Scene {
 
   private loadAssets(assets: any[]) {
     assets.forEach((asset) => {
-      if (asset.width && asset.height) {
-        this.load.svg(asset.key, asset.url, {
-          width: asset.width,
-          height: asset.height,
-        });
-      } else {
-        this.load.svg(asset.key, asset.url);
+      const extension = asset.url.split('.').pop();
+
+      switch (extension) {
+        case 'png':
+          this.load.image(asset.key, asset.url);
+          break;
+        case 'svg':
+          if (asset.width && asset.height) {
+            this.load.svg(asset.key, asset.url, {
+              width: asset.width,
+              height: asset.height,
+            });
+          } else {
+            this.load.svg(asset.key, asset.url);
+          }
+          break;
+        default:
+          console.warn(`Unsupported file extension ${extension}`);
       }
     });
   }
