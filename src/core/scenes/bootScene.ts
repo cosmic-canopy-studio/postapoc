@@ -1,8 +1,8 @@
-import itemAssets from '@src/core/assets/itemAssets.json';
-import menuAssets from '@src/core/assets/menuAssets.json';
-import objectAssets from '@src/core/assets/objectAssets.json';
-import terrainAssets from '@src/core/assets/terrainAssets.json';
-import uiAssets from '@src/core/assets/uiAssets.json';
+import itemAssets from '@src/core/assets/prototype/itemAssets.json';
+import menuAssets from '@src/core/assets/prototype/menuAssets.json';
+import objectAssets from '@src/core/assets/prototype/objectAssets.json';
+import terrainAssets from '@src/core/assets/prototype/terrainAssets.json';
+import uiAssets from '@src/core/assets/prototype/uiAssets.json';
 import { createFallbackSVG } from '@src/core/utils/svgUtils';
 import Phaser from 'phaser';
 

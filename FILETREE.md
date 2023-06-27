@@ -8,35 +8,36 @@
 |-- PROMPT.md
 |-- README.md
 |-- assets
-|   |-- items
-|   |   `-- hammer.svg
-|   |-- objects
-|   |   |-- bench.svg
-|   |   |-- board.svg
-|   |   |-- door.svg
-|   |   |-- log.svg
-|   |   |-- pipe.svg
-|   |   |-- player.svg
-|   |   |-- rock.svg
-|   |   |-- stick.svg
-|   |   `-- tree.svg
-|   |-- tiles
-|   |   |-- concrete_wall.svg
-|   |   |-- dirt.svg
-|   |   |-- dirt2.svg
-|   |   |-- dirt3.svg
-|   |   |-- grass.svg
-|   |   |-- grass2.svg
-|   |   |-- grass3.svg
-|   |   |-- grass4.svg
-|   |   `-- white_tile.svg
-|   `-- ui
-|       |-- forest_silhouette.svg
-|       |-- grey_arrow.svg
-|       |-- mushroom_cloud.svg
-|       |-- postapoc_title.svg
-|       |-- red_arrow.svg
-|       `-- starry_night.svg
+|   `-- prototype
+|       |-- items
+|       |   `-- hammer.svg
+|       |-- objects
+|       |   |-- bench.svg
+|       |   |-- board.svg
+|       |   |-- door.svg
+|       |   |-- log.svg
+|       |   |-- pipe.svg
+|       |   |-- player.svg
+|       |   |-- rock.svg
+|       |   |-- stick.svg
+|       |   `-- tree.svg
+|       |-- tiles
+|       |   |-- concrete_wall.svg
+|       |   |-- dirt.svg
+|       |   |-- dirt2.svg
+|       |   |-- dirt3.svg
+|       |   |-- grass.svg
+|       |   |-- grass2.svg
+|       |   |-- grass3.svg
+|       |   |-- grass4.svg
+|       |   `-- white_tile.svg
+|       `-- ui
+|           |-- forest_silhouette.svg
+|           |-- grey_arrow.svg
+|           |-- mushroom_cloud.svg
+|           |-- postapoc_title.svg
+|           |-- red_arrow.svg
+|           `-- starry_night.svg
 |-- conventional-changelog.config.js
 |-- index.html
 |-- jest.config.ts
@@ -78,11 +79,12 @@
 |   |       `-- overworldManager.ts
 |   |-- core
 |   |   |-- assets
-|   |   |   |-- itemAssets.json
-|   |   |   |-- menuAssets.json
-|   |   |   |-- objectAssets.json
-|   |   |   |-- terrainAssets.json
-|   |   |   `-- uiAssets.json
+|   |   |   `-- prototype
+|   |   |       |-- itemAssets.json
+|   |   |       |-- menuAssets.json
+|   |   |       |-- objectAssets.json
+|   |   |       |-- terrainAssets.json
+|   |   |       `-- uiAssets.json
 |   |   |-- config
 |   |   |   |-- constants.ts
 |   |   |   `-- controlMapping.json
@@ -184,16 +186,10 @@
 |-- tsconfig.json
 |-- utils
 |   |-- cdda_to_tiled.js
-|   |-- json_input
-|   |   |-- palette.json
-|   |   `-- petstore.json
-|   `-- tiled_maps
-|       |-- map_0.csv
-|       |-- map_1.csv
-|       |-- map_2.csv
-|       |-- map_3.csv
-|       |-- map_4.csv
-|       `-- map_5.csv
+|   |-- converted.json
+|   |-- original.json
+|   |-- tileset.json
+|   `-- tileset.png
 |-- vite.config.ts
 `-- yarn.lock
 
