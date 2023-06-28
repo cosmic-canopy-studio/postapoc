@@ -592,14 +592,14 @@
   ],
   "orientation": "orthogonal",
   "renderorder": "right-down",
-  "tileheight": 32,
+  "tileheight": 16,
   "tilesets": [
     {
       "firstgid": 1,
       "source": "tileset.json"
     }
   ],
-  "tilewidth": 32,
+  "tilewidth": 16,
   "version": 1.2,
   "width": 24
 }

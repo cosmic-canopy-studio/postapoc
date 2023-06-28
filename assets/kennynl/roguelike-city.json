@@ -1,0 +1,27 @@
+{
+  "columns": 37,
+  "image": "roguelike-city.png",
+  "imageheight": 448,
+  "imagewidth": 592,
+  "margin": 0,
+  "name": "roguelike-city",
+  "spacing": 0,
+  "tilecount": 1036,
+  "tiledversion": "1.10.1",
+  "tileheight": 16,
+  "tiles": [
+    {
+      "id": 570,
+      "properties": [
+        {
+          "name": "type",
+          "type": "string",
+          "value": "bench"
+        }
+      ]
+    }
+  ],
+  "tilewidth": 16,
+  "type": "tileset",
+  "version": "1.10"
+}

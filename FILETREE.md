@@ -8,6 +8,11 @@
 |-- PROMPT.md
 |-- README.md
 |-- assets
+|   |-- kennynl
+|   |   |-- License.txt
+|   |   |-- Tilesheet.txt
+|   |   |-- roguelike-city.json
+|   |   `-- roguelike-city.png
 |   `-- prototype
 |       |-- items
 |       |   `-- hammer.svg
@@ -188,6 +193,7 @@
 |   |-- cdda_to_tiled.js
 |   |-- converted.json
 |   |-- original.json
+|   |-- tilemap_packed.png
 |   |-- tileset.json
 |   `-- tileset.png
 |-- vite.config.ts

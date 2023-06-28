@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-27)
+## 0.0.1 (2023-06-28)
 
 
 ### Features
@@ -137,6 +137,7 @@
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
+* move assets to named folder for future re-skinning feature ([9b54506](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b54506cd8076a3f400ef8df37c1eb8524b5b201))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
 * move files to correct subfolders ([d811f65](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d811f6515feb9fbc695a9792c6c27b953ba2f2ac))
 * move files to correct subfolders ([23a3e45](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/23a3e45e615c469b278e0c6ddba502839bb1c3ff))
