@@ -1,0 +1,8 @@
+[
+  {
+    "key": "roguelike-city",
+    "url": "assets/kennynl/roguelike-city.png",
+    "type": "tileset",
+    "mapUrl": "assets/kennynl/roguelike-city.json"
+  }
+]

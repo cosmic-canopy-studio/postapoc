@@ -1,27 +1,64 @@
 {
-  "columns": 37,
-  "image": "roguelike-city.png",
-  "imageheight": 448,
-  "imagewidth": 592,
-  "margin": 0,
-  "name": "roguelike-city",
-  "spacing": 0,
-  "tilecount": 1036,
-  "tiledversion": "1.10.1",
-  "tileheight": 16,
-  "tiles": [
+  "compressionlevel": -1,
+  "editorsettings": {
+    "chunksize": {
+      "height": 32,
+      "width": 32
+    }
+  },
+  "height": 20,
+  "infinite": true,
+  "layers": [
     {
-      "id": 570,
-      "properties": [
-        {
-          "name": "type",
-          "type": "string",
-          "value": "bench"
-        }
-      ]
+      "chunks": [],
+      "height": 16,
+      "id": 1,
+      "name": "Tile Layer 1",
+      "opacity": 1,
+      "startx": 0,
+      "starty": 0,
+      "type": "tilelayer",
+      "visible": true,
+      "width": 16,
+      "x": 0,
+      "y": 0
     }
   ],
-  "tilewidth": 16,
-  "type": "tileset",
-  "version": "1.10"
+  "nextlayerid": 2,
+  "nextobjectid": 1,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tiledversion": "1.10.1",
+  "tileheight": 32,
+  "tilesets": [
+    {
+      "columns": 37,
+      "firstgid": 1,
+      "image": "roguelike-city.png",
+      "imageheight": 896,
+      "imagewidth": 1184,
+      "margin": 0,
+      "name": "roguelike-city",
+      "spacing": 0,
+      "tilecount": 1036,
+      "tileheight": 32,
+      "tiles": [
+        {
+          "id": 570,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "bench"
+            }
+          ]
+        }
+      ],
+      "tilewidth": 32
+    }
+  ],
+  "tilewidth": 32,
+  "type": "map",
+  "version": "1.10",
+  "width": 30
 }
