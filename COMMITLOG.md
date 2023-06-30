@@ -1,4 +1,4 @@
-## 0.0.1 (2023-06-29)
+## 0.0.1 (2023-06-30)
 
 
 ### Features
@@ -11,6 +11,7 @@
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **assets:** add sample tileset ([5e45668](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5e45668d1a9fe77684d9de7ca9f1adc611ac4db5))
+* **assets:** support tilemaps, resource replacement, tiles as sprites ([63c1aa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63c1aa25101514c34843e90002036a038ffd981e))
 * **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))

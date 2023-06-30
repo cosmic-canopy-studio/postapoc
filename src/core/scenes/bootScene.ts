@@ -69,7 +69,7 @@ export default class BootScene extends Phaser.Scene {
       console.log(tilesetJson);
 
       tilesetJson.tilesets.forEach((tileset) => {
-        tileset.tiles.forEach((tile) => {
+        tileset.tiles.forEach((tile, i, tiles) => {
           if (
             tile.properties &&
             tile.properties.some((property) => property.name === 'type')
@@ -77,28 +77,67 @@ export default class BootScene extends Phaser.Scene {
             const typeProperty = tile.properties.find(
               (property) => property.name === 'type'
             );
-            const x = (tile.id % tileset.columns) * tilesetJson.tilewidth;
-            const y =
-              Math.floor(tile.id / tileset.columns) * tilesetJson.tileheight;
-            const tileImageData = context.getImageData(
-              x,
-              y,
-              tilesetJson.tilewidth,
-              tilesetJson.tileheight
-            );
-            const tileCanvas = document.createElement('canvas');
-            tileCanvas.width = tilesetJson.tilewidth;
-            tileCanvas.height = tilesetJson.tileheight;
-            tileCanvas.getContext('2d').putImageData(tileImageData, 0, 0);
 
-            if (this.textures.exists(typeProperty.value)) {
-              logger.info(
-                `Removing existing texture ${typeProperty.value} in favor of preferred tileset texture`
-              );
-              this.textures.remove(typeProperty.value);
+            const match = typeProperty.value.match(/(.*)-1$/); // check if the tile name ends with "-1"
+
+            if (match) {
+              const baseName = match[1]; // the part of the tile name before "-1"
+              const nextTile = tiles[i + 1];
+
+              if (
+                nextTile.properties.find(
+                  (property) =>
+                    property.name === 'type' &&
+                    property.value === baseName + '-2'
+                )
+              ) {
+                // Combine the two tiles into a single texture
+                const x1 = (tile.id % tileset.columns) * tileset.tilewidth;
+                const y1 =
+                  Math.floor(tile.id / tileset.columns) * tileset.tileheight;
+                const x2 = (nextTile.id % tileset.columns) * tileset.tilewidth;
+                const y2 =
+                  Math.floor(nextTile.id / tileset.columns) *
+                  tileset.tileheight;
+
+                const combinedCanvas = document.createElement('canvas');
+                combinedCanvas.width = tileset.tilewidth * 2; // the combined texture is twice as wide
+                combinedCanvas.height = tileset.tileheight; // assuming both tiles have the same height
+                const combinedContext = combinedCanvas.getContext('2d');
+
+                combinedContext.drawImage(
+                  image,
+                  x1,
+                  y1,
+                  tileset.tilewidth,
+                  tileset.tileheight,
+                  0,
+                  0,
+                  tileset.tilewidth,
+                  tileset.tileheight
+                );
+                combinedContext.drawImage(
+                  image,
+                  x2,
+                  y2,
+                  tileset.tilewidth,
+                  tileset.tileheight,
+                  tileset.tilewidth,
+                  0,
+                  tileset.tilewidth,
+                  tileset.tileheight
+                );
+
+                if (this.textures.exists(baseName)) {
+                  logger.info(
+                    `Removing existing texture ${baseName} in favor of preferred tileset texture`
+                  );
+                  this.textures.remove(baseName);
+                }
+
+                this.textures.addCanvas(baseName, combinedCanvas);
+              }
             }
-
-            this.textures.addCanvas(typeProperty.value, tileCanvas);
           }
         });
       });

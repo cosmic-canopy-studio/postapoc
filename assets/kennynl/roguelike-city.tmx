@@ -6,9 +6,14 @@
  </editorsettings>
  <tileset firstgid="1" name="roguelike-city" tilewidth="32" tileheight="32" tilecount="1036" columns="37">
   <image source="roguelike-city.png" width="1184" height="896"/>
-  <tile id="570">
+  <tile id="572">
    <properties>
-    <property name="type" value="bench"/>
+    <property name="type" value="bench-1"/>
+   </properties>
+  </tile>
+  <tile id="573">
+   <properties>
+    <property name="type" value="bench-2"/>
    </properties>
   </tile>
  </tileset>

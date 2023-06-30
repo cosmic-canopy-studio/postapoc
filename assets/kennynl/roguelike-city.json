@@ -11,7 +11,7 @@
   "layers": [
     {
       "chunks": [],
-      "height": 16,
+      "height": 0,
       "id": 1,
       "name": "Tile Layer 1",
       "opacity": 1,
@@ -19,7 +19,7 @@
       "starty": 0,
       "type": "tilelayer",
       "visible": true,
-      "width": 16,
+      "width": 0,
       "x": 0,
       "y": 0
     }
@@ -44,12 +44,22 @@
       "tileheight": 32,
       "tiles": [
         {
-          "id": 570,
+          "id": 572,
           "properties": [
             {
               "name": "type",
               "type": "string",
-              "value": "bench"
+              "value": "bench-1"
+            }
+          ]
+        },
+        {
+          "id": 573,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "bench-2"
             }
           ]
         }
