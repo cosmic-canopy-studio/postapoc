@@ -44,12 +44,32 @@
       "tileheight": 32,
       "tiles": [
         {
+          "id": 401,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "tree-1x1"
+            }
+          ]
+        },
+        {
+          "id": 438,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "tree-2x1"
+            }
+          ]
+        },
+        {
           "id": 572,
           "properties": [
             {
               "name": "type",
               "type": "string",
-              "value": "bench-1"
+              "value": "bench-1x1"
             }
           ]
         },
@@ -59,7 +79,27 @@
             {
               "name": "type",
               "type": "string",
-              "value": "bench-2"
+              "value": "bench-1x2"
+            }
+          ]
+        },
+        {
+          "id": 888,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 889,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "grass2"
             }
           ]
         }

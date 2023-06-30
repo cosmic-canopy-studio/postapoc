@@ -70,16 +70,19 @@ export default class BootScene extends Phaser.Scene {
     tilesetAssets.forEach((asset) => {
       const tilesetJson = this.cache.json.get(asset.key + 'Tilemap');
       const image = this.textures.get(asset.key).getSourceImage();
+      console.log(`Asset: ${asset.key}, Image: `, image);
 
-      const tilesetImageCanvas = this.createCanvasFromImage(image);
+      const tilesetImageCanvas = this.createCanvasFromImage(
+        this.textures.get(asset.key).getSourceImage()
+      );
 
       tilesetJson.tilesets.forEach((tileset) => {
-        this.processTiles(tileset, tilesetImageCanvas, image);
+        this.processTiles(tileset, tilesetImageCanvas);
       });
     });
   }
 
-  private processTiles(tileset, tilesetImageCanvas, image) {
+  private processTiles(tileset, tilesetImageCanvas) {
     tileset.tiles.forEach((tile, i, tiles) => {
       if (
         tile.properties &&
@@ -89,60 +92,118 @@ export default class BootScene extends Phaser.Scene {
           (property) => property.name === 'type'
         );
 
-        this.processTile(
-          typeProperty,
-          tile,
-          tiles,
-          i,
-          tileset,
-          tilesetImageCanvas,
-          image
-        );
+        this.processTile(typeProperty, tiles, tileset, tilesetImageCanvas);
       }
     });
   }
 
-  private processTile(
-    typeProperty,
-    tile,
-    tiles,
-    tileIndex,
-    tileset,
-    tilesetImageCanvas
-  ) {
-    const match = typeProperty.value.match(/(.*)-1$/);
+  private processTile(typeProperty, tiles, tileset, tilesetImageCanvas) {
+    const match = typeProperty.value.match(/(.*)-(\d+)x(\d+)$/);
 
     if (match) {
       const baseName = match[1];
-      const nextTile = tiles[tileIndex + 1];
+      const height = parseInt(match[2]);
+      const width = parseInt(match[3]);
 
-      if (
-        nextTile &&
-        nextTile.properties.find(
-          (property) =>
-            property.name === 'type' && property.value === baseName + '-2'
-        )
-      ) {
-        const combinedCanvas = this.combineTiles(
-          tile,
-          nextTile,
+      let combinedCanvas;
+      const targetTiles = [];
+      let canCombine = true;
+
+      for (let h = 0; h < height; h++) {
+        for (let w = 0; w < width; w++) {
+          const nextTileTypeName = `${baseName}-${h + 1}x${w + 1}`;
+          const nextTile = this.findNextTile(tiles, nextTileTypeName);
+          canCombine = this.pushTargetTile(targetTiles, nextTile, canCombine);
+        }
+      }
+
+      if (canCombine) {
+        combinedCanvas = this.combineTiles(
+          targetTiles,
+          width,
           tileset,
           tilesetImageCanvas
         );
+      }
 
-        if (this.textures.exists(baseName)) {
-          logger.info(
-            `Removing existing texture ${baseName} in favor of combined tileset texture`
-          );
-          this.textures.remove(baseName);
-        }
-
+      if (canCombine && this.textures.exists(baseName)) {
+        logger.info(
+          `Removing existing texture ${baseName} in favor of combined tileset texture`
+        );
+        this.textures.remove(baseName);
         this.textures.addCanvas(baseName, combinedCanvas);
       }
     }
   }
 
+  private findNextTile(tiles, typeName) {
+    return tiles.find((tile) =>
+      tile.properties.find(
+        (property) => property.name === 'type' && property.value === typeName
+      )
+    );
+  }
+
+  private pushTargetTile(targetTiles, tile) {
+    if (tile) {
+      targetTiles.push(tile);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private combineTiles(tiles, width, tileset, tilesetImageCanvas) {
+    const combinedCanvas = document.createElement('canvas');
+    combinedCanvas.width = tileset.tilewidth * width;
+    combinedCanvas.height = tileset.tileheight * (tiles.length / width);
+
+    const context = combinedCanvas.getContext('2d');
+
+    tiles.forEach((tile, index) => {
+      const tileImage = this.getTileImage(tile, tileset, tilesetImageCanvas);
+      const row = Math.floor(index / width);
+      const col = index % width;
+      context.drawImage(
+        tileImage,
+        0,
+        0,
+        tileset.tilewidth,
+        tileset.tileheight,
+        col * tileset.tilewidth,
+        row * tileset.tileheight,
+        tileset.tilewidth,
+        tileset.tileheight
+      );
+    });
+
+    return combinedCanvas;
+  }
+
+  private getTileImage(tile, tileset, tilesetImageCanvas) {
+    const [x, y] = this.getTileCoordinates(tile, tileset);
+    const canvas = document.createElement('canvas');
+    canvas.width = tileset.tilewidth;
+    canvas.height = tileset.tileheight;
+    console.log('tilesetImageCanvas in getTileImage', tilesetImageCanvas); // New log
+    console.log('canvas in getTileImage', canvas); // New log
+    const context = canvas.getContext('2d');
+    context.drawImage(
+      tilesetImageCanvas,
+      x,
+      y,
+      tileset.tilewidth,
+      tileset.tileheight,
+      0,
+      0,
+      tileset.tilewidth,
+      tileset.tileheight
+    );
+    return canvas;
+  }
+
   private createCanvasFromImage(image) {
+    console.log('Image in createCanvasFromImage: ', image); // New log
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
@@ -150,41 +211,6 @@ export default class BootScene extends Phaser.Scene {
     context.drawImage(image, 0, 0);
 
     return canvas;
-  }
-
-  private combineTiles(tile1, tile2, tileset, canvas) {
-    const [x1, y1] = this.getTileCoordinates(tile1, tileset);
-    const [x2, y2] = this.getTileCoordinates(tile2, tileset);
-
-    const combinedCanvas = document.createElement('canvas');
-    combinedCanvas.width = tileset.tilewidth * 2;
-    combinedCanvas.height = tileset.tileheight;
-
-    const context = combinedCanvas.getContext('2d');
-    context.drawImage(
-      canvas,
-      x1,
-      y1,
-      tileset.tilewidth,
-      tileset.tileheight,
-      0,
-      0,
-      tileset.tilewidth,
-      tileset.tileheight
-    );
-    context.drawImage(
-      canvas,
-      x2,
-      y2,
-      tileset.tilewidth,
-      tileset.tileheight,
-      tileset.tilewidth,
-      0,
-      tileset.tilewidth,
-      tileset.tileheight
-    );
-
-    return combinedCanvas;
   }
 
   private getTileCoordinates(tile, tileset) {

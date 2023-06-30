@@ -2,18 +2,38 @@
 <map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="1" nextlayerid="2" nextobjectid="1">
  <editorsettings>
   <chunksize width="32" height="32"/>
-  <export target="rogue-city-map.json" format="json"/>
+  <export target="roguelike-city.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" name="roguelike-city" tilewidth="32" tileheight="32" tilecount="1036" columns="37">
   <image source="roguelike-city.png" width="1184" height="896"/>
+  <tile id="401">
+   <properties>
+    <property name="type" value="tree-1x1"/>
+   </properties>
+  </tile>
+  <tile id="438">
+   <properties>
+    <property name="type" value="tree-2x1"/>
+   </properties>
+  </tile>
   <tile id="572">
    <properties>
-    <property name="type" value="bench-1"/>
+    <property name="type" value="bench-1x1"/>
    </properties>
   </tile>
   <tile id="573">
    <properties>
-    <property name="type" value="bench-2"/>
+    <property name="type" value="bench-1x2"/>
+   </properties>
+  </tile>
+  <tile id="888">
+   <properties>
+    <property name="type" value="grass"/>
+   </properties>
+  </tile>
+  <tile id="889">
+   <properties>
+    <property name="type" value="grass2"/>
    </properties>
   </tile>
  </tileset>
