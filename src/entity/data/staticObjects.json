@@ -50,9 +50,7 @@
     "name": "Grass",
     "textures": [
       "grass",
-      "grass2",
-      "grass3",
-      "grass4"
+      "grass2"
     ],
     "type": "tile",
     "category": "nature",
@@ -71,8 +69,7 @@
     "name": "Dirt",
     "textures": [
       "dirt",
-      "dirt2",
-      "dirt3"
+      "dirt2"
     ],
     "type": "tile",
     "category": "nature",

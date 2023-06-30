@@ -92,12 +92,18 @@ export default class BootScene extends Phaser.Scene {
           (property) => property.name === 'type'
         );
 
-        this.processTile(typeProperty, tiles, tileset, tilesetImageCanvas);
+        this.processTile(
+          typeProperty,
+          tile,
+          tiles,
+          tileset,
+          tilesetImageCanvas
+        );
       }
     });
   }
 
-  private processTile(typeProperty, tiles, tileset, tilesetImageCanvas) {
+  private processTile(typeProperty, tile, tiles, tileset, tilesetImageCanvas) {
     const match = typeProperty.value.match(/(.*)-(\d+)x(\d+)$/);
 
     if (match) {
@@ -126,14 +132,28 @@ export default class BootScene extends Phaser.Scene {
         );
       }
 
-      if (canCombine && this.textures.exists(baseName)) {
+      if (this.textures.exists(baseName)) {
         logger.info(
-          `Removing existing texture ${baseName} in favor of combined tileset texture`
+          `Removing existing texture ${baseName} in favor of tileset texture`
         );
         this.textures.remove(baseName);
+      }
+
+      if (canCombine) {
         this.textures.addCanvas(baseName, combinedCanvas);
       }
     }
+
+    // handle single tile assets
+    //TODO: Handle dynamic texture variety sizes
+
+    const baseName = typeProperty.value;
+    if (this.textures.exists(baseName)) {
+      logger.info(`Removing existing texture ${baseName}`);
+      this.textures.remove(baseName);
+    }
+    const tileImage = this.getTileImage(tile, tileset, tilesetImageCanvas);
+    this.textures.addCanvas(baseName, tileImage);
   }
 
   private findNextTile(tiles, typeName) {

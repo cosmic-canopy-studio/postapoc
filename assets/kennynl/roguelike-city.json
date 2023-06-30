@@ -102,6 +102,26 @@
               "value": "grass2"
             }
           ]
+        },
+        {
+          "id": 892,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "dirt"
+            }
+          ]
+        },
+        {
+          "id": 893,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "dirt2"
+            }
+          ]
         }
       ],
       "tilewidth": 32
