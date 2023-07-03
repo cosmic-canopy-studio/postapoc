@@ -99,18 +99,19 @@
 |   |   |   `-- controlMapping.json
 |   |   |-- data
 |   |   |   |-- events.ts
-|   |   |   |-- interfaces.ts
 |   |   |   `-- types.ts
 |   |   |-- scenes
 |   |   |   |-- bootScene.ts
 |   |   |   |-- mainScene.ts
 |   |   |   `-- titleScene.ts
 |   |   |-- systems
+|   |   |   |-- assetLoader.ts
 |   |   |   |-- controlSystem.ts
 |   |   |   |-- eventBus.ts
 |   |   |   |-- eventHandler.ts
 |   |   |   |-- inversify.config.ts
 |   |   |   |-- keyBindings.ts
+|   |   |   |-- tileProcessor.ts
 |   |   |   `-- universe.ts
 |   |   `-- utils
 |   |       `-- svgUtils.ts

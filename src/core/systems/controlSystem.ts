@@ -1,6 +1,7 @@
 import { Actions } from '@src/action/data/enums';
 import controlMappingJson from '@src/core/config/controlMapping.json';
-import { ControlMapping } from '@src/core/data/interfaces';
+
+import { ControlMapping } from '@src/core/data/types';
 import EventBus from '@src/core/systems/eventBus';
 import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
 import { EntityActions } from '@src/entity/data/enums';

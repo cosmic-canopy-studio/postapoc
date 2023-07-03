@@ -1,5 +1,6 @@
 import { Actions } from '@src/action/data/enums';
-import { ControlMapping } from '@src/core/data/interfaces';
+
+import { ControlMapping } from '@src/core/data/types';
 import { EntityActions } from '@src/entity/data/enums';
 import { MoveActions } from '@src/movement/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';
