@@ -9,6 +9,40 @@ import { createFallbackSVG } from '@src/core/utils/svgUtils';
 import logger from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
+interface Asset {
+  key: string;
+  url: string;
+  width?: number;
+  height?: number;
+}
+
+interface Tilemap extends Asset {
+  key: string;
+  type: 'tilemap';
+  url: string;
+  tilesets: Asset[];
+}
+
+interface TilesetProperty {
+  name: string;
+  value: string;
+}
+
+interface Tileset {
+  id: number;
+  name: string;
+  properties: TilesetProperty[];
+  tilewidth: number;
+  tileheight: number;
+  columns: number;
+  tiles: Tile[];
+}
+
+interface Tile {
+  id: number;
+  properties: TilesetProperty[];
+}
+
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
 
@@ -53,7 +87,7 @@ export default class BootScene extends Phaser.Scene {
     this.loadAssets(terrainAssets);
     this.loadAssets(menuAssets);
     this.loadAssets(uiAssets);
-    this.loadTilesetAssets(tilesetAssets);
+    this.loadTilesetAssets(tilesetAssets as Tilemap[]);
   }
 
   create() {
@@ -70,16 +104,27 @@ export default class BootScene extends Phaser.Scene {
     tilesetAssets.forEach((asset) => {
       const tilesetJson = this.cache.json.get(asset.key + 'Tilemap');
 
-      tilesetJson.tilesets.forEach((tileset) => {
+      tilesetJson.tilesets.forEach((tileset: Tileset) => {
+        console.log('Processing tileset: ', tileset);
         const image = this.textures.get(tileset.name).getSourceImage();
-        const tilesetImageCanvas = this.createCanvasFromImage(image);
+        console.log(
+          `Processing tileset ${
+            tileset.name
+          }. Texture cache state: ${this.textures.getTextureKeys()}`
+        ); // New log
+        const tilesetImageCanvas = this.createCanvasFromImage(
+          image as HTMLImageElement
+        );
         this.processTiles(tileset, tilesetImageCanvas);
       });
     });
   }
 
-  private processTiles(tileset, tilesetImageCanvas) {
-    tileset.tiles.forEach((tile, i, tiles) => {
+  private processTiles(
+    tileset: Tileset,
+    tilesetImageCanvas: HTMLCanvasElement
+  ) {
+    tileset.tiles.forEach((tile: Tile) => {
       if (
         tile.properties &&
         tile.properties.some((property) => property.name === 'type')
@@ -87,11 +132,15 @@ export default class BootScene extends Phaser.Scene {
         const typeProperty = tile.properties.find(
           (property) => property.name === 'type'
         );
-
+        if (!typeProperty) {
+          throw new Error('Tile property type not found');
+        } else {
+          console.log('typeProperty: ', typeProperty);
+        }
         this.processTile(
           typeProperty,
           tile,
-          tiles,
+          tileset.tiles,
           tileset,
           tilesetImageCanvas
         );
@@ -99,7 +148,13 @@ export default class BootScene extends Phaser.Scene {
     });
   }
 
-  private processTile(typeProperty, tile, tiles, tileset, tilesetImageCanvas) {
+  private processTile(
+    typeProperty: TilesetProperty,
+    tile: Tile,
+    tiles: Tile[],
+    tileset: Tileset,
+    tilesetImageCanvas: HTMLCanvasElement
+  ) {
     const match = typeProperty.value.match(/(.*)-(\d+)x(\d+)$/);
 
     if (match) {
@@ -107,25 +162,16 @@ export default class BootScene extends Phaser.Scene {
       const height = parseInt(match[2]);
       const width = parseInt(match[3]);
 
-      let combinedCanvas;
-      const targetTiles = [];
+      let combinedCanvas: HTMLCanvasElement;
+      const targetTiles: Tile[] = [];
       let canCombine = true;
 
       for (let h = 0; h < height; h++) {
         for (let w = 0; w < width; w++) {
           const nextTileTypeName = `${baseName}-${h + 1}x${w + 1}`;
           const nextTile = this.findNextTile(tiles, nextTileTypeName);
-          canCombine = this.pushTargetTile(targetTiles, nextTile, canCombine);
+          canCombine = this.pushTargetTile(targetTiles, nextTile);
         }
-      }
-
-      if (canCombine) {
-        combinedCanvas = this.combineTiles(
-          targetTiles,
-          width,
-          tileset,
-          tilesetImageCanvas
-        );
       }
 
       if (this.textures.exists(baseName)) {
@@ -136,6 +182,14 @@ export default class BootScene extends Phaser.Scene {
       }
 
       if (canCombine) {
+        console.log('can combine: ', baseName);
+        combinedCanvas = this.combineTiles(
+          targetTiles,
+          width,
+          tileset,
+          tilesetImageCanvas
+        );
+
         this.textures.addCanvas(baseName, combinedCanvas);
       }
     }
@@ -149,15 +203,16 @@ export default class BootScene extends Phaser.Scene {
     this.textures.addCanvas(baseName, tileImage);
   }
 
-  private findNextTile(tiles, typeName) {
-    return tiles.find((tile) =>
+  private findNextTile(tiles: Tile[], typeName: string) {
+    return tiles.find((tile: Tile) =>
       tile.properties.find(
-        (property) => property.name === 'type' && property.value === typeName
+        (property: TilesetProperty) =>
+          property.name === 'type' && property.value === typeName
       )
     );
   }
 
-  private pushTargetTile(targetTiles, tile) {
+  private pushTargetTile(targetTiles: Tile[], tile: Tile | undefined): boolean {
     if (tile) {
       targetTiles.push(tile);
       return true;
@@ -166,14 +221,23 @@ export default class BootScene extends Phaser.Scene {
     }
   }
 
-  private combineTiles(tiles, width, tileset, tilesetImageCanvas) {
+  private combineTiles(
+    tiles: Tile[],
+    width: number,
+    tileset: Tileset,
+    tilesetImageCanvas: HTMLCanvasElement
+  ): HTMLCanvasElement {
     const combinedCanvas = document.createElement('canvas');
     combinedCanvas.width = tileset.tilewidth * width;
     combinedCanvas.height = tileset.tileheight * (tiles.length / width);
 
     const context = combinedCanvas.getContext('2d');
 
-    tiles.forEach((tile, index) => {
+    if (!context) {
+      throw new Error('Could not get context from combined canvas');
+    }
+
+    tiles.forEach((tile: Tile, index: number) => {
       const tileImage = this.getTileImage(tile, tileset, tilesetImageCanvas);
       const row = Math.floor(index / width);
       const col = index % width;
@@ -193,14 +257,22 @@ export default class BootScene extends Phaser.Scene {
     return combinedCanvas;
   }
 
-  private getTileImage(tile, tileset, tilesetImageCanvas) {
+  private getTileImage(
+    tile: Tile,
+    tileset: Tileset,
+    tilesetImageCanvas: HTMLCanvasElement
+  ): HTMLCanvasElement {
     const [x, y] = this.getTileCoordinates(tile, tileset);
+    console.log(`Drawing tile with id ${tile.id} at coordinates (${x}, ${y})`); // New log
     const canvas = document.createElement('canvas');
     canvas.width = tileset.tilewidth;
     canvas.height = tileset.tileheight;
     console.log('tilesetImageCanvas in getTileImage', tilesetImageCanvas); // New log
     console.log('canvas in getTileImage', canvas); // New log
     const context = canvas.getContext('2d');
+    if (!context) {
+      throw new Error('Could not get context from combined canvas');
+    }
     context.drawImage(
       tilesetImageCanvas,
       x,
@@ -215,35 +287,38 @@ export default class BootScene extends Phaser.Scene {
     return canvas;
   }
 
-  private createCanvasFromImage(image) {
+  private createCanvasFromImage(image: HTMLImageElement): HTMLCanvasElement {
     console.log('Image in createCanvasFromImage: ', image); // New log
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
+    console.log('Canvas in createCanvasFromImage: ', canvas); // New log
     const context = canvas.getContext('2d');
+    if (!context) {
+      throw new Error('Could not get context from combined canvas');
+    }
     context.drawImage(image, 0, 0);
-
     return canvas;
   }
 
-  private getTileCoordinates(tile, tileset) {
+  private getTileCoordinates(tile: Tile, tileset: Tileset): [number, number] {
     const x = (tile.id % tileset.columns) * tileset.tilewidth;
     const y = Math.floor(tile.id / tileset.columns) * tileset.tileheight;
 
     return [x, y];
   }
 
-  private loadTilesetAssets(assets: any[]) {
-    assets.forEach((asset) => {
-      this.load.json(asset.key + 'Tilemap', asset.mapUrl);
+  private loadTilesetAssets(assets: Tilemap[]) {
+    assets.forEach((asset: Tilemap) => {
+      this.load.json(asset.key + 'Tilemap', asset.url);
       for (const tileset of asset.tilesets) {
-        this.load.image(tileset.name, tileset.url);
+        this.load.image(tileset.key, tileset.url);
       }
     });
   }
 
-  private loadAssets(assets: any[]) {
-    assets.forEach((asset) => {
+  private loadAssets(assets: Asset[]) {
+    assets.forEach((asset: Asset) => {
       const extension = asset.url.split('.').pop();
 
       switch (extension) {

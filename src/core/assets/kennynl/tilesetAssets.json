@@ -2,14 +2,14 @@
   {
     "key": "roguelike-city",
     "type": "tilemap",
-    "mapUrl": "assets/kennynl/roguelike-city.json",
+    "url": "assets/kennynl/roguelike-city.json",
     "tilesets": [
       {
-        "name": "roguelike-city",
+        "key": "roguelike-city",
         "url": "assets/kennynl/roguelike-city.png"
       },
       {
-        "name": "survival-items",
+        "key": "survival-items",
         "url": "assets/kennynl/survival-items.png"
       }
     ]

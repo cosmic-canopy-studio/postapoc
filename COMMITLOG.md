@@ -11,6 +11,7 @@
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **assets:** add sample tileset ([5e45668](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5e45668d1a9fe77684d9de7ca9f1adc611ac4db5))
+* **assets:** handle multiple tilesets ([c81e98d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c81e98da4e8351f559d66ca96c82373128520e5a))
 * **assets:** support 2-tile wide sprites ([fe3ccf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fe3ccf240e29f8db6041ef36a622f75e3eebb7b7))
 * **assets:** support n by n sized tiles for sprites ([d8f10f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d8f10f0d9e49938f2dc11302aade514318eb1952))
 * **assets:** support tilemaps, resource replacement, tiles as sprites ([63c1aa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63c1aa25101514c34843e90002036a038ffd981e))
