@@ -1,13 +1,13 @@
+import tilesetAssets from '@src/core/assets/kennynl/tilesetAssets.json';
 import itemAssets from '@src/core/assets/prototype/itemAssets.json';
 import menuAssets from '@src/core/assets/prototype/menuAssets.json';
 import objectAssets from '@src/core/assets/prototype/objectAssets.json';
 import terrainAssets from '@src/core/assets/prototype/terrainAssets.json';
 import uiAssets from '@src/core/assets/prototype/uiAssets.json';
-import tilesetAssets from '@src/core/assets/kennynl/tilesetAssets.json';
 
 import { createFallbackSVG } from '@src/core/utils/svgUtils';
-import Phaser from 'phaser';
 import logger from '@src/telemetry/systems/logger';
+import Phaser from 'phaser';
 
 export default class BootScene extends Phaser.Scene {
   private progressBar!: Phaser.GameObjects.Graphics;
@@ -69,14 +69,10 @@ export default class BootScene extends Phaser.Scene {
   private processTilesetAssets() {
     tilesetAssets.forEach((asset) => {
       const tilesetJson = this.cache.json.get(asset.key + 'Tilemap');
-      const image = this.textures.get(asset.key).getSourceImage();
-      console.log(`Asset: ${asset.key}, Image: `, image);
-
-      const tilesetImageCanvas = this.createCanvasFromImage(
-        this.textures.get(asset.key).getSourceImage()
-      );
 
       tilesetJson.tilesets.forEach((tileset) => {
+        const image = this.textures.get(tileset.name).getSourceImage();
+        const tilesetImageCanvas = this.createCanvasFromImage(image);
         this.processTiles(tileset, tilesetImageCanvas);
       });
     });
@@ -143,9 +139,6 @@ export default class BootScene extends Phaser.Scene {
         this.textures.addCanvas(baseName, combinedCanvas);
       }
     }
-
-    // handle single tile assets
-    //TODO: Handle dynamic texture variety sizes
 
     const baseName = typeProperty.value;
     if (this.textures.exists(baseName)) {
@@ -242,8 +235,10 @@ export default class BootScene extends Phaser.Scene {
 
   private loadTilesetAssets(assets: any[]) {
     assets.forEach((asset) => {
-      this.load.image(asset.key, asset.url);
       this.load.json(asset.key + 'Tilemap', asset.mapUrl);
+      for (const tileset of asset.tilesets) {
+        this.load.image(tileset.name, tileset.url);
+      }
     });
   }
 

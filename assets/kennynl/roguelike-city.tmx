@@ -47,6 +47,14 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="1037" name="survival-items" tilewidth="32" tileheight="32" tilecount="128" columns="16">
+  <image source="survival-items.png" width="512" height="256"/>
+  <tile id="16">
+   <properties>
+    <property name="type" value="hammer"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer id="1" name="Tile Layer 1" width="30" height="20">
   <data encoding="csv"/>
  </layer>
