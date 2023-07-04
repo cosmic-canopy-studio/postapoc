@@ -9,6 +9,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
+* **biome:** add example prefab biome ([1793feb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1793feb5aa9389df0c272f03d11a6a1fafd2ff26))
 * **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))

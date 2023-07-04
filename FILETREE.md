@@ -9,9 +9,10 @@
 |-- README.md
 |-- assets
 |   |-- biome
-|   |   |-- exterior.png
-|   |   |-- shelter.json
-|   |   `-- shelter.tmx
+|   |   `-- shelter
+|   |       |-- exterior.png
+|   |       |-- shelter.json
+|   |       `-- shelter.tmx
 |   |-- kennynl
 |   |   |-- License.txt
 |   |   |-- Tilesheet.txt
