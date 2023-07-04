@@ -1,8 +1,10 @@
 import { Tile, Tilemap, Tileset, TilesetProperty } from '@src/core/data/types';
-import logger from '@src/telemetry/systems/logger';
+import logger, { getLogger } from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
 export default class TileProcessor {
+  private logger = getLogger('core');
+
   constructor(private textures: Phaser.Textures.TextureManager) {}
 
   processTilesetAssets(
@@ -13,10 +15,10 @@ export default class TileProcessor {
       const tilesetJson = cache.json.get(asset.key + 'Tilemap');
 
       tilesetJson.tilesets.forEach((tileset: Tileset) => {
-        console.log('Processing tileset: ', tileset);
-        console.log('Textures: ', this.textures);
+        this.logger.debug('Processing tileset: ', tileset);
+        this.logger.debug('Textures: ', this.textures);
         const image = this.textures.get(tileset.name).getSourceImage();
-        console.log(
+        this.logger.debug(
           `Processing tileset ${
             tileset.name
           }. Texture cache state: ${this.textures.getTextureKeys()}`
@@ -44,7 +46,7 @@ export default class TileProcessor {
         if (!typeProperty) {
           throw new Error('Tile property type not found');
         } else {
-          console.log('typeProperty: ', typeProperty);
+          this.logger.debug('typeProperty: ', typeProperty);
         }
         this.processTile(
           typeProperty,
@@ -91,7 +93,7 @@ export default class TileProcessor {
       }
 
       if (canCombine) {
-        console.log('can combine: ', baseName);
+        this.logger.debug('can combine: ', baseName);
         combinedCanvas = this.combineTiles(
           targetTiles,
           width,
@@ -172,12 +174,14 @@ export default class TileProcessor {
     tilesetImageCanvas: HTMLCanvasElement
   ): HTMLCanvasElement {
     const [x, y] = this.getTileCoordinates(tile, tileset);
-    console.log(`Drawing tile with id ${tile.id} at coordinates (${x}, ${y})`); // New log
+    this.logger.debug(
+      `Drawing tile with id ${tile.id} at coordinates (${x}, ${y})`
+    ); // New log
     const canvas = document.createElement('canvas');
     canvas.width = tileset.tilewidth;
     canvas.height = tileset.tileheight;
-    console.log('tilesetImageCanvas in getTileImage', tilesetImageCanvas); // New log
-    console.log('canvas in getTileImage', canvas); // New log
+    this.logger.debug('tilesetImageCanvas in getTileImage', tilesetImageCanvas); // New log
+    this.logger.debug('canvas in getTileImage', canvas); // New log
     const context = canvas.getContext('2d');
     if (!context) {
       throw new Error('Could not get context from combined canvas');
@@ -197,11 +201,11 @@ export default class TileProcessor {
   }
 
   private createCanvasFromImage(image: HTMLImageElement): HTMLCanvasElement {
-    console.log('Image in createCanvasFromImage: ', image); // New log
+    this.logger.debug('Image in createCanvasFromImage: ', image); // New log
     const canvas = document.createElement('canvas');
     canvas.width = image.width;
     canvas.height = image.height;
-    console.log('Canvas in createCanvasFromImage: ', canvas); // New log
+    this.logger.debug('Canvas in createCanvasFromImage: ', canvas); // New log
     const context = canvas.getContext('2d');
     if (!context) {
       throw new Error('Could not get context from combined canvas');

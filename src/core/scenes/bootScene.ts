@@ -9,9 +9,11 @@ import AssetLoader from '@src/core/systems/assetLoader';
 import TileProcessor from '@src/core/systems/tileProcessor';
 
 import { createFallbackSVG } from '@src/core/utils/svgUtils';
+import { getLogger } from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
 export default class BootScene extends Phaser.Scene {
+  private logger = getLogger('core');
   private progressBar!: Phaser.GameObjects.Graphics;
   private tileProcessor!: TileProcessor;
   private assetLoader!: AssetLoader;
@@ -60,7 +62,7 @@ export default class BootScene extends Phaser.Scene {
         if (this.textures.exists(key)) {
           this.textures.remove(key);
         }
-        console.log(fallbackSVG);
+        this.logger.debug(fallbackSVG);
         this.load.svg(key, fallbackSVG);
         this.load.emit(Phaser.Loader.Events.FILE_COMPLETE, file);
       },

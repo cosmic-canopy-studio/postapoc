@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-03)
+## 0.0.1 (2023-07-04)
 
 
 ### Features
@@ -137,6 +137,7 @@
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * **assets:** break bootScene loader down in to simpler functions ([8a443e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8a443e646661782db4b7044f2acea763ba10f6f0))
+* **assets:** create tileProcessor and assetLoader classes to simplify bootScene ([6ae5743](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ae57435844a298ee86382574d1ad051371277e4))
 * **assets:** create types for assets and tilesets ([49b650e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/49b650ea9518e2019688cac2f3f14a38f7265222))
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))

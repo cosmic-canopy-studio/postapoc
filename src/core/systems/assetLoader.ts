@@ -1,7 +1,10 @@
 import { Asset, Tilemap } from '@src/core/data/types';
+import { getLogger } from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
 export default class AssetLoader {
+  private logger = getLogger('core');
+
   constructor(private load: Phaser.Loader.LoaderPlugin) {}
 
   loadTilesetAssets(assets: Tilemap[]) {
@@ -16,7 +19,7 @@ export default class AssetLoader {
   loadAssets(assets: Asset[]) {
     assets.forEach((asset: Asset) => {
       const extension = asset.url.split('.').pop();
-      console.log('Loading asset: ', asset);
+      this.logger.debug('Loading asset: ', asset);
       switch (extension) {
         case 'png':
           this.load.image(asset.key, asset.url);
@@ -28,8 +31,8 @@ export default class AssetLoader {
               height: asset.height,
             });
           } else {
-            console.log('Loading SVG without width and height: ', asset);
-            console.log(this.load);
+            this.logger.debug('Loading SVG without width and height: ', asset);
+            this.logger.debug(this.load);
             this.load.svg(asset.key, asset.url);
           }
           break;
