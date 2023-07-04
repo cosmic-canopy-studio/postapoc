@@ -1,11 +1,11 @@
-import { getLogger } from '@src/telemetry/systems/logger';
-import { DraggableScene } from './draggableScene';
 import controlMappingJson from '@src/core/config/controlMapping.json';
-import { ControlMapping } from '@src/core/data/interfaces';
+import { ControlMapping } from '@src/core/data/types';
 import {
   ITEM_TEXT_CONFIG,
   UPPER_RIGHT_DRAG_START_POSITION,
 } from '@src/entity/data/constants';
+import { getLogger } from '@src/telemetry/systems/logger';
+import { DraggableScene } from './draggableScene';
 
 export default class HelpScene extends DraggableScene {
   protected logger = getLogger('entity');

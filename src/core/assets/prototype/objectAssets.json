@@ -1,0 +1,38 @@
+[
+  {
+    "key": "tree",
+    "url": "assets/prototype/objects/tree.svg"
+  },
+  {
+    "key": "bench",
+    "url": "assets/prototype/objects/bench.svg"
+  },
+  {
+    "key": "stick",
+    "url": "assets/prototype/objects/stick.svg"
+  },
+  {
+    "key": "log",
+    "url": "assets/prototype/objects/log.svg"
+  },
+  {
+    "key": "rock",
+    "url": "assets/prototype/objects/rock.svg"
+  },
+  {
+    "key": "pipe",
+    "url": "assets/prototype/objects/pipe.svg"
+  },
+  {
+    "key": "board",
+    "url": "assets/prototype/objects/board.svg"
+  },
+  {
+    "key": "player",
+    "url": "assets/prototype/objects/player.svg"
+  },
+  {
+    "key": "door",
+    "url": "assets/prototype/objects/door.svg"
+  }
+]

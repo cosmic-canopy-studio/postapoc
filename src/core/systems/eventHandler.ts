@@ -1,5 +1,6 @@
 import ActionHandler from '@src/action/systems/actionHandler';
-import { IHandler } from '@src/core/data/interfaces';
+
+import { IHandler } from '@src/core/data/types';
 import EntityHandler from '@src/entity/systems/entityHandler';
 import EntityManager from '@src/entity/systems/entityManager';
 import UIHandler from '@src/entity/systems/uiHandler';
