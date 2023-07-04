@@ -8,6 +8,10 @@
 |-- PROMPT.md
 |-- README.md
 |-- assets
+|   |-- biome
+|   |   |-- exterior.png
+|   |   |-- shelter.json
+|   |   `-- shelter.tmx
 |   |-- kennynl
 |   |   |-- License.txt
 |   |   |-- Tilesheet.txt
@@ -196,11 +200,12 @@
 |-- tsconfig.json
 |-- utils
 |   |-- cdda_to_tiled.js
-|   |-- converted.json
-|   |-- original.json
-|   |-- tilemap_packed.png
-|   |-- tileset.json
-|   `-- tileset.png
+|   `-- examples
+|       |-- converted.json
+|       |-- original.json
+|       |-- tilemap_packed.png
+|       |-- tileset.json
+|       `-- tileset.png
 |-- vite.config.ts
 `-- yarn.lock
 

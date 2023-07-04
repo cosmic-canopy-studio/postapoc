@@ -3,18 +3,12 @@
 
 ### Features
 
-*  add jpg support to asset loader ([0a7df34](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/0a7df34f5e5cc760820a7bcbf4d74352d2ccd1de))
 * add attack action ([31fa593](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31fa59399e97e3ecea040562db98fd1b61fe23af))
 * add collision system ([ea1294b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ea1294b51721cae8f8199d78d7bed16ccb28c2dc))
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
-* **assets:** add sample tileset ([5e45668](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5e45668d1a9fe77684d9de7ca9f1adc611ac4db5))
-* **assets:** handle multiple tilesets ([c81e98d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c81e98da4e8351f559d66ca96c82373128520e5a))
-* **assets:** support 2-tile wide sprites ([fe3ccf2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fe3ccf240e29f8db6041ef36a622f75e3eebb7b7))
-* **assets:** support n by n sized tiles for sprites ([d8f10f0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d8f10f0d9e49938f2dc11302aade514318eb1952))
-* **assets:** support tilemaps, resource replacement, tiles as sprites ([63c1aa2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63c1aa25101514c34843e90002036a038ffd981e))
 * **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
@@ -36,6 +30,7 @@
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))
 * **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
+* tiled support ([#39](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/39)) ([6375629](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/637562946b321d6b3378b8d8cac3af0e47742a8c))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
 * **time:** add slow motion ([8e153f7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8e153f74e9c256980b597a335c65f04ec9e77885))
 * **time:** add slow motion ([593b25e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/593b25ea33e482c42249042806a08711e8a30afb))
@@ -44,7 +39,6 @@
 
 ### Bug Fixes
 
-* **assets:** support single tile texture replacement ([2165adc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2165adc6a06e68ff99cda461528b575793e2424a))
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
@@ -136,9 +130,6 @@
 ### Code Refactoring
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
-* **assets:** break bootScene loader down in to simpler functions ([8a443e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8a443e646661782db4b7044f2acea763ba10f6f0))
-* **assets:** create tileProcessor and assetLoader classes to simplify bootScene ([6ae5743](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ae57435844a298ee86382574d1ad051371277e4))
-* **assets:** create types for assets and tilesets ([49b650e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/49b650ea9518e2019688cac2f3f14a38f7265222))
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
@@ -146,7 +137,6 @@
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))
 * init conig ([46997fa](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/46997fa39d94c2acf0e3a0e9b7df33f89dc5c9f2))
-* move assets to named folder for future re-skinning feature ([9b54506](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/9b54506cd8076a3f400ef8df37c1eb8524b5b201))
 * move conventional-changelog config to file ([2ff3b4e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/2ff3b4eff8e226060b3a81d22c56e7c0f69f6a1b))
 * move files to correct subfolders ([d811f65](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d811f6515feb9fbc695a9792c6c27b953ba2f2ac))
 * move files to correct subfolders ([23a3e45](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/23a3e45e615c469b278e0c6ddba502839bb1c3ff))
