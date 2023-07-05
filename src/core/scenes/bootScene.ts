@@ -1,3 +1,4 @@
+import biomeJSONCache from '@src/biome/systems/biomeJSONCache';
 import tilesetAssets from '@src/core/assets/kennynl/tilesetAssets.json';
 import itemAssets from '@src/core/assets/prototype/itemAssets.json';
 import menuAssets from '@src/core/assets/prototype/menuAssets.json';
@@ -50,6 +51,14 @@ export default class BootScene extends Phaser.Scene {
     this.assetLoader.loadAssets(menuAssets);
     this.assetLoader.loadAssets(uiAssets);
     this.assetLoader.loadTilesetAssets(tilesetAssets as Tilemap[]);
+
+    this.load.on('complete', () => {
+      const shelterData = this.cache.json.get('shelterData');
+      console.log('bootScene Shelter Data:', shelterData);
+      biomeJSONCache.set('shelterData', shelterData);
+    });
+
+    this.load.json('shelterData', 'assets/biome/shelter/shelter.json');
   }
 
   private handleLoadErrors() {

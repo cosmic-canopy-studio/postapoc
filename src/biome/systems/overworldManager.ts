@@ -67,8 +67,10 @@ function getBiomeBasedOnHeight(biomes: Record<string, Biome>, height: number) {
   let biome;
   if (height < grasslandMaxHeight) {
     biome = biomes['grassland'];
-  } else {
+  } else if (height < 0.8) {
     biome = biomes['forest'];
+  } else {
+    biome = biomes['shelter'];
   }
   return biome;
 }

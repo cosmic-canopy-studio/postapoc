@@ -28,9 +28,20 @@ export const forestBiome: Biome = {
   items: [{ name: 'rock', weight: 1 }],
 };
 
+export const shelterBiome: Biome = {
+  name: 'shelter',
+  terrains: [
+    { name: 'shelter', weight: 100 },
+    { name: 'grass', weight: 0 },
+  ],
+  objects: [],
+  items: [],
+};
+
 const biomes: Record<string, Biome> = {
   grassland: grasslandBiome,
   forest: forestBiome,
+  shelter: shelterBiome,
 };
 
 export default biomes;

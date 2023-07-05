@@ -11,8 +11,7 @@
 |   |-- biome
 |   |   `-- shelter
 |   |       |-- exterior.png
-|   |       |-- shelter.json
-|   |       `-- shelter.tmx
+|   |       `-- shelter.json
 |   |-- kennynl
 |   |   |-- License.txt
 |   |   |-- Tilesheet.txt
@@ -87,6 +86,7 @@
 |   |   |   |-- enums.ts
 |   |   |   `-- interfaces.ts
 |   |   `-- systems
+|   |       |-- biomeJSONCache.ts
 |   |       |-- biomeManager.ts
 |   |       `-- overworldManager.ts
 |   |-- core
