@@ -138,6 +138,7 @@
 * **assets:** update player sprite, convert logging to logger ([cd52b42](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cd52b4267a403fdd0a449c5ccd83d846f1a9041d))
 * **biome:** increase map size ([92870bb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/92870bb922dd9540efaf48f02afcd1a492375433))
 * **biome:** move files to named subfolder ([adbc3c0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/adbc3c011d28a8ebba51c64138168ffdc920fd94))
+* **biome:** shelter and player spawn in the middle of the map ([5a439b9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a439b9d906d1dde33f96715613fcb9f39242597))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))

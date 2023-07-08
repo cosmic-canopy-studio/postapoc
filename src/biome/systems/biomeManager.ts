@@ -95,27 +95,27 @@ function generateShelterSubmap(
 
   for (let x = 0; x < mapWidth; x++) {
     for (let y = 0; y < mapHeight; y++) {
-      let terrainId = 'grass'; // Default to grass
+      let terrainType = 'grass'; // Default to grass
       if (
         x >= startX &&
         x < startX + shelterData.width &&
         y >= startY &&
         y < startY + shelterData.height
       ) {
-        terrainId =
+        const tileId =
           shelterData.layers[0].data[
             x - startX + (y - startY) * shelterData.width
           ];
-        terrainId = tileIdToType[terrainId];
-        if (!terrainId) {
-          terrainId = 'grass';
+        terrainType = tileIdToType[tileId];
+        if (!terrainType) {
+          terrainType = 'grass';
         }
       }
 
       terrains.push({
         x: x * tileSize + originX,
         y: y * tileSize + originY,
-        id: terrainId,
+        id: terrainType,
       });
     }
   }
