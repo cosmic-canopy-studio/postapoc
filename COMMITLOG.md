@@ -169,4 +169,5 @@
 * streamline handler, manager, and factory behavior ([#34](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/34)) ([37c3144](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/37c31442e98f4a1db445a3d3cc09d5855c71ab43))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
+* **time:** update phrasing for clarity of meaning ([6dcd5ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6dcd5acd4e674f647e4103fae07ef8455bbd6ca3))
 
