@@ -12,8 +12,8 @@ const grasslandMaxHeight = 0.6; // heights below this value will be grassland
 
 export function generateOvermap(
   biomes: Record<string, Biome>,
-  overmapWidth = 2, // width of the overmap in submaps
-  overmapHeight = 2, // height of the overmap in submaps
+  overmapWidth = 5, // width of the overmap in submaps
+  overmapHeight = 5, // height of the overmap in submaps
   submapWidth = 50, // width of a submap in tiles
   submapHeight = 50, // height of a submap in tiles
   tileSize = 32
