@@ -135,6 +135,7 @@
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
+* **biome:** increase map size ([92870bb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/92870bb922dd9540efaf48f02afcd1a492375433))
 * **biome:** move files to named subfolder ([adbc3c0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/adbc3c011d28a8ebba51c64138168ffdc920fd94))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))

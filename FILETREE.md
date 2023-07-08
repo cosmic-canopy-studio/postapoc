@@ -13,8 +13,10 @@
 |   |       |-- exterior.png
 |   |       `-- shelter.json
 |   |-- kennynl
-|   |   |-- License.txt
 |   |   |-- Tilesheet.txt
+|   |   |-- licenses.md
+|   |   |-- player.png
+|   |   |-- playerSheet.png
 |   |   |-- roguelike-city.json
 |   |   |-- roguelike-city.png
 |   |   |-- roguelike-city.tmx
@@ -92,6 +94,7 @@
 |   |-- core
 |   |   |-- assets
 |   |   |   |-- kennynl
+|   |   |   |   |-- objectAssets.json
 |   |   |   |   `-- tilesetAssets.json
 |   |   |   `-- prototype
 |   |   |       |-- itemAssets.json

@@ -28,7 +28,7 @@
     "url": "assets/prototype/objects/board.svg"
   },
   {
-    "key": "player",
+    "key": "fallbackPlayer",
     "url": "assets/prototype/objects/player.svg"
   },
   {

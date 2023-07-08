@@ -29,6 +29,12 @@ export default class CreatureFactory implements IEntityFactory {
 
   public createEntity(x: number, y: number, creatureId: string): number {
     let name;
+    if (!this.scene.textures.exists(creatureId)) {
+      this.logger.error(
+        `Texture ${creatureId} does not exist!`,
+        this.scene.textures
+      );
+    }
     if (creatureId === 'player') {
       name = 'Survivor';
     } else {

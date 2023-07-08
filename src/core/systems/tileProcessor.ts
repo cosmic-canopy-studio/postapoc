@@ -1,5 +1,5 @@
 import { Tile, Tilemap, Tileset, TilesetProperty } from '@src/core/data/types';
-import logger, { getLogger } from '@src/telemetry/systems/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
 export default class TileProcessor {
@@ -88,7 +88,7 @@ export default class TileProcessor {
       }
 
       if (this.textures.exists(baseName)) {
-        logger.info(
+        this.logger.info(
           `Removing existing texture ${baseName} in favor of tileset texture`
         );
         this.textures.remove(baseName);
@@ -109,7 +109,7 @@ export default class TileProcessor {
 
     const baseName = typeProperty.value;
     if (this.textures.exists(baseName)) {
-      logger.info(`Removing existing texture ${baseName}`);
+      this.logger.debug(`Removing existing texture ${baseName}`);
       this.textures.remove(baseName);
     }
     const tileImage = this.getTileImage(tile, tileset, tilesetImageCanvas);

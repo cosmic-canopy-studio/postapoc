@@ -7,6 +7,7 @@ import {
 } from '@src/biome/data/interfaces';
 import biomeJSONCache from '@src/biome/systems/biomeJSONCache';
 import { Tile } from '@src/core/data/types';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { createNoise2D } from 'simplex-noise';
 
 const noise2D = createNoise2D();
@@ -87,7 +88,7 @@ function generateShelterSubmap(
     }
   });
 
-  console.log('shelterData: ', shelterData);
+  getLogger('biome').debug('shelterData: ', shelterData);
 
   const startX = Math.floor((mapWidth - shelterData.width) / 2);
   const startY = Math.floor((mapHeight - shelterData.height) / 2);
