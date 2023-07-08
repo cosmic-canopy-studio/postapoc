@@ -1,3 +1,10 @@
+import {
+  STARTING_X,
+  STARTING_Y,
+  SUBMAP_HEIGHT,
+  SUBMAP_WIDTH,
+  TILE_SIZE,
+} from '@src/biome/data/constants';
 import EventHandler from '@src/core/systems/eventHandler';
 import EntityManager from '@src/entity/systems/entityManager';
 import { getLogger } from '@src/telemetry/systems/logger';
@@ -33,7 +40,9 @@ export default class Universe {
     this.timeController = new PhaserTimeController(this.scene);
 
     this.entityManager.spawnOvermap();
-    this.entityManager.spawnPlayer(400, 300, 'player');
+    const spawnX = (STARTING_X + 0.5) * SUBMAP_WIDTH * TILE_SIZE;
+    const spawnY = (STARTING_Y + 0.5) * SUBMAP_HEIGHT * TILE_SIZE;
+    this.entityManager.spawnPlayer(spawnX, spawnY, 'player');
 
     this.logger.info('Universe created');
   }
