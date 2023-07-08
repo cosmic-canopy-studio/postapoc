@@ -58,4 +58,8 @@ export default class Universe {
   getTimeState() {
     return this.timeSystem.getTimeState();
   }
+
+  getTimeFactor() {
+    return this.timeSystem.getTimeFactor();
+  }
 }

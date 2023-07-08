@@ -45,9 +45,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private updateTimeStateText() {
-    const timeState = this.universe.getTimeState();
-    this.timeStateText.setText(
-      `time speed: ${TimeState[timeState].toLowerCase()}`
-    );
+    const timeState = this.universe.getTimeFactor();
+    this.timeStateText.setText(`time factor: ${timeState}x`);
   }
 }
