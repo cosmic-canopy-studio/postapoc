@@ -1,5 +1,5 @@
 import { Tile, Tilemap, Tileset, TilesetProperty } from '@src/core/data/types';
-import logger, { getLogger } from '@src/telemetry/systems/logger';
+import { getLogger } from '@src/telemetry/systems/logger';
 import Phaser from 'phaser';
 
 export default class TileProcessor {
@@ -44,10 +44,12 @@ export default class TileProcessor {
           (property) => property.name === 'type'
         );
         if (!typeProperty) {
-          throw new Error('Tile property type not found');
+          this.logger.warn('Tile property type not found for tile', tile);
+          return;
         } else {
           this.logger.debug('typeProperty: ', typeProperty);
         }
+
         this.processTile(
           typeProperty,
           tile,
@@ -86,7 +88,7 @@ export default class TileProcessor {
       }
 
       if (this.textures.exists(baseName)) {
-        logger.info(
+        this.logger.info(
           `Removing existing texture ${baseName} in favor of tileset texture`
         );
         this.textures.remove(baseName);
@@ -107,7 +109,7 @@ export default class TileProcessor {
 
     const baseName = typeProperty.value;
     if (this.textures.exists(baseName)) {
-      logger.info(`Removing existing texture ${baseName}`);
+      this.logger.debug(`Removing existing texture ${baseName}`);
       this.textures.remove(baseName);
     }
     const tileImage = this.getTileImage(tile, tileset, tilesetImageCanvas);
@@ -215,8 +217,12 @@ export default class TileProcessor {
   }
 
   private getTileCoordinates(tile: Tile, tileset: Tileset): [number, number] {
-    const x = (tile.id % tileset.columns) * tileset.tilewidth;
-    const y = Math.floor(tile.id / tileset.columns) * tileset.tileheight;
+    // Mask to remove the flipping and rotating bits
+    const cleanTileId = tile.id & ~((1 << 31) | (1 << 30) | (1 << 29));
+
+    const adjustedTileId = cleanTileId - 1;
+    const x = (adjustedTileId % tileset.columns) * tileset.tilewidth;
+    const y = Math.floor(adjustedTileId / tileset.columns) * tileset.tileheight;
 
     return [x, y];
   }

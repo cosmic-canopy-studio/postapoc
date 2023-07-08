@@ -8,9 +8,15 @@
 |-- PROMPT.md
 |-- README.md
 |-- assets
+|   |-- biome
+|   |   `-- shelter
+|   |       |-- exterior.png
+|   |       `-- shelter.json
 |   |-- kennynl
-|   |   |-- License.txt
 |   |   |-- Tilesheet.txt
+|   |   |-- licenses.md
+|   |   |-- player.png
+|   |   |-- playerSheet.png
 |   |   |-- roguelike-city.json
 |   |   |-- roguelike-city.png
 |   |   |-- roguelike-city.tmx
@@ -79,14 +85,16 @@
 |   |-- biome
 |   |   |-- data
 |   |   |   |-- biomes.ts
-|   |   |   |-- enums.ts
+|   |   |   |-- constants.ts
 |   |   |   `-- interfaces.ts
 |   |   `-- systems
+|   |       |-- biomeJSONCache.ts
 |   |       |-- biomeManager.ts
 |   |       `-- overworldManager.ts
 |   |-- core
 |   |   |-- assets
 |   |   |   |-- kennynl
+|   |   |   |   |-- objectAssets.json
 |   |   |   |   `-- tilesetAssets.json
 |   |   |   `-- prototype
 |   |   |       |-- itemAssets.json
@@ -196,11 +204,12 @@
 |-- tsconfig.json
 |-- utils
 |   |-- cdda_to_tiled.js
-|   |-- converted.json
-|   |-- original.json
-|   |-- tilemap_packed.png
-|   |-- tileset.json
-|   `-- tileset.png
+|   `-- examples
+|       |-- converted.json
+|       |-- original.json
+|       |-- tilemap_packed.png
+|       |-- tileset.json
+|       `-- tileset.png
 |-- vite.config.ts
 `-- yarn.lock
 

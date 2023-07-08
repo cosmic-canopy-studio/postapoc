@@ -46,7 +46,7 @@ export default class EntityHandler {
 
   onSwitchFocus(payload: EntityIDPayload) {
     const { entityId } = payload;
-    console.log('switching focus for entity:', entityId);
+    this.logger.info('switching focus for entity:', entityId);
     this.entityManager.switchFocus(entityId);
   }
 

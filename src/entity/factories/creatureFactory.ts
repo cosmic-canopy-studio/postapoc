@@ -5,6 +5,10 @@ import {
   addPhaserSprite,
   getSprite,
 } from '@src/entity/components/phaserSprite';
+import {
+  DEFAULT_CREATURE_HEIGHT,
+  DEFAULT_CREATURE_WIDTH,
+} from '@src/entity/data/constants';
 import { IEntityFactory } from '@src/entity/data/interfaces';
 import {
   getEntityNameWithID,
@@ -29,6 +33,12 @@ export default class CreatureFactory implements IEntityFactory {
 
   public createEntity(x: number, y: number, creatureId: string): number {
     let name;
+    if (!this.scene.textures.exists(creatureId)) {
+      this.logger.error(
+        `Texture ${creatureId} does not exist!`,
+        this.scene.textures
+      );
+    }
     if (creatureId === 'player') {
       name = 'Survivor';
     } else {
@@ -37,6 +47,7 @@ export default class CreatureFactory implements IEntityFactory {
     const creature = addEntity(this.world);
     const sprite = this.scene.add.sprite(x, y, creatureId);
     sprite.setOrigin(0, 0).setDepth(10);
+    sprite.setDisplaySize(DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
     addPhaserSprite(this.world, creature, sprite);
     addMovement(this.world, creature, x, y, 0, 0);
     addHealth(this.world, creature, 100, 100);

@@ -42,6 +42,7 @@ export function getItemDetails(itemId: string) {
 }
 
 export function getStaticObjectDetails(staticObjectId: string) {
+  getLogger('entity').debugVerbose('Static object id:', staticObjectId);
   const staticObject = StaticObjectMap.get(staticObjectId.toLowerCase());
   if (!staticObject) {
     throw new Error(

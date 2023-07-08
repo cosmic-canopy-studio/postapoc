@@ -1,13 +1,13 @@
-import { getLogger } from '@src/telemetry/systems/logger';
 import EventBus from '@src/core/systems/eventBus';
-import { injectable } from 'inversify';
+import { getLogger } from '@src/telemetry/systems/logger';
 
 import { ITimeSystem } from '@src/time/data/interfaces';
+import { injectable } from 'inversify';
 
 export enum TimeState {
   PAUSED = 0,
-  RUNNING = 1,
-  SLOW_MOTION = 0.5,
+  NORMAL = 1,
+  SLOW = 0.5,
 }
 
 @injectable()
@@ -18,7 +18,7 @@ export class TimeSystem implements ITimeSystem {
   private lastUpdateTime: number;
 
   constructor() {
-    this.timeState = TimeState.RUNNING;
+    this.timeState = TimeState.NORMAL;
     this.setTimeFactor(this.timeState);
     this.lastUpdateTime = Date.now();
     EventBus.on('togglePause', this.togglePause.bind(this));
@@ -55,15 +55,13 @@ export class TimeSystem implements ITimeSystem {
 
   togglePause() {
     this.setTimeState(
-      this.timeState === TimeState.PAUSED ? TimeState.RUNNING : TimeState.PAUSED
+      this.timeState === TimeState.PAUSED ? TimeState.NORMAL : TimeState.PAUSED
     );
   }
 
   toggleSlowTime() {
     this.setTimeState(
-      this.timeState === TimeState.SLOW_MOTION
-        ? TimeState.RUNNING
-        : TimeState.SLOW_MOTION
+      this.timeState === TimeState.SLOW ? TimeState.NORMAL : TimeState.SLOW
     );
   }
 }

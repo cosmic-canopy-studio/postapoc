@@ -3,6 +3,7 @@ import {
   addPhaserSprite,
   getSprite,
 } from '@src/entity/components/phaserSprite';
+import { DEFAULT_ITEM_SIZE } from '@src/entity/data/constants';
 import { IEntityFactory } from '@src/entity/data/interfaces';
 import itemsData from '@src/entity/data/items.json';
 import { Item } from '@src/entity/data/types';
@@ -43,6 +44,7 @@ export default class ItemFactory implements IEntityFactory {
 
     const itemEntityId = addEntity(this.world);
     const sprite = this.scene.add.sprite(x, y, selectedTexture);
+    sprite.setDisplaySize(DEFAULT_ITEM_SIZE, DEFAULT_ITEM_SIZE);
     sprite.setOrigin(0, 0);
     sprite.setActive(true);
     sprite.setVisible(true);

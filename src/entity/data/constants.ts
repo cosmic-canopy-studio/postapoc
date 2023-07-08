@@ -18,3 +18,6 @@ export const UN_CRAFTABLE_ITEM_TEXT_CONFIG = { color: 'orange' };
 export const TITLE_TEXT_CONFIG = { color: 'white' };
 export const PADDING = 10;
 export const MARGIN_Y = 20;
+export const DEFAULT_ITEM_SIZE = 24;
+export const DEFAULT_CREATURE_WIDTH = 24;
+export const DEFAULT_CREATURE_HEIGHT = 32;

@@ -1,147 +1,299 @@
-{ "compressionlevel":-1,
- "editorsettings":
+{
+  "compressionlevel": -1,
+  "editorsettings": {
+    "chunksize": {
+      "height": 32,
+      "width": 32
+    }
+  },
+  "height": 20,
+  "infinite": true,
+  "layers": [
     {
-     "chunksize":
+      "chunks": [],
+      "height": 0,
+      "id": 1,
+      "name": "Tile Layer 1",
+      "opacity": 1,
+      "startx": 0,
+      "starty": 0,
+      "type": "tilelayer",
+      "visible": true,
+      "width": 0,
+      "x": 0,
+      "y": 0
+    }
+  ],
+  "nextlayerid": 2,
+  "nextobjectid": 1,
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "tiledversion": "1.10.1",
+  "tileheight": 32,
+  "tilesets": [
+    {
+      "columns": 37,
+      "firstgid": 1,
+      "image": "roguelike-city.png",
+      "imageheight": 896,
+      "imagewidth": 1184,
+      "margin": 0,
+      "name": "roguelike-city",
+      "spacing": 0,
+      "tilecount": 1036,
+      "tileheight": 32,
+      "tiles": [
         {
-         "height":32,
-         "width":32
+          "id": 402,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "tree-1x1"
+            }
+          ]
+        },
+        {
+          "id": 439,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "tree-2x1"
+            }
+          ]
+        },
+        {
+          "id": 573,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "bench-1x1"
+            }
+          ]
+        },
+        {
+          "id": 574,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "bench-1x2"
+            }
+          ]
+        },
+        {
+          "id": 889,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 890,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "grass2"
+            }
+          ]
+        },
+        {
+          "id": 893,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "dirt"
+            }
+          ]
+        },
+        {
+          "id": 894,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "dirt2"
+            }
+          ]
+        },
+        {
+          "id": 188,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "brick_wall"
+            }
+          ]
+        },
+        {
+          "id": 324,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "console"
+            }
+          ]
+        },
+        {
+          "id": 393,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "stairs"
+            }
+          ]
+        },
+        {
+          "id": 575,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "bench_vertical"
+            }
+          ]
+        },
+        {
+          "id": 617,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "locker"
+            }
+          ]
+        },
+        {
+          "id": 669,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "gutter_downspout"
+            }
+          ]
+        },
+        {
+          "id": 676,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "counter"
+            }
+          ]
+        },
+        {
+          "id": 744,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "floor"
+            }
+          ]
+        },
+        {
+          "id": 715,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "pavement"
+            }
+          ]
+        },
+        {
+          "id": 731,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "window_domestic"
+            }
+          ]
+        },
+        {
+          "id": 754,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "pavement_y"
+            }
+          ]
+        },
+        {
+          "id": 803,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "door_closed"
+            }
+          ]
+        },
+        {
+          "id": 889,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 892,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "sidewalk"
+            }
+          ]
         }
+      ],
+      "tilewidth": 32
     },
- "height":20,
- "infinite":true,
- "layers":[
+    {
+      "columns": 16,
+      "firstgid": 1037,
+      "image": "survival-items.png",
+      "imageheight": 256,
+      "imagewidth": 512,
+      "margin": 0,
+      "name": "survival-items",
+      "spacing": 0,
+      "tilecount": 128,
+      "tileheight": 32,
+      "tiles": [
         {
-         "chunks":[],
-         "height":0,
-         "id":1,
-         "name":"Tile Layer 1",
-         "opacity":1,
-         "startx":0,
-         "starty":0,
-         "type":"tilelayer",
-         "visible":true,
-         "width":0,
-         "x":0,
-         "y":0
-        }],
- "nextlayerid":2,
- "nextobjectid":1,
- "orientation":"orthogonal",
- "renderorder":"right-down",
- "tiledversion":"1.10.1",
- "tileheight":32,
- "tilesets":[
-        {
-         "columns":37,
-         "firstgid":1,
-         "image":"roguelike-city.png",
-         "imageheight":896,
-         "imagewidth":1184,
-         "margin":0,
-         "name":"roguelike-city",
-         "spacing":0,
-         "tilecount":1036,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":401,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"tree-1x1"
-                        }]
-                }, 
-                {
-                 "id":438,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"tree-2x1"
-                        }]
-                }, 
-                {
-                 "id":572,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"bench-1x1"
-                        }]
-                }, 
-                {
-                 "id":573,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"bench-1x2"
-                        }]
-                }, 
-                {
-                 "id":888,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"grass"
-                        }]
-                }, 
-                {
-                 "id":889,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"grass2"
-                        }]
-                }, 
-                {
-                 "id":892,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"dirt"
-                        }]
-                }, 
-                {
-                 "id":893,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"dirt2"
-                        }]
-                }],
-         "tilewidth":32
-        }, 
-        {
-         "columns":16,
-         "firstgid":1037,
-         "image":"survival-items.png",
-         "imageheight":256,
-         "imagewidth":512,
-         "margin":0,
-         "name":"survival-items",
-         "spacing":0,
-         "tilecount":128,
-         "tileheight":32,
-         "tiles":[
-                {
-                 "id":16,
-                 "properties":[
-                        {
-                         "name":"type",
-                         "type":"string",
-                         "value":"hammer"
-                        }]
-                }],
-         "tilewidth":32
-        }],
- "tilewidth":32,
- "type":"map",
- "version":"1.10",
- "width":30
+          "id": 17,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "hammer"
+            }
+          ]
+        }
+      ],
+      "tilewidth": 32
+    }
+  ],
+  "tilewidth": 32,
+  "type": "map",
+  "version": "1.10",
+  "width": 30
 }
