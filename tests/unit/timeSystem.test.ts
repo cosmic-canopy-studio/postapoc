@@ -8,10 +8,10 @@ describe('Time System', () => {
     timeSystem.setTimeState(TimeState.PAUSED);
     expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(0);
 
-    timeSystem.setTimeState(TimeState.RUNNING);
+    timeSystem.setTimeState(TimeState.NORMAL);
     expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(1);
 
-    timeSystem.setTimeState(TimeState.SLOW_MOTION);
+    timeSystem.setTimeState(TimeState.SLOW);
     expect(timeSystem.getAdjustedDeltaTime(deltaTime)).toBe(0.5);
   });
 });
