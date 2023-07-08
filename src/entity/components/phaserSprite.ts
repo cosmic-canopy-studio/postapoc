@@ -54,9 +54,9 @@ export function updateSpriteColliderBounds(entityId: number) {
   }
   const bounds = sprite.getBounds();
 
-  Collider.minX[entityId] = bounds.x;
+  Collider.minX[entityId] = bounds.x + 2;
   Collider.minY[entityId] = bounds.y + sprite.height / 2;
-  Collider.maxX[entityId] = bounds.right; // x + width
+  Collider.maxX[entityId] = bounds.right - 2; // x + width
   Collider.maxY[entityId] = bounds.bottom; // y + height
   logger.debugVerbose(`Updated collider bounds for entity ${entityId}`);
 }
