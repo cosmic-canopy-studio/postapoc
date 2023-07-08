@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-05)
+## 0.0.1 (2023-07-08)
 
 
 ### Features
@@ -11,6 +11,7 @@
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
 * **biome:** add example prefab biome ([1793feb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1793feb5aa9389df0c272f03d11a6a1fafd2ff26))
 * **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
+* **biome:** implement tiled based biome: shelter ([fa6e6df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fa6e6dfcb9ac3104d932f706b6d513517911e3f2))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * **crafting:** implement recipes ([#31](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/31)) ([324d07b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/324d07ba94ae02ff77633452ee112a8b0e165bf8))
