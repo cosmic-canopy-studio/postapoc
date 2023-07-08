@@ -142,6 +142,7 @@
 * **biome:** shelter and player spawn in the middle of the map ([5a439b9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a439b9d906d1dde33f96715613fcb9f39242597))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
+* **entity:** modify player size and collision box for better building navigation ([ccf49c7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ccf49c7a96c708dafcd6d65a0012273a030fe1c6))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))

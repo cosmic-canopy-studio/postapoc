@@ -270,7 +270,7 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0
+    "collisionModifier": 0.5
   },
   {
     "id": "stairs",
@@ -293,7 +293,7 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 1
+    "collisionModifier": 0.8
   },
   {
     "id": "gutter_downspout",
@@ -363,5 +363,28 @@
     ],
     "focusExempt": false,
     "collisionModifier": 0
+  },
+  {
+    "id": "counter",
+    "name": "Counter",
+    "textures": [
+      "counter"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.5
   }
 ]

@@ -86,7 +86,6 @@
 |   |   |-- data
 |   |   |   |-- biomes.ts
 |   |   |   |-- constants.ts
-|   |   |   |-- enums.ts
 |   |   |   `-- interfaces.ts
 |   |   `-- systems
 |   |       |-- biomeJSONCache.ts
