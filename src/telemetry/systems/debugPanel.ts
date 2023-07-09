@@ -1,5 +1,6 @@
 import EventBus from '@src/core/systems/eventBus';
-import Movement, { IMovement } from '@src/movement/components/movement';
+import Motion, { IMotion } from '@src/movement/components/motion';
+import Position, { IPosition } from '@src/movement/components/position';
 import debug from '@src/telemetry/config/debug.json';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { Logger } from 'loglevel';
@@ -12,11 +13,13 @@ export default class DebugPanel {
   private readonly events: Record<string, boolean>;
   private playerFolder: any;
   private player!: number;
-  private playerPosition: IMovement = {
-    x: 0,
-    y: 0,
+  private playerMotion: IMotion = {
     xSpeed: 0,
     ySpeed: 0,
+  };
+  private playerPosition: IPosition = {
+    x: 0,
+    y: 0,
   };
 
   constructor() {
@@ -78,10 +81,10 @@ export default class DebugPanel {
   }
 
   private updatePlayerPosition() {
-    this.playerPosition.x = Movement.x[this.player];
-    this.playerPosition.y = Movement.y[this.player];
-    this.playerPosition.xSpeed = Movement.xSpeed[this.player];
-    this.playerPosition.ySpeed = Movement.ySpeed[this.player];
+    this.playerPosition.x = Position.x[this.player];
+    this.playerPosition.y = Position.y[this.player];
+    this.playerMotion.xSpeed = Motion.xSpeed[this.player];
+    this.playerMotion.ySpeed = Motion.ySpeed[this.player];
   }
 
   private setupPlayerDebug() {
@@ -91,8 +94,8 @@ export default class DebugPanel {
       this.playerFolder = this.pane.addFolder({ title: 'Player' });
       this.playerFolder.addMonitor(this.playerPosition, 'x');
       this.playerFolder.addMonitor(this.playerPosition, 'y');
-      this.playerFolder.addMonitor(this.playerPosition, 'xSpeed');
-      this.playerFolder.addMonitor(this.playerPosition, 'ySpeed');
+      this.playerFolder.addMonitor(this.playerMotion, 'xSpeed');
+      this.playerFolder.addMonitor(this.playerMotion, 'ySpeed');
     }
   }
 

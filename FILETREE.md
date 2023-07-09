@@ -160,7 +160,8 @@
 |   |-- movement
 |   |   |-- components
 |   |   |   |-- collider.ts
-|   |   |   `-- movement.ts
+|   |   |   |-- motion.ts
+|   |   |   `-- position.ts
 |   |   |-- data
 |   |   |   |-- constants.ts
 |   |   |   |-- enums.ts

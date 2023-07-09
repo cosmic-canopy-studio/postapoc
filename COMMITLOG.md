@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-08)
+## 0.0.1 (2023-07-09)
 
 
 ### Features
@@ -9,10 +9,7 @@
 * add config with debug toggle, ability to skip intro ([020d3e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/020d3e69bc2e5116246079cb37b04d47c5bd92d1))
 * add placeholder image for missing assets ([c5db639](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/c5db639252d44bccd2b6f419fccd76ab5aae2d81))
 * add title screen ([4bc4a62](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4bc4a6217db44bb4f2156251dbd882c0322b9c41))
-* **biome:** add example prefab biome ([1793feb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1793feb5aa9389df0c272f03d11a6a1fafd2ff26))
 * **biome:** biome and overworld generation ([#37](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/37)) ([33b9d57](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/33b9d57c6bd419f03dc216772f06d6d89f026cec))
-* **biome:** implement tiled based biome: shelter ([fa6e6df](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fa6e6dfcb9ac3104d932f706b6d513517911e3f2))
-* **biome:** populate objects from tiled objects layer ([3e6bad9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/3e6bad996e155768d1c7db9d64711d6e16473b63))
 * collider ([57609dc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57609dccc238981e0f2f2b79efa9fd128a2c3e1e))
 * collider ([59f99e3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/59f99e3245e458d61d063af0db947cdc5ac49afe))
 * **crafting:** implement recipes ([#31](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/31)) ([324d07b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/324d07ba94ae02ff77633452ee112a8b0e165bf8))
@@ -22,7 +19,6 @@
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * **entity:** implement crafting ui, make windows draggable ([#32](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/32)) ([63644a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63644a91f37b935d9c31e148cfeeea94e648347c))
 * **entity:** implement switch focus functionality ([#35](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/35)) ([ba32400](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ba32400fc5198a945c61de1825028baa69652f37))
-* **entity:** narrow creature collision width ([cf992b1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cf992b1f54f8548ff364589b645c9b1e5b675706))
 * health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([1035d98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1035d987085ff1355a2f09e3c306b377af7abe92))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([57aafc1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/57aafc19cd0a110dbfb7acfe668244ea5981798d))
@@ -43,8 +39,6 @@
 
 ### Bug Fixes
 
-* **assets:** accommodate for Tiled count from 1 numbering ([554e5fe](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/554e5feca8a8855d3bdf9247e5b5ad1fdfff7bc8))
-* **assets:** fix layer wrapping ([cd8013c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cd8013cbed54ec1f1a38ab95825db9f5c670925d))
 * collision no longer causes sync issues between sprite and movement, remove arcade physics ([26fc59d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26fc59dead327c274daee7515703557d2b2f69a8))
 * duplicate player and control initialization ([a43feb6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/a43feb6dfacbd75c973b10023ec928c26e6bbabb))
 * duplicate player and control initialization ([6ff6fd0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6ff6fd040142a226f274c83c01188aac567017a0))
@@ -137,14 +131,8 @@
 
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
-* **assets:** update player sprite, convert logging to logger ([cd52b42](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/cd52b4267a403fdd0a449c5ccd83d846f1a9041d))
-* **biome:** increase map size ([92870bb](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/92870bb922dd9540efaf48f02afcd1a492375433))
-* **biome:** move files to named subfolder ([adbc3c0](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/adbc3c011d28a8ebba51c64138168ffdc920fd94))
-* **biome:** resolve ambiguity between tileId and terrainType ([e326d53](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/e326d53472cda6b95aeb3745a412f37aa07f46c7))
-* **biome:** shelter and player spawn in the middle of the map ([5a439b9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5a439b9d906d1dde33f96715613fcb9f39242597))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
 * deinitialize object instead of destroying it ([8d39288](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8d39288859cae40c3420da00f308252c979ab05b))
-* **entity:** modify player size and collision box for better building navigation ([ccf49c7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ccf49c7a96c708dafcd6d65a0012273a030fe1c6))
 * fix collision logging to only announce hard collisions, increase player speed ([4a23586](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4a23586df19b66afe3f246a395dd15dc9102a942))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([aac8970](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/aac89708b240d37a164dfc9eef5b3dd9b029e68f))
 * focus system clean-up ([#30](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/30)) ([b0e34af](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b0e34afb22a077b948e1898cd8639f2303caacc4))
@@ -172,5 +160,4 @@
 * streamline handler, manager, and factory behavior ([#34](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/34)) ([37c3144](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/37c31442e98f4a1db445a3d3cc09d5855c71ab43))
 * time system ([53f7ab2](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/53f7ab27c2795824b7fa8de56475d742fac5bad3))
 * time system ([31ea1fc](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31ea1fc988b11e398ca9eb1cdfc6469609829f71))
-* **time:** update phrasing for clarity of meaning ([6dcd5ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/6dcd5acd4e674f647e4103fae07ef8455bbd6ca3))
 
