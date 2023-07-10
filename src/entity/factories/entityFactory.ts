@@ -1,4 +1,4 @@
-import { IEntityFactory } from '@src/entity/data/interfaces';
+import { IEntityFactory } from '@src/entity/data/types';
 import CreatureFactory from '@src/entity/factories/creatureFactory';
 import ItemFactory from '@src/entity/factories/itemFactory';
 import StaticObjectFactory from '@src/entity/factories/staticObjectFactory';

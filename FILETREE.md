@@ -128,12 +128,12 @@
 |   |   |   |-- focus.ts
 |   |   |   |-- health.ts
 |   |   |   |-- inventory.ts
+|   |   |   |-- openableState.ts
 |   |   |   `-- phaserSprite.ts
 |   |   |-- data
 |   |   |   |-- constants.ts
 |   |   |   |-- enums.ts
 |   |   |   |-- events.ts
-|   |   |   |-- interfaces.ts
 |   |   |   |-- items.json
 |   |   |   |-- staticObjects.json
 |   |   |   `-- types.ts

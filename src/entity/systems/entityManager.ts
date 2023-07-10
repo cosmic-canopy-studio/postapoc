@@ -12,6 +12,9 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
+import OpenableState, {
+  OpenableStateType,
+} from '@src/entity/components/openableState';
 import { getSprite } from '@src/entity/components/phaserSprite';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
@@ -19,6 +22,7 @@ import {
   getItemDetails,
   getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import FocusManager from '@src/entity/systems/focusManager';
 import { healthSystem } from '@src/entity/systems/healthSystem';
 import {
@@ -198,6 +202,31 @@ export default class EntityManager {
     this.objectSpatialIndex.remove(collider, (a, b) => {
       return a.entityId === b.entityId;
     });
+  }
+
+  toggleOpenable(entityId: number) {
+    const openableState = OpenableState.state[entityId] as OpenableStateType;
+    if (openableState === OpenableStateType.CLOSED) {
+      OpenableState.state[entityId] = OpenableStateType.OPEN;
+      this.logger.info(`${getEntityNameWithID(entityId)} toggled to open`);
+    } else if (openableState === OpenableStateType.OPEN) {
+      OpenableState.state[entityId] = OpenableStateType.CLOSED;
+      this.logger.info(`${getEntityNameWithID(entityId)} toggled to closed`);
+    } else if (openableState === OpenableStateType.LOCKED) {
+      this.logger.info(
+        `${getEntityNameWithID(
+          entityId
+        )} cannot be toggled, is currently locked`
+      );
+    } else if (openableState === OpenableStateType.BROKEN) {
+      this.logger.info(
+        `${getEntityNameWithID(
+          entityId
+        )} cannot be toggled, is currently broken`
+      );
+    } else {
+      this.logger.warn(`Unknown openable state ${openableState}`);
+    }
   }
 
   private getSafeCoordinates(

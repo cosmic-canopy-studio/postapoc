@@ -9,7 +9,8 @@ import {
   DEFAULT_CREATURE_HEIGHT,
   DEFAULT_CREATURE_WIDTH,
 } from '@src/entity/data/constants';
-import { IEntityFactory } from '@src/entity/data/interfaces';
+
+import { IEntityFactory } from '@src/entity/data/types';
 import {
   getEntityNameWithID,
   removeEntityName,

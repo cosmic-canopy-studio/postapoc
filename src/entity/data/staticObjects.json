@@ -201,7 +201,10 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0
+    "collisionModifier": 0,
+    "properties": [
+      "openable"
+    ]
   },
   {
     "id": "floor",
@@ -270,7 +273,10 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0.5
+    "collisionModifier": 0.5,
+    "properties": [
+      "openable"
+    ]
   },
   {
     "id": "stairs",

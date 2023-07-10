@@ -1,9 +1,9 @@
 import { getAttackDamage } from '@src/action/components/attack';
-import EventBus from '@src/core/systems/eventBus';
-import { getFocusTarget } from '@src/entity/components/focus';
+import { ActionEventOptions } from '@src/action/data/events';
 import Action from '@src/action/data/interfaces';
 import { craftSimpleItem } from '@src/action/systems/craftSystem';
-import { ActionEventOptions } from '@src/action/data/events';
+import EventBus from '@src/core/systems/eventBus';
+import { getFocusTarget } from '@src/entity/components/focus';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 
 const ActionLogic: Record<string, Action> = {
@@ -21,7 +21,7 @@ const ActionLogic: Record<string, Action> = {
     return {
       message: `${getEntityNameWithID(
         entityId
-      )} tried to attack, but there was no target`,
+      )} tried to attack, but has no focus target`,
     };
   }),
   pickUp: new Action('pickUp', (entityId: number) => {
@@ -37,7 +37,23 @@ const ActionLogic: Record<string, Action> = {
     return {
       message: `${getEntityNameWithID(
         entityId
-      )} tried to pick up, but there was no item`,
+      )} tried to pick up, but has no focus target`,
+    };
+  }),
+  toggleOpenable: new Action('toggleOpenable', (entityId: number) => {
+    const focusedObject = getFocusTarget(entityId);
+    if (focusedObject) {
+      EventBus.emit('openableToggled', { entityId: entityId });
+      return {
+        message: `${getEntityNameWithID(
+          entityId
+        )} is attempting to toggle the openable state of ${focusedObject}`,
+      };
+    }
+    return {
+      message: `${getEntityNameWithID(
+        entityId
+      )} tried to toggle an openable, but has no focus target`,
     };
   }),
   craft: new Action(

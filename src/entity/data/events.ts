@@ -19,6 +19,7 @@ export interface EntityEventsMap {
   refreshInventory: EntityIDPayload;
   switchFocus: EntityIDPayload;
   itemCrafted: CraftedItemsPayload;
+  openableToggled: EntityIDPayload;
 }
 
 export type EntityEvents = {

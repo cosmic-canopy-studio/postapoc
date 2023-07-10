@@ -1,11 +1,16 @@
 import { ECS_NULL } from '@src/core/config/constants';
 import { addHealth } from '@src/entity/components/health';
 import {
+  addOpenableState,
+  OpenableStateType,
+} from '@src/entity/components/openableState';
+import {
   addPhaserSprite,
   getSprite,
 } from '@src/entity/components/phaserSprite';
 import { DEFAULT_HEALTH } from '@src/entity/data/constants';
-import { IEntityFactory } from '@src/entity/data/interfaces';
+
+import { IEntityFactory } from '@src/entity/data/types';
 import { getStaticObjectDetails } from '@src/entity/systems/dataManager';
 import {
   removeEntityName,
@@ -43,6 +48,9 @@ export default class StaticObjectFactory implements IEntityFactory {
     sprite.setOrigin(0, 0);
     sprite.setActive(true);
     sprite.setVisible(true);
+    if (objectDetails.properties?.includes('openable')) {
+      addOpenableState(this.world, staticObject, OpenableStateType.CLOSED);
+    }
 
     addPhaserSprite(this.world, staticObject, sprite);
     const initialHealth = objectDetails.health || DEFAULT_HEALTH;

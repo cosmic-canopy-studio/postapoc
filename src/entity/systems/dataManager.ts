@@ -35,6 +35,17 @@ export function canItemBePickedUp(itemId: string) {
   return item ? item.canBePickedUp : false;
 }
 
+export function hasProperty(entityId: number, property: string) {
+  const objectId = getEntityName(entityId);
+  const baseObject = getGenericObjectDetails(objectId);
+  const hasProperty = baseObject.properties?.includes(property);
+  getLogger('entity').debug(
+    `Entity ${entityId} has property ${property}:`,
+    hasProperty
+  );
+  return hasProperty || false;
+}
+
 export function getItemDetails(itemId: string) {
   const item = ItemMap.get(itemId.toLowerCase());
   getLogger('entity').debugVerbose('Item details:', item);

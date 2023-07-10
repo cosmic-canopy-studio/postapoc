@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-09)
+## 0.0.1 (2023-07-10)
 
 
 ### Features
@@ -145,6 +145,7 @@
 * move major systems from main scene to universe, reorganize files ([fd45be3](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/fd45be36811fdbb3234dc5384c100fc95e86dd83))
 * move major systems from main scene to universe, reorganize files ([4d72f95](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/4d72f955747fe22e88a1a137b61869e6767a128a))
 * move speed to variable ([7a0796f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7a0796fb92ba196d48c792dcc29bb52ab2d2585b))
+* **movement:** separate motion and position in to distinct components ([266efc1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/266efc1957c61e4a48fb994c67d028d0c51ca622))
 * project cleanup ([87ebbd1](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/87ebbd186442aedecf5a751012f693e555d5754e))
 * project cleanup ([8c91038](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c910380919c2cf5b64a6ed9fb5eba3e2cb8dc13))
 * project cleanup ([54aa0bd](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/54aa0bda5748964d28af0bfc64f125330fc6928e))

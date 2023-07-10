@@ -1,9 +1,13 @@
 import { Actions } from '@src/action/data/enums';
 import controlMappingJson from '@src/core/config/controlMapping.json';
 
-import { ControlMapping } from '@src/core/data/types';
+import {
+  ControlMapping,
+  GameAction,
+  GameActionHandler,
+} from '@src/core/data/types';
 import EventBus from '@src/core/systems/eventBus';
-import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
+import { KeyBindings } from '@src/core/systems/keyBindings';
 import { EntityActions } from '@src/entity/data/enums';
 import { MoveActions } from '@src/movement/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';

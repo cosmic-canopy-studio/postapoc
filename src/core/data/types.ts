@@ -1,3 +1,9 @@
+import { Actions } from '@src/action/data/enums';
+import { EntityActions } from '@src/entity/data/enums';
+import { MoveActions } from '@src/movement/data/enums';
+import { TelemetryActions } from '@src/telemetry/data/enums';
+import { TimeActions } from '@src/time/data/enums';
+
 export interface Asset {
   key: string;
   url: string;
@@ -42,4 +48,15 @@ export interface IHandler {
 
 export interface IUpdatableHandler extends IHandler {
   update(): void;
+}
+
+export type GameAction =
+  | MoveActions
+  | Actions
+  | EntityActions
+  | TelemetryActions
+  | TimeActions;
+
+export interface GameActionHandler {
+  (state: boolean): void;
 }
