@@ -219,7 +219,7 @@
             {
               "name": "type",
               "type": "string",
-              "value": "window_domestic"
+              "value": "window_closed"
             }
           ]
         },
@@ -240,6 +240,36 @@
               "name": "type",
               "type": "string",
               "value": "door_closed"
+            }
+          ]
+        },
+        {
+          "id": 806,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "door_open"
+            }
+          ]
+        },
+        {
+          "id": 841,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "door_broken"
+            }
+          ]
+        },
+        {
+          "id": 844,
+          "properties": [
+            {
+              "name": "type",
+              "type": "string",
+              "value": "window_open"
             }
           ]
         },

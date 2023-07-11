@@ -11,7 +11,10 @@ import {
 import { DEFAULT_HEALTH } from '@src/entity/data/constants';
 
 import { IEntityFactory } from '@src/entity/data/types';
-import { getStaticObjectDetails } from '@src/entity/systems/dataManager';
+import {
+  getEntityTexture,
+  getStaticObjectDetails,
+} from '@src/entity/systems/dataManager';
 import {
   removeEntityName,
   setEntityName,
@@ -41,22 +44,25 @@ export default class StaticObjectFactory implements IEntityFactory {
     const randomIndex = Math.floor(
       Math.random() * objectDetails.textures.length
     );
-    const selectedTexture = objectDetails.textures[randomIndex];
+    let selectedTexture = objectDetails.textures[randomIndex];
 
     const staticObject = addEntity(this.world);
+    setEntityName(staticObject, objectDetails.name);
+    if (objectDetails.properties?.includes('openable')) {
+      addOpenableState(this.world, staticObject, OpenableStateType.CLOSED);
+      selectedTexture = getEntityTexture(staticObject);
+      console.log('selectedTexture: ', selectedTexture);
+    }
+
     const sprite = this.scene.add.sprite(x, y, selectedTexture);
     sprite.setOrigin(0, 0);
     sprite.setActive(true);
     sprite.setVisible(true);
-    if (objectDetails.properties?.includes('openable')) {
-      addOpenableState(this.world, staticObject, OpenableStateType.CLOSED);
-    }
 
     addPhaserSprite(this.world, staticObject, sprite);
     const initialHealth = objectDetails.health || DEFAULT_HEALTH;
     addHealth(this.world, staticObject, initialHealth, initialHealth);
     addCollider(this.world, staticObject);
-    setEntityName(staticObject, objectDetails.name);
 
     this.logger.debug(`Created entity ${objectDetails.name} at ${x},${y}`);
     return staticObject;

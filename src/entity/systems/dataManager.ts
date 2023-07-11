@@ -3,6 +3,9 @@ import staticObjectsData from '@src/entity/data/staticObjects.json';
 import { GenericObject, Item, StaticObject } from '@src/entity/data/types';
 import { getEntityName } from '@src/entity/systems/entityNames';
 import { getLogger } from '@src/telemetry/systems/logger';
+import OpenableState, {
+  OpenableStateType,
+} from '@src/entity/components/openableState';
 
 const StaticObjectMap = new Map<string, StaticObject>(
   staticObjectsData.map((staticObject) => [staticObject.id, staticObject])
@@ -44,6 +47,36 @@ export function hasProperty(entityId: number, property: string) {
     hasProperty
   );
   return hasProperty || false;
+}
+
+export function getEntityState(entityId: number) {
+  if (hasProperty(entityId, 'openable')) {
+    const openableState = OpenableState.state[entityId] as OpenableStateType;
+
+    if (openableState === OpenableStateType.CLOSED) {
+      return 'closed';
+    } else if (openableState === OpenableStateType.OPEN) {
+      return 'open';
+    } else if (openableState === OpenableStateType.LOCKED) {
+      return 'locked';
+    } else if (openableState === OpenableStateType.BROKEN) {
+      return 'broken';
+    } else {
+      throw new Error(`Unknown openable state ${openableState}`);
+    }
+  } else {
+    return '';
+  }
+}
+
+export function getEntityTexture(entityId: number): string {
+  const entityName = getEntityName(entityId).toLowerCase();
+  const entityState = getEntityState(entityId);
+  if (entityState !== '') {
+    return `${entityName}_${entityState}`;
+  } else {
+    return entityName;
+  }
 }
 
 export function getItemDetails(itemId: string) {

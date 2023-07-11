@@ -181,10 +181,10 @@
     "collisionModifier": 0.9
   },
   {
-    "id": "door_closed",
-    "name": "Door_Closed",
+    "id": "door",
+    "name": "Door",
     "textures": [
-      "door_closed"
+      "door"
     ],
     "type": "object",
     "category": "construction",
@@ -253,10 +253,10 @@
     "collisionModifier": 0
   },
   {
-    "id": "window_domestic",
-    "name": "Window_Domestic",
+    "id": "window",
+    "name": "Window",
     "textures": [
-      "window_domestic"
+      "window"
     ],
     "type": "object",
     "category": "construction",

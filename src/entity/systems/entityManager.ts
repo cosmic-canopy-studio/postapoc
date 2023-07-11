@@ -6,18 +6,14 @@ import {
   SubmapTile,
 } from '@src/biome/data/interfaces';
 import { generateOvermap } from '@src/biome/systems/overworldManager';
-import { ECS_NULL } from '@src/core/config/constants';
 import ControlSystem from '@src/core/systems/controlSystem';
-import {
-  getFocusTarget,
-  updateFocusTarget,
-} from '@src/entity/components/focus';
 import OpenableState, {
   OpenableStateType,
 } from '@src/entity/components/openableState';
 import { getSprite } from '@src/entity/components/phaserSprite';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
+  getEntityTexture,
   getEntityType,
   getItemDetails,
   getStaticObjectDetails,
@@ -74,16 +70,6 @@ export default class EntityManager {
       entityId,
       this.objectSpatialIndex
     );
-  }
-
-  getObjectByEid(eid: number): ICollider | null {
-    const allObjects = this.objectSpatialIndex.all();
-    for (const obj of allObjects) {
-      if (obj.entityId === eid) {
-        return obj;
-      }
-    }
-    return null;
   }
 
   spawnOvermap() {
@@ -165,20 +151,6 @@ export default class EntityManager {
     );
   }
 
-  getObjectSpatialIndex() {
-    return this.objectSpatialIndex;
-  }
-
-  releaseEntity(entityType: string, entityId: number) {
-    this.removeSpatialIndexEntry(entityId);
-    this.entityFactory.releaseEntity(entityType, entityId);
-    const playerId = this.getPlayerId();
-    const playerFocusId = getFocusTarget(playerId);
-    if (playerFocusId === entityId) {
-      updateFocusTarget(playerId, ECS_NULL);
-    }
-  }
-
   spawnPlayer(x: number, y: number, playerId: string) {
     const coordinates = this.getSafeCoordinates(x, y);
     this.playerId = this.entityFactory.createEntity(
@@ -191,10 +163,6 @@ export default class EntityManager {
     this.debugPanel.setPlayer(this.playerId);
     const playerSprite = getSprite(this.playerId);
     this.scene.cameras.main.startFollow(playerSprite);
-  }
-
-  getPlayerId() {
-    return this.playerId;
   }
 
   removeSpatialIndexEntry(entityId: number) {
@@ -227,6 +195,13 @@ export default class EntityManager {
     } else {
       this.logger.warn(`Unknown openable state ${openableState}`);
     }
+    this.updateTexture(entityId);
+  }
+
+  private updateTexture(entityId: number) {
+    const sprite = getSprite(entityId);
+    const texture = getEntityTexture(entityId);
+    sprite.setTexture(texture);
   }
 
   private getSafeCoordinates(
