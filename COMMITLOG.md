@@ -1,4 +1,4 @@
-## 0.0.1 (2023-07-11)
+## 0.0.1 (2023-07-12)
 
 
 ### Features
@@ -19,6 +19,7 @@
 * **debug:** add debug panel ([24bddaf](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/24bddafb6dad3311eb6982222a29b7d9f8fa115a))
 * **debug:** add player debug pane ([7967c6c](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7967c6c53a464f5850354bb4d0024f75de34e556))
 * **entity:** implement crafting ui, make windows draggable ([#32](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/32)) ([63644a9](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/63644a91f37b935d9c31e148cfeeea94e648347c))
+* **entity:** implement state based textures (i.e. door open, closed, broken) ([91a49ab](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/91a49ab1212445ea81ed3ced0ffd10360142c144))
 * **entity:** implement switch focus functionality ([#35](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/35)) ([ba32400](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ba32400fc5198a945c61de1825028baa69652f37))
 * health system ([d9da38f](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/d9da38f090ab54b97283b22728ba113980cc270c))
 * help screen ([#29](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/29)) ([1035d98](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1035d987085ff1355a2f09e3c306b377af7abe92))
