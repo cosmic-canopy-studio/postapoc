@@ -273,7 +273,7 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0.5,
+    "collisionModifier": 0,
     "properties": [
       "openable"
     ]

@@ -1,11 +1,12 @@
+import OpenableState, {
+  OpenableStateType,
+} from '@src/entity/components/openableState';
 import itemsData from '@src/entity/data/items.json';
 import staticObjectsData from '@src/entity/data/staticObjects.json';
 import { GenericObject, Item, StaticObject } from '@src/entity/data/types';
 import { getEntityName } from '@src/entity/systems/entityNames';
+import { FULL_MOVEMENT } from '@src/movement/data/constants';
 import { getLogger } from '@src/telemetry/systems/logger';
-import OpenableState, {
-  OpenableStateType,
-} from '@src/entity/components/openableState';
 
 const StaticObjectMap = new Map<string, StaticObject>(
   staticObjectsData.map((staticObject) => [staticObject.id, staticObject])
@@ -115,7 +116,7 @@ function getObjectIDCollisionModifier(objectId: string) {
   const collisionModifier =
     staticObject.collisionModifier !== undefined
       ? staticObject.collisionModifier
-      : 1;
+      : FULL_MOVEMENT;
   getLogger('entity').debugVerbose(
     'Object collision modifier:',
     collisionModifier
@@ -124,6 +125,15 @@ function getObjectIDCollisionModifier(objectId: string) {
 }
 
 export function getEntityCollisionModifier(entityId: number) {
+  if (hasProperty(entityId, 'openable')) {
+    const openableState = getEntityState(entityId);
+
+    if (openableState === 'open') {
+      return FULL_MOVEMENT;
+    }
+  }
+
+  // Default collision
   const objectId = getEntityName(entityId);
   return getObjectIDCollisionModifier(objectId);
 }
