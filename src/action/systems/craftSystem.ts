@@ -1,9 +1,12 @@
 import {
   getInventory,
-  removeItemFromInventory,
+  removeItemByTypeFromInventory,
 } from '@src/entity/components/inventory';
 import { Recipe, RecipeIngredient } from '@src/entity/data/types';
-import { getItemDetails } from '@src/entity/systems/dataManager';
+import {
+  getItemDetails,
+  getItemsInGroup,
+} from '@src/entity/systems/dataManager';
 import { getEntityName } from '@src/entity/systems/entityNames';
 import { getLogger } from '@src/telemetry/systems/logger';
 
@@ -39,16 +42,23 @@ export function checkForMissingItems(entityId: number, recipe: Recipe) {
   const missingIngredients = [];
   logger.debug(`Current inventory: ${JSON.stringify(entityInventory)}`);
   for (const ingredient of recipe) {
-    const count = entityInventory.reduce((requiredItems, requiredItem) => {
-      const itemName = getEntityName(requiredItem);
-      if (itemName === undefined) {
+    const ingredientIds = ingredient.group
+      ? getItemsInGroup(ingredient.id)
+      : [ingredient.id];
+
+    let count = 0;
+    ingredientIds.forEach((ingredientId) => {
+      count += entityInventory.reduce((requiredItems, requiredItem) => {
+        const itemName = getEntityName(requiredItem);
+        if (itemName === undefined) {
+          return requiredItems;
+        }
+        if (itemName.toLowerCase() === ingredientId.toLowerCase()) {
+          return requiredItems + 1;
+        }
         return requiredItems;
-      }
-      if (itemName.toLowerCase() === ingredient.id.toLowerCase()) {
-        return requiredItems + 1;
-      }
-      return requiredItems;
-    }, 0);
+      }, 0);
+    });
 
     if (count < ingredient.quantity) {
       missingIngredients.push({
@@ -65,17 +75,20 @@ function removeConsumedIngredients(
   recipe: RecipeIngredient[],
   entityId: number
 ) {
-  const entityInventory = getInventory(entityId);
   for (const ingredient of recipe) {
+    const ingredientIds = ingredient.group
+      ? getItemsInGroup(ingredient.id)
+      : [ingredient.id];
     let toRemove = ingredient.quantity;
-    for (let i = 0; i < entityInventory.length && toRemove > 0; i++) {
-      const itemName = getEntityName(entityInventory[i]);
-      if (itemName === undefined) {
-        continue;
-      }
-      if (itemName.toLowerCase() === ingredient.id.toLowerCase()) {
-        removeItemFromInventory(entityId, i);
-        toRemove--;
+    for (const ingredientId of ingredientIds) {
+      while (toRemove > 0) {
+        const removed = removeItemByTypeFromInventory(entityId, ingredientId);
+        if (removed) {
+          getLogger('action').debug(`Removed ${ingredientId} from inventory`);
+          toRemove--;
+        } else {
+          break;
+        }
       }
     }
   }

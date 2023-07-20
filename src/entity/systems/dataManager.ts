@@ -86,6 +86,18 @@ export function getItemDetails(itemId: string) {
   return item || null;
 }
 
+export function getItemsInGroup(itemGroup: string) {
+  const groupItems: string[] = [];
+
+  for (const item of itemsData) {
+    if (item.groups?.includes(itemGroup)) {
+      groupItems.push(item.id);
+    }
+  }
+
+  return groupItems;
+}
+
 export function getStaticObjectDetails(staticObjectId: string) {
   getLogger('entity').debugVerbose('Static object id:', staticObjectId);
   const staticObject = StaticObjectMap.get(staticObjectId.toLowerCase());

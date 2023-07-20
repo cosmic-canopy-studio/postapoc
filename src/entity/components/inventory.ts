@@ -1,6 +1,9 @@
 import { ECS_NULL } from '@src/core/config/constants';
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import {
+  getEntityName,
+  getEntityNameWithID,
+} from '@src/entity/systems/entityNames';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { defineComponent, Types } from 'bitecs';
 
@@ -50,14 +53,25 @@ export function removeItemFromInventory(entityId: number, index: number) {
     return;
   }
 
-  // Set the item at the given index to ECS_NULL (no item)
-  Inventory.items[entityId][index] = ECS_NULL;
-
+  const itemEntityId = Inventory.items[entityId][index];
   logger.info(
-    `Removed item at index ${index} from entity ${getEntityNameWithID(
+    `Removed item ${getEntityNameWithID(
+      itemEntityId
+    )} at index ${index} from entity ${getEntityNameWithID(
       entityId
     )}'s inventory`
   );
+
+  // Set the item at the given index to ECS_NULL (no item)
+  Inventory.items[entityId][index] = ECS_NULL;
+
+  // Shift all items after the removed one to fill the gap
+  for (let i = index; i < Inventory.items[entityId].length - 1; i++) {
+    Inventory.items[entityId][i] = Inventory.items[entityId][i + 1];
+  }
+
+  // Set the last item to ECS_NULL as it's now an extra space
+  Inventory.items[entityId][Inventory.items[entityId].length - 1] = ECS_NULL;
 }
 
 export function getInventory(entityId: number) {
@@ -86,4 +100,58 @@ export function listInventory(entityId: number) {
     }
   }
   return message;
+}
+
+export function removeItemByTypeFromInventory(
+  entityId: number,
+  itemTypeToRemove: string
+) {
+  const logger = getLogger('entity');
+
+  let removed = false;
+
+  for (let i = 0; i < Inventory.items[entityId].length; i++) {
+    const itemId = Inventory.items[entityId][i];
+    if (itemId === ECS_NULL) {
+      continue;
+    }
+    const itemName = getEntityName(itemId).toLowerCase();
+    console.log(`itemId: ${itemId}, itemName: ${itemName}`);
+    if (itemId !== ECS_NULL && itemName === itemTypeToRemove) {
+      // Remove the item from inventory and shift items
+      removed = true;
+      logger.info(
+        `Removed item ${getEntityNameWithID(
+          itemId
+        )} at index ${i} from entity ${getEntityNameWithID(
+          entityId
+        )}'s inventory`
+      );
+
+      // Set the item at the given index to ECS_NULL (no item)
+      Inventory.items[entityId][i] = ECS_NULL;
+
+      // Shift all items after the removed one to fill the gap
+      for (let j = i; j < Inventory.items[entityId].length - 1; j++) {
+        Inventory.items[entityId][j] = Inventory.items[entityId][j + 1];
+      }
+
+      // Set the last item to ECS_NULL as it's now an extra space
+      Inventory.items[entityId][Inventory.items[entityId].length - 1] =
+        ECS_NULL;
+
+      break;
+    }
+  }
+
+  if (!removed) {
+    logger.warn(
+      `Item of type ${itemTypeToRemove} not found in entity ${getEntityNameWithID(
+        entityId
+      )}'s inventory`
+    );
+    return false;
+  }
+
+  return true;
 }

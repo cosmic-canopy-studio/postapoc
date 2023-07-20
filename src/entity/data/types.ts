@@ -5,6 +5,7 @@ export type Boundaries = ICollider | BBox;
 
 export type RecipeIngredient = {
   id: string;
+  group?: boolean;
   quantity: number;
 };
 

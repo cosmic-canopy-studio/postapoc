@@ -16,6 +16,9 @@
       "board"
     ],
     "type": "item",
+    "groups": [
+      "wood_pole"
+    ],
     "category": "construction",
     "canBePickedUp": true
   },
@@ -26,6 +29,9 @@
       "stick"
     ],
     "type": "item",
+    "groups": [
+      "wood_pole"
+    ],
     "category": "nature",
     "canBePickedUp": true
   },
@@ -70,7 +76,8 @@
     "category": "tool",
     "recipe": [
       {
-        "id": "stick",
+        "id": "wood_pole",
+        "group": true,
         "quantity": 1
       },
       {

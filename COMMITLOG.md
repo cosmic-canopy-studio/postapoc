@@ -133,6 +133,7 @@
 
 ### Code Refactoring
 
+* **action:** update craft system to use dataHandler ([b866541](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/b866541c0b32e7960a3bcf4c4f4d7c0fca09b841))
 * arrange files to appropriate folders ([f3e7248](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/f3e72484db44cd118fda3e30cd01a2a037148267))
 * **assets:** remove tiled ([26c1d73](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/26c1d73bfe15952bf8910f1a8f9ea86fad8a78ba))
 * boot, title screens separated ([7d04e6d](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/7d04e6d5352cd13ab8b24e5fb5202d0c5bdeb463))
