@@ -2,21 +2,21 @@ import {
   getInventory,
   removeItemFromInventory,
 } from '@src/entity/components/inventory';
-import items from '@src/entity/data/items.json';
 import { Recipe, RecipeIngredient } from '@src/entity/data/types';
+import { getItemDetails } from '@src/entity/systems/dataManager';
 import { getEntityName } from '@src/entity/systems/entityNames';
 import { getLogger } from '@src/telemetry/systems/logger';
 
-export function craftSimpleItem(entityId: number, item: string) {
+export function craftSimpleItem(entityId: number, itemId: string) {
   const logger = getLogger('action');
-  const itemData = items.find((i) => i.id === item);
+  const itemDetails = getItemDetails(itemId);
 
-  if (!itemData?.recipe) {
-    logger.info(`Item ${item} does not exist or does not have a recipe.`);
+  if (!itemDetails?.recipe) {
+    logger.info(`Item ${itemId} does not exist or does not have a recipe.`);
     return;
   }
 
-  const recipe: Recipe = itemData.recipe;
+  const recipe: Recipe = itemDetails.recipe;
 
   const missingIngredients = checkForMissingItems(entityId, recipe);
 
@@ -28,7 +28,7 @@ export function craftSimpleItem(entityId: number, item: string) {
   removeConsumedIngredients(recipe, entityId);
 
   return {
-    itemName: item,
+    itemName: itemId,
     itemQuantity: 1,
   };
 }

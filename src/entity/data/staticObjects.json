@@ -357,7 +357,7 @@
     "category": "construction",
     "lootTable": [
       {
-        "id": "board",
+        "id": "rock",
         "drop_chance": 80,
         "count": 2
       },

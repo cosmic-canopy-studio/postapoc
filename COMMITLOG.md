@@ -31,6 +31,7 @@
 * initial terrain generation implementation ([1eb1bda](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1eb1bda4517a70b15295e4b71ad14312fbfab6ea))
 * initial terrain generation implementation ([8c9ec09](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/8c9ec0963cc3fca770ecdb7c136fcb1bea9386d8))
 * **movement:** add direction, related debug panel info ([22ec4b7](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/22ec4b7a9d01f844264aca9af441a27fe2d5d700))
+* **movement:** add handling for collision modifier of openable objects based on state ([faa0584](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/faa0584d13fc912a1b8bf3540ee208f8641a9f30))
 * **terrain:** initial terrain generation ([51e8f7e](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/51e8f7ef773e03901282b74c20d03f660bf9fae8))
 * tiled support ([#39](https://github.com/Unnamed-GameDev-Studio/postapoc/issues/39)) ([6375629](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/637562946b321d6b3378b8d8cac3af0e47742a8c))
 * time system ([25e10a5](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/25e10a57792920da81ffd34efa85252f88da5edb))
