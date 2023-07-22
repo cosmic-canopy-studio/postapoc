@@ -36,6 +36,7 @@ import DebugPanel from '@src/telemetry/systems/debugPanel';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
+import { handleObjectIdNamedOrientation } from '@src/entity/components/orientationState';
 
 export default class EntityManager {
   private logger;
@@ -102,7 +103,12 @@ export default class EntityManager {
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
     let coordinates = { x, y };
-    if (getStaticObjectDetails(staticObjectId).type === 'object') {
+    const objectIDWithOrientation =
+      handleObjectIdNamedOrientation(staticObjectId);
+    if (
+      getStaticObjectDetails(objectIDWithOrientation.objectBaseId).type ===
+      'object'
+    ) {
       coordinates = this.getSafeCoordinates(x, y);
     }
 
@@ -110,13 +116,18 @@ export default class EntityManager {
       'staticObject',
       coordinates.x,
       coordinates.y,
-      staticObjectId
+      objectIDWithOrientation.objectBaseId,
+      { orientation: objectIDWithOrientation.orientation }
     );
 
-    const objectDetails = getStaticObjectDetails(staticObjectId);
+    const objectDetails = getStaticObjectDetails(
+      objectIDWithOrientation.objectBaseId
+    );
 
     if (!objectDetails) {
-      this.logger.info(`No object details for ${objectID}`);
+      this.logger.info(
+        `No object details for ${objectIDWithOrientation.objectBaseId}`
+      );
       return;
     }
 

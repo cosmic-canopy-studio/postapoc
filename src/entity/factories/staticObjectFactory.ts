@@ -23,6 +23,10 @@ import { addCollider } from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
+import {
+  addOrientationState,
+  OrientationStateType,
+} from '@src/entity/components/orientationState';
 
 export default class StaticObjectFactory implements IEntityFactory {
   private scene: Phaser.Scene;
@@ -34,7 +38,12 @@ export default class StaticObjectFactory implements IEntityFactory {
     this.world = world;
   }
 
-  createEntity(x: number, y: number, objectId: string): number {
+  createEntity(
+    x: number,
+    y: number,
+    objectId: string,
+    options?: Record<any, any>
+  ) {
     const objectDetails = getStaticObjectDetails(objectId);
     if (!objectDetails) {
       this.logger.error(`Static object ${objectId} not found`);
@@ -46,8 +55,18 @@ export default class StaticObjectFactory implements IEntityFactory {
     );
     let selectedTexture = objectDetails.textures[randomIndex];
 
+    const orientation = options?.orientation || OrientationStateType.HORIZONTAL;
+
+    if (orientation === OrientationStateType.VERTICAL) {
+      selectedTexture = `${selectedTexture}_vertical`;
+    }
+
     const staticObject = addEntity(this.world);
+
     setEntityName(staticObject, objectDetails.name);
+
+    addOrientationState(this.world, staticObject, orientation);
+
     if (objectDetails.properties?.includes('openable')) {
       addOpenableState(this.world, staticObject, OpenableStateType.CLOSED);
       selectedTexture = getEntityTexture(staticObject);

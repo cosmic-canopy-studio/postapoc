@@ -1,9 +1,10 @@
-## 0.0.1 (2023-07-20)
+## 0.0.1 (2023-07-22)
 
 
 ### Features
 
 * **action:** implement toggle openable action ([10454e6](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/10454e64a4c757017e94df1e98e4180a273f7cb3))
+* **action:** update craft system to allow item groups in addition to specific items ([5eeac96](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/5eeac9628e7b0b7c1e39b75dd98530474127221a))
 * add attack action ([31fa593](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/31fa59399e97e3ecea040562db98fd1b61fe23af))
 * add collision system ([ea1294b](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/ea1294b51721cae8f8199d78d7bed16ccb28c2dc))
 * add config with debug toggle, ability to skip intro ([1e660ac](https://github.com/Unnamed-GameDev-Studio/postapoc/commit/1e660acd7a4f75403a02ba2cb0bc88ff5846235c))

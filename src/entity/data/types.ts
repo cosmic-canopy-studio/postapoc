@@ -66,7 +66,12 @@ export interface IItemGroup {
 }
 
 export interface IEntityFactory {
-  createEntity(x: number, y: number, id: string): number;
+  createEntity(
+    x: number,
+    y: number,
+    id: string,
+    options?: Record<any, any>
+  ): number;
 
   releaseEntity(entityId: number): void;
 }

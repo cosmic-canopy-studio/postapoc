@@ -46,29 +46,6 @@
     "collisionModifier": 0.2
   },
   {
-    "id": "bench_vertical",
-    "name": "Bench_Vertical",
-    "textures": [
-      "bench_vertical"
-    ],
-    "type": "object",
-    "category": "construction",
-    "lootTable": [
-      {
-        "id": "pipe",
-        "drop_chance": 70,
-        "count": 2
-      },
-      {
-        "id": "board",
-        "drop_chance": 90,
-        "count": 4
-      }
-    ],
-    "focusExempt": false,
-    "collisionModifier": 0.2
-  },
-  {
     "id": "grass",
     "name": "Grass",
     "textures": [

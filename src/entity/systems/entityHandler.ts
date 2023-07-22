@@ -140,7 +140,7 @@ export default class EntityHandler {
       this.logger.error(`No sprite for entity ${entityId}`);
       return [];
     }
-    const objectName = objectSprite.texture.key;
+    const objectName = getEntityName(entityId);
     return this.generateDrops(objectName);
   }
 
