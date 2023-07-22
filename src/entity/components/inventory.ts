@@ -116,7 +116,6 @@ export function removeItemByTypeFromInventory(
       continue;
     }
     const itemName = getEntityName(itemId).toLowerCase();
-    console.log(`itemId: ${itemId}, itemName: ${itemName}`);
     if (itemId !== ECS_NULL && itemName === itemTypeToRemove) {
       // Remove the item from inventory and shift items
       removed = true;
