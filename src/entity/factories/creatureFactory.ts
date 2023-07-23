@@ -9,14 +9,16 @@ import {
   DEFAULT_CREATURE_HEIGHT,
   DEFAULT_CREATURE_WIDTH,
 } from '@src/entity/data/constants';
-import { IEntityFactory } from '@src/entity/data/interfaces';
+
+import { IEntityFactory } from '@src/entity/data/types';
 import {
   getEntityNameWithID,
   removeEntityName,
   setEntityName,
 } from '@src/entity/systems/entityNames';
 import { addCollider } from '@src/movement/components/collider';
-import { addMovement } from '@src/movement/components/movement';
+import { addMotion } from '@src/movement/components/motion';
+import { addPosition } from '@src/movement/components/position';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
@@ -49,7 +51,8 @@ export default class CreatureFactory implements IEntityFactory {
     sprite.setOrigin(0, 0).setDepth(10);
     sprite.setDisplaySize(DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
     addPhaserSprite(this.world, creature, sprite);
-    addMovement(this.world, creature, x, y, 0, 0);
+    addMotion(this.world, creature, 0, 0);
+    addPosition(this.world, creature, x, y);
     addHealth(this.world, creature, 100, 100);
     addCollider(this.world, creature);
     addAttack(this.world, creature, CREATURE_DEFAULT_DAMAGE);

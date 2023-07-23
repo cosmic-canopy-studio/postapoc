@@ -4,8 +4,7 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
-import { IFocusTarget } from '@src/entity/data/interfaces';
-import { Boundaries } from '@src/entity/data/types';
+import { Boundaries, IFocusTarget } from '@src/entity/data/types';
 import { isEntityFocusExempt } from '@src/entity/systems/dataManager';
 import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { getBoundingBox, ICollider } from '@src/movement/components/collider';

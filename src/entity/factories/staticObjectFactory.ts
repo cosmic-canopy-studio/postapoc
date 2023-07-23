@@ -1,12 +1,20 @@
 import { ECS_NULL } from '@src/core/config/constants';
 import { addHealth } from '@src/entity/components/health';
 import {
+  addOpenableState,
+  OpenableStateType,
+} from '@src/entity/components/openableState';
+import {
   addPhaserSprite,
   getSprite,
 } from '@src/entity/components/phaserSprite';
 import { DEFAULT_HEALTH } from '@src/entity/data/constants';
-import { IEntityFactory } from '@src/entity/data/interfaces';
-import { getStaticObjectDetails } from '@src/entity/systems/dataManager';
+
+import { IEntityFactory } from '@src/entity/data/types';
+import {
+  getEntityTexture,
+  getStaticObjectDetails,
+} from '@src/entity/systems/dataManager';
 import {
   removeEntityName,
   setEntityName,
@@ -15,6 +23,10 @@ import { addCollider } from '@src/movement/components/collider';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { addEntity, IWorld, removeEntity } from 'bitecs';
 import Phaser from 'phaser';
+import {
+  addOrientationState,
+  OrientationStateType,
+} from '@src/entity/components/orientationState';
 
 export default class StaticObjectFactory implements IEntityFactory {
   private scene: Phaser.Scene;
@@ -26,7 +38,12 @@ export default class StaticObjectFactory implements IEntityFactory {
     this.world = world;
   }
 
-  createEntity(x: number, y: number, objectId: string): number {
+  createEntity(
+    x: number,
+    y: number,
+    objectId: string,
+    options?: Record<any, any>
+  ) {
     const objectDetails = getStaticObjectDetails(objectId);
     if (!objectDetails) {
       this.logger.error(`Static object ${objectId} not found`);
@@ -36,9 +53,26 @@ export default class StaticObjectFactory implements IEntityFactory {
     const randomIndex = Math.floor(
       Math.random() * objectDetails.textures.length
     );
-    const selectedTexture = objectDetails.textures[randomIndex];
+    let selectedTexture = objectDetails.textures[randomIndex];
+
+    const orientation = options?.orientation || OrientationStateType.HORIZONTAL;
+
+    if (orientation === OrientationStateType.VERTICAL) {
+      selectedTexture = `${selectedTexture}_vertical`;
+    }
 
     const staticObject = addEntity(this.world);
+
+    setEntityName(staticObject, objectDetails.name);
+
+    addOrientationState(this.world, staticObject, orientation);
+
+    if (objectDetails.properties?.includes('openable')) {
+      addOpenableState(this.world, staticObject, OpenableStateType.CLOSED);
+      selectedTexture = getEntityTexture(staticObject);
+      console.log('selectedTexture: ', selectedTexture);
+    }
+
     const sprite = this.scene.add.sprite(x, y, selectedTexture);
     sprite.setOrigin(0, 0);
     sprite.setActive(true);
@@ -48,7 +82,6 @@ export default class StaticObjectFactory implements IEntityFactory {
     const initialHealth = objectDetails.health || DEFAULT_HEALTH;
     addHealth(this.world, staticObject, initialHealth, initialHealth);
     addCollider(this.world, staticObject);
-    setEntityName(staticObject, objectDetails.name);
 
     this.logger.debug(`Created entity ${objectDetails.name} at ${x},${y}`);
     return staticObject;

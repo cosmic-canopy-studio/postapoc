@@ -1,4 +1,4 @@
-import { IEntityFactory } from '@src/entity/data/interfaces';
+import { IEntityFactory } from '@src/entity/data/types';
 import CreatureFactory from '@src/entity/factories/creatureFactory';
 import ItemFactory from '@src/entity/factories/itemFactory';
 import StaticObjectFactory from '@src/entity/factories/staticObjectFactory';
@@ -22,11 +22,17 @@ export default class EntityFactory {
     this.factories['item'] = new ItemFactory(scene, world);
   }
 
-  createEntity(entityType: string, x: number, y: number, id: string): number {
+  createEntity(
+    entityType: string,
+    x: number,
+    y: number,
+    id: string,
+    options?: Record<any, any>
+  ): number {
     if (!this.factories[entityType]) {
       throw new Error('Entity type does not exist');
     }
-    return this.factories[entityType].createEntity(x, y, id);
+    return this.factories[entityType].createEntity(x, y, id, options);
   }
 
   releaseEntity(entityType: string, id: number): void {

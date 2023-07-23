@@ -14,6 +14,7 @@ import { LootDrop } from '@src/entity/data/types';
 import {
   canItemBePickedUp,
   getStaticObjectDetails,
+  hasProperty,
 } from '@src/entity/systems/dataManager';
 import EntityManager from '@src/entity/systems/entityManager';
 import {
@@ -25,7 +26,7 @@ import { IWorld } from 'bitecs';
 import * as Phaser from 'phaser';
 
 export default class EntityHandler {
-  private logger;
+  private readonly logger;
   private entityManager;
 
   constructor(
@@ -42,6 +43,24 @@ export default class EntityHandler {
     EventBus.on('itemCrafted', this.onItemCrafted.bind(this));
     EventBus.on('destroyEntity', this.onEntityDestroyed.bind(this));
     EventBus.on('switchFocus', this.onSwitchFocus.bind(this));
+    EventBus.on('openableToggled', this.onToggleOpenable.bind(this));
+  }
+
+  onToggleOpenable(payload: EntityIDPayload) {
+    const { entityId } = payload;
+    const focusedObjectEntityId = getFocusTarget(entityId);
+    if (hasProperty(focusedObjectEntityId, 'openable')) {
+      this.logger.debug(
+        `Attempting to toggle openable entity ${getEntityNameWithID(
+          focusedObjectEntityId
+        )}`
+      );
+      this.entityManager.toggleOpenable(focusedObjectEntityId);
+    } else {
+      this.logger.warn(
+        `Entity ${getEntityNameWithID(focusedObjectEntityId)} is not openable`
+      );
+    }
   }
 
   onSwitchFocus(payload: EntityIDPayload) {
@@ -121,7 +140,7 @@ export default class EntityHandler {
       this.logger.error(`No sprite for entity ${entityId}`);
       return [];
     }
-    const objectName = objectSprite.texture.key;
+    const objectName = getEntityName(entityId);
     return this.generateDrops(objectName);
   }
 

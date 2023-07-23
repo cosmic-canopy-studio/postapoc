@@ -30,6 +30,7 @@ export function handleCollision(
   let collisionModifier = FULL_MOVEMENT;
   for (const staticObject of nearbyObjects) {
     collisionModifier *= getEntityCollisionModifier(staticObject.entityId);
+    //TODO: Change this to all tile types.
     if (getEntityName(staticObject.entityId) !== 'Grass') {
       logger.debug(
         `Collision: ${getEntityNameWithID(entityId)} with ${getEntityNameWithID(

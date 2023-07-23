@@ -46,29 +46,6 @@
     "collisionModifier": 0.2
   },
   {
-    "id": "bench_vertical",
-    "name": "Bench_Vertical",
-    "textures": [
-      "bench_vertical"
-    ],
-    "type": "object",
-    "category": "construction",
-    "lootTable": [
-      {
-        "id": "pipe",
-        "drop_chance": 70,
-        "count": 2
-      },
-      {
-        "id": "board",
-        "drop_chance": 90,
-        "count": 4
-      }
-    ],
-    "focusExempt": false,
-    "collisionModifier": 0.2
-  },
-  {
     "id": "grass",
     "name": "Grass",
     "textures": [
@@ -181,10 +158,10 @@
     "collisionModifier": 0.9
   },
   {
-    "id": "door_closed",
-    "name": "Door_Closed",
+    "id": "door",
+    "name": "Door",
     "textures": [
-      "door_closed"
+      "door"
     ],
     "type": "object",
     "category": "construction",
@@ -201,7 +178,10 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0
+    "collisionModifier": 0,
+    "properties": [
+      "openable"
+    ]
   },
   {
     "id": "floor",
@@ -250,10 +230,10 @@
     "collisionModifier": 0
   },
   {
-    "id": "window_domestic",
-    "name": "Window_Domestic",
+    "id": "window",
+    "name": "Window",
     "textures": [
-      "window_domestic"
+      "window"
     ],
     "type": "object",
     "category": "construction",
@@ -270,7 +250,10 @@
       }
     ],
     "focusExempt": false,
-    "collisionModifier": 0.5
+    "collisionModifier": 0,
+    "properties": [
+      "openable"
+    ]
   },
   {
     "id": "stairs",
@@ -351,7 +334,7 @@
     "category": "construction",
     "lootTable": [
       {
-        "id": "board",
+        "id": "rock",
         "drop_chance": 80,
         "count": 2
       },

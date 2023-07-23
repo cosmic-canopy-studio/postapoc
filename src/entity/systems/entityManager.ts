@@ -12,13 +12,18 @@ import {
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
+import OpenableState, {
+  OpenableStateType,
+} from '@src/entity/components/openableState';
 import { getSprite } from '@src/entity/components/phaserSprite';
 import EntityFactory from '@src/entity/factories/entityFactory';
 import {
+  getEntityTexture,
   getEntityType,
   getItemDetails,
   getStaticObjectDetails,
 } from '@src/entity/systems/dataManager';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import FocusManager from '@src/entity/systems/focusManager';
 import { healthSystem } from '@src/entity/systems/healthSystem';
 import {
@@ -31,6 +36,7 @@ import DebugPanel from '@src/telemetry/systems/debugPanel';
 import { getLogger } from '@src/telemetry/systems/logger';
 import { IWorld } from 'bitecs';
 import RBush from 'rbush';
+import { handleObjectIdNamedOrientation } from '@src/entity/components/orientationState';
 
 export default class EntityManager {
   private logger;
@@ -97,7 +103,12 @@ export default class EntityManager {
 
   generateStaticObject(x: number, y: number, staticObjectId: string) {
     let coordinates = { x, y };
-    if (getStaticObjectDetails(staticObjectId).type === 'object') {
+    const objectIDWithOrientation =
+      handleObjectIdNamedOrientation(staticObjectId);
+    if (
+      getStaticObjectDetails(objectIDWithOrientation.objectBaseId).type ===
+      'object'
+    ) {
       coordinates = this.getSafeCoordinates(x, y);
     }
 
@@ -105,13 +116,18 @@ export default class EntityManager {
       'staticObject',
       coordinates.x,
       coordinates.y,
-      staticObjectId
+      objectIDWithOrientation.objectBaseId,
+      { orientation: objectIDWithOrientation.orientation }
     );
 
-    const objectDetails = getStaticObjectDetails(staticObjectId);
+    const objectDetails = getStaticObjectDetails(
+      objectIDWithOrientation.objectBaseId
+    );
 
     if (!objectDetails) {
-      this.logger.info(`No object details for ${objectID}`);
+      this.logger.info(
+        `No object details for ${objectIDWithOrientation.objectBaseId}`
+      );
       return;
     }
 
@@ -198,6 +214,38 @@ export default class EntityManager {
     this.objectSpatialIndex.remove(collider, (a, b) => {
       return a.entityId === b.entityId;
     });
+  }
+
+  toggleOpenable(entityId: number) {
+    const openableState = OpenableState.state[entityId] as OpenableStateType;
+    if (openableState === OpenableStateType.CLOSED) {
+      OpenableState.state[entityId] = OpenableStateType.OPEN;
+      this.logger.info(`${getEntityNameWithID(entityId)} toggled to open`);
+    } else if (openableState === OpenableStateType.OPEN) {
+      OpenableState.state[entityId] = OpenableStateType.CLOSED;
+      this.logger.info(`${getEntityNameWithID(entityId)} toggled to closed`);
+    } else if (openableState === OpenableStateType.LOCKED) {
+      this.logger.info(
+        `${getEntityNameWithID(
+          entityId
+        )} cannot be toggled, is currently locked`
+      );
+    } else if (openableState === OpenableStateType.BROKEN) {
+      this.logger.info(
+        `${getEntityNameWithID(
+          entityId
+        )} cannot be toggled, is currently broken`
+      );
+    } else {
+      this.logger.warn(`Unknown openable state ${openableState}`);
+    }
+    this.updateTexture(entityId);
+  }
+
+  private updateTexture(entityId: number) {
+    const sprite = getSprite(entityId);
+    const texture = getEntityTexture(entityId);
+    sprite.setTexture(texture);
   }
 
   private getSafeCoordinates(

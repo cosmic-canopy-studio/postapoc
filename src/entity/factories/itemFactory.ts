@@ -4,9 +4,8 @@ import {
   getSprite,
 } from '@src/entity/components/phaserSprite';
 import { DEFAULT_ITEM_SIZE } from '@src/entity/data/constants';
-import { IEntityFactory } from '@src/entity/data/interfaces';
 import itemsData from '@src/entity/data/items.json';
-import { Item } from '@src/entity/data/types';
+import { IEntityFactory, Item } from '@src/entity/data/types';
 import {
   getEntityNameWithID,
   removeEntityName,

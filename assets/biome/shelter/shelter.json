@@ -213,7 +213,7 @@
             {
               "name": "type",
               "type": "string",
-              "value": "window_domestic"
+              "value": "window"
             }
           ]
         },
@@ -233,7 +233,7 @@
             {
               "name": "type",
               "type": "string",
-              "value": "door_closed"
+              "value": "door"
             }
           ]
         },

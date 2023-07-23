@@ -1,7 +1,7 @@
 import { MOVEMENT_SPEED } from '@src/core/config/constants';
 import { IHandler } from '@src/core/data/types';
 import EventBus from '@src/core/systems/eventBus';
-import Movement from '@src/movement/components/movement';
+import Motion from '@src/movement/components/motion';
 import { MoveActions } from '@src/movement/data/enums';
 import { MoveEventPayload } from '@src/movement/data/events';
 import { getLogger } from '@src/telemetry/systems/logger';
@@ -30,27 +30,27 @@ export default class MovementHandler implements IHandler {
     if (state) {
       switch (direction) {
         case MoveActions.UP:
-          Movement.ySpeed[entityId] = -speed;
+          Motion.ySpeed[entityId] = -speed;
           break;
         case MoveActions.DOWN:
-          Movement.ySpeed[entityId] = speed;
+          Motion.ySpeed[entityId] = speed;
           break;
         case MoveActions.LEFT:
-          Movement.xSpeed[entityId] = -speed;
+          Motion.xSpeed[entityId] = -speed;
           break;
         case MoveActions.RIGHT:
-          Movement.xSpeed[entityId] = speed;
+          Motion.xSpeed[entityId] = speed;
           break;
       }
     } else {
       switch (direction) {
         case MoveActions.UP:
         case MoveActions.DOWN:
-          Movement.ySpeed[entityId] = 0;
+          Motion.ySpeed[entityId] = 0;
           break;
         case MoveActions.LEFT:
         case MoveActions.RIGHT:
-          Movement.xSpeed[entityId] = 0;
+          Motion.xSpeed[entityId] = 0;
           break;
       }
     }
