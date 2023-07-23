@@ -1,0 +1,9 @@
+<svg width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="transparent"/>
+  <ellipse cx="16" cy="24" rx="10" ry="5" fill="dimgrey"/>
+  <ellipse cx="12" cy="18" rx="7" ry="9" fill="gray"/>
+  <ellipse cx="22" cy="18" rx="6" ry="8" fill="gray"/>
+  <ellipse cx="16" cy="17" rx="8" ry="10" fill="gray"/>
+  <path d="M10,12 L9,14 L9,18 L10,20 L11,27" stroke="dimgrey" stroke-width="1" fill="gray"/>
+  <path d="M23,12 L23,14 L23,18 L22,22 L23,27" stroke="dimgrey" stroke-width="1" fill="gray"/>
+</svg>
