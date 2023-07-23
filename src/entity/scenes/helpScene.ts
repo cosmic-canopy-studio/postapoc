@@ -8,8 +8,8 @@ import { getLogger } from '@src/telemetry/systems/logger';
 import { DraggableScene } from './draggableScene';
 
 export default class HelpScene extends DraggableScene {
+  readonly controlMapping: ControlMapping;
   protected logger = getLogger('entity');
-  private controlMapping: ControlMapping;
 
   constructor() {
     super({ key: 'HelpScene' });
