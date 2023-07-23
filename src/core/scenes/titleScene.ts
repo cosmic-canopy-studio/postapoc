@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 export default class TitleScene extends Phaser.Scene {
   private started = false;
+
   constructor() {
     super('TitleScene');
   }
@@ -10,10 +11,12 @@ export default class TitleScene extends Phaser.Scene {
     this.add.image(400, 300, 'starry_night');
 
     const forestSilhouette = this.add.image(400, 300, 'forest_silhouette');
-    forestSilhouette.setScale(1).setDepth(10);
+    forestSilhouette.setScale(1, 1);
+    forestSilhouette.setDepth(5);
 
     const title = this.add.image(400, 150, 'postapoc_title');
-    title.setScale(2).setDepth(10);
+    title.setScale(2, 2);
+    title.setDepth(10);
     this.input.on('pointerdown', () => this.startMainScene());
     if (!this.input.keyboard) {
       throw new Error('No keyboard found');
@@ -36,7 +39,8 @@ export default class TitleScene extends Phaser.Scene {
         this.cameras.main.height,
         'mushroom_cloud'
       );
-      mushroomCloud.setScale(0.1).setOrigin(0.5, 1);
+      mushroomCloud.setScale(0.1, 0.1);
+      mushroomCloud.setOrigin(0.5, 1);
       this.tweens.add({
         targets: mushroomCloud,
         scale: 5,

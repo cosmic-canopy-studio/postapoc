@@ -2,41 +2,82 @@
   {
     "id": "backpack",
     "name": "Backpack",
+    "textures": [
+      "backpack"
+    ],
+    "type": "item",
     "category": "container",
     "canBePickedUp": true
   },
   {
     "id": "board",
     "name": "Board",
-    "texture": "board",
+    "textures": [
+      "board"
+    ],
+    "type": "item",
+    "groups": [
+      "wood_pole"
+    ],
+    "category": "construction",
     "canBePickedUp": true
   },
   {
     "id": "stick",
     "name": "Stick",
-    "texture": "stick",
+    "textures": [
+      "stick"
+    ],
+    "type": "item",
+    "groups": [
+      "wood_pole"
+    ],
+    "category": "nature",
+    "canBePickedUp": true
+  },
+  {
+    "id": "log",
+    "name": "Log",
+    "textures": [
+      "log"
+    ],
+    "type": "item",
+    "category": "nature",
     "canBePickedUp": true
   },
   {
     "id": "rock",
     "name": "Rock",
-    "texture": "rock",
+    "textures": [
+      "rock"
+    ],
+    "type": "item",
+    "category": "nature",
     "canBePickedUp": true
   },
   {
     "id": "pipe",
     "name": "Pipe",
-    "texture": "pipe",
+    "textures": [
+      "pipe"
+    ],
+    "type": "item",
+    "category": "construction",
     "canBePickedUp": true
   },
   {
     "id": "hammer",
     "name": "Hammer",
-    "texture": "hammer",
+    "textures": [
+      "hammer"
+    ],
     "canBePickedUp": true,
+    "type": "item",
+    "category": "tool",
     "recipe": [
       {
-        "id": "stick",
+        "id": "wood_pole",
+        "group": true,
         "quantity": 1
       },
       {

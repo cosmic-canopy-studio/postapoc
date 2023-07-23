@@ -1,6 +1,7 @@
+import Collider from '@src/movement/components/collider';
+import { getLogger } from '@src/telemetry/systems/logger';
 import { addComponent, defineComponent, IWorld, Types } from 'bitecs';
 import Phaser from 'phaser';
-import { getLogger } from '@src/telemetry/systems/logger';
 
 const logger = getLogger('entity');
 const phaserSprites: Phaser.GameObjects.Sprite[] = [];
@@ -11,33 +12,53 @@ const PhaserSprite = defineComponent({
 
 export function addPhaserSprite(
   world: IWorld,
-  eid: number,
+  entityId: number,
   sprite: Phaser.GameObjects.Sprite
 ) {
-  addComponent(world, PhaserSprite, eid);
-  PhaserSprite.spriteIndex[eid] = phaserSprites.length;
+  addComponent(world, PhaserSprite, entityId);
+  PhaserSprite.spriteIndex[entityId] = phaserSprites.length;
   phaserSprites.push(sprite);
   logger.debugVerbose(
-    `Adding sprite ${eid} with texture ${sprite.texture.key}`
+    `Adding sprite ${entityId} with texture ${sprite.texture.key}`
   );
 }
 
-export function removePhaserSprite(eid: number) {
-  const sprite = getSprite(eid);
+export function removePhaserSprite(entityId: number) {
+  const sprite = getSprite(entityId);
   if (!sprite) {
-    throw new Error(`No sprite found for entity ${eid}`);
+    throw new Error(`No sprite found for entity ${entityId}`);
   } else {
     sprite.setActive(false);
     sprite.setVisible(false);
     sprite.setTexture('');
   }
-  logger.debugVerbose(`Removing sprite ${eid}`);
+  logger.debugVerbose(`Removing sprite ${entityId}`);
   return sprite;
 }
 
-export function getSprite(eid: number): Phaser.GameObjects.Sprite | undefined {
-  const index = PhaserSprite.spriteIndex[eid];
+export function getSprite(entityId: number) {
+  const index = PhaserSprite.spriteIndex[entityId];
+  if (index === undefined) {
+    throw new Error(`No sprite found for entity ${entityId}`);
+  }
   return phaserSprites[index];
+}
+
+export function updateSpriteColliderBounds(entityId: number) {
+  const sprite = getSprite(entityId);
+  if (!sprite) {
+    logger.error(
+      `Could not update collider bounds for entity ${entityId}, no sprite found`
+    );
+    return;
+  }
+  const bounds = sprite.getBounds();
+
+  Collider.minX[entityId] = bounds.x + 2;
+  Collider.minY[entityId] = bounds.y + sprite.height / 2;
+  Collider.maxX[entityId] = bounds.right - 2; // x + width
+  Collider.maxY[entityId] = bounds.bottom; // y + height
+  logger.debugVerbose(`Updated collider bounds for entity ${entityId}`);
 }
 
 export default PhaserSprite;

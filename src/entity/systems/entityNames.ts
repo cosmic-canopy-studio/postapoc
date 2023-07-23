@@ -4,9 +4,12 @@ export function setEntityName(entityId: number, name: string) {
   entityNames.set(entityId, name);
 }
 
-// Function to get the friendly name of an entity
 export function getEntityName(entityId: number) {
-  return entityNames.get(entityId);
+  const name = entityNames.get(entityId);
+  if (!name) {
+    throw new Error(`Entity ${entityId} has no name`);
+  }
+  return name;
 }
 
 export function removeEntityName(entityId: number) {

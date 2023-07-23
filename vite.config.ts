@@ -1,10 +1,10 @@
 // vite.config.js
+import * as path from 'path';
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import * as path from 'path';
 
 export default defineConfig({
-  base: '/postapoc/',
+  base: '/postapoc',
   build: {
     outDir: 'dist',
   },

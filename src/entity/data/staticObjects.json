@@ -1,0 +1,373 @@
+[
+  {
+    "id": "tree",
+    "name": "Tree",
+    "textures": [
+      "tree"
+    ],
+    "type": "object",
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "stick",
+        "drop_chance": 80,
+        "count": 5
+      },
+      {
+        "id": "log",
+        "drop_chance": 50,
+        "count": 2
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0
+  },
+  {
+    "id": "bench",
+    "name": "Bench",
+    "textures": [
+      "bench"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "pipe",
+        "drop_chance": 70,
+        "count": 2
+      },
+      {
+        "id": "board",
+        "drop_chance": 90,
+        "count": 4
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.2
+  },
+  {
+    "id": "grass",
+    "name": "Grass",
+    "textures": [
+      "grass",
+      "grass2"
+    ],
+    "type": "tile",
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "grassSeed",
+        "drop_chance": 5,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.8
+  },
+  {
+    "id": "dirt",
+    "name": "Dirt",
+    "textures": [
+      "dirt",
+      "dirt2"
+    ],
+    "type": "tile",
+    "category": "nature",
+    "lootTable": [
+      {
+        "id": "dirtMound",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "stone",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.9
+  },
+  {
+    "id": "pavement",
+    "name": "Pavement",
+    "textures": [
+      "pavement"
+    ],
+    "type": "tile",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "stone",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "dirtMound",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.9
+  },
+  {
+    "id": "pavement_y",
+    "name": "Pavement_Y",
+    "textures": [
+      "pavement_y"
+    ],
+    "type": "tile",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "stone",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "dirtMound",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.9
+  },
+  {
+    "id": "sidewalk",
+    "name": "Sidewalk",
+    "textures": [
+      "sidewalk"
+    ],
+    "type": "tile",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "stone",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "dirtMound",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0.9
+  },
+  {
+    "id": "door",
+    "name": "Door",
+    "textures": [
+      "door"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0,
+    "properties": [
+      "openable"
+    ]
+  },
+  {
+    "id": "floor",
+    "name": "Floor",
+    "textures": [
+      "floor"
+    ],
+    "type": "tile",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 1
+  },
+  {
+    "id": "brick_wall",
+    "name": "Brick_Wall",
+    "textures": [
+      "brick_wall"
+    ],
+    "type": "tile",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "brick",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": true,
+    "collisionModifier": 0
+  },
+  {
+    "id": "window",
+    "name": "Window",
+    "textures": [
+      "window"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "glass",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "board",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0,
+    "properties": [
+      "openable"
+    ]
+  },
+  {
+    "id": "stairs",
+    "name": "Stairs",
+    "textures": [
+      "stairs"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.8
+  },
+  {
+    "id": "gutter_downspout",
+    "name": "Gutter_Downspout",
+    "textures": [
+      "gutter_downspout"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "pipe",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "board",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.5
+  },
+  {
+    "id": "console",
+    "name": "Console",
+    "textures": [
+      "console"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0
+  },
+  {
+    "id": "locker",
+    "name": "Locker",
+    "textures": [
+      "locker"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "rock",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0
+  },
+  {
+    "id": "counter",
+    "name": "Counter",
+    "textures": [
+      "counter"
+    ],
+    "type": "object",
+    "category": "construction",
+    "lootTable": [
+      {
+        "id": "board",
+        "drop_chance": 80,
+        "count": 2
+      },
+      {
+        "id": "pipe",
+        "drop_chance": 20,
+        "count": 1
+      }
+    ],
+    "focusExempt": false,
+    "collisionModifier": 0.5
+  }
+]

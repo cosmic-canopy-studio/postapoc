@@ -8,37 +8,51 @@
 ├── PROMPT.md
 ├── README.md
 ├── assets
+│   ├── biome
+│   │   └── shelter
+│   │       ├── exterior.png
+│   │       └── shelter.json
 │   ├── data
 │   ├── items
-│   │   └── hammer.svg
-│   ├── objects
-│   │   ├── bench.svg
-│   │   ├── board.svg
-│   │   ├── door.svg
-│   │   ├── log.svg
-│   │   ├── pipe.svg
-│   │   ├── player.svg
-│   │   ├── rock.svg
-│   │   ├── stick.svg
-│   │   └── tree.svg
-│   ├── tiled
-│   │   ├── postapoc.tiled-project
-│   │   ├── postapoc.tiled-session
-│   │   └── terrain.tsx
-│   ├── tiles
-│   │   ├── concrete_wall.svg
-│   │   ├── grass.svg
-│   │   ├── grass2.svg
-│   │   ├── grass3.svg
-│   │   ├── grass4.svg
-│   │   └── white_tile.svg
-│   └── ui
-│       ├── forest_silhouette.svg
-│       ├── grey_arrow.svg
-│       ├── mushroom_cloud.svg
-│       ├── postapoc_title.svg
-│       ├── red_arrow.svg
-│       └── starry_night.svg
+│   ├── kennynl
+│   │   ├── Tilesheet.txt
+│   │   ├── licenses.md
+│   │   ├── player.png
+│   │   ├── playerSheet.png
+│   │   ├── roguelike-city.json
+│   │   ├── roguelike-city.png
+│   │   ├── roguelike-city.tmx
+│   │   └── survival-items.png
+│   └── prototype
+│       ├── items
+│       │   └── hammer.svg
+│       ├── objects
+│       │   ├── bench.svg
+│       │   ├── board.svg
+│       │   ├── door.svg
+│       │   ├── log.svg
+│       │   ├── pipe.svg
+│       │   ├── player.svg
+│       │   ├── rock.svg
+│       │   ├── stick.svg
+│       │   └── tree.svg
+│       ├── tiles
+│       │   ├── concrete_wall.svg
+│       │   ├── dirt.svg
+│       │   ├── dirt2.svg
+│       │   ├── dirt3.svg
+│       │   ├── grass.svg
+│       │   ├── grass2.svg
+│       │   ├── grass3.svg
+│       │   ├── grass4.svg
+│       │   └── white_tile.svg
+│       └── ui
+│           ├── forest_silhouette.svg
+│           ├── grey_arrow.svg
+│           ├── mushroom_cloud.svg
+│           ├── postapoc_title.svg
+│           ├── red_arrow.svg
+│           └── starry_night.svg
 ├── conventional-changelog.config.js
 ├── index.html
 ├── jest.config.ts
@@ -71,71 +85,89 @@
 │   │       ├── actionHandler.ts
 │   │       ├── actionLogic.ts
 │   │       └── craftSystem.ts
+│   ├── biome
+│   │   ├── data
+│   │   │   ├── biomes.ts
+│   │   │   ├── constants.ts
+│   │   │   └── interfaces.ts
+│   │   └── systems
+│   │       ├── biomeJSONCache.ts
+│   │       ├── biomeManager.ts
+│   │       └── overworldManager.ts
 │   ├── core
 │   │   ├── assets
-│   │   │   ├── itemAssets.json
-│   │   │   ├── menuAssets.json
-│   │   │   ├── objectAssets.json
-│   │   │   ├── terrainAssets.json
-│   │   │   └── uiAssets.json
+│   │   │   ├── kennynl
+│   │   │   │   ├── objectAssets.json
+│   │   │   │   └── tilesetAssets.json
+│   │   │   └── prototype
+│   │   │       ├── itemAssets.json
+│   │   │       ├── menuAssets.json
+│   │   │       ├── objectAssets.json
+│   │   │       ├── terrainAssets.json
+│   │   │       └── uiAssets.json
 │   │   ├── config
 │   │   │   ├── constants.ts
 │   │   │   └── controlMapping.json
 │   │   ├── data
-│   │   │   ├── enums.ts
 │   │   │   ├── events.ts
-│   │   │   ├── interfaces.ts
 │   │   │   └── types.ts
 │   │   ├── scenes
 │   │   │   ├── bootScene.ts
 │   │   │   ├── mainScene.ts
 │   │   │   └── titleScene.ts
 │   │   ├── systems
+│   │   │   ├── assetLoader.ts
 │   │   │   ├── controlSystem.ts
 │   │   │   ├── eventBus.ts
 │   │   │   ├── eventHandler.ts
 │   │   │   ├── inversify.config.ts
 │   │   │   ├── keyBindings.ts
+│   │   │   ├── tileProcessor.ts
 │   │   │   └── universe.ts
 │   │   └── utils
 │   │       └── svgUtils.ts
 │   ├── entity
 │   │   ├── components
-│   │   │   ├── canPickup.ts
 │   │   │   ├── focus.ts
 │   │   │   ├── health.ts
 │   │   │   ├── inventory.ts
+│   │   │   ├── openableState.ts
+│   │   │   ├── orientationState.ts
 │   │   │   └── phaserSprite.ts
 │   │   ├── data
 │   │   │   ├── constants.ts
 │   │   │   ├── enums.ts
 │   │   │   ├── events.ts
-│   │   │   ├── interfaces.ts
 │   │   │   ├── items.json
-│   │   │   ├── objects.json
+│   │   │   ├── staticObjects.json
 │   │   │   └── types.ts
+│   │   ├── factories
+│   │   │   ├── creatureFactory.ts
+│   │   │   ├── entityFactory.ts
+│   │   │   ├── itemFactory.ts
+│   │   │   └── staticObjectFactory.ts
 │   │   ├── scenes
 │   │   │   ├── craftingScene.ts
 │   │   │   ├── draggableScene.ts
 │   │   │   ├── helpScene.ts
 │   │   │   └── inventoryScene.ts
 │   │   └── systems
+│   │       ├── dataManager.ts
 │   │       ├── entityHandler.ts
+│   │       ├── entityManager.ts
 │   │       ├── entityNames.ts
 │   │       ├── focusManager.ts
 │   │       ├── healthSystem.ts
-│   │       ├── lootDrops.ts
-│   │       ├── objectManager.ts
 │   │       ├── objectPool.ts
-│   │       ├── playerFactory.ts
-│   │       ├── playerManager.ts
-│   │       └── staticObjectFactory.ts
+│   │       └── uiHandler.ts
 │   ├── main.ts
 │   ├── movement
 │   │   ├── components
 │   │   │   ├── collider.ts
-│   │   │   └── movement.ts
+│   │   │   ├── motion.ts
+│   │   │   └── position.ts
 │   │   ├── data
+│   │   │   ├── constants.ts
 │   │   │   ├── enums.ts
 │   │   │   └── events.ts
 │   │   └── systems
@@ -174,6 +206,14 @@
 │       ├── objectPool.test.ts
 │       └── timeSystem.test.ts
 ├── tsconfig.json
+├── utils
+│   ├── cdda_to_tiled.js
+│   └── examples
+│       ├── converted.json
+│       ├── original.json
+│       ├── tilemap_packed.png
+│       ├── tileset.json
+│       └── tileset.png
 ├── vite.config.ts
 └── yarn.lock
 

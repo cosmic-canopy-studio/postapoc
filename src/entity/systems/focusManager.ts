@@ -1,19 +1,16 @@
-import Collider, {
-  getBoundingBox,
-  ICollider,
-} from '@src/movement/components/collider';
-import { getLogger } from '@src/telemetry/systems/logger';
-import { ECS_NULL, PLAYER_FOCUS_DISTANCE } from '@src/core/config/constants';
-import RBush from 'rbush';
-import * as Phaser from 'phaser';
-import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import { CREATURE_FOCUS_DISTANCE, ECS_NULL } from '@src/core/config/constants';
 import {
   clearFocusTarget,
   getFocusTarget,
   updateFocusTarget,
 } from '@src/entity/components/focus';
-import { Boundaries } from '@src/entity/data/types';
-import { IFocusTarget } from '@src/entity/data/interfaces';
+import { Boundaries, IFocusTarget } from '@src/entity/data/types';
+import { isEntityFocusExempt } from '@src/entity/systems/dataManager';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
+import { getBoundingBox, ICollider } from '@src/movement/components/collider';
+import { getLogger } from '@src/telemetry/systems/logger';
+import * as Phaser from 'phaser';
+import RBush from 'rbush';
 
 function calculateDistance(a: Boundaries, b: Boundaries): number {
   let xDistance = 0;
@@ -47,13 +44,15 @@ export default class FocusManager {
     const focusTargetEid = getFocusTarget(playerEid);
 
     if (focusTargetEid) {
-      this.updateFocusTarget(playerEid, focusTargetEid);
+      this.updateFocusTarget(playerEid);
     } else {
       this.findAndSetNewFocusTarget(playerEid, objectsSpatialIndex);
     }
   }
 
-  updateFocusTarget(playerEid: number, focusTargetEid: number) {
+  updateFocusTarget(playerEid: number) {
+    const focusTargetEid = getFocusTarget(playerEid);
+
     const playerBounds = getBoundingBox(playerEid);
     const focusTargetBounds = getBoundingBox(focusTargetEid);
 
@@ -68,7 +67,7 @@ export default class FocusManager {
     }
 
     const distance = calculateDistance(playerBounds, focusTargetBounds);
-    if (distance > PLAYER_FOCUS_DISTANCE) {
+    if (distance > CREATURE_FOCUS_DISTANCE) {
       this.logAndRemoveFocus(
         `${getEntityNameWithID(focusTargetEid)} out of range`,
         playerEid
@@ -113,17 +112,17 @@ export default class FocusManager {
     focusOwnerEntityId: number,
     objectsSpatialIndex: RBush<ICollider>
   ) {
-    const focusOwnerBounds = getBoundingBox(focusOwnerEntityId); // assuming getPlayer() method is in PlayerManager
+    const focusOwnerBounds = getBoundingBox(focusOwnerEntityId);
     if (!focusOwnerBounds) {
       this.logger.warn('Player has no bounds');
       return ECS_NULL;
     }
 
     const nearbyObjects = objectsSpatialIndex.search({
-      minX: focusOwnerBounds.minX - PLAYER_FOCUS_DISTANCE,
-      minY: focusOwnerBounds.minY - PLAYER_FOCUS_DISTANCE,
-      maxX: focusOwnerBounds.maxX + PLAYER_FOCUS_DISTANCE,
-      maxY: focusOwnerBounds.maxY + PLAYER_FOCUS_DISTANCE,
+      minX: focusOwnerBounds.minX - CREATURE_FOCUS_DISTANCE,
+      minY: focusOwnerBounds.minY - CREATURE_FOCUS_DISTANCE,
+      maxX: focusOwnerBounds.maxX + CREATURE_FOCUS_DISTANCE,
+      maxY: focusOwnerBounds.maxY + CREATURE_FOCUS_DISTANCE,
     });
 
     if (nearbyObjects === undefined || nearbyObjects.length === 0) {
@@ -135,7 +134,7 @@ export default class FocusManager {
     const objectsInRange: IFocusTarget[] = [];
 
     for (const staticObject of nearbyObjects) {
-      if (!Collider.exempt[staticObject.eid]) {
+      if (!isEntityFocusExempt(staticObject.entityId)) {
         const staticObjectBounds = {
           minX: staticObject.minX,
           minY: staticObject.minY,
@@ -146,25 +145,36 @@ export default class FocusManager {
           focusOwnerBounds,
           staticObjectBounds
         );
-        if (distance <= PLAYER_FOCUS_DISTANCE) {
+        if (distance <= CREATURE_FOCUS_DISTANCE) {
           objectsInRange.push({ distance, target: staticObject });
         }
       }
     }
 
     objectsInRange.sort((a, b) => a.distance - b.distance);
-    this.logger.debugVerbose('Sorted objects', objectsInRange);
-    this.logger.debugVerbose('Nearest object', objectsInRange[0]);
-    const nearestObject = objectsInRange[0];
-    if (nearestObject) {
-      return this.setFocusArrow(nearestObject.target);
+
+    const previousFocusId = getFocusTarget(focusOwnerEntityId);
+
+    // Check the position of the last focused entity in the sorted entities array
+    const indexOfLastFocus = objectsInRange.findIndex(
+      ({ target }) => target.entityId === previousFocusId
+    );
+
+    // If the last focused entity was found and is not the last one, focus the next one
+    if (indexOfLastFocus >= 0 && indexOfLastFocus < objectsInRange.length - 1) {
+      return this.setFocusArrow(objectsInRange[indexOfLastFocus + 1].target);
+    } else if (objectsInRange.length > 0) {
+      // If the last focused entity was not found or was the last one, focus the first one
+      return this.setFocusArrow(objectsInRange[0].target);
     } else {
       return this.removeFocus(focusOwnerEntityId);
     }
   }
 
   private setFocusArrow(target: ICollider) {
-    this.logger.info(`Setting focus to ${getEntityNameWithID(target.eid)}`);
+    this.logger.info(
+      `Setting focus to ${getEntityNameWithID(target.entityId)}`
+    );
     const lengthX = target.maxX - target.minX;
     const centerX = target.minX + lengthX / 2;
     const arrowX = centerX - this.arrow.width / 2;
@@ -172,7 +182,7 @@ export default class FocusManager {
     this.arrow.setPosition(arrowX, arrowY);
     this.arrow.setVisible(true);
     this.arrow.setDepth(10);
-    if (!target.eid) throw new Error('No eid for target');
-    return target.eid;
+    if (!target.entityId) throw new Error('No eid for target');
+    return target.entityId;
   }
 }

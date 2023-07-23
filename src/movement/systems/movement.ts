@@ -1,14 +1,15 @@
 import {
-  ICollider,
+  getSprite,
   updateSpriteColliderBounds,
-} from '@src/movement/components/collider';
-import Movement from '@src/movement/components/movement';
-import { getSprite } from '@src/entity/components/phaserSprite';
+} from '@src/entity/components/phaserSprite';
+import { ICollider } from '@src/movement/components/collider';
+import Motion from '@src/movement/components/motion';
+import Position from '@src/movement/components/position';
 import { handleCollision } from '@src/movement/systems/collision';
 import { defineQuery, IWorld } from 'bitecs';
 import RBush from 'rbush';
 
-const movementQuery = defineQuery([Movement]);
+const movementQuery = defineQuery([Motion]);
 
 export function movement(
   world: IWorld,
@@ -18,8 +19,8 @@ export function movement(
   const entities = movementQuery(world);
 
   for (const eid of entities) {
-    const xSpeed = Movement.xSpeed[eid];
-    const ySpeed = Movement.ySpeed[eid];
+    const xSpeed = Motion.xSpeed[eid];
+    const ySpeed = Motion.ySpeed[eid];
 
     const sprite = getSprite(eid);
     if (sprite) {
@@ -27,17 +28,17 @@ export function movement(
 
       let newX, newY;
       if (collisionModifier > 0) {
-        newX = Movement.x[eid] + xSpeed * collisionModifier * delta;
-        newY = Movement.y[eid] + ySpeed * collisionModifier * delta;
+        newX = Position.x[eid] + xSpeed * collisionModifier * delta;
+        newY = Position.y[eid] + ySpeed * collisionModifier * delta;
       } else {
-        newX = Movement.x[eid] - xSpeed * delta;
-        newY = Movement.y[eid] - ySpeed * delta;
-        Movement.xSpeed[eid] = 0;
-        Movement.ySpeed[eid] = 0;
+        newX = Position.x[eid] - xSpeed * delta;
+        newY = Position.y[eid] - ySpeed * delta;
+        Motion.xSpeed[eid] = 0;
+        Motion.ySpeed[eid] = 0;
       }
 
-      Movement.x[eid] = newX;
-      Movement.y[eid] = newY;
+      Position.x[eid] = newX;
+      Position.y[eid] = newY;
 
       sprite.setPosition(newX, newY);
       updateSpriteColliderBounds(eid);

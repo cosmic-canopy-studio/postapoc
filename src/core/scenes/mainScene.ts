@@ -1,6 +1,5 @@
 import Universe from '@src/core/systems/universe';
 import Phaser from 'phaser';
-import { TimeState } from '@src/time/systems/timeSystem';
 
 export default class MainScene extends Phaser.Scene {
   private universe!: Universe;
@@ -45,7 +44,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private updateTimeStateText() {
-    const timeState = this.universe.getTimeState();
-    this.timeStateText.setText(`${TimeState[timeState].toLowerCase()}`);
+    const timeState = this.universe.getTimeFactor();
+    this.timeStateText.setText(`time factor: ${timeState}x`);
   }
 }
