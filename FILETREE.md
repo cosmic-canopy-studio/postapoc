@@ -13,6 +13,7 @@
 │   │       ├── exterior.png
 │   │       └── shelter.json
 │   ├── data
+│   ├── items
 │   ├── kennynl
 │   │   ├── Tilesheet.txt
 │   │   ├── licenses.md
