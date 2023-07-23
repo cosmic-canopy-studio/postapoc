@@ -36,10 +36,7 @@ export default class TileProcessor {
     tilesetImageCanvas: HTMLCanvasElement
   ) {
     tileset.tiles.forEach((tile: Tile) => {
-      if (
-        tile.properties &&
-        tile.properties.some((property) => property.name === 'type')
-      ) {
+      if (tile.properties?.some((property) => property.name === 'type')) {
         const typeProperty = tile.properties.find(
           (property) => property.name === 'type'
         );
@@ -68,7 +65,7 @@ export default class TileProcessor {
     tileset: Tileset,
     tilesetImageCanvas: HTMLCanvasElement
   ) {
-    const match = typeProperty.value.match(/(.*)-(\d+)x(\d+)$/);
+    const match = /(.*)-(\d+)x(\d+)$/.exec(typeProperty.value);
 
     if (match) {
       const baseName = match[1];

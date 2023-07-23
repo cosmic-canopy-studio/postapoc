@@ -47,7 +47,7 @@ export function hasProperty(entityId: number, property: string) {
     `Entity ${entityId} has property ${property}:`,
     hasProperty
   );
-  return hasProperty || false;
+  return hasProperty ?? false;
 }
 
 export function getEntityState(entityId: number) {
@@ -83,7 +83,7 @@ export function getEntityTexture(entityId: number): string {
 export function getItemDetails(itemId: string) {
   const item = ItemMap.get(itemId.toLowerCase());
   getLogger('entity').debugVerbose('Item details:', item);
-  return item || null;
+  return item ?? null;
 }
 
 export function getItemsInGroup(itemGroup: string) {
@@ -117,7 +117,7 @@ export function isEntityFocusExempt(entityId: number) {
 
 export function isObjectIdFocusExempt(objectId: string) {
   const genericObject = getGenericObjectDetails(objectId);
-  const focusExempt = genericObject.focusExempt || false;
+  const focusExempt = genericObject.focusExempt ?? false;
   getLogger('entity').debug('Object exempt:', focusExempt);
   return focusExempt;
 }

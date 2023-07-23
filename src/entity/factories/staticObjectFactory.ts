@@ -79,7 +79,7 @@ export default class StaticObjectFactory implements IEntityFactory {
     sprite.setVisible(true);
 
     addPhaserSprite(this.world, staticObject, sprite);
-    const initialHealth = objectDetails.health || DEFAULT_HEALTH;
+    const initialHealth = objectDetails.health ?? DEFAULT_HEALTH;
     addHealth(this.world, staticObject, initialHealth, initialHealth);
     addCollider(this.world, staticObject);
 

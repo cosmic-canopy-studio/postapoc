@@ -47,7 +47,7 @@ export function getLogger(moduleName: string): VerboseLogger {
     loggers[moduleName] = log.getLogger(moduleName) as VerboseLogger;
     loggers[moduleName].setLevel(log.levels.INFO);
     loggers[moduleName].methodFactory = customMethodFactory;
-    const verbose = import.meta.env?.VITE_VERBOSE || 'false';
+    const verbose = import.meta.env?.VITE_VERBOSE ?? 'false';
     loggers[moduleName].debugVerbose = (...args) => {
       if (verbose === 'true') {
         loggers[moduleName].debug(...args);
