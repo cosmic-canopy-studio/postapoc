@@ -6,27 +6,43 @@
     "canBePickedUp": true
   },
   {
-  "id": "board",
-  "name": "Board",
-  "texture": "board",
-  "canBePickedUp": true
+    "id": "board",
+    "name": "Board",
+    "texture": "board",
+    "canBePickedUp": true
   },
   {
-  "id": "stick",
-  "name": "Stick",
-  "texture": "stick",
-  "canBePickedUp": true
+    "id": "stick",
+    "name": "Stick",
+    "texture": "stick",
+    "canBePickedUp": true
   },
   {
-  "id": "stone",
-  "name": "Stone",
-  "texture": "stone",
-  "canBePickedUp": true
+    "id": "rock",
+    "name": "Rock",
+    "texture": "rock",
+    "canBePickedUp": true
   },
   {
-  "id": "pipe",
-  "name": "Pipe",
-  "texture": "pipe",
-  "canBePickedUp": true
+    "id": "pipe",
+    "name": "Pipe",
+    "texture": "pipe",
+    "canBePickedUp": true
+  },
+  {
+    "id": "hammer",
+    "name": "Hammer",
+    "texture": "hammer",
+    "canBePickedUp": true,
+    "recipe": [
+      {
+        "id": "stick",
+        "quantity": 1
+      },
+      {
+        "id": "rock",
+        "quantity": 1
+      }
+    ]
   }
 ]

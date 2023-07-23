@@ -10,11 +10,14 @@
     "KeyD": "right"
   },
   "action": {
-    "KeyP": "pause",
+    "KeyP": "togglePause",
     "Space": "attack",
     "KeyE": "pickUp",
-    "KeyZ": "slowTime",
+    "KeyC": "toggleCrafting",
+    "KeyQ": "switchFocus",
+    "KeyZ": "toggleSlowTime",
     "KeyL": "debugPanel",
-    "KeyI": "toggleInventory"
+    "KeyI": "toggleInventory",
+    "Slash": "toggleHelp"
   }
 }

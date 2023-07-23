@@ -1,7 +1,3 @@
-// Part: src/main.ts
-// Code Reference: https://github.com/photonstorm/phaser
-// Documentation: https://photonstorm.github.io/phaser3-docs/
-
 import 'reflect-metadata';
 import BootScene from '@src/core/scenes/bootScene';
 import MainScene from '@src/core/scenes/mainScene';
@@ -9,6 +5,8 @@ import TitleScene from '@src/core/scenes/titleScene';
 import InventoryScene from '@src/entity/scenes/inventoryScene';
 import Phaser from 'phaser';
 import LogRocket from 'logrocket';
+import HelpScene from '@src/entity/scenes/helpScene';
+import CraftingScene from '@src/entity/scenes/craftingScene';
 
 LogRocket.init('1wjjv9/postapoc');
 LogRocket.identify('user', {
@@ -20,7 +18,14 @@ const config = {
   type: isTestEnvironment ? Phaser.HEADLESS : Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: [BootScene, TitleScene, MainScene, InventoryScene],
+  scene: [
+    BootScene,
+    TitleScene,
+    MainScene,
+    InventoryScene,
+    HelpScene,
+    CraftingScene,
+  ],
   parent: 'game-container',
 };
 

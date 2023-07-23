@@ -1,7 +1,7 @@
-import EventBus from '@src/core/eventBus';
+import EventBus from '@src/core/systems/eventBus';
 import Health from '@src/entity/components/health';
 import { getLogger } from '@src/telemetry/systems/logger';
-import { IHandler } from '@src/core/config/interfaces';
+import { IHandler } from '@src/core/data/interfaces';
 import {
   ActionEventPayload,
   DamageEventPayload,
@@ -22,8 +22,8 @@ export default class ActionHandler implements IHandler {
 
   onAction(payload: ActionEventPayload) {
     this.logger.debug(`Action event received: ${JSON.stringify(payload)}`);
-    const { action, entity } = payload;
-    const result = ActionLogic[action].execute(entity);
+    const { action, entity, options } = payload;
+    const result = ActionLogic[action].execute(entity, options);
     this.logger.info(result.message);
   }
 

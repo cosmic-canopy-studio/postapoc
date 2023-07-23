@@ -1,14 +1,15 @@
 import controlMappingJson from '@src/core/config/controlMapping.json';
 import { getLogger } from '@src/telemetry/systems/logger';
-import EventBus from '@src/core/eventBus';
-import { GameAction, KeyBindings } from '@src/core/keyBindings';
+import EventBus from '@src/core/systems/eventBus';
+import { GameAction, KeyBindings } from '@src/core/systems/keyBindings';
 import Phaser from 'phaser';
-import { ControlMapping } from '@src/core/config/interfaces';
+import { ControlMapping } from '@src/core/data/interfaces';
 import { MoveActions } from '@src/movement/data/enums';
 import { Actions } from '@src/action/data/enums';
 import { TelemetryActions } from '@src/telemetry/data/enums';
-import { TimeActions } from '@src/time/enums';
+import { TimeActions } from '@src/time/data/enums';
 import { EntityActions } from '@src/entity/data/enums';
+import { SystemActions } from '@src/core/data/enums';
 
 export default class ControlSystem {
   private player!: number;
@@ -21,6 +22,7 @@ export default class ControlSystem {
   constructor() {
     const controlMapping: ControlMapping = controlMappingJson as ControlMapping;
     this.keyBindings = new KeyBindings(controlMapping);
+    const systemActions = Object.values(SystemActions);
     const moveDirections = Object.values(MoveActions);
     const actions = Object.values(Actions);
     const entityActions = Object.values(EntityActions);
@@ -49,6 +51,13 @@ export default class ControlSystem {
             (state: boolean) => this.emitEntityAction(action, state),
           ] as [GameAction, GameActionHandler]
       ),
+      ...systemActions.map(
+        (action) =>
+          [action, (state: boolean) => this.emitBasicAction(action, state)] as [
+            GameAction,
+            GameActionHandler
+          ]
+      ),
       ...telemetryActions.map(
         (action) =>
           [action, (state: boolean) => this.emitBasicAction(action, state)] as [
@@ -76,7 +85,14 @@ export default class ControlSystem {
 
     this.scene.input.keyboard.on('keydown', this.onKeyDown.bind(this));
     this.scene.input.keyboard.on('keyup', this.onKeyUp.bind(this));
+    this.scene.input.on('pointerdown', this.onPointerDown.bind(this));
     this.logger.debug('Control System initialized');
+  }
+
+  onPointerDown(pointer: Phaser.Input.Pointer) {
+    const x = pointer.worldX;
+    const y = pointer.worldY;
+    this.logger.info(`Clicked at game coordinates: (${x}, ${y})`);
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -137,16 +153,12 @@ export default class ControlSystem {
 
   private emitEntityAction(action: EntityActions, state: boolean) {
     if (state) {
-      if (action === EntityActions.TOGGLE_INVENTORY) {
-        EventBus.emit('toggleInventory', {
-          entityId: this.player,
-        });
-      }
+      EventBus.emit(action, { entityId: this.player });
     }
   }
 
   private emitBasicAction(
-    action: TimeActions | TelemetryActions,
+    action: SystemActions | TimeActions | TelemetryActions,
     state: boolean
   ) {
     if (state) {

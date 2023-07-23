@@ -1,10 +1,10 @@
 import { getLogger } from '@src/telemetry/systems/logger';
 import PlayerManager from '@src/entity/systems/playerManager';
 import ObjectManager from '@src/entity/systems/objectManager';
-import EventHandler from '@src/core/eventHandler';
-import { TimeState, TimeSystem } from '@src/time/timeSystem';
-import { PhaserTimeController } from '@src/time/phaserTimeController';
-import { createWorld, IWorld } from 'bitecs';
+import EventHandler from '@src/core/systems/eventHandler';
+import { TimeState, TimeSystem } from '@src/time/systems/timeSystem';
+import { PhaserTimeController } from '@src/time/systems/phaserTimeController';
+import { addEntity, createWorld, IWorld } from 'bitecs';
 import * as Phaser from 'phaser';
 
 export default class Universe {
@@ -21,6 +21,7 @@ export default class Universe {
     this.scene = scene;
     this.logger = getLogger('core');
     this.world = createWorld();
+    this.logger.debug(`Creating ECS_NULL ${addEntity(this.world)}`);
   }
 
   initialize() {
@@ -43,6 +44,8 @@ export default class Universe {
     this.objectManager.generateTileset();
     this.objectManager.generateStaticObject(200, 200, 'tree');
     this.objectManager.generateStaticObject(400, 400, 'bench');
+    this.objectManager.generateStaticObject(600, 200, 'hammer');
+    this.objectManager.generateStaticObject(500, 300, 'rock');
     this.playerManager.spawnPlayer();
 
     this.logger.info('Universe created');

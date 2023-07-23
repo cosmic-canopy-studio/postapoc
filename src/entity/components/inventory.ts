@@ -1,24 +1,15 @@
-import {
-  addComponent,
-  defineComponent,
-  hasComponent,
-  IWorld,
-  Types,
-} from 'bitecs';
+import { defineComponent, Types } from 'bitecs';
 import { removePhaserSprite } from '@src/entity/components/phaserSprite';
 import { getLogger } from '@src/telemetry/systems/logger';
-import { getEntityNameWithID } from '@src/entity/components/names';
+import { getEntityNameWithID } from '@src/entity/systems/entityNames';
 import { entityCanBePickedUp } from '@src/entity/components/canPickup';
+import { ECS_NULL } from '@src/core/config/constants';
 
 export const Inventory = defineComponent({
   items: [Types.ui16, 256], // Array of 256 possible items (entities)
 });
 
-export function addToInventory(
-  world: IWorld,
-  entityId: number,
-  itemEntityId: number
-) {
+export function addItemToInventory(entityId: number, itemEntityId: number) {
   const logger = getLogger('entity');
 
   const canBePickedUp = entityCanBePickedUp(itemEntityId);
@@ -29,31 +20,54 @@ export function addToInventory(
     return;
   }
 
-  if (hasComponent(world, Inventory, entityId)) {
-    for (let i = 0; i < Inventory.items.length; i++) {
-      if (Inventory.items[entityId][i] === 0) {
-        // 0 is used as a placeholder for no item
-        Inventory.items[entityId][i] = itemEntityId;
-        removePhaserSprite(itemEntityId);
-        break;
-      }
+  let itemAddedToInventory = false;
+  for (let i = 0; i < Inventory.items[entityId].length; i++) {
+    if (Inventory.items[entityId][i] === ECS_NULL) {
+      // ECS_NULL is used as a placeholder for no item
+      Inventory.items[entityId][i] = itemEntityId;
+      removePhaserSprite(itemEntityId);
+      itemAddedToInventory = true;
+      break;
     }
-  } else {
-    addComponent(world, Inventory, entityId);
-    Inventory.items[entityId][0] = itemEntityId;
-    removePhaserSprite(itemEntityId);
   }
+
+  if (!itemAddedToInventory) {
+    logger.warn(
+      `Item ${getEntityNameWithID(
+        itemEntityId
+      )} could not be added to entity ${getEntityNameWithID(
+        entityId
+      )}'s inventory because it is full`
+    );
+  } else {
+    logger.info(
+      `Added item ${getEntityNameWithID(
+        itemEntityId
+      )} to entity ${getEntityNameWithID(entityId)}'s inventory`
+    );
+  }
+}
+
+export function removeItemFromInventory(entityId: number, index: number) {
+  const logger = getLogger('entity');
+
+  if (index < 0 || index >= Inventory.items[entityId].length) {
+    logger.warn(
+      `Index ${index} is out of bounds for entity ${getEntityNameWithID(
+        entityId
+      )}'s inventory`
+    );
+    return;
+  }
+
+  // Set the item at the given index to ECS_NULL (no item)
+  Inventory.items[entityId][index] = ECS_NULL;
+
   logger.info(
-    `Added item ${getEntityNameWithID(
-      itemEntityId
-    )} to entity ${getEntityNameWithID(entityId)}'s inventory`
+    `Removed item at index ${index} from entity ${getEntityNameWithID(
+      entityId
+    )}'s inventory`
   );
-  logger.debugVerbose(
-    `Entity ${getEntityNameWithID(entityId)}'s inventory component: ${
-      Inventory.items[entityId]
-    }`
-  );
-  logger.debug(listInventory(entityId));
 }
 
 export function getInventory(entityId: number) {
@@ -63,7 +77,9 @@ export function getInventory(entityId: number) {
     logger.warn(`Entity ${getEntityNameWithID(entityId)} has no inventory`);
     return [];
   }
-  return [...inventory] as number[];
+
+  const nonZeroInventory = inventory.filter((item) => item !== ECS_NULL);
+  return [...nonZeroInventory] as number[];
 }
 
 export function listInventory(entityId: number) {

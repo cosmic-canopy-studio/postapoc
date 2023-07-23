@@ -1,16 +1,24 @@
-import Phaser from 'phaser';
 import { getInventory } from '@src/entity/components/inventory';
-import { getEntityNameWithID } from '@src/entity/components/names';
-import EventBus from '@src/core/eventBus';
+import {
+  getEntityName,
+  getEntityNameWithID,
+} from '@src/entity/systems/entityNames';
+import EventBus from '@src/core/systems/eventBus';
 import { getLogger } from '@src/telemetry/systems/logger';
+import { DraggableScene } from './draggableScene';
+import { EntityActions } from '@src/entity/data/enums';
+import {
+  ITEM_TEXT_CONFIG,
+  UPPER_LEFT_DRAG_START_POSITION,
+} from '@src/entity/data/constants';
 
-export default class InventoryScene extends Phaser.Scene {
-  private inventory: number[] = [];
+export default class InventoryScene extends DraggableScene {
+  protected logger = getLogger('entity');
   private entityId!: number;
-  private visible = true;
-  private logger = getLogger('entity');
+
   constructor() {
     super({ key: 'InventoryScene' });
+    this.dragPosition = { ...UPPER_LEFT_DRAG_START_POSITION };
   }
 
   init(data: { entityId: number }) {
@@ -18,88 +26,56 @@ export default class InventoryScene extends Phaser.Scene {
   }
 
   create() {
-    this.inventory = getInventory(this.entityId);
-    this.updateInventoryDisplay();
-    EventBus.on('itemPickedUp', this.updateInventoryDisplay.bind(this));
-  }
-
-  updateInventoryDisplay() {
-    this.logger.debugVerbose(
-      `Updating inventory display for ${getEntityNameWithID(this.entityId)}`
-    );
-    this.inventory = getInventory(this.entityId);
-    this.clearInventoryDisplay();
-
-    const startY = 10;
-    const startX = 10;
-    const marginY = 20;
-    const padding = 10;
-    const nextX = startX + padding;
-    let nextY = startY + padding;
-
-    const title = this.add.text(
-      nextX,
-      nextY,
-      `${getEntityNameWithID(this.entityId)}'s inventory:`,
-      { color: '#ffffff' }
-    );
-    let longestWidth = title.width;
-
-    nextY += marginY;
-    const itemsText = [];
-    itemsText.push(title);
-    for (const element of this.inventory) {
-      if (element !== 0) {
-        const itemText = this.add.text(
-          nextX,
-          nextY,
-          `  -${getEntityNameWithID(element)}`,
-          {
-            color: '#ffffff',
-          }
-        );
-        itemsText.push(itemText);
-        longestWidth = Math.max(longestWidth, itemText.width);
-        nextY += marginY;
-      }
+    try {
+      this.updateDisplay();
+      EventBus.on(
+        EntityActions.REFRESH_INVENTORY,
+        this.updateDisplay.bind(this)
+      );
+    } catch (error) {
+      this.logger.error(`Error during creation: ${error}`);
     }
+  }
 
-    const height = nextY;
-    this.drawBackground(
-      startX,
-      startY,
-      longestWidth + 2 * padding,
-      height,
-      itemsText
+  shutdown() {
+    EventBus.off(
+      EntityActions.REFRESH_INVENTORY,
+      this.updateDisplay.bind(this)
     );
   }
 
-  drawBackground(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    itemsText: Phaser.GameObjects.Text[]
-  ) {
-    const graphics = this.add.graphics();
+  protected updateDisplay() {
+    try {
+      this.logger.debugVerbose(`Updating inventory display`);
+      this.clearDisplay();
 
-    // Semi-transparent black rectangle
-    graphics.fillStyle(0x000000, 0.5);
-    graphics.fillRect(x, y, width, height);
-
-    // White border
-    graphics.lineStyle(2, 0xffffff, 1);
-    graphics.strokeRect(x, y, width, height);
-
-    // Make sure text appears above the rectangle
-    itemsText.forEach((item) => this.children.bringToTop(item));
+      const inventoryItems = getInventory(this.entityId);
+      this.createDisplay(
+        inventoryItems,
+        (item) => `  ${getEntityNameWithID(item)}`,
+        (item) => this.drawItemText(item),
+        `${getEntityName(this.entityId)}'s inventory:`
+      );
+    } catch (error) {
+      this.logger.error(`Error during display update: ${error}`);
+    }
   }
 
-  clearInventoryDisplay() {
-    this.children.removeAll();
-  }
+  private drawItemText(item: number) {
+    try {
+      const itemText = this.add.text(
+        this.nextPosition.x,
+        this.nextPosition.y,
+        `  ${getEntityName(item)}`,
+        ITEM_TEXT_CONFIG
+      );
 
-  toggleVisibility() {
-    this.visible = !this.visible;
+      itemText.setDepth(1);
+
+      return itemText;
+    } catch (error) {
+      this.logger.error(`Error drawing item text: ${error}`);
+      return null;
+    }
   }
 }

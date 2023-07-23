@@ -1,4 +1,4 @@
-import { EventPayload } from '@src/core/events';
+import { EventPayload } from '@src/core/data/events';
 
 export interface DebugEventPayload extends EventPayload {
   state: boolean;
